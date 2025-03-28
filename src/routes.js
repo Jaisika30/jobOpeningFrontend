@@ -36,6 +36,7 @@ Coded by www.creative-tim.com
 */
 
 // Soft UI Dashboard React layouts
+import React from "react";
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Candidates from "layouts/candidates";
@@ -55,6 +56,7 @@ import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
+import EditJob from "layouts/tables/data/EditJob";
 
 const routes = [
   {
@@ -74,6 +76,13 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Tables />,
     noCollapse: true,
+  },
+  {
+   
+    route: "/editJob/:id", // Add the dynamic ID
+  
+    component: <EditJob />, // Make sure this is the correct component
+  
   },
   {
     type: "collapse",
@@ -130,6 +139,7 @@ const routes = [
     component: <SignIn />,
     noCollapse: true,
   },
+ 
 ];
 
 export default routes;

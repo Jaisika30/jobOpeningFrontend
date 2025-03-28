@@ -12,7 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
+import React from "react"
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
@@ -96,17 +96,25 @@ export default function App() {
   }, [pathname]);
 
   const getRoutes = (allRoutes) =>
-    allRoutes.map((route) => {
+    allRoutes.flatMap((route, index) => {
       if (route.collapse) {
         return getRoutes(route.collapse);
       }
-
+  
       if (route.route) {
-        return <Route exact path={route.route} element={route.component} key={route.key} />;
+        return (
+          <Route 
+            exact 
+            path={route.route} 
+            element={route.component} 
+            key={route.key || `route-${index}`} // Ensure unique key
+          />
+        );
       }
-
-      return null;
+  
+      return [];
     });
+  
 
   const configsButton = (
     <SoftBox
