@@ -58,6 +58,7 @@ import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 import EditJob from "layouts/tables/data/EditJob";
 import GroupIcon from '@mui/icons-material/Group';
+import AddCandidatePage from "layouts/candidates/data/AddCandidatePage";
 
 const routes = [
   {
@@ -93,6 +94,13 @@ const routes = [
     icon: <GroupIcon size="12px" />,
     component: <Candidates />,
     noCollapse: true,
+  },
+  {
+   
+    route: "/addCandidate",
+
+    component: <AddCandidatePage />,
+ 
   },
   {
     type: "collapse",

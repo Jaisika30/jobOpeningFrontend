@@ -185,11 +185,11 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SoftTypography from "components/SoftTypography";
 import SoftBadge from "components/SoftBadge";
 import { getCandidates } from "slices/candidateSlice";
-import { Button, Modal, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 
 
@@ -358,14 +358,16 @@ const useCandidateData = () => {
 };
 
 const getCandidatesTableData = (handleOpen) => {
+  
   const { candidates, loading } = useCandidateData();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   
   if (loading) return { columns: [], rows: [] };
 
   return {
     topAction: (
-      <Button variant="contained" color="primary" onClick={handleOpen}>
+      <Button variant="contained" color="primary" onClick={()=>{navigate("/addCandidate")}}>
         Add Candidate
       </Button>
     ),

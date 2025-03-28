@@ -119,7 +119,6 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Candidate from "examples/Candidates/Candidate";
 import getCandidatesTableData from "layouts/candidates/data/candidatesTable";
-import AddCandidateModal from "./data/AddCandidateModal";
 
 function Candidates() {
   const [open, setOpen] = useState(false);
@@ -163,16 +162,6 @@ function Candidates() {
         </SoftBox>
       </SoftBox>
       <Footer />
-
-      {/* Add Candidate Modal */}
-      <AddCandidateModal
-        open={open}
-        handleClose={handleClose}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        newCandidate={newCandidate}
-        handleDateChange={handleDateChange} 
-      />
     </DashboardLayout>
   );
 }
