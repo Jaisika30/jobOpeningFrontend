@@ -42,7 +42,7 @@ import Tables from "layouts/tables";
 import Candidates from "layouts/candidates";
 import Billing from "layouts/billing";
 import VirtualReality from "layouts/virtual-reality";
-import RTL from "layouts/rtl";
+// import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
@@ -57,6 +57,7 @@ import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 import EditJob from "layouts/tables/data/EditJob";
+import GroupIcon from '@mui/icons-material/Group';
 
 const routes = [
   {
@@ -89,7 +90,7 @@ const routes = [
     name: "Candidates",
     key: "Candidate",
     route: "/Candidates/:id",
-    icon: <Office size="12px" />,
+    icon: <GroupIcon size="12px" />,
     component: <Candidates />,
     noCollapse: true,
   },
@@ -111,15 +112,15 @@ const routes = [
     component: <VirtualReality />,
     noCollapse: true,
   },
-  {
-    type: "collapse",
-    name: "RTL",
-    key: "rtl",
-    route: "/rtl",
-    icon: <Settings size="12px" />,
-    component: <RTL />,
-    noCollapse: true,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "RTL",
+  //   key: "rtl",
+  //   route: "/rtl",
+  //   icon: <Settings size="12px" />,
+  //   component: <RTL />,
+  //   noCollapse: true,
+  // },
   { type: "title", title: "Account Pages", key: "account-pages" },
   {
     type: "collapse",

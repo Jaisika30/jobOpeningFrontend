@@ -173,8 +173,8 @@ function Tables() {
                 }}
               >
                 <MenuItem value="">All Status</MenuItem>
-                <MenuItem value="Open">Open</MenuItem>
-                <MenuItem value="Closed">Closed</MenuItem>
+                <MenuItem value="open">open</MenuItem>
+                <MenuItem value="closed">Closed</MenuItem>
               </Select>
             </SoftBox>
 

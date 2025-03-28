@@ -192,11 +192,11 @@ const useJobData = () => {
     if (statusFilter && statusFilter !== "") {
       filteredJobs = filteredJobs.filter((job) =>{
         console.log("job.status:::",job.status , "Status Filter:::", statusFilter)
-        job.status?.trim().toLowerCase() === statusFilter.trim().toLowerCase();
+       return job.status?.trim().toLowerCase() === statusFilter.trim().toLowerCase();
       });
     }
 
-
+console.log("filtereddddddddddJobs:::::",filteredJobs)
     setJobData(filteredJobs);
   }, [jobs, searchQuery, statusFilter]);
 
@@ -265,8 +265,8 @@ const JobTableUI = () => {
           }}
         >
           <MenuItem value="">All Status</MenuItem>
-          <MenuItem value="Open">Open</MenuItem>
-          <MenuItem value="Closed">Closed</MenuItem>
+          <MenuItem value="open">Open</MenuItem>
+          <MenuItem value="closed">Closed</MenuItem>
         </Select>
       </div>
 

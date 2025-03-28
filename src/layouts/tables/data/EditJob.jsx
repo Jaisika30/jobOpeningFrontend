@@ -152,7 +152,7 @@ function EditJob() {
                     value={job?.status}
                     onChange={handleChange}
                   >
-                    <MenuItem value="Open">Open</MenuItem>
+                    <MenuItem value="Open">open</MenuItem>
                     <MenuItem value="Closed">Closed</MenuItem>
                   </Select>
                 </FormControl>
