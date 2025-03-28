@@ -47,6 +47,7 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 
 // Images
 import brand from "assets/images/logo-ct.png";
+import SoftTypography from "components/SoftTypography";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -147,13 +148,20 @@ export default function App() {
         {layout === "dashboard" && (
           <>
             <Sidenav
-              color={sidenavColor}
-              brand={brand}
-              brandName="Soft UI Dashboard"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
+  color={sidenavColor}
+  brand={brand}
+  brandName={
+    <SoftTypography 
+      variant="caption"  // Makes text smaller
+      sx={{ fontSize: "0.875rem", marginLeft: "1rem" }} // Adjust size & margin
+    >
+      Anthem Infotech Pvt. Ltd.
+    </SoftTypography>
+  }
+  routes={routes}
+  onMouseEnter={handleOnMouseEnter}
+  onMouseLeave={handleOnMouseLeave}
+/>
             <Configurator />
             {configsButton}
           </>
@@ -173,7 +181,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={brand}
-            brandName="Soft UI Dashboard"
+            // brandName="Anthem Infotech Pvt. Ltd."
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}

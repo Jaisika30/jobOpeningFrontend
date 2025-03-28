@@ -39,7 +39,8 @@ import SidenavCard from "examples/Sidenav/SidenavCard";
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
-
+// import logoImage from "../../images/anthem_infotech_pvt_ltd__cover.jpg"
+import logo from "../../images/logo.png"
 // Soft UI Dashboard React context
 import { useSoftUIController, setMiniSidenav } from "context";
 
@@ -129,7 +130,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   return (
     <SidenavRoot {...rest} variant="permanent" ownerState={{ transparentSidenav, miniSidenav }}>
-      <SoftBox pt={3} pb={1} px={4} textAlign="center">
+      <SoftBox pt={3} pb={1}  textAlign="center" sx={{ width: "10rem", height: "auto", marginLeft: "0rem" }}>
         <SoftBox
           display={{ xs: "block", xl: "none" }}
           position="absolute"
@@ -143,8 +144,8 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             <Icon sx={{ fontWeight: "bold" }}>close</Icon>
           </SoftTypography>
         </SoftBox>
-        <SoftBox component={NavLink} to="/" display="flex" alignItems="center">
-          {brand && <SoftBox component="img" src={brand} alt="Soft UI Logo" width="2rem" />}
+        {/* <SoftBox component={NavLink} to="/" display="flex" alignItems="center">
+          {brand && <SoftBox component="img" src={logo} alt="Soft UI Logo" sx={{ width: "4rem", height: "auto" , marginLeft: "0rem" }} />}
           <SoftBox
             width={!brandName && "100%"}
             sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
@@ -153,7 +154,55 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
               {brandName}
             </SoftTypography>
           </SoftBox>
-        </SoftBox>
+        </SoftBox> */}
+        <SoftBox 
+  component={NavLink} 
+  to="/" 
+  display="flex" 
+  alignItems="center"
+  sx={{ width: "100%", height: "5rem", padding: "0rem" }} // Increased size
+>
+  {brand && (
+    <SoftBox 
+      component="img" 
+      src={logo} 
+      alt="Soft UI Logo" 
+      sx={{ width: "14rem", height: "auto", marginLeft: "0rem" }} // Increased logo size
+    />
+  )}
+  {/* <SoftBox
+    width={!brandName && "100%"}
+    sx={(theme) => ({
+      ...sidenavLogoLabel(theme, { miniSidenav }),
+      paddingLeft: "0rem",
+      fontSize:"10px !important" // Adds space between logo & text
+    })}
+  >
+    <SoftTypography component="h6" variant="button" fontWeight="medium">
+      {brandName}
+    </SoftTypography>
+  </SoftBox> */}
+  {/* <SoftBox
+  width={!brandName && "100%"}
+  sx={(theme) => ({
+    ...sidenavLogoLabel(theme, { miniSidenav }),
+    paddingLeft: "0rem", // Remove extra space
+    fontSize: "10px !important", // Decrease font size
+    width: "auto", // Make it fit the content
+    minWidth: "7rem", // Ensure it's not too small
+  })}
+>
+  <SoftTypography 
+    component="h6" 
+    variant="button" 
+    fontWeight="medium"
+    sx={{ fontSize: "12px !important", lineHeight: "1rem" }} // Ensure text is smaller
+  >
+    {brandName}
+  </SoftTypography>
+</SoftBox> */}
+</SoftBox>
+
       </SoftBox>
       <Divider />
       <List>{renderRoutes}</List>

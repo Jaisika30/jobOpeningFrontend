@@ -18,51 +18,86 @@ export const createJob = createAsyncThunk(
 );
 
 // 2. Get All Jobs
+// export const getJobs = createAsyncThunk(
+//     "jobs/getJobs",
+//     async (_, { rejectWithValue, getState }) => {
+//         try {
+           
+//             const token = localStorage.getItem("token");
+//             console.log(token)
+//             const response = await axios.get(`${API_URL}/jobs/getJobs`, {
+//                 headers: {
+//                     Authorization: `Bearer ${token}`
+//                 },
+//             });
+//             console.log(response.data);
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(error.response?.data || "Something went wrong");
+//         }
+//     }
+// );
+
 export const getJobs = createAsyncThunk(
     "jobs/getJobs",
-    async (_, { rejectWithValue, getState }) => {
+    async (_, { rejectWithValue }) => {
         try {
-            console.log("usedispatch")
             const token = localStorage.getItem("token");
-            console.log(token)
+            if (!token) throw new Error("No authentication token found");
+
             const response = await axios.get(`${API_URL}/jobs/getJobs`, {
-                headers: {
-                    Authorization:  `Bearer ${token}`
-                },
+                headers: { Authorization: `Bearer ${token}` },
             });
-            console.log(response.data);
+
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response?.data || "Something went wrong");
+            return rejectWithValue(error.response?.data || "Failed to fetch jobs");
         }
     }
 );
 
 // 3. Get Job by ID
 export const getJobById = createAsyncThunk(
-    'jobs/getJobById',
+    '/jobs/getJob',
     async (id, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/jobs/getJob/${id}`);
+            const token = localStorage.getItem('token'); // Retrieve token from storage
+            const response = await axios.get(`${API_URL}/jobs/getJob/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token in Authorization header
+                },
+            });
+            console.log('get job response:::', response);
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            return rejectWithValue(error.response?.data || 'An error occurred');
+        }
+    }
+);
+// 4. Update Job
+export const updateJob = createAsyncThunk(
+    'jobs/updateJob',
+    async ({ id, updatedData, token }, { rejectWithValue }) => {
+        try {
+            console.log("usedispatch");
+            const token = localStorage.getItem('token'); 
+            const response = await axios.put(
+                `${API_URL}/jobs/updateJob/${id}`,
+                updatedData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log("update edit job:::", response)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "An error occurred");
         }
     }
 );
 
-// 4. Update Job
-export const updateJob = createAsyncThunk(
-    'jobs/updateJob',
-    async ({ id, updatedData }, { rejectWithValue }) => {
-        try {
-            const response = await axios.put(`${API_URL}/jobs/updateJob/${id}`, updatedData);
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
-    }
-);
 
 // 5. Delete Job
 export const deleteJob = createAsyncThunk(
