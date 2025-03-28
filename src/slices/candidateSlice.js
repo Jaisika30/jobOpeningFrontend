@@ -5,16 +5,22 @@ const API_URL = 'http://localhost:8080/api/candidate'; // Adjust based on your b
 
 // 1. Create Candidate
 export const createCandidate = createAsyncThunk(
-    'candidates/createCandidate',
-    async (candidateData, { rejectWithValue }) => {
-        try {
-            const response = await axios.post(`${API_URL}/create`, candidateData);
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
+    "candidates/createCandidate",
+    async ({ candidateData }, { rejectWithValue }) => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.post(`${API_URL}/create`, candidateData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response?.data || "An error occurred");
+      }
     }
-);
+  );
 
 // 2. Get All Candidates (with filters: jobId, status, search)
 export const getCandidates = createAsyncThunk(
