@@ -63,6 +63,9 @@ import EditCandidatePage from "layouts/candidates/data/EditCandidate";
 import ViewCandidate from "layouts/candidates/data/ViewCandidate";
 import ViewJob from "layouts/tables/data/ViewJob";
 import AddJob from "layouts/tables/data/AddJob";
+import Forgot from "layouts/authentication/data/Forgot";
+import VerifyOtp from "layouts/authentication/data/VerifyOtp";
+import Reset from "layouts/authentication/data/Reset";
 
 const routes = [
   {
@@ -161,6 +164,18 @@ const routes = [
     icon: <Document size="12px" />,
     component: <SignIn />,
     noCollapse: true,
+  },
+  {
+    route: "/forgot-password", // Add the dynamic ID
+    component: <Forgot/>, // Make sure this is the correct component
+  },
+  {
+    route: "/verify-otp", // Add the dynamic ID
+    component: <VerifyOtp/>, // Make sure this is the correct component
+  },
+  {
+    route: "/reset", // Add the dynamic ID
+    component: <Reset/>, // Make sure this is the correct component
   },
 
 ];
