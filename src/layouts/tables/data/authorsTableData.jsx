@@ -165,7 +165,7 @@ const JobTableUI = () => {
             display:"flex"
           }}
         >
-          + Add Job
+           Add Job
         </Button>
       </div>
   

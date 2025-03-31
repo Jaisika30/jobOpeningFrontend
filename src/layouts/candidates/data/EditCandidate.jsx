@@ -37,6 +37,7 @@ function EditCandidatePage() {
         interviewStatus: "",
         status: "",
         job: "",
+        
     });
 
      // Populate form fields when candidate data is available
