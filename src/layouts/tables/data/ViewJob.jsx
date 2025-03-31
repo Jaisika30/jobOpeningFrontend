@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
@@ -27,7 +28,7 @@ function formatDate(isoString) {
   });
 }
 
-function EditJob() {
+function ViewJob() {
   const { id } = useParams(); // Get Job ID from URL
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -173,11 +174,8 @@ function EditJob() {
               </SoftBox>
 
               <SoftBox mt={3} display="flex" justifyContent="space-between">
-                <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
-                  Edit Job
-                </Button>
-                <Button variant="outlined" color="secondary" onClick={() => navigate("/jobs")}>
-                  Cancel
+                <Button variant="contained" color="primary"  onClick={() => navigate("/jobs")}>
+                  Back
                 </Button>
               </SoftBox>
             </form>
@@ -189,4 +187,4 @@ function EditJob() {
   );
 }
 
-export default EditJob;
+export default ViewJob;

@@ -61,6 +61,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import AddCandidatePage from "layouts/candidates/data/AddCandidatePage";
 import EditCandidatePage from "layouts/candidates/data/EditCandidate";
 import ViewCandidate from "layouts/candidates/data/ViewCandidate";
+import ViewJob from "layouts/tables/data/ViewJob";
 
 const routes = [
   {
@@ -89,7 +90,10 @@ const routes = [
     route: "/viewCandidate/:id", // Add the dynamic ID
     component: <ViewCandidate />, // Make sure this is the correct component
   },
-
+  {
+    route: "/viewJob/:id", // Add the dynamic ID
+    component: <ViewJob />, // Make sure this is the correct component
+  },
   {
     type: "collapse",
     name: "Candidates",

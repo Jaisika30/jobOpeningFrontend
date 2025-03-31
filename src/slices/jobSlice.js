@@ -22,7 +22,7 @@ export const createJob = createAsyncThunk(
 //     "jobs/getJobs",
 //     async (_, { rejectWithValue, getState }) => {
 //         try {
-           
+
 //             const token = localStorage.getItem("token");
 //             console.log(token)
 //             const response = await axios.get(`${API_URL}/jobs/getJobs`, {
@@ -73,14 +73,15 @@ export const getJobById = createAsyncThunk(
             return rejectWithValue(error.response?.data || 'An error occurred');
         }
     }
+
 );
 // 4. Update Job
 export const updateJob = createAsyncThunk(
     'jobs/updateJob',
-    async ({ id, updatedData, token }, { rejectWithValue }) => {
+    async ({ id, updatedData }, { rejectWithValue }) => {
         try {
-            console.log("usedispatch");
-            const token = localStorage.getItem('token'); 
+            console.log("usedispatch", id, updatedData);
+            const token = localStorage.getItem('token');
             const response = await axios.put(
                 `${API_URL}/jobs/updateJob/${id}`,
                 updatedData,
@@ -101,17 +102,24 @@ export const updateJob = createAsyncThunk(
 
 // 5. Delete Job
 export const deleteJob = createAsyncThunk(
-    'jobs/deleteJob',
-    async (id, { rejectWithValue }) => {
-        try {
-            await axios.delete(`${API_URL}/jobs/deleteJob/${id}`);
-            return id; // Return ID to remove from Redux store
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
+    "jobs/deleteJob",
+    async ({ id }, { rejectWithValue }) => {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach token
+          },
+        };
+  
+      const resp =  await axios.delete(`${API_URL}/jobs/deleteJob/${id}`, config);
+      console.log(resp)
+        return id; // Return ID to remove from Redux store
+      } catch (error) {
+        return rejectWithValue(error.response?.data || "Failed to delete job");
+      }
     }
-);
-
+  );
 // Redux Slice
 const jobSlice = createSlice({
     name: 'jobs',
