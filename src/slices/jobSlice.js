@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api'; // Adjust based on your backend URL
+const API_URL = 'https://jobopeningbackend.onrender.com/api'; // Adjust based on your backend URL
 
 // 1. Create Job
 export const createJob = createAsyncThunk(
@@ -28,26 +28,6 @@ export const createJob = createAsyncThunk(
     }
   );
 
-// 2. Get All Jobs
-// export const getJobs = createAsyncThunk(
-//     "jobs/getJobs",
-//     async (_, { rejectWithValue, getState }) => {
-//         try {
-
-//             const token = localStorage.getItem("token");
-//             console.log(token)
-//             const response = await axios.get(`${API_URL}/jobs/getJobs`, {
-//                 headers: {
-//                     Authorization: `Bearer ${token}`
-//                 },
-//             });
-//             console.log(response.data);
-//             return response.data;
-//         } catch (error) {
-//             return rejectWithValue(error.response?.data || "Something went wrong");
-//         }
-//     }
-// );
 
 export const getJobs = createAsyncThunk(
     "jobs/getJobs",

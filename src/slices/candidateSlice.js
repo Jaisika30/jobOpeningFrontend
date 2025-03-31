@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/candidate'; // Adjust based on your backend URL
+const API_URL = 'https://jobopeningbackend.onrender.com/api/candidate'; // Adjust based on your backend URL
 
 // 1. Create Candidate
 export const createCandidate = createAsyncThunk(
