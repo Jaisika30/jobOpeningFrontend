@@ -26,7 +26,7 @@ function AddCandidatePage() {
         name: "",
         phone: "",
         location: "",
-        timeSlot: "",
+        interviewSlot: "",
         interviewSchedule: "",
         communication: "",
         personality: "",
@@ -137,8 +137,8 @@ function AddCandidatePage() {
                                 </SoftTypography>
                                 <TextField
                                     fullWidth
-                                    name="timeSlot"
-                                    value={candidate.timeSlot}
+                                    name="interviewSlot"
+                                    value={candidate.interviewSlot}
                                     onChange={handleChange}
                                     margin="none"
                                     sx={{

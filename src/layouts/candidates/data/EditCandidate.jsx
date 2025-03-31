@@ -29,7 +29,7 @@ function EditCandidatePage() {
         name: "",
         phone: "",
         location: "",
-        timeSlot: "",
+        interviewSlot: "",
         interviewSchedule: "",
         communication: "",
         personality: "",
@@ -46,7 +46,7 @@ function EditCandidatePage() {
                 name: candidatee.name || "",
                 phone: candidatee.phone || "",
                 location: candidatee.location || "",
-                timeSlot: candidatee.interviewSlot || "",
+                interviewSlot: candidatee.interviewSlot || "",
                 interviewSchedule: candidatee.interviewSchedule
                     ? new Date(candidatee.interviewSchedule).toISOString().split("T")[0]
                     : "",
@@ -163,8 +163,8 @@ function EditCandidatePage() {
                                 </SoftTypography>
                                 <TextField
                                     fullWidth
-                                    name="timeSlot"
-                                    value={candidate.timeSlot}
+                                    name="interviewSlot"
+                                    value={candidate.interviewSlot}
                                     onChange={handleChange}
                                     margin="none"
                                     sx={{
