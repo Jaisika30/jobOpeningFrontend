@@ -63,6 +63,7 @@ import EditCandidatePage from "layouts/candidates/data/EditCandidate";
 import ViewCandidate from "layouts/candidates/data/ViewCandidate";
 import ViewJob from "layouts/tables/data/ViewJob";
 import AddJob from "layouts/tables/data/AddJob";
+import ForgotPassword from "layouts/authentication/data/ForgotPassword";
 
 const routes = [
   {
@@ -98,6 +99,10 @@ const routes = [
   {
     route: "/addJob", // Add the dynamic ID
     component: <AddJob />, // Make sure this is the correct component
+  },
+  {
+    route: "/forgot-password", // Add the dynamic ID
+    component: <ForgotPassword />, // Make sure this is the correct component
   },
   {
     type: "collapse",

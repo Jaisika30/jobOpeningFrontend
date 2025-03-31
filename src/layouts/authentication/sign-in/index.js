@@ -139,6 +139,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // @mui material components
 import Switch from "@mui/material/Switch";
@@ -258,6 +259,12 @@ function SignIn() {
             Sign in
           </SoftButton>
         </SoftBox>
+
+        <Link to="/forgot-password" style={{ textDecoration: "none", color: "#1A73E8", cursor: "pointer" }}>
+          Forgot password
+        </Link>
+
+
       </form>
     </CoverLayout>
   );
