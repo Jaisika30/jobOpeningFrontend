@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api'; // Adjust based on your backend URL
+const API_URL = 'http://localhost:8085/api'; // Adjust based on your backend URL
 
 // 1. Create Job
 export const createJob = createAsyncThunk(

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/candidate'; // Adjust based on your backend URL
+const API_URL = 'http://localhost:8085/api/candidate'; // Adjust based on your backend URL
 
 // 1. Create Candidate
 export const createCandidate = createAsyncThunk(
@@ -101,11 +101,17 @@ export const updateCandidate = createAsyncThunk(
 );
 
 // 5. Delete Candidate
+
 export const deleteCandidate = createAsyncThunk(
     "candidates/deleteCandidate",
     async (id, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem("token");
+            console.log("Delete token:", token); // ✅ Ensure token is logged
+
+            if (!token) {
+                return rejectWithValue("No authentication token found");
+            }
 
             const config = {
                 headers: {
@@ -114,14 +120,17 @@ export const deleteCandidate = createAsyncThunk(
                 },
             };
 
-         const resp=   await axios.delete(`${API_URL}/deleteCandidate/${id}`, config); // ✅ Include headers
-          console.log("resppppppp:::::",resp);
-         return id; // ✅ Return ID to remove from Redux store
+            // ✅ Fix: Move `config` to the third argument (not second)
+            const resp = await axios.put(`${API_URL}/deleteCandidate/${id}`, {}, config); 
+            
+            console.log("Response:", resp);
+            return id; // ✅ Return ID to remove from Redux store
         } catch (error) {
             return rejectWithValue(error.response?.data || "Something went wrong");
         }
     }
 );
+
 
 // 6. Get Candidates by Job ID
 export const getCandidatesByJobID = createAsyncThunk(
