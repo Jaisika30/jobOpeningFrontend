@@ -1,19 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const API_URL = 'http://localhost:8085/api/auth'; 
+const API_URL = "http://localhost:8085/api/auth";
 // Forgot Password
 export const forgotPassword = createAsyncThunk(
   "auth/forgotPassword",
   async (email, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`API_URL/forgot`, { email });
-      return response.data;
+      console.log(email);
+      const response = await axios.post(`${API_URL}/forgot`, { email });
+      console.log(response);
+      if (response.data.success) {
+        localStorage.setItem("otpExpire", response.data.user.otpExpire);
+        localStorage.setItem("otpHash", response.data.user.otpHash);
+        localStorage.setItem("id", response.data.user._id);
+      }
+
+      return response.data; // No navigation here
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data || "Something went wrong");
     }
   }
 );
-
 // Verify OTP
 export const verifyOtp = createAsyncThunk(
   "auth/verifyOtp",

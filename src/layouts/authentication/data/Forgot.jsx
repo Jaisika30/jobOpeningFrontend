@@ -49,15 +49,17 @@
 
 // export default Forgot;
 
-
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { forgotPassword } from "../redux/authSlice"; // Adjust path if needed
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword } from "../../../slices/authSlice"; // Adjust path if needed
 import { Container, Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Forgot = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error, success } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,21 +67,30 @@ const Forgot = () => {
       alert("Please enter your email!");
       return;
     }
-    dispatch(forgotPassword(email));
+    console.log(email);
+    const result = dispatch(forgotPassword(email));
+    console.log("result:::",result)
+    if (success) {
+      navigate("/verify-otp"); // Navigate only if API call is successful
+    }
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm"  sx={{
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          backgroundColor: "white",
+          textAlign: "center",
           padding: 4,
+          bgcolor: "white",
           borderRadius: 2,
           boxShadow: 3,
-          mt: 8,
+          width: "100%",
+          maxWidth: "400px",
         }}
       >
         <Typography variant="h5" component="h1" gutterBottom>
@@ -96,13 +107,7 @@ const Forgot = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2 }}
-          onClick={handleSubmit}
-        >
+        <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
           Submit
         </Button>
         <Link href="/login" variant="body2" sx={{ mt: 2 }}>

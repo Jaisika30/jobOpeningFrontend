@@ -1,3 +1,4 @@
+
 // import React, { useState } from 'react';
 // import OtpInput from 'react-otp-input';
 // import { Box, Typography, Button, Container } from '@mui/material';
@@ -32,6 +33,7 @@
 //           borderRadius: 2,
 //           boxShadow: 3,
 //           width: '100%',
+//           maxWidth: '400px', // Restrict total width to 400px
 //         }}
 //       >
 //         <Typography variant="h5" color="primary" gutterBottom>
@@ -48,10 +50,10 @@
 //           separator={<span>-</span>}
 //           renderInput={(props) => <input {...props} />}
 //           inputStyle={{
-//             width: '3rem',
-//             height: '3rem',
+//             width: '2.5rem', // Adjusted width for better alignment within the container
+//             height: '2.5rem',
 //             margin: '0.5rem',
-//             fontSize: '1.5rem',
+//             fontSize: '1.2rem',
 //             borderRadius: '4px',
 //             border: '1px solid rgba(0, 0, 0, 0.3)',
 //             textAlign: 'center',
@@ -66,41 +68,47 @@
 // };
 
 // export default VerifyOtp;
-import React, { useState } from 'react';
-import OtpInput from 'react-otp-input';
-import { Box, Typography, Button, Container } from '@mui/material';
 
-const VerifyOtp = () => {
-  const [otp, setOtp] = useState('');
+import React, { useState } from "react";
+import OtpInput from "react-otp-input";
+import { Box, Typography, Button, Container, CircularProgress, Alert } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { verifyOtp } from "../../../slices/authSlice"; // Adjust the import based on your file structure
+
+const VerifyOtp = ({ id }) => {
+  const dispatch = useDispatch();
+  const [otp, setOtp] = useState("");
+  const { loading, error, success } = useSelector((state) => state.auth);
 
   const handleChange = (otp) => {
     setOtp(otp);
   };
 
   const handleSubmit = () => {
-    console.log('Entered OTP:', otp);
-    // You can replace this with submission logic
+    if (otp.length === 4) {
+      dispatch(verifyOtp({ id, otp }));
+    }
   };
 
   return (
     <Container
       maxWidth="sm"
       sx={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Box
         sx={{
-          textAlign: 'center',
+          textAlign: "center",
           padding: 4,
-          bgcolor: 'white',
+          bgcolor: "white",
           borderRadius: 2,
           boxShadow: 3,
-          width: '100%',
-          maxWidth: '400px', // Restrict total width to 400px
+          width: "100%",
+          maxWidth: "400px",
         }}
       >
         <Typography variant="h5" color="primary" gutterBottom>
@@ -109,6 +117,10 @@ const VerifyOtp = () => {
         <Typography variant="body1" gutterBottom>
           We sent a password reset OTP to your phone.
         </Typography>
+
+        {error && <Alert severity="error">{error}</Alert>}
+        {success && <Alert severity="success">OTP Verified Successfully!</Alert>}
+
         <OtpInput
           value={otp}
           onChange={handleChange}
@@ -117,17 +129,25 @@ const VerifyOtp = () => {
           separator={<span>-</span>}
           renderInput={(props) => <input {...props} />}
           inputStyle={{
-            width: '2.5rem', // Adjusted width for better alignment within the container
-            height: '2.5rem',
-            margin: '0.5rem',
-            fontSize: '1.2rem',
-            borderRadius: '4px',
-            border: '1px solid rgba(0, 0, 0, 0.3)',
-            textAlign: 'center',
+            width: "2.5rem",
+            height: "2.5rem",
+            margin: "0.5rem",
+            fontSize: "1.2rem",
+            borderRadius: "4px",
+            border: "1px solid rgba(0, 0, 0, 0.3)",
+            textAlign: "center",
           }}
         />
-        <Button variant="contained" color="primary" fullWidth onClick={handleSubmit} sx={{ mt: 2 }}>
-          Submit
+
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleSubmit}
+          sx={{ mt: 2 }}
+          disabled={loading || otp.length !== 4}
+        >
+          {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "Submit"}
         </Button>
       </Box>
     </Container>
@@ -135,4 +155,3 @@ const VerifyOtp = () => {
 };
 
 export default VerifyOtp;
-
