@@ -334,8 +334,9 @@ const getJobTableData = (jobData) => ({
         fontWeight="medium"
         color="primary"
         component={Link}
-        to={`/Candidates/${job._id}`}
+        to={`/Candidate/${job._id}`}
       >
+       
         {job.title}
       </SoftTypography>
     ),

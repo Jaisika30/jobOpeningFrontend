@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -16,12 +16,15 @@ import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
+import { getCandidateById } from "slices/candidateSlice";
+import { updateCandidate } from "slices/candidateSlice";
 
-function AddCandidatePage() {
+function ViewCandidate() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const [jobs, setJobs] = useState([]);
-    const jobs= useSelector((state)=>state.jobs.jobs)
+    const { id } = useParams();
+    const jobs = useSelector((State) => State.jobs.jobs);
+    const candidatee= useSelector((State)=>State.candidates.candidate);
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -36,6 +39,27 @@ function AddCandidatePage() {
         job: "",
     });
 
+     // Populate form fields when candidate data is available
+     useEffect(() => {
+        if (candidatee) {
+            setCandidate({
+                name: candidatee.name || "",
+                phone: candidatee.phone || "",
+                location: candidatee.location || "",
+                timeSlot: candidatee.interviewSlot || "",
+                interviewSchedule: candidatee.interviewSchedule
+                    ? new Date(candidatee.interviewSchedule).toISOString().split("T")[0]
+                    : "",
+                communication: candidatee.communication || "",
+                personality: candidatee.personality || "",
+                knowledge: candidatee.knowledge || "",
+                interviewStatus: candidatee.interviewStatus || "",
+                status: candidatee.status || "",
+                job: candidatee.job || "",
+            });
+        }
+    }, [candidatee]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -45,13 +69,15 @@ function AddCandidatePage() {
         dispatch(getJobs());
     }, [dispatch]);
 
+    useEffect(() => {
+        dispatch(getCandidateById(id));
+    }, [dispatch]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log("Adding candidate:", candidate);
-        dispatch(createCandidate(candidate));
-        // Simulate API call or dispatch action
-        navigate("/candidates"); // Redirect after submission
+        console.log("candidateData:::::",candidate);
+        dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
+        navigate("/candidates"); // Redirect after updating
     };
 
     return (
@@ -122,7 +148,7 @@ function AddCandidatePage() {
                                 <SoftTypography variant="body1" mb={1}>Job Title</SoftTypography>
                                 <FormControl fullWidth>
                                     <InputLabel>Select Job</InputLabel>
-                                    <Select name="job" value={candidate.jobId} onChange={handleChange}>
+                                    <Select name="job" value={candidate.job.title} onChange={handleChange}>
                                         {jobs.map((job) => (
                                             <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
                                         ))}
@@ -307,20 +333,12 @@ function AddCandidatePage() {
 
                             {/* Submit Button */}
                             <SoftBox mt={3} display="flex" justifyContent="space-between">
-                                <Button
+                                                            <Button
                                     variant="contained"
                                     color="primary"
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                >
-                                    Add Candidate
-                                </Button>
-                                <Button
-                                    variant="outlined"
-                                    color="secondary"
                                     onClick={() => navigate("/candidates")}
                                 >
-                                    Cancel
+                                    Back
                                 </Button>
                             </SoftBox>
                         </form>
@@ -332,4 +350,4 @@ function AddCandidatePage() {
     );
 }
 
-export default AddCandidatePage
+export default ViewCandidate

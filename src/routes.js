@@ -59,6 +59,8 @@ import Cube from "examples/Icons/Cube";
 import EditJob from "layouts/tables/data/EditJob";
 import GroupIcon from '@mui/icons-material/Group';
 import AddCandidatePage from "layouts/candidates/data/AddCandidatePage";
+import EditCandidatePage from "layouts/candidates/data/EditCandidate";
+import ViewCandidate from "layouts/candidates/data/ViewCandidate";
 
 const routes = [
   {
@@ -80,27 +82,30 @@ const routes = [
     noCollapse: true,
   },
   {
-   
     route: "/editJob/:id", // Add the dynamic ID
-  
     component: <EditJob />, // Make sure this is the correct component
-  
   },
+  {
+    route: "/viewCandidate/:id", // Add the dynamic ID
+    component: <ViewCandidate />, // Make sure this is the correct component
+  },
+
   {
     type: "collapse",
     name: "Candidates",
     key: "Candidate",
-    route: "/Candidates/:id",
+    route: "/Candidate/:id",
     icon: <GroupIcon size="12px" />,
     component: <Candidates />,
     noCollapse: true,
   },
   {
-   
     route: "/addCandidate",
-
     component: <AddCandidatePage />,
- 
+  },
+  {
+    route: "/editCandidate/:id",
+    component: <EditCandidatePage />,
   },
   {
     type: "collapse",
@@ -148,7 +153,7 @@ const routes = [
     component: <SignIn />,
     noCollapse: true,
   },
- 
+
 ];
 
 export default routes;

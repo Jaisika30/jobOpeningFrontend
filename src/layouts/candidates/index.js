@@ -152,7 +152,7 @@ function Candidates() {
         <SoftBox mb={3}>
           <Card>
             <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <SoftTypography variant="h6">Candidates Table</SoftTypography>
+              <SoftTypography variant="h6">Candidates</SoftTypography>
               {topAction} {/* Render the Add Candidate button */}
             </SoftBox>
             <SoftBox>
