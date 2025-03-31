@@ -62,6 +62,7 @@ import AddCandidatePage from "layouts/candidates/data/AddCandidatePage";
 import EditCandidatePage from "layouts/candidates/data/EditCandidate";
 import ViewCandidate from "layouts/candidates/data/ViewCandidate";
 import ViewJob from "layouts/tables/data/ViewJob";
+import AddJob from "layouts/tables/data/AddJob";
 
 const routes = [
   {
@@ -93,6 +94,10 @@ const routes = [
   {
     route: "/viewJob/:id", // Add the dynamic ID
     component: <ViewJob />, // Make sure this is the correct component
+  },
+  {
+    route: "/addJob", // Add the dynamic ID
+    component: <AddJob />, // Make sure this is the correct component
   },
   {
     type: "collapse",

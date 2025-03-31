@@ -5,17 +5,28 @@ const API_URL = 'http://localhost:8080/api'; // Adjust based on your backend URL
 
 // 1. Create Job
 export const createJob = createAsyncThunk(
-    'jobs/createJob',
-    async (jobData, { rejectWithValue }) => {
-        try {
-            const response = await axios.post(`${API_URL}/jobs/createJob`, jobData);
-
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
+    "jobs/createJob",
+    async ({ jobData }, { rejectWithValue }) => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.post(
+          `${API_URL}/jobs/createJob`,
+          jobData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Attach token
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("create job::",response.data)
+  
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response?.data || "Something went wrong");
+      }
     }
-);
+  );
 
 // 2. Get All Jobs
 // export const getJobs = createAsyncThunk(

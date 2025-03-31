@@ -100,15 +100,6 @@ const JobTableUI = () => {
 
   return (
     <>
-    {/* Button Section */}
-    <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "20px" }}>
-      <Link to="/addJob">
-        <Button variant="contained" color="primary">
-          Add Job
-        </Button>
-      </Link>
-    </div>
-  
     {/* Search and Filter Section */}
     <div>
       <div
@@ -117,48 +108,77 @@ const JobTableUI = () => {
           flexWrap: "wrap",
           gap: "10px",
           marginBottom: "20px",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        <Input
-          type="text"
-          placeholder="Search by Job Title"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          {/* Search Input */}
+          <Input
+            type="text"
+            placeholder="Search by Job Title"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              backgroundColor: "#e6f7ff",
+              color: "#000",
+              padding: "10px",
+              width: "100%",
+              maxWidth: "400px",
+              borderRadius: "5px",
+              border: "1px solid #2196f3",
+            }}
+          />
+  
+          {/* Status Filter */}
+          <Select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            displayEmpty
+            style={{
+              backgroundColor: "#ffefdb",
+              color: "#000",
+              padding: "10px",
+              width: "100%",
+              maxWidth: "200px",
+              borderRadius: "5px",
+              border: "1px solid #ff9800",
+            }}
+          >
+            <MenuItem value="">All Status</MenuItem>
+            <MenuItem value="open">Open</MenuItem>
+            <MenuItem value="closed">Closed</MenuItem>
+          </Select>
+        </div>
+  
+        {/* Add Job Button */}
+        <Button
+          onClick={handleAddJob}
           style={{
-            backgroundColor: "#e6f7ff",
-            color: "#000",
-            padding: "10px",
-            width: "100%",
-            maxWidth: "600px",
+            backgroundColor: "#4caf50",
+            color: "#fff",
+            padding: "10px 15px",
             borderRadius: "5px",
-            border: "1px solid #2196f3",
-          }}
-        />
-        <Select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          displayEmpty
-          style={{
-            backgroundColor: "#ffefdb",
-            color: "#000",
-            padding: "10px",
-            width: "100%",
-            maxWidth: "300px",
-            borderRadius: "5px",
-            border: "1px solid #ff9800",
+            border: "none",
+            cursor: "pointer",
+            fontWeight: "bold",
+            display:"flex"
           }}
         >
-          <MenuItem value="">All Status</MenuItem>
-          <MenuItem value="open">Open</MenuItem>
-          <MenuItem value="closed">Closed</MenuItem>
-        </Select>
+          + Add Job
+        </Button>
       </div>
   
       {/* Table Display */}
-      {loading ? <p>Loading jobs...</p> : <JobTable jobData={jobData} handleDelete={handleDelete} />}
+      {loading ? (
+        <p>Loading jobs...</p>
+      ) : (
+        <JobTable jobData={jobData} handleDelete={handleDelete} />
+      )}
     </div>
   </>
   
+
   );
 };
 
