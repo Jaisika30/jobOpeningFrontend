@@ -181,7 +181,7 @@ function SignIn() {
       try {
         const response = await axios.post("http://localhost:8080/api/auth/login", values);
         console.log("responseee:::", response);
-        if (response.data.status === 200) {
+        if (response.status === 200) {
           localStorage.setItem("token", response.data.token); // Save token
           navigate("/dashboard"); // Redirect to dashboard
         } else {

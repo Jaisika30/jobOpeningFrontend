@@ -331,7 +331,6 @@ function AddCandidatePage() {
         const getJobss = () => {
             dispatch(getJobs());
         }
-        getJobs();
     },[])
 
     const handleSubmit = (e) => {
