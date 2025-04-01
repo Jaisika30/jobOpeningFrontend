@@ -345,7 +345,7 @@ function EditCandidatePage() {
                                 <Button
                                     variant="outlined"
                                     color="secondary"
-                                    onClick={() => navigate("/Candidate/:id")}
+                                    onClick={() => navigate("/Candidates/:id")}
                                 >
                                     Cancel
                                 </Button>

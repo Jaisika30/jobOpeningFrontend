@@ -336,7 +336,7 @@ function ViewCandidate() {
                                                             <Button
                                     variant="contained"
                                     color="primary"
-                                    onClick={() => navigate("/candidates")}
+                                    onClick={() => navigate(`/Candidate`)}
                                 >
                                     Back
                                 </Button>

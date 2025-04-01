@@ -129,7 +129,7 @@ const Forgot = () => {
         <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
           Submit
         </Button>
-        <Link href="/login" variant="body2" sx={{ mt: 2 }}>
+        <Link href="/authentication/sign-in" variant="body2" sx={{ mt: 2 }}>
           Back to login
         </Link>
       </Box>

@@ -59,7 +59,7 @@ function Table({ columns, rows }) {
         opacity={0.7}
         borderBottom={`${borderWidth[1]} solid ${light.main}`}
       >
-        {name.toUpperCase()}
+      {name.replace(/([a-z])([A-Z])/g, "$1 $2").toUpperCase()}
       </SoftBox>
     );
   });
