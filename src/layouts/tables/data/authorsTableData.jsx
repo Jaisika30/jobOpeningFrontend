@@ -245,8 +245,9 @@ const getJobTableData = (jobData, handleDelete) => ({
         fontWeight="medium"
         color="primary"
         component={Link}
-        to={`/Candidate/${job._id}`}
+        to={`/Candidates/${job._id}`}
       >
+        
         {job.title}
       </SoftTypography>
     ),
@@ -288,7 +289,7 @@ const getJobTableData = (jobData, handleDelete) => ({
           <DeleteIcon />
         </IconButton>
     
-        <Link to={`/Candidate/${job._id}`} title="Candidates">
+        <Link to={`/Candidates/${job._id}`} title="Candidates">
           <IconButton color="primary">
             <GroupIcon fontSize="large" />
           </IconButton>

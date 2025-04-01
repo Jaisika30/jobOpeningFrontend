@@ -141,8 +141,8 @@ export const deleteCandidate = createAsyncThunk(
             };
 
             // ✅ Fix: Move `config` to the third argument (not second)
-            const resp = await axios.put(`${API_URL}/deleteCandidate/${id}`, {}, config); 
-            
+            const resp = await axios.put(`${API_URL}/deleteCandidate/${id}`, {}, config);
+
             console.log("Response:", resp);
             return id; // ✅ Return ID to remove from Redux store
         } catch (error) {
@@ -154,17 +154,33 @@ export const deleteCandidate = createAsyncThunk(
 
 
 // 6. Get Candidates by Job ID
+// Assuming your token is stored in localStorage (you can adjust based on where you store the token
+
 export const getCandidatesByJobID = createAsyncThunk(
-    'candidates/getCandidatesByJobID',
-    async (jobId, { rejectWithValue }) => {
-        try {
-            const response = await axios.get(`${API_URL}/getCandidatesbyJobID/${jobId}`);
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
+  'candidates/getCandidatesByJobID',
+  async (id, { rejectWithValue }) => {
+    try {
+      console.log("slice id:::", id);
+      const token = localStorage.getItem("token");
+      // Send token in Authorization header if it exists
+      const config = token
+        ? {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        : {};
+
+      const response = await axios.get(`${API_URL}/getCandidatesbyJobID/${id}`, config);
+      console.log("slice resp:::", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching candidates by job ID:", error);
+      return rejectWithValue(error.response ? error.response.data : error.message);
     }
+  }
 );
+
 
 // Redux Slice
 const candidateSlice = createSlice({
@@ -237,15 +253,18 @@ const candidateSlice = createSlice({
             })
             .addCase(getCandidatesByJobID.pending, (state) => {
                 state.loading = true;
-            })
-            .addCase(getCandidatesByJobID.fulfilled, (state, action) => {
+                state.error = null; // Reset error on new request
+              })
+              .addCase(getCandidatesByJobID.fulfilled, (state, action) => {
+                console.log("API Response:", action.payload);
                 state.loading = false;
                 state.candidates = action.payload;
-            })
-            .addCase(getCandidatesByJobID.rejected, (state, action) => {
+              })
+              .addCase(getCandidatesByJobID.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
-            });
+                // Check if action.payload exists or if it's a network error
+                state.error = action.payload || 'Failed to fetch candidates';
+              });
     },
 });
 

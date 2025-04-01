@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,20 +11,49 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { getCandidatesByJobID } from "slices/candidateSlice";
+
+// const useCandidateData = () => {
+//   const { id } = useParams();
+//   const dispatch = useDispatch();
+//   const allCandidates = useSelector((state) => state.candidates.candidates);
+//   const isLoading = useSelector((state) => state.candidates.loading);
+
+//   useEffect(() => {
+//     dispatch(getCandidates(id)); // Pass the ID to the API call if needed
+//   }, [dispatch, id]);
+
+//   // Filter candidates based on ID if present
+//   const candidates = useMemo(() => {
+//     if (!id) return allCandidates;
+//     return allCandidates.filter(candidate => 
+//       candidate.id === id || // Adjust this condition based on your data structure
+//       candidate.job === id || // Or whatever field links candidates to the ID
+//       candidate.relatedId === id
+//     );
+//   }, [allCandidates, id]);
+
+//   return { candidates, loading: isLoading };
+// };
 
 const useCandidateData = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const candidates = useSelector((state) => state.candidates.candidates);
+  const allCandidates = useSelector((state) => state.candidates.candidates);
   const isLoading = useSelector((state) => state.candidates.loading);
 
   useEffect(() => {
-    dispatch(getCandidates());
-  }, [dispatch]);
+    if (id) {
+      console.log("iddddddd",id)
+      dispatch(getCandidatesByJobID(id)); // Fetch candidates for specific job
+    } else {
+      dispatch(getCandidates()); // Fetch all candidates
+    }
+  }, [dispatch, id]);
 
-  return { candidates, loading: isLoading };
+  // No need to filter here since the API should return the correct data
+  return { candidates: allCandidates, loading: isLoading };
 };
-
 const getCandidatesTableData = () => {
   const { candidates, loading } = useCandidateData();
   const navigate = useNavigate();
@@ -41,7 +69,9 @@ const getCandidatesTableData = () => {
     // Apply search filter
     if (searchQuery.trim()) {
       result = result.filter((candidate) =>
-        candidate.name.toLowerCase().includes(searchQuery.toLowerCase())
+        candidate.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        candidate.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        candidate.location?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -61,9 +91,6 @@ const getCandidatesTableData = () => {
 
     return result;
   }, [candidates, searchQuery, statusFilter, interviewStatusFilter]);
-
-  const handleSearch = useCallback((query) => setSearchQuery(query), []);
-  const handleStatusChange = useCallback((status) => setStatusFilter(status), []);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -91,7 +118,7 @@ const getCandidatesTableData = () => {
           Add Candidate
         </Button>
         <TextField
-          label="Search by Name"
+          label="Search"
           variant="outlined"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -114,8 +141,8 @@ const getCandidatesTableData = () => {
         </FormControl>
         <FormControl style={{ width: "250px", border: "2px solid #ff9800", borderRadius: "8px" }}>
           <InputLabel>Status</InputLabel>
-          <Select 
-            value={statusFilter} 
+          <Select
+            value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
             label="Status"
           >
@@ -148,29 +175,29 @@ const getCandidatesTableData = () => {
         </SoftTypography>
       ),
       interviewStatus: (
-        <SoftBadge 
-          variant="gradient" 
-          badgeContent={candidate.interviewStatus} 
+        <SoftBadge
+          variant="gradient"
+          badgeContent={candidate.interviewStatus}
           color={
             candidate.interviewStatus === "Accepted" ? "success" :
-            candidate.interviewStatus === "Rejected" ? "error" :
-            candidate.interviewStatus === "Pending" ? "warning" : "info"
-          } 
-          size="xs" 
-          container 
+              candidate.interviewStatus === "Rejected" ? "error" :
+                candidate.interviewStatus === "Pending" ? "warning" : "info"
+          }
+          size="xs"
+          container
         />
       ),
       status: (
-        <SoftBadge 
-          variant="gradient" 
-          badgeContent={candidate.status} 
+        <SoftBadge
+          variant="gradient"
+          badgeContent={candidate.status}
           color={
             candidate.status === "Hired" ? "success" :
-            candidate.status === "Rejected" ? "error" :
-            candidate.status === "Pending" ? "warning" : "info"
-          } 
-          size="xs" 
-          container 
+              candidate.status === "Rejected" ? "error" :
+                candidate.status === "Pending" ? "warning" : "info"
+          }
+          size="xs"
+          container
         />
       ),
       action: (

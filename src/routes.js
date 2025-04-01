@@ -107,17 +107,21 @@ const routes = [
     type: "collapse",
     name: "Candidates",
     key: "Candidate",
-    route: "/Candidate/:id",
+    route: "/Candidate",
     icon: <GroupIcon size="12px" />,
     component: <Candidates />,
     noCollapse: true,
+  },
+  {
+    route: "/Candidates/:id",
+    component: <Candidates />,
   },
   {
     type: "collapse",
     name: "Add Candidate",
     key: "Candidatee",
     route: "/addCandidate",
-    icon: <PersonIcon  size="12px" />,
+    icon: <PersonIcon size="12px" />,
     component: <AddCandidatePage />,
     noCollapse: true,
   },
@@ -173,15 +177,15 @@ const routes = [
   },
   {
     route: "/forgot-password", // Add the dynamic ID
-    component: <Forgot/>, // Make sure this is the correct component
+    component: <Forgot />, // Make sure this is the correct component
   },
   {
     route: "/verify-otp", // Add the dynamic ID
-    component: <VerifyOtp/>, // Make sure this is the correct component
+    component: <VerifyOtp />, // Make sure this is the correct component
   },
   {
     route: "/reset", // Add the dynamic ID
-    component: <Reset/>, // Make sure this is the correct component
+    component: <Reset />, // Make sure this is the correct component
   },
 
 ];

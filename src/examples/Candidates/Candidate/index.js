@@ -67,7 +67,7 @@ function Candidate({ columns, rows }) {
   // Render table rows
   const renderRows = (rows || []).map((row, key) => {
     const rowKey = `row-${key}`;
-console.log("rowKey", rowKey);
+    console.log("rowKey", rowKey);
     const tableRow = (columns || []).map(({ name, align }) => {
       let template;
 
