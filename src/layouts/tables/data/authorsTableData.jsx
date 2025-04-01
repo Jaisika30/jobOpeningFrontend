@@ -13,6 +13,11 @@ import { Input, Select, MenuItem } from "@mui/material";
 import { deleteJob } from "slices/jobSlice";
 import Swal from "sweetalert2";
 import { Button } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import GroupIcon from "@mui/icons-material/Group";
+import { IconButton } from "@mui/material";
 
 
 const useJobData = () => {
@@ -264,25 +269,50 @@ const getJobTableData = (jobData, handleDelete) => ({
         container
       />
     ),
+    // action: (
+    //   <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+    //     <Link to={`/viewJob/${job._id}`} title="View">
+    //       <FaEye color="blue" style={{ cursor: "pointer" }} />
+    //     </Link>
+    //     <Link to={`/editJob/${job._id}`} title="Edit">
+    //       <FaEdit color="green" style={{ cursor: "pointer" }} />
+    //     </Link>
+    //     <FaTrash
+    //       color="red"
+    //       style={{ cursor: "pointer" }}
+    //       title="Delete"
+    //       onClick={() => handleDelete(job._id)} // Ensures correct function reference
+    //     />
+    //     <Link to={`/Candidates/${job._id}`} title="Candidates">
+    //       <FaUsers
+    //         color="blue"
+    //         style={{ cursor: "pointer", fontSize: "28px" }}
+    //       />
+    //     </Link>
+    //   </div>
+    // ),
     action: (
       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
         <Link to={`/viewJob/${job._id}`} title="View">
-          <FaEye color="blue" style={{ cursor: "pointer" }} />
+          <IconButton color="primary">
+          <VisibilityIcon sx={{ color: "blue" }} />
+          </IconButton>
         </Link>
+    
         <Link to={`/editJob/${job._id}`} title="Edit">
-          <FaEdit color="green" style={{ cursor: "pointer" }} />
+          <IconButton color="success">
+            <EditIcon />
+          </IconButton>
         </Link>
-        <FaTrash
-          color="red"
-          style={{ cursor: "pointer" }}
-          title="Delete"
-          onClick={() => handleDelete(job._id)} // Ensures correct function reference
-        />
-        <Link to={`/Candidates/${job._id}`} title="Candidates">
-          <FaUsers
-            color="blue"
-            style={{ cursor: "pointer", fontSize: "28px" }}
-          />
+    
+        <IconButton color="error" title="Delete" onClick={() => handleDelete(job._id)}>
+          <DeleteIcon />
+        </IconButton>
+    
+        <Link to={`/Candidate/${job._id}`} title="Candidates">
+          <IconButton color="primary">
+            <GroupIcon fontSize="large" />
+          </IconButton>
         </Link>
       </div>
     ),

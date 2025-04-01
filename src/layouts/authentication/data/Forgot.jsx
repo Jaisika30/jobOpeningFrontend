@@ -49,7 +49,7 @@
 
 // export default Forgot;
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../../slices/authSlice"; // Adjust path if needed
 import { Container, Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
@@ -59,7 +59,23 @@ const Forgot = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error, success } = useSelector((state) => state.auth);
+  const success = useSelector((state) => state.auth.success);
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (!email) {
+  //     alert("Please enter your email!");
+  //     return;
+  //   }
+  //   console.log(email);
+  //   const result = dispatch(forgotPassword(email));
+  //   console.log("result:::",result);
+  //   console.log("sucessss:::",success)
+  //   if (success) {
+  //     console.log("heloooooooooooo")
+  //     navigate("/verify-otp"); // Navigate only if API call is successful
+  //   }
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,16 +83,19 @@ const Forgot = () => {
       alert("Please enter your email!");
       return;
     }
-    console.log(email);
-    const result = dispatch(forgotPassword(email));
-    console.log("result:::",result)
-    if (success) {
-      navigate("/verify-otp"); // Navigate only if API call is successful
-    }
+    dispatch(forgotPassword(email)); // Dispatch without expecting immediate success
   };
 
+  // ✅ Navigate when `success` updates
+  useEffect(() => {
+    console.log("Sucesssssss",success)
+    if (success) {
+      console.log("Navigating to /verify-otp...");
+      navigate("/verify-otp");
+    }
+  }, [success, navigate]);
   return (
-    <Container maxWidth="sm"  sx={{
+    <Container maxWidth="sm" sx={{
       height: "100vh",
       display: "flex",
       justifyContent: "center",
