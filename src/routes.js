@@ -58,6 +58,7 @@ import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 import EditJob from "layouts/tables/data/EditJob";
 import GroupIcon from '@mui/icons-material/Group';
+import PersonIcon from "@mui/icons-material/Person";
 import AddCandidatePage from "layouts/candidates/data/AddCandidatePage";
 import EditCandidatePage from "layouts/candidates/data/EditCandidate";
 import ViewCandidate from "layouts/candidates/data/ViewCandidate";
@@ -112,8 +113,13 @@ const routes = [
     noCollapse: true,
   },
   {
+    type: "collapse",
+    name: "Add Candidate",
+    key: "Candidatee",
     route: "/addCandidate",
+    icon: <PersonIcon  size="12px" />,
     component: <AddCandidatePage />,
+    noCollapse: true,
   },
   {
     route: "/editCandidate/:id",

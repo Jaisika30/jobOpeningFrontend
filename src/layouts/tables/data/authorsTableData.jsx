@@ -269,28 +269,7 @@ const getJobTableData = (jobData, handleDelete) => ({
         container
       />
     ),
-    // action: (
-    //   <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-    //     <Link to={`/viewJob/${job._id}`} title="View">
-    //       <FaEye color="blue" style={{ cursor: "pointer" }} />
-    //     </Link>
-    //     <Link to={`/editJob/${job._id}`} title="Edit">
-    //       <FaEdit color="green" style={{ cursor: "pointer" }} />
-    //     </Link>
-    //     <FaTrash
-    //       color="red"
-    //       style={{ cursor: "pointer" }}
-    //       title="Delete"
-    //       onClick={() => handleDelete(job._id)} // Ensures correct function reference
-    //     />
-    //     <Link to={`/Candidates/${job._id}`} title="Candidates">
-    //       <FaUsers
-    //         color="blue"
-    //         style={{ cursor: "pointer", fontSize: "28px" }}
-    //       />
-    //     </Link>
-    //   </div>
-    // ),
+   
     action: (
       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
         <Link to={`/viewJob/${job._id}`} title="View">
