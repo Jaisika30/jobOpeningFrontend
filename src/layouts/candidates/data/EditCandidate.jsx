@@ -18,6 +18,7 @@ import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
 import { getCandidateById } from "slices/candidateSlice";
 import { updateCandidate } from "slices/candidateSlice";
+import { toast } from "react-toastify";
 
 function EditCandidatePage() {
     const navigate = useNavigate();
@@ -76,9 +77,16 @@ function EditCandidatePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("candidateData:::::",candidate);
-        dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
-        navigate("/Candidate/:id"); // Redirect after updating
+        console.log("candidateData:::::", candidate);
+    
+        try {
+            dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
+            toast.success("Candidate updated successfully! 🎉"); // Success toast
+            navigate('/Candidate'); // Redirect after updating
+        } catch (error) {
+            console.error("Failed to update candidate:", error);
+            toast.error("Error updating candidate. Please try again."); // Error toast
+        }
     };
 
     return (

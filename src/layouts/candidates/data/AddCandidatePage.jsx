@@ -16,6 +16,7 @@ import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
+import { toast } from "react-toastify";
 
 function AddCandidatePage() {
     const navigate = useNavigate();
@@ -45,15 +46,21 @@ function AddCandidatePage() {
         dispatch(getJobs());
     }, [dispatch]);
 
+   
     const handleSubmit = (e) => {
         e.preventDefault();
-
+    
         console.log("Adding candidate:", candidate);
-        dispatch(createCandidate(candidate));
-        // Simulate API call or dispatch action
-        navigate("/candidates"); // Redirect after submission
+        
+        try {
+            dispatch(createCandidate(candidate));
+            toast.success("Candidate added successfully! 🎉");  // Success toast
+            navigate("/candidates"); // Redirect after submission
+        } catch (error) {
+            console.error("Failed to add candidate:", error);
+            toast.error("Error adding candidate. Please try again.");  // Error toast
+        }
     };
-
     return (
         <DashboardLayout>
             <DashboardNavbar />

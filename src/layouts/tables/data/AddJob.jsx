@@ -13,6 +13,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "slices/jobSlice";
+import { toast } from "react-toastify";
 
 function AddJob() {
   const navigate = useNavigate();
@@ -32,14 +33,26 @@ function AddJob() {
     setJob((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent form from refreshing the page
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault(); // Prevent form from refreshing the page
 
+  //   try {
+  //     await dispatch(createJob({ jobData: job }));
+  //     navigate("/jobs");
+  //   } catch (error) {
+  //     console.error("Failed to create job:", error);
+  //   }
+  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent form refresh
+  
     try {
       await dispatch(createJob({ jobData: job }));
+      toast.success("Job created successfully! 🚀");
       navigate("/jobs");
     } catch (error) {
       console.error("Failed to create job:", error);
+      toast.error("Error creating job. Please try again.");
     }
   };
 

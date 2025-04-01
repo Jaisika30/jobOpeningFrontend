@@ -97,7 +97,7 @@ const JobTableUI = () => {
 };
 
 const JobTable = ({ jobData, handleDelete }) => {
-  const tableData = getJobTableData(jobData, handleDelete);
+  const tableData = getJobTableData(jobData, handleDelete={handleDelete});
 
   return (
     <table border="1" style={{ width: "100%", textAlign: "left", backgroundColor: "#fff", borderCollapse: "collapse" }}>

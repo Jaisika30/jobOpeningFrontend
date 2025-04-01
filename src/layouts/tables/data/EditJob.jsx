@@ -14,6 +14,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobById, updateJob } from "slices/jobSlice";
+import { toast } from "react-toastify";
 
 function formatDate(isoString) {
   if (!isoString) return "";
@@ -71,7 +72,17 @@ function EditJob() {
   const handleSubmit = async () => {
     console.log("update id:::",id);
     console.log("job updatedData",job)
-    dispatch(updateJob({ id, updatedData: job }));
+    // dispatch(updateJob({ id, updatedData: job }));
+    dispatch(updateJob({ id, updatedData: job }))
+    .unwrap()
+    .then(() => {
+        toast.success("Job updated successfully!");
+        navigate("/jobs");
+    })
+    .catch((error) => {
+        toast.error("Failed to update job. Please try again.");
+        console.error("Update error:", error);
+    });
     navigate("/jobs");
   };
 

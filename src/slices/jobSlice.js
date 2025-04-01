@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const API_URL = 'http://localhost:8085/api'; // Adjust based on your backend URL
 
 // 1. Create Job
@@ -82,8 +83,12 @@ export const updateJob = createAsyncThunk(
                 }
             );
             console.log("update edit job:::", response)
+            // if (response.status === 200) {
+            //     toast.success("Job updated successfully!"); // ✅ Success Toaster
+            // }
             return response.data;
         } catch (error) {
+            // toast.error(error.response?.data?.message || "Failed to update job!"); 
             return rejectWithValue(error.response?.data || "An error occurred");
         }
     }

@@ -118,16 +118,20 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Add Candidate",
-    key: "Candidatee",
-    route: "/addCandidate",
+    name: "Add Job",
+    key: "job",
+    route: "/addjob",
     icon: <PersonIcon size="12px" />,
-    component: <AddCandidatePage />,
+    component: <AddJob />,
     noCollapse: true,
   },
   {
     route: "/editCandidate/:id",
     component: <EditCandidatePage />,
+  },
+  {
+    route: "/addCandidate",
+    component: <AddCandidatePage />,
   },
   {
     type: "collapse",
