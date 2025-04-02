@@ -40,6 +40,16 @@ export const getJobs = createAsyncThunk(
             const response = await axios.get(`${API_URL}/api/jobs/getJobs`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
+            if (response.data.length === 0) {
+                import("sweetalert2").then((Swal) => {
+                    Swal.default.fire({
+                      title: "No Jobs Available",
+                      text: "There are no Jobs available please add Job for see details.",
+                      icon: "info",
+                      confirmButtonText: "OK",
+                    });
+                  });
+              }
 
             return response.data;
         } catch (error) {
