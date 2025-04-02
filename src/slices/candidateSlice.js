@@ -173,6 +173,9 @@ export const getCandidatesByJobID = createAsyncThunk(
         : {};
 
       const response = await axios.get(`${API_URL}/api/candidate/getCandidatesbyJobID/${id}`, config);
+    //   if(response.data.length=== 0){
+    //     console.log("slino candidatece resp:::");
+    //   }
       console.log("slice resp:::", response);
      
       return response.data;
