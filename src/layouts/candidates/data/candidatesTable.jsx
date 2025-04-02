@@ -45,10 +45,10 @@ const useCandidateData = () => {
     if (id) {
       console.log("iddddddd", id)
       console.log("allcandidates:::::::::", allCandidates);
+      dispatch(getCandidatesByJobID(id));
       if(allCandidates.length === 0){
         console.log("no candidate available.")
       } // Fetch candidates for specific job
-      dispatch(getCandidatesByJobID(id));
     } else {
       dispatch(getCandidates()); // Fetch all candidates
     }
