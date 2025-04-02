@@ -173,7 +173,8 @@ export const getCandidatesByJobID = createAsyncThunk(
         : {};
 
       const response = await axios.get(`${API_URL}/api/candidate/getCandidatesbyJobID/${id}`, config);
-      console.log("slice resp:::", response.data);
+      console.log("slice resp:::", response);
+     
       return response.data;
     } catch (error) {
       console.error("Error fetching candidates by job ID:", error);

@@ -41,10 +41,10 @@ const useCandidateData = () => {
   const dispatch = useDispatch();
   const allCandidates = useSelector((state) => state.candidates.candidates);
   const isLoading = useSelector((state) => state.candidates.loading);
-
   useEffect(() => {
     if (id) {
-      console.log("iddddddd",id)
+      console.log("iddddddd", id)
+      console.log("allcandidates:::::::::", allCandidates);
       dispatch(getCandidatesByJobID(id)); // Fetch candidates for specific job
     } else {
       dispatch(getCandidates()); // Fetch all candidates
@@ -110,7 +110,27 @@ const getCandidatesTableData = () => {
   };
 
   if (loading) return { columns: [], rows: [] };
-
+  if (filteredCandidates.length === 0) {
+    return {
+      topAction: (
+        <div style={{ marginBottom: '16px' }}>
+          <Button variant="contained" color="primary" onClick={() => navigate("/addCandidate")}>
+            Add Candidate
+          </Button>
+        </div>
+      ),
+      columns: [],
+      rows: [
+        {
+          name: (
+            <SoftTypography variant="h6" color="secondary" align="center">
+              No candidates available.
+            </SoftTypography>
+          ),
+        },
+      ],
+    };
+  }
   return {
     topAction: (
       <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
@@ -163,7 +183,7 @@ const getCandidatesTableData = () => {
       { name: "status", label: "Status", align: "center" },
       { name: "action", label: "Action", align: "center" },
     ],
-    rows: filteredCandidates.map((candidate) => ({
+    rows: filteredCandidates.length > 0 ? filteredCandidates.map((candidate) => ({
       name: (
         <SoftTypography variant="button" fontWeight="medium" color="dark">
           {candidate.name}
@@ -217,7 +237,7 @@ const getCandidatesTableData = () => {
           </IconButton>
         </div>
       ),
-    })),
+    })): [{ name: "No candidates available" }],
   };
 };
 
