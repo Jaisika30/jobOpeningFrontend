@@ -100,6 +100,7 @@ export const deleteJob = createAsyncThunk(
     "jobs/deleteJob",
     async ({ id }, { rejectWithValue }) => {
       try {
+        console.log("iddddddddddd:::",id)
         const token = localStorage.getItem("token");
         const config = {
           headers: {
