@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs, deleteJob } from "slices/jobSlice";
@@ -39,12 +39,6 @@ const useJobData = () => {
     setJobData(filteredJobs);
   }, [jobs, searchQuery, statusFilter]);
 
-  return { jobData, loading: isLoading, setSearchQuery, setStatusFilter, searchQuery, statusFilter, dispatch };
-};
-
-const JobTableUI = () => {
-  const { jobData, loading, setSearchQuery, setStatusFilter, searchQuery, statusFilter, dispatch } = useJobData();
-
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -63,7 +57,13 @@ const JobTableUI = () => {
       }
     });
   };
+  return { jobData, loading: isLoading, setSearchQuery, setStatusFilter, searchQuery, statusFilter, dispatch, handleDelete };
+};
 
+const JobTableUI = () => {
+  const { jobData, loading, setSearchQuery, setStatusFilter, searchQuery, statusFilter, dispatch, handleDelete } = useJobData();
+
+  console.log(typeof (handleDelete));
   return (
     <>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginBottom: "20px", alignItems: "center", justifyContent: "space-between" }}>
@@ -97,7 +97,7 @@ const JobTableUI = () => {
 };
 
 const JobTable = ({ jobData, handleDelete }) => {
-  const tableData = getJobTableData(jobData, handleDelete={handleDelete});
+  const tableData = getJobTableData(jobData, handleDelete = { handleDelete });
 
   return (
     <table border="1" style={{ width: "100%", textAlign: "left", backgroundColor: "#fff", borderCollapse: "collapse" }}>
