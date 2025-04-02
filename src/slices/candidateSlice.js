@@ -173,8 +173,13 @@ export const getCandidatesByJobID = createAsyncThunk(
         : {};
 
       const response = await axios.get(`${API_URL}/api/candidate/getCandidatesbyJobID/${id}`, config);
-      if(response.data.length=== 0){
-        console.log("slino candidatece resp:::");
+      if (response.data.length === 0) {
+        Swal.fire({
+          title: "No Candidates Available",
+          text: "There are no candidates available for this job.",
+          icon: "info",
+          confirmButtonText: "OK",
+        });
       }
       console.log("slice resp:::", response);
      
