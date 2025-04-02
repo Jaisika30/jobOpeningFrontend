@@ -47,10 +47,10 @@ export default function data() {
 
   return {
     columns: [
-      { name: "name", align: "left" },
-      { name: "role", align: "left" },
-      { name: "time", align: "center" },
-      { name: "date", align: "center" },
+      { name: "companies", align: "left" },
+      { name: "members", align: "left" },
+      { name: "budget", align: "center" },
+      { name: "completion", align: "center" },
     ],
 
     rows: [

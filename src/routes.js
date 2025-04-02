@@ -76,8 +76,8 @@ const routes = [
     key: "dashboard",
     route: "/dashboard",
     icon: <Shop size="12px" />,
-    // component: <Dashboard />,
-    component: <ProtectedRoute><Dashboard /></ProtectedRoute>,
+    component: <Dashboard />,
+    // component: <ProtectedRoute><Dashboard /></ProtectedRoute>,
     noCollapse: true,
   },
   {

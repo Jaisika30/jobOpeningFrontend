@@ -225,12 +225,11 @@ import routes from "routes";
 
 // Contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
-// import { AuthProvider } from "context/AuthContext"; // Import the AuthProvider
+import { AuthProvider } from "context/AuthContext"; // Import the AuthProvider
 
 // Images
 import brand from "assets/images/logo-ct.png";
 import SoftTypography from "components/SoftTypography";
-import { AuthProvider } from "protect/AuthContext";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
