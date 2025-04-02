@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import Swal from "sweetalert2";
 import axios from 'axios';
 
 // const API_URL = 'http://localhost:8085/api/candidate'; // Adjust based on your backend URL
