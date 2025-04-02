@@ -128,10 +128,33 @@ import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 import { Input, Select, MenuItem } from "@mui/material";
 import { useJobData, getJobTableData } from "layouts/tables/data/authorsTableData";
+import { useDispatch } from "react-redux";
+import { deleteJob } from "slices/jobSlice";
+import Swal from "sweetalert2";
+
 
 function Tables() {
+  const dispatch = useDispatch();
   const { jobData, loading, setSearchQuery, setStatusFilter, searchQuery, statusFilter } = useJobData();
-  const tableData = getJobTableData(jobData);
+  const handleDelete = (id) => {
+     Swal.fire({
+       title: "Are you sure?",
+       text: "You won't be able to revert this!",
+       icon: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#d33",
+       cancelButtonColor: "#3085d6",
+       confirmButtonText: "Yes, delete it!",
+     }).then((result) => {
+       if (result.isConfirmed) {
+         dispatch(deleteJob({id}))
+           .unwrap()
+           .then(() => Swal.fire("Deleted!", "The job has been deleted.", "success"))
+           .catch(() => Swal.fire("Error!", "Something went wrong!", "error"));
+       }
+     });
+   };
+  const tableData = getJobTableData(jobData,handleDelete);
 
   return (
     <DashboardLayout>
