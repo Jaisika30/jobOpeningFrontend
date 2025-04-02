@@ -150,7 +150,8 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import curved9 from "assets/images/curved-images/curved-6.jpg";
-
+const API_URL = process.env.REACT_APP_API_URL;
+console.log("apiiiiiiii irlllll",API_URL)
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -175,7 +176,7 @@ function SignIn() {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await axios.post("http://localhost:8085/api/auth/login", values);
+        const response = await axios.post(`${API_URL}/api/auth/login`, values);
         console.log("responseee:::", response);
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token); // Save token
