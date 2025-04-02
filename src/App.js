@@ -131,26 +131,19 @@ export default function App() {
             <CssBaseline />
             <ToastContainer position="top-right" autoClose={3000} />
             {layout === "dashboard" && (
-              <>
-                <Sidenav
-                  color={sidenavColor}
-                  brand={brand}
-                  brandName={
-                    <SoftTypography 
-                      variant="caption" 
-                      sx={{ fontSize: "0.875rem", marginLeft: "1rem" }}
-                    >
-                      Anthem Infotech Pvt. Ltd.
-                    </SoftTypography>
-                  }
-                  routes={routes}
-                  onMouseEnter={handleOnMouseEnter}
-                  onMouseLeave={handleOnMouseLeave}
-                />
-                <Configurator />
-                {configsButton}
-              </>
-            )}
+          <>
+            <Sidenav
+              color={sidenavColor}
+              brand={brand}
+              brandName="Soft UI Dashboard"
+              routes={routes}
+              onMouseEnter={handleOnMouseEnter}
+              onMouseLeave={handleOnMouseLeave}
+            />
+            <Configurator />
+            {configsButton}
+          </>
+        )}
             {layout === "vr" && <Configurator />}
             <Routes>
               {getRoutes(routes)}
@@ -163,26 +156,19 @@ export default function App() {
           <CssBaseline />
           <ToastContainer position="top-right" autoClose={3000} />
           {layout === "dashboard" && (
-            <>
-              <Sidenav
-                color={sidenavColor}
-                brand={brand}
-                brandName={
-                  <SoftTypography 
-                    variant="caption"  
-                    sx={{ fontSize: "0.875rem", marginLeft: "1rem" }}
-                  >
-                    Anthem Infotech Pvt. Ltd.
-                  </SoftTypography>
-                }
-                routes={routes}
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
-              />
-              <Configurator />
-              {configsButton}
-            </>
-          )}
+        <>
+          <Sidenav
+            color={sidenavColor}
+            brand={brand}
+            brandName="Soft UI Dashboard"
+            routes={routes}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />
+          <Configurator />
+          {configsButton}
+        </>
+      )}
           {layout === "vr" && <Configurator />}
           <Routes>
             {getRoutes(routes)}
