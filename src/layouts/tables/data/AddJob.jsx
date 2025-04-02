@@ -48,7 +48,7 @@ function AddJob() {
   
     try {
       await dispatch(createJob({ jobData: job }));
-      toast.success("Job created successfully! 🚀");
+      toast.success("Job added successfully! 🚀");
       navigate("/jobs");
     } catch (error) {
       console.error("Failed to create job:", error);
