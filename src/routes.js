@@ -67,6 +67,7 @@ import AddJob from "layouts/tables/data/AddJob";
 import Forgot from "layouts/authentication/data/Forgot";
 import VerifyOtp from "layouts/authentication/data/VerifyOtp";
 import Reset from "layouts/authentication/data/Reset";
+import ProtectedRoute from "protect/ProtectedRoutes";
 
 const routes = [
   {
@@ -75,7 +76,8 @@ const routes = [
     key: "dashboard",
     route: "/dashboard",
     icon: <Shop size="12px" />,
-    component: <Dashboard />,
+    // component: <Dashboard />,
+    component: <ProtectedRoute><Dashboard /></ProtectedRoute>,
     noCollapse: true,
   },
   {
@@ -84,24 +86,30 @@ const routes = [
     key: "job",
     route: "/Jobs",
     icon: <Office size="12px" />,
-    component: <Tables />,
+    // component: <Tables />,
+    component: <ProtectedRoute><Tables /></ProtectedRoute>,
     noCollapse: true,
   },
   {
     route: "/editJob/:id", // Add the dynamic ID
-    component: <EditJob />, // Make sure this is the correct component
+    // component: <EditJob />,
+    component: <ProtectedRoute><EditJob /></ProtectedRoute>,
+     // Make sure this is the correct component
   },
   {
     route: "/viewCandidate/:id", // Add the dynamic ID
-    component: <ViewCandidate />, // Make sure this is the correct component
+    component: <ProtectedRoute><ViewCandidate /></ProtectedRoute>,
+    // component: <ViewCandidate />, // Make sure this is the correct component
   },
   {
     route: "/viewJob/:id", // Add the dynamic ID
-    component: <ViewJob />, // Make sure this is the correct component
+    // component: <ViewJob />, // Make sure this is the correct component
+    component: <ProtectedRoute><ViewJob /></ProtectedRoute>,
   },
   {
     route: "/addJob", // Add the dynamic ID
-    component: <AddJob />, // Make sure this is the correct component
+    // component: <AddJob />, // Make sure this is the correct component
+    component: <ProtectedRoute><AddJob /></ProtectedRoute>,
   },
   {
     type: "collapse",
@@ -109,12 +117,14 @@ const routes = [
     key: "Candidate",
     route: "/Candidate",
     icon: <GroupIcon size="12px" />,
-    component: <Candidates />,
+    component: <ProtectedRoute><Candidates /></ProtectedRoute>,
+    // component: <Candidates />,
     noCollapse: true,
   },
   {
     route: "/Candidates/:id",
-    component: <Candidates />,
+    component: <ProtectedRoute><Candidates /></ProtectedRoute>,
+    // component: <Candidates />,
   },
   {
     type: "collapse",
@@ -122,16 +132,19 @@ const routes = [
     key: "job",
     route: "/addjob",
     icon: <PersonIcon size="12px" />,
-    component: <AddJob />,
+    component: <ProtectedRoute><AddJob /></ProtectedRoute>,
+    // component: <AddJob />,
     noCollapse: true,
   },
   {
     route: "/editCandidate/:id",
-    component: <EditCandidatePage />,
+    component: <ProtectedRoute><EditCandidatePage /></ProtectedRoute>,
+    // component: <EditCandidatePage />,
   },
   {
     route: "/addCandidate",
-    component: <AddCandidatePage />,
+    component: <ProtectedRoute><AddCandidatePage /></ProtectedRoute>,
+    // component: <AddCandidatePage />,
   },
   {
     type: "collapse",
