@@ -2,8 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const API_URL = 'http://localhost:8085/api'; // Adjust based on your backend URL
-
+// const API_URL = 'http://localhost:8085/api'; // Adjust based on your backend URL
+const API_URL = process.env.REACT_APP_API_URL;
+console.log(";;;;;;;;;;",API_URL)
 // 1. Create Job
 export const createJob = createAsyncThunk(
     "jobs/createJob",
@@ -11,7 +12,7 @@ export const createJob = createAsyncThunk(
       try {
         const token = localStorage.getItem("token");
         const response = await axios.post(
-          `${API_URL}/jobs/createJob`,
+          `${API_URL}/api/jobs/createJob`,
           jobData,
           {
             headers: {
@@ -36,7 +37,7 @@ export const getJobs = createAsyncThunk(
             const token = localStorage.getItem("token");
             if (!token) throw new Error("No authentication token found");
 
-            const response = await axios.get(`${API_URL}/jobs/getJobs`, {
+            const response = await axios.get(`${API_URL}/api/jobs/getJobs`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -53,7 +54,7 @@ export const getJobById = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token'); // Retrieve token from storage
-            const response = await axios.get(`${API_URL}/jobs/getJob/${id}`, {
+            const response = await axios.get(`${API_URL}/api/jobs/getJob/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`, // Attach token in Authorization header
                 },
@@ -74,7 +75,7 @@ export const updateJob = createAsyncThunk(
             console.log("usedispatch", id, updatedData);
             const token = localStorage.getItem('token');
             const response = await axios.put(
-                `${API_URL}/jobs/updateJob/${id}`,
+                `${API_URL}/api/jobs/updateJob/${id}`,
                 updatedData,
                 {
                     headers: {
@@ -108,7 +109,7 @@ export const deleteJob = createAsyncThunk(
           },
         };
   
-      const resp =  await axios.delete(`${API_URL}/jobs/deleteJob/${id}`, config);
+      const resp =  await axios.delete(`${API_URL}/api/jobs/deleteJob/${id}`, config);
       console.log(resp)
         return id; // Return ID to remove from Redux store
       } catch (error) {

@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8085/api/candidate'; // Adjust based on your backend URL
-
+// const API_URL = 'http://localhost:8085/api/candidate'; // Adjust based on your backend URL
+const API_URL = process.env.REACT_APP_API_URL;
+console.log(";;;;;;;;;;",API_URL)
 // 1. Create Candidate
 export const createCandidate = createAsyncThunk(
     "candidates/createCandidate",
@@ -34,7 +35,7 @@ export const getCandidates = createAsyncThunk(
             // Get token from Redux state (assuming you store it in auth slice)
             const token = localStorage.getItem("token");
 
-            const response = await axios.get(`${API_URL}/getCandidates`, {
+            const response = await axios.get(`${API_URL}/api/candidate/getCandidates`, {
                 params: {},
                 headers: {
                     Authorization: `Bearer ${token}`, // Attach token in headers
@@ -60,7 +61,7 @@ export const getCandidateById = createAsyncThunk(
                 return rejectWithValue("Authentication token not found.");
             }
 
-            const response = await axios.get(`${API_URL}/getCandidate/${id}`, {
+            const response = await axios.get(`${API_URL}/api/candidate/getCandidate/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -91,7 +92,7 @@ export const updateCandidate = createAsyncThunk(
             };
 
             // Send request with token
-            const response = await axios.put(`${API_URL}/updateCandidate/${id}`, updatedData, config);
+            const response = await axios.put(`${API_URL}/api/candidate/updateCandidate/${id}`, updatedData, config);
             console.log(response)
             return response.data;
         } catch (error) {
@@ -141,7 +142,7 @@ export const deleteCandidate = createAsyncThunk(
             };
 
             // ✅ Fix: Move `config` to the third argument (not second)
-            const resp = await axios.put(`${API_URL}/deleteCandidate/${id}`, {}, config);
+            const resp = await axios.put(`${API_URL}/api/candidate/deleteCandidate/${id}`, {}, config);
 
             console.log("Response:", resp);
             return id; // ✅ Return ID to remove from Redux store
@@ -171,7 +172,7 @@ export const getCandidatesByJobID = createAsyncThunk(
           }
         : {};
 
-      const response = await axios.get(`${API_URL}/getCandidatesbyJobID/${id}`, config);
+      const response = await axios.get(`${API_URL}/api/candidate/getCandidatesbyJobID/${id}`, config);
       console.log("slice resp:::", response.data);
       return response.data;
     } catch (error) {
