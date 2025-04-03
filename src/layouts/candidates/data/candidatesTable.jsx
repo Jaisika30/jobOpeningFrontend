@@ -136,18 +136,41 @@ const getCandidatesTableData = () => {
   }
   return {
     topAction: (
-      <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
-        <Button variant="contained" color="primary" onClick={() => navigate("/addCandidate")}>
+      <div style={{ 
+        display: 'flex', 
+        gap: '16px', 
+        marginBottom: '16px', 
+        flexWrap: 'wrap',
+        alignItems: 'center'
+      }}>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          onClick={() => navigate("/addCandidate")}
+          style={{ minWidth: '150px' }}
+        >
           Add Candidate
         </Button>
+        
         <TextField
           label="Search"
           variant="outlined"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ width: "250px", border: "2px solid #2196f3", borderRadius: "8px" }}
+          style={{ 
+            flex: '1 1 200px',
+            minWidth: '200px',
+            border: "2px solid #2196f3", 
+            borderRadius: "8px" 
+          }}
         />
-        <FormControl style={{ width: "250px", border: "2px solid #4caf50", borderRadius: "8px" }}>
+        
+        <FormControl style={{ 
+          flex: '1 1 200px',
+          minWidth: '200px',
+          border: "2px solid #4caf50", 
+          borderRadius: "8px" 
+        }}>
           <InputLabel>Interview Status</InputLabel>
           <Select
             value={interviewStatusFilter}
@@ -162,7 +185,13 @@ const getCandidatesTableData = () => {
             <MenuItem value="Offered">Offered</MenuItem>
           </Select>
         </FormControl>
-        <FormControl style={{ width: "250px", border: "2px solid #ff9800", borderRadius: "8px" }}>
+        
+        <FormControl style={{ 
+          flex: '1 1 200px',
+          minWidth: '200px',
+          border: "2px solid #ff9800", 
+          borderRadius: "8px" 
+        }}>
           <InputLabel>Status</InputLabel>
           <Select
             value={statusFilter}
