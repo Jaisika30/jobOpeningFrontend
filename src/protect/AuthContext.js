@@ -1,4 +1,3 @@
-// context/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,11 +9,15 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check for existing token when app loads
+    // Check auth status when app loads
     const token = localStorage.getItem("authToken");
     setIsAuthenticated(!!token);
     setIsInitialized(true);
-  }, []);
+    
+    if (!token) {
+      navigate("/authentication/sign-in");
+    }
+  }, [navigate]);
 
   const login = (token) => {
     localStorage.setItem("authToken", token);
@@ -28,9 +31,8 @@ export const AuthProvider = ({ children }) => {
     navigate("/authentication/sign-in");
   };
 
-  // Don't render children until auth state is initialized
   if (!isInitialized) {
-    return null;
+    return null; // or a loading spinner
   }
 
   return (

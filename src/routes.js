@@ -81,14 +81,6 @@ const routes = [
     noCollapse: true,
   },
   {
-   
-    route: "/",
-    icon: <Shop size="12px" />,
-    component: <SignIn />,
-    // component: <ProtectedRoute><SignIn /></ProtectedRoute>,
-    noCollapse: true,
-  },
-  {
     type: "collapse",
     name: "Job Openings",
     key: "job",
