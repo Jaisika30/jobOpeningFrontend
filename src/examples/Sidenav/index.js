@@ -130,99 +130,51 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   return (
     <SidenavRoot {...rest} variant="permanent" ownerState={{ transparentSidenav, miniSidenav }}>
-      <SoftBox pt={3} pb={1}  textAlign="center" sx={{ width: "10rem", height: "auto", marginLeft: "0rem" }}>
+    <SoftBox pt={3} pb={1} px={4} textAlign="center">
+      <SoftBox
+        display={{ xs: "block", xl: "none" }}
+        position="absolute"
+        top={0}
+        right={0}
+        p={1.625}
+        onClick={closeSidenav}
+        sx={{ cursor: "pointer" }}
+      >
+        <SoftTypography variant="h6" color="secondary">
+          <Icon sx={{ fontWeight: "bold" }}>close</Icon>
+        </SoftTypography>
+      </SoftBox>
+      <SoftBox component={NavLink} to="/" display="flex" alignItems="center">
+        {brand && <SoftBox component="img" src={brand} alt="Soft UI Logo" width="2rem" />}
         <SoftBox
-          display={{ xs: "block", xl: "none" }}
-          position="absolute"
-          top={0}
-          right={0}
-          p={1.625}
-          onClick={closeSidenav}
-          sx={{ cursor: "pointer" }}
+          width={!brandName && "100%"}
+          sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
         >
-          <SoftTypography variant="h6" color="secondary">
-            <Icon sx={{ fontWeight: "bold" }}>close</Icon>
+          <SoftTypography component="h6" variant="button" fontWeight="medium">
+            {brandName}
           </SoftTypography>
         </SoftBox>
-        {/* <SoftBox component={NavLink} to="/" display="flex" alignItems="center">
-          {brand && <SoftBox component="img" src={logo} alt="Soft UI Logo" sx={{ width: "4rem", height: "auto" , marginLeft: "0rem" }} />}
-          <SoftBox
-            width={!brandName && "100%"}
-            sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
-          >
-            <SoftTypography component="h6" variant="button" fontWeight="medium">
-              {brandName}
-            </SoftTypography>
-          </SoftBox>
-        </SoftBox> */}
-        <SoftBox 
-  component={NavLink} 
-  to="/" 
-  display="flex" 
-  alignItems="center"
-  sx={{ width: "100%", height: "5rem", padding: "0rem" }} // Increased size
->
-  {brand && (
-    <SoftBox 
-      component="img" 
-      src={logo} 
-      alt="Soft UI Logo" 
-      sx={{ width: "14rem", height: "auto", marginLeft: "0rem" }} // Increased logo size
-    />
-  )}
-  {/* <SoftBox
-    width={!brandName && "100%"}
-    sx={(theme) => ({
-      ...sidenavLogoLabel(theme, { miniSidenav }),
-      paddingLeft: "0rem",
-      fontSize:"10px !important" // Adds space between logo & text
-    })}
-  >
-    <SoftTypography component="h6" variant="button" fontWeight="medium">
-      {brandName}
-    </SoftTypography>
-  </SoftBox> */}
-  {/* <SoftBox
-  width={!brandName && "100%"}
-  sx={(theme) => ({
-    ...sidenavLogoLabel(theme, { miniSidenav }),
-    paddingLeft: "0rem", // Remove extra space
-    fontSize: "10px !important", // Decrease font size
-    width: "auto", // Make it fit the content
-    minWidth: "7rem", // Ensure it's not too small
-  })}
->
-  <SoftTypography 
-    component="h6" 
-    variant="button" 
-    fontWeight="medium"
-    sx={{ fontSize: "12px !important", lineHeight: "1rem" }} // Ensure text is smaller
-  >
-    {brandName}
-  </SoftTypography>
-</SoftBox> */}
-</SoftBox>
-
       </SoftBox>
-      <Divider />
-      <List>{renderRoutes}</List>
-      <SoftBox pt={2} my={2} mx={2} mt="auto">
-        <SidenavCard />
-        <SoftBox mt={2}>
-          <SoftButton
-            component="a"
-            href="https://creative-tim.com/product/soft-ui-dashboard-pro-react"
-            target="_blank"
-            rel="noreferrer"
-            variant="gradient"
-            color={color}
-            fullWidth
-          >
-            upgrade to pro
-          </SoftButton>
-        </SoftBox>
+    </SoftBox>
+    <Divider />
+    <List>{renderRoutes}</List>
+    <SoftBox pt={2} my={2} mx={2} mt="auto">
+      <SidenavCard />
+      <SoftBox mt={2}>
+        <SoftButton
+          component="a"
+          href="https://creative-tim.com/product/soft-ui-dashboard-pro-react"
+          target="_blank"
+          rel="noreferrer"
+          variant="gradient"
+          color={color}
+          fullWidth
+        >
+          upgrade to pro
+        </SoftButton>
       </SoftBox>
-    </SidenavRoot>
+    </SoftBox>
+  </SidenavRoot>
   );
 }
 

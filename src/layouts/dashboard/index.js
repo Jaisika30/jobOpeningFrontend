@@ -50,7 +50,7 @@ function Dashboard() {
     <DashboardLayout>
       <DashboardNavbar />
       <SoftBox py={3}>
-        {/* <SoftBox mb={3}>
+        <SoftBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
@@ -88,47 +88,7 @@ function Dashboard() {
               />
             </Grid>
           </Grid>
-        </SoftBox> */}
-         <SoftBox mb={3}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} xl={3}>
-          <MiniStatisticsCard
-            title={{ text: "Total Job Openings", color: "success" }}
-            count="24"
-           
-            percentage={{ color: "success", text: "+2 from last month" }}
-            icon={{ color: "info", component: "work" }}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} xl={3}>
-          <MiniStatisticsCard
-            title={{ text: "Active Candidates", color: "danger" }}
-            count="142"
-           
-            percentage={{ color: "success", text: "+28 from last month" }}
-            icon={{ color: "info", component: "trending_up" }}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} xl={3}>
-          <MiniStatisticsCard
-            title={{ text: "Scheduled Interviews", color: "black" }}
-            count="18"
-           
-            percentage={{ color: "secondary", text: "For this week" }}
-            icon={{ color: "info", component: "event" }}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} xl={3}>
-          <MiniStatisticsCard
-            title={{ text: "Hired This Month", color: "secondary" }}
-            count="8"
-           
-            percentage={{ color: "success", text: "+2 from last month" }}
-            icon={{ color: "error", component: "attach_money" }}
-          />
-        </Grid>
-      </Grid>
-    </SoftBox>
+        </SoftBox>
         <SoftBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={7}>
