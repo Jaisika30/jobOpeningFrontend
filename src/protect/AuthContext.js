@@ -1,28 +1,37 @@
 // context/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const navigate = useNavigate();
 
-  // Check authentication status when app loads
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    // Check for existing token when app loads
+    const token = localStorage.getItem("authToken");
+    setIsAuthenticated(!!token);
+    setIsInitialized(true);
   }, []);
 
   const login = (token) => {
     localStorage.setItem("authToken", token);
     setIsAuthenticated(true);
+    navigate("/dashboard");
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("authToken");
     setIsAuthenticated(false);
+    navigate("/authentication/sign-in");
   };
+
+  // Don't render children until auth state is initialized
+  if (!isInitialized) {
+    return null;
+  }
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
