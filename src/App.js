@@ -225,12 +225,11 @@ import routes from "routes";
 
 // Contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
-// import { AuthProvider } from "context/AuthContext"; // Import the AuthProvider
+import { AuthProvider } from "protect/AuthContext";
 
 // Images
 import brand from "assets/images/logo-ct.png";
 import SoftTypography from "components/SoftTypography";
-import { AuthProvider } from "protect/AuthContext";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -239,7 +238,7 @@ export default function App() {
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
 
-  // Cache for the rtl
+  // Cache for the RTL
   useMemo(() => {
     const cacheRtl = createCache({
       key: "rtl",
@@ -249,7 +248,7 @@ export default function App() {
     setRtlCache(cacheRtl);
   }, []);
 
-  // Open sidenav when mouse enter on mini sidenav
+  // Open sidenav when mouse enters on mini sidenav
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
@@ -257,7 +256,7 @@ export default function App() {
     }
   };
 
-  // Close sidenav when mouse leave mini sidenav
+  // Close sidenav when mouse leaves mini sidenav
   const handleOnMouseLeave = () => {
     if (onMouseEnter) {
       setMiniSidenav(dispatch, true);
@@ -268,17 +267,18 @@ export default function App() {
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
-  // Setting the dir attribute for the body element
+  // Setting the `dir` attribute for the body element
   useEffect(() => {
     document.body.setAttribute("dir", direction);
   }, [direction]);
 
-  // Setting page scroll to 0 when changing the route
+  // Scroll to the top when changing routes
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
+  // Generate routes
   const getRoutes = (allRoutes) =>
     allRoutes.flatMap((route, index) => {
       if (route.collapse) {
@@ -323,7 +323,6 @@ export default function App() {
     </SoftBox>
   );
 
-  // Wrap the entire application with AuthProvider
   return (
     <AuthProvider>
       {direction === "rtl" ? (
@@ -331,6 +330,8 @@ export default function App() {
           <ThemeProvider theme={themeRTL}>
             <CssBaseline />
             <ToastContainer position="top-right" autoClose={3000} />
+            
+            {/* Show Sidenav only for dashboard layout */}
             {layout === "dashboard" && (
               <>
                 <Sidenav
@@ -352,10 +353,13 @@ export default function App() {
                 {configsButton}
               </>
             )}
+            
             {layout === "vr" && <Configurator />}
+
             <Routes>
               {getRoutes(routes)}
-              <Route path="*" element={<Navigate to="/dashboard" />} />
+              {/* Default redirect to Sign In page */}
+              <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
             </Routes>
           </ThemeProvider>
         </CacheProvider>
@@ -363,6 +367,8 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <ToastContainer position="top-right" autoClose={3000} />
+          
+          {/* Show Sidenav only for dashboard layout */}
           {layout === "dashboard" && (
             <>
               <Sidenav
@@ -384,10 +390,13 @@ export default function App() {
               {configsButton}
             </>
           )}
+          
           {layout === "vr" && <Configurator />}
+
           <Routes>
             {getRoutes(routes)}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
+            {/* Default redirect to Sign In page */}
+            <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
           </Routes>
         </ThemeProvider>
       )}

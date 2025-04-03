@@ -179,9 +179,8 @@ function SignIn() {
         const response = await axios.post(`${API_URL}/api/auth/login`, values);
         console.log("responseee:::", response);
         if (response.status === 200) {
-          console.log("hiiiiiiiiiiii loginnnnnnnnnn")
           localStorage.setItem("token", response.data.token); // Save token
-
+          console.log("ogiiiiiiiiiiiinnnnnnnnnnnnnnnn"); // Save token
           navigate("/dashboard"); // Redirect to dashboard
         } else {
           setErrorMessage(response.data.message || "Login failed");

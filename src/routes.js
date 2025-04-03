@@ -68,12 +68,7 @@ import Forgot from "layouts/authentication/data/Forgot";
 import VerifyOtp from "layouts/authentication/data/VerifyOtp";
 import Reset from "layouts/authentication/data/Reset";
 import ProtectedRoute from "protect/ProtectedRoutes";
-
 const routes = [
-  {
-    route: "/",
-    component:<SignIn />,
-  },
   {
     type: "collapse",
     name: "Dashboard",
@@ -133,7 +128,7 @@ const routes = [
   {
     type: "collapse",
     name: "Add Job",
-    key: "job",
+    key: "addjob",
     route: "/addjob",
     icon: <PersonIcon size="12px" />,
     component: <ProtectedRoute><AddJob /></ProtectedRoute>,
@@ -208,6 +203,7 @@ const routes = [
     route: "/reset", // Add the dynamic ID
     component: <Reset />, // Make sure this is the correct component
   },
+ 
 
 ];
 
