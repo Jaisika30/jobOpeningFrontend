@@ -191,7 +191,7 @@ function SignIn() {
   });
 
   return (
-    <CoverLayout title="Welcome back" description="Enter your email and password to sign in" image={curved9}>
+    <CoverLayout title="Welcome back" description="Enter your email and password to sign in" image={curved9} top={28} color={"info"} bottom={5}>
       <form onSubmit={formik.handleSubmit}>
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
