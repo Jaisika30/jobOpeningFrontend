@@ -71,6 +71,10 @@ import ProtectedRoute from "protect/ProtectedRoutes";
 
 const routes = [
   {
+    route: "/",
+    component:<SignIn />,
+  },
+  {
     type: "collapse",
     name: "Dashboard",
     key: "dashboard",
