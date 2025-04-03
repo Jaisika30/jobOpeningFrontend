@@ -4,7 +4,8 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+// const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Check authentication status when app loads
   useEffect(() => {
@@ -15,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (token) => {
-    localStorage.setItem("authToken", token);
+    localStorage.setItem("token", token);
     setIsAuthenticated(true);
   };
 
