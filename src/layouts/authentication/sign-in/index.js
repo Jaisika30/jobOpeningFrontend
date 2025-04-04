@@ -116,7 +116,7 @@ function SignIn() {
               }
             }}
             endAdornment={
-              <InputAdornment position="end"  sx={{ marginRight: "10px" }}>
+              <InputAdornment position="end"  sx={{ marginLeft: "20px" }}>
                 <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
