@@ -128,9 +128,8 @@ function AddJob() {
                   sx={{
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
-                    width: "300px", // This sets the outer TextField width
                     "& .MuiInputBase-input": {
-                      width: "100%", // This ensures input takes full width of the field
+                      width: "100% !important", // This ensures input takes full width of the field
                     },
                   }}
                 />
