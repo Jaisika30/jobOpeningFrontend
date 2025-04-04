@@ -12,7 +12,7 @@ export const createCandidate = createAsyncThunk(
         try {
             console.log(candidateData);
             const token = localStorage.getItem("token");
-            const response = await axios.post(`${API_URL}/create`, candidateData, {
+            const response = await axios.post(`${API_URL}/api/candidate/create`, candidateData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
