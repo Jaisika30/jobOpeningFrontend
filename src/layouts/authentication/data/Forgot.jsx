@@ -136,7 +136,7 @@ const Forgot = () => {
               display: "flex",
             },
             "& .MuiInputBase-input": {
-              width: "200px",
+              width: "300px",
               maxWidth: "300px",
               minWidth: "300px",
             },
