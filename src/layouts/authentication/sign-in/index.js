@@ -14,7 +14,8 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import SoftButton from "components/SoftButton";
-
+import { IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 // Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
 
@@ -26,6 +27,7 @@ console.log("apiiiiiiii irlllll", API_URL)
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
   const passwordRef = useRef();
@@ -100,7 +102,7 @@ function SignIn() {
           </SoftBox>
           <SoftInput
             inputRef={passwordRef}
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             name="password"
             value={formik.values.password}
@@ -113,6 +115,13 @@ function SignIn() {
                 formik.handleSubmit(); // Submit form
               }
             }}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
            {formik.touched.password && formik.errors.password && (
             <SoftTypography variant="caption" color="error" fontWeight="regular">
@@ -120,6 +129,7 @@ function SignIn() {
             </SoftTypography>
           )}
         </SoftBox>
+
 
         {errorMessage && (
           <SoftTypography variant="caption" color="error" fontWeight="regular">
