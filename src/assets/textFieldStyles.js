@@ -15,7 +15,6 @@ const textFieldStyles = {
         width: "900px",
         maxWidth: "900px",
         minWidth: "900px",
-        textAlign: "center",
     },
 };
 
