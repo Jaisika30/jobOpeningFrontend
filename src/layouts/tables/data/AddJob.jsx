@@ -84,7 +84,6 @@ function AddJob() {
                   Job Title
                 </SoftTypography>
                 <TextField
-                  fullWidth
                   name="title"
                   value={job.title}
                   onChange={handleChange}

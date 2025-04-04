@@ -78,7 +78,7 @@ function AddCandidatePage() {
                                     Name
                                 </SoftTypography>
                                 <TextField
-                                    fullWidth
+                                    placeholder="Enter candidate name"
                                     name="name"
                                     value={candidate.name}
                                     onChange={handleChange}
@@ -111,7 +111,7 @@ function AddCandidatePage() {
                                     Location
                                 </SoftTypography>
                                 <TextField
-                                    fullWidth
+                                    placeholder="Enter Location"
                                     name="location"
                                     value={candidate.location}
                                     onChange={handleChange}

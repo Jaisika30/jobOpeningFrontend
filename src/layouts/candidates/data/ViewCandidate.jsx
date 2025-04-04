@@ -97,7 +97,7 @@ function ViewCandidate() {
                                     Name
                                 </SoftTypography>
                                 <TextField
-                                    fullWidth
+                                    placeholder="Enter Name"
                                     name="name"
                                     value={candidate.name}
                                     onChange={handleChange}
@@ -130,7 +130,7 @@ function ViewCandidate() {
                                     Location
                                 </SoftTypography>
                                 <TextField
-                                    fullWidth
+                                    placeholder="Enter Location"
                                     name="location"
                                     value={candidate.location}
                                     onChange={handleChange}

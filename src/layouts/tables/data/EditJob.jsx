@@ -114,7 +114,7 @@ function EditJob() {
                   Job Title
                 </SoftTypography>
                 <TextField
-                  fullWidth
+                  placeholder="Enter Job Title"
                   name="title"
                   value={job.title}
                   onChange={handleChange}
