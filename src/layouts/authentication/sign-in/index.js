@@ -191,7 +191,7 @@ const {setIsAuthenticated} = useAuth();
           setErrorMessage(response.data.message || "Login failed");
         }
       } catch (error) {
-        setErrorMessage(error.response?.data?.message || "An error occurred",error);
+        setErrorMessage(error.response?.data?.message || "An error occurred");
       }
     },
   });
