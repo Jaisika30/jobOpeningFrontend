@@ -126,21 +126,22 @@ function AddJob() {
                   margin="none"
                   placeholder="Enter job location"
                   sx={{
-                    width: "100%", // Outer container takes full width
-                    maxWidth: "100%", // Ensures outer field is not larger than 600px
+                    width: "100%", // Ensures the outer field takes full width
+                    maxWidth: "100%", // Prevents limiting outer width unnecessarily
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
                     display: "flex",
                     justifyContent: "center",
                     "& .MuiInputBase-root": {
-                      width: "100% !important", // Ensures outer container of input field is 600px
+                      width: "100%", // Outer field remains full width
                       display: "flex",
+                      justifyContent: "center", // Centers inner input
                     },
                     "& .MuiInputBase-input": {
-                      width: "600px !important", // Ensures typing area is exactly 600px
-                      minWidth: "600px !important", // Prevents shrinkage
-                      maxWidth: "600px !important", // Avoids unintended compression
-                      padding: "10px", // Adjusts inner spacing
+                      width: "600px", // Limits input typing space to 600px
+                      maxWidth: "600px", // Ensures it doesn't expand beyond 600px
+                      minWidth: "600px", // Prevents shrinkage
+                      textAlign: "center", // Aligns text for visual clarity (optional)
                     },
                   }}
                 />
