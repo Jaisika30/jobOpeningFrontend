@@ -152,12 +152,12 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import curved9 from "assets/images/curved-images/curved-6.jpg";
 import { useAuth } from "protect/AuthContext";
 const API_URL = process.env.REACT_APP_API_URL;
-console.log("apiiiiiiii irlllll",API_URL)
+console.log("apiiiiiiii irlllll", API_URL)
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-const {setIsAuthenticated} = useAuth();
+  const { login } = useAuth();
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   // Formik setup with validation schema
@@ -180,13 +180,10 @@ const {setIsAuthenticated} = useAuth();
         const response = await axios.post(`${API_URL}/api/auth/login`, values);
         console.log("responseee:::", response);
         if (response.status === 200) {
-          localStorage.setItem("token", response.data.token); // Save token
+          login(response.data.token); 
           console.log("ogiiiiiiiiiiiinnnnnnnnnnnnnnnn"); // Save token
-          setIsAuthenticated(true);
-          setTimeout(() => {
-            navigate("/dashboard");
-          }, 100);
-          // navigate("/dashboard"); // Redirect to dashboard
+          // setIsAuthenticated(true);
+          navigate("/dashboard"); // Redirect to dashboard
         } else {
           setErrorMessage(response.data.message || "Login failed");
         }
