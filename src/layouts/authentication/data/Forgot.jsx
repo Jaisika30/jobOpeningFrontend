@@ -137,8 +137,8 @@ const Forgot = () => {
             },
             "& .MuiInputBase-input": {
               width: "200px",
-              maxWidth: "200px",
-              minWidth: "200px",
+              maxWidth: "300px",
+              minWidth: "300px",
             },
           }}
         />
