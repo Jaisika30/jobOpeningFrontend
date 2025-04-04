@@ -55,7 +55,7 @@ function AddCandidatePage() {
         try {
             dispatch(createCandidate(candidate));
             toast.success("Candidate added successfully! 🎉");  // Success toast
-            navigate("/candidates"); // Redirect after submission
+            navigate("/Candidate"); // Redirect after submission
         } catch (error) {
             console.error("Failed to add candidate:", error);
             toast.error("Error adding candidate. Please try again.");  // Error toast
