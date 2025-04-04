@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
@@ -22,8 +22,15 @@ import textFieldStyles from "assets/textFieldStyles";
 function AddCandidatePage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const phoneRef = useRef();
+    const locationRef = useRef();
+    const jobRef = useRef();
+    const slotRef = useRef();
+    const scheduleRef = useRef();
+    const status = useRef();
+
     // const [jobs, setJobs] = useState([]);
-    const jobs= useSelector((state)=>state.jobs.jobs)
+    const jobs = useSelector((state) => state.jobs.jobs)
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -47,12 +54,12 @@ function AddCandidatePage() {
         dispatch(getJobs());
     }, [dispatch]);
 
-   
+
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+
         console.log("Adding candidate:", candidate);
-        
+
         try {
             dispatch(createCandidate(candidate));
             toast.success("Candidate added successfully! 🎉");  // Success toast
@@ -81,10 +88,17 @@ function AddCandidatePage() {
                                     name="name"
                                     value={candidate.name}
                                     onChange={handleChange}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            phoneRef.current?.focus();
+                                        }
+                                    }}
                                     placeholder="Enter candidate name"
                                     margin="none"
                                     sx={textFieldStyles}
                                 />
+
                             </SoftBox>
 
                             {/* Phone Field */}
@@ -94,15 +108,23 @@ function AddCandidatePage() {
                                 </SoftTypography>
                                 <TextField
                                     fullWidth
+                                    inputRef={phoneRef}
                                     name="phone"
                                     value={candidate.phone}
                                     onChange={handleChange}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            locationRef.current?.focus();
+                                        }
+                                    }}
                                     margin="none"
                                     sx={{
                                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                                         borderRadius: "5px",
                                     }}
                                 />
+
                             </SoftBox>
 
                             {/* Location Field */}
@@ -111,13 +133,21 @@ function AddCandidatePage() {
                                     Location
                                 </SoftTypography>
                                 <TextField
+                                    inputRef={locationRef}
                                     name="location"
                                     value={candidate.location}
                                     onChange={handleChange}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            slotRef.current?.focus();
+                                        }
+                                    }}
                                     placeholder="Enter Location"
                                     margin="none"
-                                     sx={textFieldStyles}
+                                    sx={textFieldStyles}
                                 />
+
                             </SoftBox>
                             {/* Job Title Dropdown */}
                             <SoftBox mb={3}>
@@ -156,11 +186,18 @@ function AddCandidatePage() {
                                     Interview Schedule
                                 </SoftTypography>
                                 <TextField
+                                    inputRef={scheduleRef}
                                     fullWidth
                                     name="interviewSchedule"
                                     type="date"
                                     value={candidate.interviewSchedule}
                                     onChange={handleChange}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            handleSubmit(e);
+                                        }
+                                    }}
                                     margin="none"
                                     InputLabelProps={{ shrink: true }}
                                     sx={{
@@ -168,6 +205,8 @@ function AddCandidatePage() {
                                         borderRadius: "5px",
                                     }}
                                 />
+
+
                             </SoftBox>
 
                             {/* Communication Dropdown */}
@@ -287,11 +326,18 @@ function AddCandidatePage() {
                                         name="status"
                                         value={candidate.status}
                                         onChange={handleChange}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                handleSubmit(e);
+                                            }
+                                        }}
                                         sx={{
                                             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                                             borderRadius: "5px",
                                         }}
                                     >
+
                                         {[
                                             "Pending",
                                             "Shortlisted",
