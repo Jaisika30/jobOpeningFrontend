@@ -123,10 +123,10 @@ const getCandidatesTableData = () => {
   return {
     topAction: (
       <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
-        <Button variant="contained" color="primary" onClick={() => navigate("/addCandidate")}>
+        <Button variant="contained" color="primary" onClick={() => navigate("/Candidate")}>
           Back
         </Button>
-        <Button variant="contained" color="primary" onClick={() => navigate("/addCandidate")}>
+        <Button variant="contained" color="success" onClick={() => navigate("/addCandidate")}>
           Add Candidate
         </Button>
         <TextField
