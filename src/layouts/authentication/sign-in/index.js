@@ -182,6 +182,7 @@ const {setIsAuthenticated} = useAuth();
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token); // Save token
           console.log("ogiiiiiiiiiiiinnnnnnnnnnnnnnnn"); // Save token
+          setIsAuthenticated(true);
           setTimeout(() => {
             navigate("/dashboard");
           }, 100);
