@@ -45,7 +45,7 @@ function AddJob() {
   // };
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent form refresh
-  
+
     try {
       await dispatch(createJob({ jobData: job }));
       toast.success("Job added successfully! 🚀");
@@ -129,6 +129,9 @@ function AddJob() {
                   sx={{
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
+                    "& .MuiInputBase-input": {
+                      width: "300px", // custom width of the input text area
+                    },
                   }}
                 />
               </SoftBox>
