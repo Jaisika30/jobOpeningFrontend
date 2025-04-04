@@ -116,12 +116,17 @@ function SignIn() {
               }
             }}
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment position="end"  sx={{ marginRight: "10px" }}>
                 <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between", // Ensures proper alignment
+            }}
           />
            {formik.touched.password && formik.errors.password && (
             <SoftTypography variant="caption" color="error" fontWeight="regular">
