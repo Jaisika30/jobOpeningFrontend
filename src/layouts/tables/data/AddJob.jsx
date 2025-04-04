@@ -133,7 +133,7 @@ function AddJob() {
                     display: "flex",
                     justifyContent: "center",
                     "& .MuiInputBase-root": {
-                      width: "600px !important", // Ensures outer container of input field is 600px
+                      width: "100% !important", // Ensures outer container of input field is 600px
                       display: "flex",
                     },
                     "& .MuiInputBase-input": {
