@@ -114,27 +114,27 @@ const getCandidatesTableData = () => {
   };
 
   if (loading) return { columns: [], rows: [] };
-  if (filteredCandidates.length === 0) {
-    return {
-      topAction: (
-        <div style={{ marginBottom: '16px' }}>
-          <Button variant="contained" color="primary" onClick={() => navigate("/addCandidate")}>
-            Add Candidate
-          </Button>
-        </div>
-      ),
-      columns: [],
-      rows: [
-        {
-          name: (
-            <SoftTypography variant="h6" color="secondary" align="center">
-              No candidates available.
-            </SoftTypography>
-          ),
-        },
-      ],
-    };
-  }
+  // if (filteredCandidates.length === 0) {
+  //   return {
+  //     topAction: (
+  //       <div style={{ marginBottom: '16px' }}>
+  //         <Button variant="contained" color="primary" onClick={() => navigate("/addCandidate")}>
+  //           Add Candidate
+  //         </Button>
+  //       </div>
+  //     ),
+  //     columns: [],
+  //     rows: [
+  //       {
+  //         name: (
+  //           <SoftTypography variant="h6" color="secondary" align="center">
+  //             No candidates available.
+  //           </SoftTypography>
+  //         ),
+  //       },
+  //     ],
+  //   };
+  // }
   return {
     topAction: (
       <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
