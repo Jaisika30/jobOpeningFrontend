@@ -141,7 +141,7 @@ function AddJob() {
                       width: "900px", // Limits input typing space to 600px
                       maxWidth: "900px", // Ensures it doesn't expand beyond 600px
                       minWidth: "900px", // Prevents shrinkage
-                      textAlign: "center", // Aligns text for visual clarity (optional)
+
                     },
                   }}
                 />
