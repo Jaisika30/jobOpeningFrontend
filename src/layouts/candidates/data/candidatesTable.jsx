@@ -12,6 +12,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getCandidatesByJobID } from "slices/candidateSlice";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 // const useCandidateData = () => {
 //   const { id } = useParams();
