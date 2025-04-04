@@ -244,12 +244,12 @@ function SignIn() {
           </SoftTypography>
         )}
 
-        <SoftBox display="flex" alignItems="center">
+        {/* <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
           <SoftTypography variant="button" fontWeight="regular" onClick={handleSetRememberMe} sx={{ cursor: "pointer", userSelect: "none" }}>
             &nbsp;&nbsp;Remember me
           </SoftTypography>
-        </SoftBox>
+        </SoftBox> */}
 
         <SoftBox mt={4} mb={1}>
           <SoftButton type="submit" variant="gradient" color="info" fullWidth>
