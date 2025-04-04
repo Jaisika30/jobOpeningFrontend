@@ -122,10 +122,6 @@ function AddJob() {
                   placeholder="Enter job location"
                   sx={textFieldStyles}
                 />
-
-
-
-
               </SoftBox>
 
               <SoftBox mb={3}>
