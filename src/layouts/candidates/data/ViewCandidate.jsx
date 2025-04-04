@@ -18,6 +18,7 @@ import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
 import { getCandidateById } from "slices/candidateSlice";
 import { updateCandidate } from "slices/candidateSlice";
+import textFieldStyles from "assets/textFieldStyles";
 
 function ViewCandidate() {
     const navigate = useNavigate();
@@ -101,10 +102,7 @@ function ViewCandidate() {
                                     value={candidate.name}
                                     onChange={handleChange}
                                     margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
+                                    sx={textFieldStyles}
                                 />
                             </SoftBox>
 
@@ -137,10 +135,7 @@ function ViewCandidate() {
                                     value={candidate.location}
                                     onChange={handleChange}
                                     margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
+                                    sx={textFieldStyles}
                                 />
                             </SoftBox>
                             {/* Job Title Dropdown */}

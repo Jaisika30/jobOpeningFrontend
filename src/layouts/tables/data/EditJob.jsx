@@ -15,6 +15,7 @@ import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobById, updateJob } from "slices/jobSlice";
 import { toast } from "react-toastify";
+import textFieldStyles from "assets/textFieldStyles";
 
 function formatDate(isoString) {
   if (!isoString) return "";
@@ -118,10 +119,7 @@ function EditJob() {
                   value={job.title}
                   onChange={handleChange}
                   margin="none"
-                  sx={{
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "5px",
-                  }}
+                  sx={textFieldStyles}
                 />
               </SoftBox>
 
@@ -136,14 +134,7 @@ function EditJob() {
                   margin="none"
                   multiline
                   rows={4}
-                  sx={{
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "5px",
-                    minWidth: "100%",
-                    whiteSpace: "normal",
-                    wordWrap: "break-word",
-                    overflow: "hidden",
-                  }}
+                   sx={textFieldStyles}
                 />
               </SoftBox>
               <SoftBox mb={3}>

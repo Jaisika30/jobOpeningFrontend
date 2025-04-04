@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
 import { toast } from "react-toastify";
+import textFieldStyles from "assets/textFieldStyles";
 
 function AddCandidatePage() {
     const navigate = useNavigate();
@@ -82,10 +83,7 @@ function AddCandidatePage() {
                                     value={candidate.name}
                                     onChange={handleChange}
                                     margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
+                                    sx={textFieldStyles}
                                 />
                             </SoftBox>
 
@@ -118,10 +116,7 @@ function AddCandidatePage() {
                                     value={candidate.location}
                                     onChange={handleChange}
                                     margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
+                                     sx={textFieldStyles}
                                 />
                             </SoftBox>
                             {/* Job Title Dropdown */}

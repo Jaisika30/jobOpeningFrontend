@@ -14,6 +14,7 @@ import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "slices/jobSlice";
 import { toast } from "react-toastify";
+import textFieldStyles from "assets/textFieldStyles";
 
 function AddJob() {
   const navigate = useNavigate();
@@ -88,10 +89,7 @@ function AddJob() {
                   value={job.title}
                   onChange={handleChange}
                   margin="none"
-                  sx={{
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "5px",
-                  }}
+                  sx={textFieldStyles}
                 />
               </SoftBox>
 
@@ -107,10 +105,7 @@ function AddJob() {
                   multiline
                   rows={4}
                   fullWidth
-                  sx={{
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "5px",
-                  }}
+                  sx={textFieldStyles}
                 />
               </SoftBox>
 
@@ -125,25 +120,7 @@ function AddJob() {
                   onChange={handleChange}
                   margin="none"
                   placeholder="Enter job location"
-                  sx={{
-                    width: "100%", // Ensures the outer field takes full width
-                    maxWidth: "100%", // Prevents limiting outer width unnecessarily
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "5px",
-                    display: "flex",
-                    justifyContent: "center",
-                    "& .MuiInputBase-root": {
-                      width: "100%", // Outer field remains full width
-                      display: "flex",
-                      justifyContent: "center", // Centers inner input
-                    },
-                    "& .MuiInputBase-input": {
-                      width: "900px", // Limits input typing space to 600px
-                      maxWidth: "900px", // Ensures it doesn't expand beyond 600px
-                      minWidth: "900px", // Prevents shrinkage
-
-                    },
-                  }}
+                  sx={textFieldStyles}
                 />
 
 

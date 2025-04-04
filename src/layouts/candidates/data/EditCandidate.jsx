@@ -19,6 +19,7 @@ import { createCandidate } from "slices/candidateSlice";
 import { getCandidateById } from "slices/candidateSlice";
 import { updateCandidate } from "slices/candidateSlice";
 import { toast } from "react-toastify";
+import textFieldStyles from "assets/textFieldStyles";
 
 function EditCandidatePage() {
     const navigate = useNavigate();
@@ -110,10 +111,7 @@ function EditCandidatePage() {
                                     value={candidate.name}
                                     onChange={handleChange}
                                     margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
+                                    sx={textFieldStyles}
                                 />
                             </SoftBox>
 
@@ -146,10 +144,7 @@ function EditCandidatePage() {
                                     value={candidate.location}
                                     onChange={handleChange}
                                     margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
+                                    sx={textFieldStyles}
                                 />
                             </SoftBox>
                             {/* Job Title Dropdown */}
