@@ -46,7 +46,7 @@ const useCandidateData = () => {
       console.log("iddddddd", id)
       console.log("allcandidates:::::::::", allCandidates);
       dispatch(getCandidatesByJobID(id));
-      if(allCandidates.length === 0){
+      if (allCandidates.length === 0) {
         console.log("no candidate available.")
       } // Fetch candidates for specific job
     } else {
@@ -241,7 +241,7 @@ const getCandidatesTableData = () => {
           </IconButton>
         </div>
       ),
-    })): [{ name: "No candidates available" }],
+    })) : [{ name: "No candidates available" }],
   };
 };
 

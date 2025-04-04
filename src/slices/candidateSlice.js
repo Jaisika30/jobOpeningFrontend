@@ -47,8 +47,8 @@ export const getCandidates = createAsyncThunk(
             if (response.data.length === 0) {
                 import("sweetalert2").then((Swal) => {
                     Swal.default.fire({
-                      title: "No Candidates Available",
-                      text: "There are no candidates available for this job.",
+                      title: "No Candidates Available!",
+                      text: "Please add candidates for see the details.",
                       icon: "info",
                       confirmButtonText: "OK",
                     });
