@@ -138,9 +138,9 @@ function AddJob() {
                       justifyContent: "center", // Centers inner input
                     },
                     "& .MuiInputBase-input": {
-                      width: "100%", // Limits input typing space to 600px
-                      maxWidth: "100%", // Ensures it doesn't expand beyond 600px
-                      minWidth: "100%", // Prevents shrinkage
+                      width: "900px", // Limits input typing space to 600px
+                      maxWidth: "900px", // Ensures it doesn't expand beyond 600px
+                      minWidth: "900px", // Prevents shrinkage
                       textAlign: "center", // Aligns text for visual clarity (optional)
                     },
                   }}
