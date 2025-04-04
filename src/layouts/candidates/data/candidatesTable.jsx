@@ -307,8 +307,23 @@ const getCandidatesTableData = () => {
       }
     });
   };
-
-  if (loading) return { columns: [], rows: [] };
+  if (loading) {
+    return {
+      columns: [],
+      rows: [
+        {
+          name: (
+            <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" width="100%" mt={2}>
+              <CircularProgress color="secondary" size={30} />
+              <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
+                Loading candidates...
+              </SoftTypography>
+            </Box>
+          ),
+        }
+      ]
+    };
+  }
 
   const noCandidatesFound = filteredCandidates.length === 0||filteredCandidates.length < 0 ;
 
