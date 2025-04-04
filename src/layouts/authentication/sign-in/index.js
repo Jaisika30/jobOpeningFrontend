@@ -182,7 +182,6 @@ const {setIsAuthenticated} = useAuth();
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token); // Save token
           console.log("ogiiiiiiiiiiiinnnnnnnnnnnnnnnn"); // Save token
-          setIsAuthenticated(true);
           navigate("/dashboard"); // Redirect to dashboard
         } else {
           setErrorMessage(response.data.message || "Login failed");
