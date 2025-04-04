@@ -319,8 +319,8 @@ function AddCandidatePage() {
                                 </Button>
                                 <Button
                                     variant="outlined"
-                                    color="secondary"
-                                    onClick={() => navigate("/candidates")}
+                                    style={{ backgroundColor: "#4caf50", color: "#ffffff" }}
+                                    onClick={() => navigate("/Candidate")}
                                 >
                                     Cancel
                                 </Button>
