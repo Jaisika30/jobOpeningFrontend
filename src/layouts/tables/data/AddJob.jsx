@@ -101,8 +101,8 @@ function AddJob() {
                   name="description"
                   value={job.description}
                   onChange={handleChange}
-                  margin="none"
                   placeholder="Enter job description"
+                  margin="none"
                   multiline
                   rows={4}
                   sx={textFieldStyles}
