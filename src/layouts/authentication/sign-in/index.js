@@ -102,7 +102,7 @@ function SignIn() {
           </SoftBox>
           <SoftInput
             inputRef={passwordRef}
-            type={showPassword ? "text" : "password"}
+            type="password"
             placeholder="Password"
             name="password"
             value={formik.values.password}
@@ -115,18 +115,18 @@ function SignIn() {
                 formik.handleSubmit(); // Submit form
               }
             }}
-            endAdornment={
-              <InputAdornment position="end"  sx={{ marginLeft: "20px" }}>
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between", // Ensures proper alignment
-            }}
+            // endAdornment={
+            //   <InputAdornment position="end"  sx={{ marginLeft: "20px" }}>
+            //     <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+            //       {showPassword ? <VisibilityOff /> : <Visibility />}
+            //     </IconButton>
+            //   </InputAdornment>
+            // }
+            // sx={{
+            //   display: "flex",
+            //   alignItems: "center",
+            //   justifyContent: "space-between", // Ensures proper alignment
+            // }}
           />
            {formik.touched.password && formik.errors.password && (
             <SoftTypography variant="caption" color="error" fontWeight="regular">
