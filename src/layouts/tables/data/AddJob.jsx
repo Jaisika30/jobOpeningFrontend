@@ -105,7 +105,6 @@ function AddJob() {
                   placeholder="Enter job description"
                   multiline
                   rows={4}
-                  fullWidth
                   sx={textFieldStyles}
                 />
               </SoftBox>
