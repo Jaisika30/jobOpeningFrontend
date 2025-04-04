@@ -120,7 +120,6 @@ function AddJob() {
                   Location
                 </SoftTypography>
                 <TextField
-                  
                   name="location"
                   value={job.location}
                   onChange={handleChange}
@@ -129,11 +128,13 @@ function AddJob() {
                   sx={{
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
-                    "& .MuiInputBase-input MuiOutlinedInput-input css-xruidb css-g2bui7": {
-                      width: "300px !important", // custom width of the input text area
+                    width: "300px", // This sets the outer TextField width
+                    "& .MuiInputBase-input": {
+                      width: "100%", // This ensures input takes full width of the field
                     },
                   }}
                 />
+
               </SoftBox>
 
               <SoftBox mb={3}>
