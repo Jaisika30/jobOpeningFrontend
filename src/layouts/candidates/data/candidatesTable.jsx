@@ -50,6 +50,7 @@ const useCandidateData = () => {
         console.log("no candidate available.")
       } // Fetch candidates for specific job
     } else {
+      console.log("helooooooo");
       dispatch(getCandidates()); // Fetch all candidates
     }
   }, [dispatch, id]);

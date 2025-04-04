@@ -43,7 +43,17 @@ export const getCandidates = createAsyncThunk(
                 },
             });
 
-            console.log(response.data);
+            console.log("responseeeeeeeeeeeeeeeeeeeeeeee::::",response);
+            if (response.data.length === 0) {
+                import("sweetalert2").then((Swal) => {
+                    Swal.default.fire({
+                      title: "No Candidates Available",
+                      text: "There are no candidates available for this job.",
+                      icon: "info",
+                      confirmButtonText: "OK",
+                    });
+                  });
+              }
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "An error occurred");
