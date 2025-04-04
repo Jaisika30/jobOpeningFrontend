@@ -114,6 +114,11 @@ function SignIn() {
               }
             }}
           />
+           {formik.touched.password && formik.errors.password && (
+            <SoftTypography variant="caption" color="error" fontWeight="regular">
+              {formik.errors.password}
+            </SoftTypography>
+          )}
         </SoftBox>
 
         {errorMessage && (
