@@ -88,7 +88,7 @@ const Forgot = () => {
 
   // ✅ Navigate when `success` updates
   useEffect(() => {
-    console.log("Sucesssssss",success)
+    console.log("Sucesssssss", success)
     if (success) {
       console.log("Navigating to /verify-otp...");
       navigate("/verify-otp");
@@ -119,12 +119,28 @@ const Forgot = () => {
           Enter Your Email, We Will Send You OTP to Reset Password
         </Typography>
         <TextField
-          fullWidth
+          
           label="Enter Email"
           variant="outlined"
           margin="normal"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          sx={{
+            width: "100%",
+            maxWidth: "100%",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            borderRadius: "5px",
+            display: "flex",
+            "& .MuiInputBase-root": {
+              width: "100%",
+              display: "flex",
+            },
+            "& .MuiInputBase-input": {
+              width: "200px",
+              maxWidth: "200px",
+              minWidth: "200px",
+            },
+          }}
         />
         <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
           Submit
