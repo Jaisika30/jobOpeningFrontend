@@ -127,7 +127,7 @@ function AddJob() {
                   placeholder="Enter job location"
                   sx={{
                     width: "100%", // Outer container takes full width
-                    maxWidth: "600px", // Ensures outer field is not larger than 600px
+                    maxWidth: "100%", // Ensures outer field is not larger than 600px
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
                     display: "flex",
