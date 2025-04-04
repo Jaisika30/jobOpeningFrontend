@@ -39,12 +39,7 @@ function SignIn() {
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email address").required("Email is required"),
-      password: Yup.string()
-        .matches(
-          /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/,
-          "Password must be at least 8 characters long, include a capital letter, and a special character"
-        )
-        .required("Password is required"),
+      password: Yup.string().required("Password is required"),
     }),
     onSubmit: async (values) => {
       try {
@@ -119,13 +114,6 @@ function SignIn() {
               }
             }}
           />
-
-
-          {formik.touched.password && formik.errors.password && (
-            <SoftTypography variant="caption" color="error" fontWeight="regular">
-              {formik.errors.password}
-            </SoftTypography>
-          )}
         </SoftBox>
 
         {errorMessage && (
