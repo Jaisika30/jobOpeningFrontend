@@ -310,7 +310,7 @@ const getCandidatesTableData = () => {
 
   if (loading) return { columns: [], rows: [] };
 
-  const noCandidatesFound = filteredCandidates.length === 0;
+  const noCandidatesFound = filteredCandidates.length === 0||filteredCandidates.length < 0 ;
 
   return {
     topAction: (
