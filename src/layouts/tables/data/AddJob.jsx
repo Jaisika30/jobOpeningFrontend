@@ -98,7 +98,7 @@ function AddJob() {
                   Description
                 </SoftTypography>
                 <TextField
-                  pla="description"
+                  name="description"
                   value={job.description}
                   onChange={handleChange}
                   margin="none"
