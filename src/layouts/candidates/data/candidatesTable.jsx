@@ -310,6 +310,8 @@ const getCandidatesTableData = () => {
 
   if (loading) return { columns: [], rows: [] };
 
+  const noCandidatesFound = filteredCandidates.length === 0;
+
   return {
     topAction: (
       <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
@@ -353,9 +355,6 @@ const getCandidatesTableData = () => {
             <MenuItem value="Rejected">Rejected</MenuItem>
           </Select>
         </FormControl>
-        <Button variant="outlined" color="secondary" onClick={handleResetFilters}>
-          Reset Filters
-        </Button>
       </div>
     ),
     columns: [
@@ -365,8 +364,27 @@ const getCandidatesTableData = () => {
       { name: "status", label: "Status", align: "center" },
       { name: "action", label: "Action", align: "center" },
     ],
-    rows: filteredCandidates.length > 0
-      ? filteredCandidates.map((candidate) => ({
+    rows: noCandidatesFound
+      ? [{
+          name: (
+            <SoftTypography variant="h6" color="secondary" align="center">
+              No candidates match the criteria.
+            </SoftTypography>
+          ),
+          location: "",
+          interviewStatus: "",
+          status: "",
+          action: (
+            <Button
+              variant="contained"
+              onClick={handleResetFilters}
+              style={{ backgroundColor: 'red', color: 'white' }}
+            >
+              Reset Filters
+            </Button>
+          )
+        }]
+      : filteredCandidates.map((candidate) => ({
           name: (
             <SoftTypography variant="button" fontWeight="medium" color="dark">
               {candidate.name}
@@ -420,22 +438,7 @@ const getCandidatesTableData = () => {
               </IconButton>
             </div>
           ),
-        }))
-      : [{
-          name: (
-            <SoftTypography variant="h6" color="secondary" align="center">
-              No candidates match the criteria.
-            </SoftTypography>
-          ),
-          location: "",
-          interviewStatus: "",
-          status: "",
-          action: (
-            <Button variant="outlined" color="secondary" onClick={handleResetFilters}>
-              Reset Filters
-            </Button>
-          )
-        }],
+        })),
   };
 };
 
