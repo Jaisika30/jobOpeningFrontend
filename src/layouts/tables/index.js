@@ -131,6 +131,8 @@ import { useJobData, getJobTableData } from "layouts/tables/data/authorsTableDat
 import { useDispatch } from "react-redux";
 import { deleteJob } from "slices/jobSlice";
 import Swal from "sweetalert2";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 function Tables() {
@@ -212,9 +214,12 @@ function Tables() {
               }}
             >
               {loading ? (
-                <SoftTypography variant="button" color="secondary" textAlign="center">
+                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={2}>
+                <CircularProgress color="secondary" size={30} />
+                <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
                   Loading jobs...
                 </SoftTypography>
+              </Box>
               ) : (
                 <Table columns={tableData.columns} rows={tableData.rows} />
               )}
