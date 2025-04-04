@@ -130,7 +130,7 @@ function AddJob() {
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
                     "& .MuiInputBase-input": {
-                      width: "300px", // custom width of the input text area
+                      width: "300px !important", // custom width of the input text area
                     },
                   }}
                 />
