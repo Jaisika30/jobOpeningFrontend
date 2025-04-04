@@ -115,6 +115,7 @@ const getCandidatesTableData = () => {
 
   if (loading) return { columns: [], rows: [] };
   if (filteredCandidates.length === 0) {
+    console.log("hiiiiiii no candidateeeeee")
     return {
       topAction: (
         <div style={{ marginBottom: '16px' }}>
