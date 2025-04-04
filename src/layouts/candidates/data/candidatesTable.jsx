@@ -309,15 +309,7 @@ const getCandidatesTableData = () => {
       }
     });
   };
-  if (loading) {
-    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={15}>
-      <CircularProgress color="primary" size={30} />
-      <SoftTypography variant="button" color="secondary" mt={2}>
-        Loading candidates...
-      </SoftTypography>
-    </Box>
-
-  }
+  
 
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
 
@@ -373,8 +365,98 @@ const getCandidatesTableData = () => {
       { name: "status", label: "Status", align: "center" },
       { name: "action", label: "Action", align: "center" },
     ],
-    rows: noCandidatesFound
-      ? [{
+    // rows: noCandidatesFound
+    //   ? [{
+    //     name: (
+    //       <SoftTypography variant="h6" color="secondary" align="center">
+    //         No candidates match the criteria.
+    //       </SoftTypography>
+    //     ),
+    //     location: "",
+    //     interviewStatus: "",
+    //     status: "",
+    //     action: (
+    //       <Button
+    //         variant="contained"
+    //         onClick={handleResetFilters}
+    //         style={{ backgroundColor: 'red', color: 'white' }}
+    //       >
+    //         Reset Filters
+    //       </Button>
+    //     )
+    //   }]
+    //   : filteredCandidates.map((candidate) => ({
+    //     name: (
+    //       <SoftTypography variant="button" fontWeight="medium" color="dark">
+    //         {candidate.name}
+    //       </SoftTypography>
+    //     ),
+    //     location: (
+    //       <SoftTypography variant="caption" color="secondary">
+    //         {candidate.location}
+    //       </SoftTypography>
+    //     ),
+    //     interviewStatus: (
+    //       <SoftBadge
+    //         variant="gradient"
+    //         badgeContent={candidate.interviewStatus}
+    //         color={
+    //           candidate.interviewStatus === "Accepted" ? "success" :
+    //             candidate.interviewStatus === "Rejected" ? "error" :
+    //               candidate.interviewStatus === "Pending" ? "warning" : "info"
+    //         }
+    //         size="xs"
+    //         container
+    //       />
+    //     ),
+    //     status: (
+    //       <SoftBadge
+    //         variant="gradient"
+    //         badgeContent={candidate.status}
+    //         color={
+    //           candidate.status === "Hired" ? "success" :
+    //             candidate.status === "Rejected" ? "error" :
+    //               candidate.status === "Pending" ? "warning" : "info"
+    //         }
+    //         size="xs"
+    //         container
+    //       />
+    //     ),
+    //     action: (
+    //       <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+    //         <Link to={`/viewCandidate/${candidate._id}`}>
+    //           <IconButton color="primary">
+    //             <VisibilityIcon />
+    //           </IconButton>
+    //         </Link>
+    //         <Link to={`/editCandidate/${candidate._id}`}>
+    //           <IconButton color="secondary">
+    //             <EditIcon />
+    //           </IconButton>
+    //         </Link>
+    //         <IconButton color="error" onClick={() => handleDelete(candidate._id)}>
+    //           <DeleteIcon />
+    //         </IconButton>
+    //       </div>
+    //     ),
+    //   })),
+    rows: loading
+  ? [{
+      name: (
+        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" width="100%" mt={2}>
+          <CircularProgress color="primary" size={30} />
+          <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
+            Loading candidates...
+          </SoftTypography>
+        </Box>
+      ),
+      location: "",
+      interviewStatus: "",
+      status: "",
+      action: ""
+    }]
+  : noCandidatesFound
+    ? [{
         name: (
           <SoftTypography variant="h6" color="secondary" align="center">
             No candidates match the criteria.
@@ -393,7 +475,7 @@ const getCandidatesTableData = () => {
           </Button>
         )
       }]
-      : filteredCandidates.map((candidate) => ({
+    : filteredCandidates.map((candidate) => ({
         name: (
           <SoftTypography variant="button" fontWeight="medium" color="dark">
             {candidate.name}
@@ -410,8 +492,8 @@ const getCandidatesTableData = () => {
             badgeContent={candidate.interviewStatus}
             color={
               candidate.interviewStatus === "Accepted" ? "success" :
-                candidate.interviewStatus === "Rejected" ? "error" :
-                  candidate.interviewStatus === "Pending" ? "warning" : "info"
+              candidate.interviewStatus === "Rejected" ? "error" :
+              candidate.interviewStatus === "Pending" ? "warning" : "info"
             }
             size="xs"
             container
@@ -423,8 +505,8 @@ const getCandidatesTableData = () => {
             badgeContent={candidate.status}
             color={
               candidate.status === "Hired" ? "success" :
-                candidate.status === "Rejected" ? "error" :
-                  candidate.status === "Pending" ? "warning" : "info"
+              candidate.status === "Rejected" ? "error" :
+              candidate.status === "Pending" ? "warning" : "info"
             }
             size="xs"
             container
@@ -447,7 +529,8 @@ const getCandidatesTableData = () => {
             </IconButton>
           </div>
         ),
-      })),
+      }))
+
   };
 };
 
