@@ -120,7 +120,7 @@ function AddJob() {
                   Location
                 </SoftTypography>
                 <TextField
-                  fullWidth
+                  
                   name="location"
                   value={job.location}
                   onChange={handleChange}
