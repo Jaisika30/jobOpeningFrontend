@@ -310,6 +310,7 @@ const getCandidatesTableData = () => {
     });
   };
   if (loading) {
+    console.log("loading startttt");
     return {
       columns: [],
       rows: [
