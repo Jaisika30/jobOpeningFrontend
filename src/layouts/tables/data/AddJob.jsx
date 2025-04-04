@@ -126,13 +126,18 @@ function AddJob() {
                   margin="none"
                   placeholder="Enter job location"
                   sx={{
+                    width: "100%", // Ensures the outer container takes full width
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
-                    "& .MuiInputBase-input": {
-                      width: "100% !important", // This ensures input takes full width of the field
+                    display: "flex", // Helps maintain full width behavior
+                    justifyContent: "center", // Centers input if needed
+                    "& .MuiInputBase-root": { // Applies styling to the input field container
+                      maxWidth: "600px", // Sets the input field width to 600px
+                      margin: "0 auto", // Centers input within full-width container
                     },
                   }}
                 />
+
 
               </SoftBox>
 
