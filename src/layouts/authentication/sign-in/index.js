@@ -150,13 +150,14 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import curved9 from "assets/images/curved-images/curved-6.jpg";
+import { useAuth } from "protect/AuthContext";
 const API_URL = process.env.REACT_APP_API_URL;
 console.log("apiiiiiiii irlllll",API_URL)
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-
+const {setIsAuthenticated} = useAuth();
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   // Formik setup with validation schema
@@ -181,6 +182,7 @@ function SignIn() {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token); // Save token
           console.log("ogiiiiiiiiiiiinnnnnnnnnnnnnnnn"); // Save token
+          setIsAuthenticated(true);
           navigate("/dashboard"); // Redirect to dashboard
         } else {
           setErrorMessage(response.data.message || "Login failed");
