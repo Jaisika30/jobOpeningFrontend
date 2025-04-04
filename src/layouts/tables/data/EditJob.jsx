@@ -114,10 +114,10 @@ function EditJob() {
                   Job Title
                 </SoftTypography>
                 <TextField
-                  placeholder="Enter Job Title"
                   name="title"
                   value={job.title}
                   onChange={handleChange}
+                  placeholder="Enter Job Title"
                   margin="none"
                   sx={textFieldStyles}
                 />
@@ -132,6 +132,7 @@ function EditJob() {
                   value={job.description}
                   onChange={handleChange}
                   margin="none"
+                  placeholder="Enter job description"
                   multiline
                   rows={4}
                    sx={textFieldStyles}

@@ -104,10 +104,10 @@ function ViewJob() {
                   Job Title
                 </SoftTypography>
                 <TextField
-                  placeholder="Enter Job Title"
                   name="title"
                   value={job.title}
                   onChange={handleChange}
+                  placeholder="Enter Job Title"
                   margin="none"
                   sx={{
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -124,6 +124,7 @@ function ViewJob() {
                   name="description"
                   value={job.description}
                   onChange={handleChange}
+                  placeholder="Enter job description"
                   margin="none"
                   multiline
                   rows={4}

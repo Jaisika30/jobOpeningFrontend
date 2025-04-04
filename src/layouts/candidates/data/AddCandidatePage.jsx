@@ -78,10 +78,10 @@ function AddCandidatePage() {
                                     Name
                                 </SoftTypography>
                                 <TextField
-                                    placeholder="Enter candidate name"
                                     name="name"
                                     value={candidate.name}
                                     onChange={handleChange}
+                                    placeholder="Enter candidate name"
                                     margin="none"
                                     sx={textFieldStyles}
                                 />
@@ -111,10 +111,10 @@ function AddCandidatePage() {
                                     Location
                                 </SoftTypography>
                                 <TextField
-                                    placeholder="Enter Location"
                                     name="location"
                                     value={candidate.location}
                                     onChange={handleChange}
+                                    placeholder="Enter Location"
                                     margin="none"
                                      sx={textFieldStyles}
                                 />

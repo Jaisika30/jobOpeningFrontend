@@ -87,6 +87,7 @@ function AddJob() {
                   name="title"
                   value={job.title}
                   onChange={handleChange}
+                  placeholder="Enter Job Title"
                   margin="none"
                   sx={textFieldStyles}
                 />
@@ -97,10 +98,11 @@ function AddJob() {
                   Description
                 </SoftTypography>
                 <TextField
-                  name="description"
+                  pla="description"
                   value={job.description}
                   onChange={handleChange}
                   margin="none"
+                  placeholder="Enter job description"
                   multiline
                   rows={4}
                   fullWidth

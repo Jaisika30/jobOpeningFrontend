@@ -8,7 +8,6 @@ const textFieldStyles = {
     "& .MuiInputBase-root": {
         width: "100%",
         display: "flex",
-        justifyContent: "center",
     },
     "& .MuiInputBase-input": {
         width: "900px",
