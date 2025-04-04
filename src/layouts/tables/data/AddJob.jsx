@@ -129,7 +129,7 @@ function AddJob() {
                   sx={{
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
-                    "& .css-g2bui7": {
+                    "& .MuiInputBase-input MuiOutlinedInput-input css-xruidb css-g2bui7": {
                       width: "300px !important", // custom width of the input text area
                     },
                   }}
