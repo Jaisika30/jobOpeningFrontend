@@ -161,6 +161,11 @@ function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <Box
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
+    >
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>
@@ -227,6 +232,7 @@ function Tables() {
           </Card>
         </SoftBox>
       </SoftBox>
+      </Box>
       <Footer />
     </DashboardLayout>
   );

@@ -45,20 +45,38 @@ function SignIn() {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await axios.post(`${API_URL}/api/auth/login`, values);
-        console.log("responseee:::", response);
-        if (response.status === 200) {
-          login(response.data.token);
-          console.log("ogiiiiiiiiiiiinnnnnnnnnnnnnnnn"); // Save token
-          // setIsAuthenticated(true);
-          navigate("/dashboard"); // Redirect to dashboard
-        } else {
-          setErrorMessage(response.data.message || "Login failed");
-        }
+          const response = await axios.post(`${API_URL}/api/auth/login`, values);
+          
+          if (response.data.token) {
+              login(response.data.token);
+              navigate("/dashboard");
+          } else {
+              setErrorMessage(response.data.message || "Login failed");
+          }
+          
       } catch (error) {
-        setErrorMessage(error.response?.data?.message || "An error occurred");
+          console.log("Full error object:", error);
+          
+          // More detailed error handling
+          if (error.response) {
+              // The request was made and the server responded with a status code
+              console.log("Error data:", error.response.data);
+              console.log("Error status:", error.response.status);
+              console.log("Error headers:", error.response.headers);
+              
+              setErrorMessage(error.response.data?.message || "Invalid credentials");
+          } else if (error.request) {
+              // The request was made but no response was received
+              console.log("No response received:", error.request);
+              setErrorMessage("No response from server");
+          } else {
+              // Something happened in setting up the request
+              console.log("Request setup error:", error.message);
+              setErrorMessage("Request error: " + error.message);
+          }
       }
-    },
+  }
+    
   });
 
   return (

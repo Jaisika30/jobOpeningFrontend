@@ -161,6 +161,12 @@ const Reset = () => {
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          InputLabelProps={{
+            sx: {
+              fontSize: "0.875rem",
+              // Add other label styles here if needed
+            }
+          }}
         />
         <TextField
           label="Confirm Password"
@@ -170,6 +176,12 @@ const Reset = () => {
           fullWidth
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          InputLabelProps={{
+            sx: {
+              fontSize: "0.875rem",
+              // Add other label styles here if needed
+            }
+          }}
         />
         <Button
           variant="contained"

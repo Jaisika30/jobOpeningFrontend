@@ -118,6 +118,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Candidate from "examples/Candidates/Candidate";
+import { Box } from "@mui/material";
 import getCandidatesTableData from "layouts/candidates/data/candidatesTable";
 
 function Candidates() {
@@ -148,6 +149,11 @@ function Candidates() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <Box
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
+    >
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>
@@ -161,6 +167,7 @@ function Candidates() {
           </Card>
         </SoftBox>
       </SoftBox>
+    </Box>
       <Footer />
     </DashboardLayout>
   );

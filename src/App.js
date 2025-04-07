@@ -324,6 +324,7 @@ export default function App() {
   );
 
   return (
+    
     <AuthProvider>
       {direction === "rtl" ? (
         <CacheProvider value={rtlCache}>

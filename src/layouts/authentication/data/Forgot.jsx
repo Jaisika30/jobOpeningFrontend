@@ -141,6 +141,12 @@ const Forgot = () => {
               minWidth: "300px",
             },
           }}
+          InputLabelProps={{
+            sx: {
+              fontSize: "0.875rem",
+              // Add other label styles here if needed
+            }
+          }}
         />
         <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
           Submit

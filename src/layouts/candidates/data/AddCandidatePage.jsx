@@ -153,6 +153,12 @@ function AddCandidatePage() {
                                     placeholder="Enter candidate name"
                                     margin="none"
                                     sx={textFieldStyles}
+                                    InputLabelProps={{
+                                        sx: {
+                                          fontSize: "0.875rem",
+                                          // Add other label styles here if needed
+                                        }
+                                      }}
                                 />
 
                             </SoftBox>
@@ -210,6 +216,12 @@ function AddCandidatePage() {
                                     placeholder="Enter Location"
                                     margin="none"
                                     sx={textFieldStyles}
+                                    InputLabelProps={{
+                                        sx: {
+                                          fontSize: "0.875rem",
+                                          // Add other label styles here if needed
+                                        }
+                                      }}
                                 />
 
                             </SoftBox>
@@ -250,6 +262,12 @@ function AddCandidatePage() {
                                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                                         borderRadius: "5px",
                                     }}
+                                    InputLabelProps={{
+                                        sx: {
+                                          fontSize: "0.875rem",
+                                          // Add other label styles here if needed
+                                        }
+                                      }}
                                 />
                             </SoftBox>
 

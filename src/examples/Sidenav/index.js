@@ -161,7 +161,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     <SoftBox pt={2} my={2} mx={2} mt="auto">
       <SidenavCard />
       <SoftBox mt={2}>
-        <SoftButton
+        {/* <SoftButton
           component="a"
           href="https://creative-tim.com/product/soft-ui-dashboard-pro-react"
           target="_blank"
@@ -171,7 +171,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           fullWidth
         >
           upgrade to pro
-        </SoftButton>
+        </SoftButton> */}
       </SoftBox>
     </SoftBox>
   </SidenavRoot>

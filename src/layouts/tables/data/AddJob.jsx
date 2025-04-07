@@ -111,6 +111,12 @@ function AddJob() {
                   placeholder="Enter Job Title"
                   margin="none"
                   sx={textFieldStyles}
+                  InputLabelProps={{
+                    sx: {
+                      fontSize: "0.875rem",
+                      // Add other label styles here if needed
+                    }
+                  }}
                 />
               </SoftBox>
 
@@ -127,6 +133,12 @@ function AddJob() {
                   multiline
                   rows={4}
                   sx={textFieldStyles}
+                  InputLabelProps={{
+                    sx: {
+                      fontSize: "0.875rem",
+                      // Add other label styles here if needed
+                    }
+                  }}
                 />
               </SoftBox>
 
@@ -142,6 +154,12 @@ function AddJob() {
                   margin="none"
                   placeholder="Enter job location"
                   sx={textFieldStyles}
+                  InputLabelProps={{
+                    sx: {
+                      fontSize: "0.875rem",
+                      // Add other label styles here if needed
+                    }
+                  }}
                 />
               </SoftBox>
 
@@ -161,6 +179,7 @@ function AddJob() {
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
                   }}
+                 
                 />
               </SoftBox>
 
