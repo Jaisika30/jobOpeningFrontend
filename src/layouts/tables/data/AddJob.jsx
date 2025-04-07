@@ -14,7 +14,7 @@ import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "slices/jobSlice";
 import { toast } from "react-toastify";
-import textFieldStyles from "assets/textFieldStyles";
+import { textFieldStyles } from "assets/textFieldStyles";
 
 function AddJob() {
   const navigate = useNavigate();

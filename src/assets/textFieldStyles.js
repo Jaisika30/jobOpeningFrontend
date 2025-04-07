@@ -10,10 +10,18 @@ const textFieldStyles = {
         display: "flex",
     },
     "& .MuiInputBase-input": {
-        width: "900px",
-        maxWidth: "900px",
-        minWidth: "900px",
+        width: "330px",
+        maxWidth: "330px",
+        minWidth: "330px",
     },
 };
+const dropdownStyles = {
+    width: "370px",
+    maxWidth: "370px",
+    minWidth: "370px",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    borderRadius: "5px",
+    display: "flex",
+};
 
-export default textFieldStyles;
+export { textFieldStyles, dropdownStyles };

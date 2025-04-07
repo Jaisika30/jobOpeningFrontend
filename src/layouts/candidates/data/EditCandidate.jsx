@@ -19,7 +19,7 @@ import { createCandidate } from "slices/candidateSlice";
 import { getCandidateById } from "slices/candidateSlice";
 import { updateCandidate } from "slices/candidateSlice";
 import { toast } from "react-toastify";
-import textFieldStyles from "assets/textFieldStyles";
+import { textFieldStyles } from "assets/textFieldStyles";
 
 function EditCandidatePage() {
     const navigate = useNavigate();

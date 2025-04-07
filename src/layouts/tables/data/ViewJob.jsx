@@ -15,7 +15,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobById, updateJob } from "slices/jobSlice";
-import textFieldStyles from "assets/textFieldStyles";
+import { textFieldStyles } from "assets/textFieldStyles";
 
 function formatDate(isoString) {
   if (!isoString) return "";

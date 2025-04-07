@@ -17,7 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
 import { toast } from "react-toastify";
-import textFieldStyles from "assets/textFieldStyles";
+import { textFieldStyles, dropdownStyles } from "assets/textFieldStyles";
+
 
 function AddCandidatePage() {
     const [phoneError, setPhoneError] = useState('');
@@ -126,371 +127,614 @@ function AddCandidatePage() {
 
 
     return (
+        // <DashboardLayout>
+        //     <DashboardNavbar />
+        //     <SoftBox py={3}>
+        //         <SoftBox mb={3}>
+        //             <Card sx={{ p: 3 }}>
+        //                 <SoftTypography variant="h5" mb={3}>
+        //                     Add Candidate
+        //                 </SoftTypography>
+        //                 <form onSubmit={handleSubmit}>
+        //                     {/* Name Field */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Name
+        //                         </SoftTypography>
+        //                         <TextField
+        //                             name="name"
+        //                             value={candidate.name}
+        //                             onChange={handleChange}
+        //                             onKeyDown={(e) => {
+        //                                 if (e.key === "Enter") {
+        //                                     e.preventDefault();
+        //                                     phoneRef.current?.focus();
+        //                                 }
+        //                             }}
+        //                             placeholder="Enter candidate name"
+        //                             margin="none"
+        //                             sx={textFieldStyles}
+        //                             InputLabelProps={{
+        //                                 sx: {
+        //                                     fontSize: "0.875rem",
+        //                                     // Add other label styles here if needed
+        //                                 }
+        //                             }}
+        //                         />
+
+        //                     </SoftBox>
+
+        //                     {/* Phone Field */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Phone
+        //                         </SoftTypography>
+
+        //                         <TextField
+        //                             inputRef={phoneRef}
+        //                             name="phone"
+        //                             value={candidate.phone}
+        //                             onChange={handlePhoneChange}  // Use the dedicated handler
+        //                             onKeyDown={(e) => {
+        //                                 if (e.key === "Enter") {
+        //                                     e.preventDefault();
+        //                                     if (/^\d{10}$/.test(candidate.phone)) {
+        //                                         emailRef.current?.focus();
+        //                                     } else {
+        //                                         setPhoneError("Phone must be 10 digits");
+        //                                     }
+        //                                 }
+        //                             }}
+        //                             placeholder="Enter phone number"
+        //                             margin="none"
+        //                             sx={textFieldStyles}
+        //                             error={!!phoneError}
+        //                             helperText={phoneError}
+        //                             inputProps={{
+        //                                 inputMode: "numeric",  // Better mobile keyboard
+        //                                 maxLength: 10         // Prevent too long inputs
+        //                             }}
+        //                         />
+
+        //                     </SoftBox>
+
+        //                     {/* Location Field */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Location
+        //                         </SoftTypography>
+        //                         <TextField
+        //                             inputRef={locationRef}
+        //                             name="location"
+        //                             value={candidate.location}
+        //                             onChange={handleChange}
+        //                             onKeyDown={(e) => {
+        //                                 if (e.key === "Enter") {
+        //                                     e.preventDefault();
+        //                                     jobRef.current?.focus();
+        //                                 }
+        //                             }}
+        //                             placeholder="Enter Location"
+        //                             margin="none"
+        //                             sx={textFieldStyles}
+        //                             InputLabelProps={{
+        //                                 sx: {
+        //                                     fontSize: "0.875rem",
+        //                                     // Add other label styles here if needed
+        //                                 }
+        //                             }}
+        //                         />
+
+        //                     </SoftBox>
+        //                     {/* Job Title Dropdown */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>Job Title</SoftTypography>
+        //                         <FormControl fullWidth>
+        //                             <InputLabel sx={{
+        //                                 fontSize: "0.875rem", // smaller font size
+        //                             }}>Select Job</InputLabel>
+        //                             <Select name="job" value={candidate.jobId} inputRef={jobRef} onChange={handleChange}
+        //                                 onClose={() => slotRef.current?.focus()} >
+        //                                 {jobs.map((job) => (
+        //                                     <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
+        //                                 ))}
+        //                             </Select>
+        //                         </FormControl>
+        //                     </SoftBox>
+
+        //                     {/* Time Slot Field */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Time Slot
+        //                         </SoftTypography>
+        //                         <TextField
+        //                             inputRef={slotRef}
+        //                             fullWidth
+        //                             name="interviewSlot"
+        //                             value={candidate.interviewSlot}
+        //                             onChange={handleChange}
+        //                             placeholder="Enter Time slot"
+        //                             margin="none"
+        //                             onKeyDown={(e) => {
+        //                                 if (e.key === "Enter") {
+        //                                     e.preventDefault();
+        //                                     scheduleRef.current?.focus();
+        //                                 }
+        //                             }}
+        //                             sx={{
+        //                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        //                                 borderRadius: "5px",
+        //                             }}
+        //                             InputLabelProps={{
+        //                                 sx: {
+        //                                     fontSize: "0.875rem",
+        //                                     // Add other label styles here if needed
+        //                                 }
+        //                             }}
+        //                         />
+        //                     </SoftBox>
+
+        //                     {/* Interview Schedule Field */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Interview Schedule
+        //                         </SoftTypography>
+        //                         <TextField
+        //                             inputRef={scheduleRef}
+        //                             fullWidth
+        //                             name="interviewSchedule"
+        //                             type="date"
+        //                             value={candidate.interviewSchedule}
+        //                             onChange={handleChange}
+        //                             onKeyDown={(e) => {
+        //                                 if (e.key === "Enter") {
+        //                                     e.preventDefault();
+        //                                     communicationRef.current?.focus();
+        //                                 }
+        //                             }}
+        //                             margin="none"
+        //                             InputLabelProps={{ shrink: true }}
+        //                             sx={{
+        //                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        //                                 borderRadius: "5px",
+        //                             }}
+        //                         />
+
+
+        //                     </SoftBox>
+
+        //                     {/* Communication Dropdown */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Communication
+        //                         </SoftTypography>
+        //                         <FormControl fullWidth>
+        //                             <InputLabel sx={{
+        //                                 fontSize: "0.875rem", // smaller font size
+        //                             }}>Communication</InputLabel>
+        //                             <Select
+        //                                 name="communication"
+        //                                 value={candidate.communication}
+        //                                 inputRef={communicationRef}
+        //                                 onChange={(e) => {
+        //                                     handleChange(e); // Your existing change handler
+        //                                     personalityRef.current?.focus(); // Move focus to next field
+        //                                 }}
+
+        //                                 sx={{
+        //                                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        //                                     borderRadius: "5px",
+        //                                 }}
+        //                             >
+        //                                 {[1, 2, 3, 4, 5].map((value) => (
+        //                                     <MenuItem key={value} value={value}>
+        //                                         {value}
+        //                                     </MenuItem>
+        //                                 ))}
+        //                             </Select>
+        //                         </FormControl>
+        //                     </SoftBox>
+
+        //                     {/* Personality Dropdown */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Personality
+        //                         </SoftTypography>
+        //                         <FormControl fullWidth>
+        //                             <InputLabel sx={{
+        //                                 fontSize: "0.875rem", // smaller font size
+        //                             }}>Personality</InputLabel>
+        //                             <Select
+        //                                 name="personality"
+        //                                 value={candidate.personality}
+        //                                 inputRef={personalityRef}
+        //                                 onChange={handleChange}
+        //                                 onKeyDown={(e) => {
+        //                                     if (e.key === "Enter") {
+        //                                         e.preventDefault();
+        //                                         knowledgeRef.current?.focus();
+        //                                     }
+        //                                 }}
+        //                                 sx={{
+        //                                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        //                                     borderRadius: "5px",
+        //                                 }}
+        //                             >
+        //                                 {[1, 2, 3, 4, 5].map((value) => (
+        //                                     <MenuItem key={value} value={value}>
+        //                                         {value}
+        //                                     </MenuItem>
+        //                                 ))}
+        //                             </Select>
+        //                         </FormControl>
+        //                     </SoftBox>
+
+        //                     {/* Knowledge Dropdown */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Knowledge
+        //                         </SoftTypography>
+        //                         <FormControl fullWidth>
+        //                             <InputLabel sx={{
+        //                                 fontSize: "0.875rem", // smaller font size
+        //                             }}>Knowledge</InputLabel>
+        //                             <Select
+        //                                 name="knowledge"
+        //                                 value={candidate.knowledge}
+        //                                 inputRef={knowledgeRef}
+        //                                 onChange={handleChange}
+        //                                 onKeyDown={(e) => {
+        //                                     if (e.key === "Enter") {
+        //                                         e.preventDefault();
+        //                                         interviewStatusRef.current?.focus();
+        //                                     }
+        //                                 }}
+        //                                 sx={{
+        //                                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        //                                     borderRadius: "5px",
+        //                                 }}
+        //                             >
+        //                                 {[1, 2, 3, 4, 5].map((value) => (
+        //                                     <MenuItem key={value} value={value}>
+        //                                         {value}
+        //                                     </MenuItem>
+        //                                 ))}
+        //                             </Select>
+        //                         </FormControl>
+        //                     </SoftBox>
+
+        //                     {/* Interview Status Dropdown */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Interview Status
+        //                         </SoftTypography>
+        //                         <FormControl fullWidth>
+        //                             <InputLabel sx={{
+        //                                 fontSize: "0.875rem", // smaller font size
+        //                             }}>Interview Status</InputLabel>
+        //                             <Select
+        //                                 name="interviewStatus"
+        //                                 value={candidate.interviewStatus}
+        //                                 inputRef={interviewStatusRef}
+        //                                 onChange={handleChange}
+        //                                 onKeyDown={(e) => {
+        //                                     if (e.key === "Enter") {
+        //                                         e.preventDefault();
+        //                                         statusRef.current?.focus();
+        //                                     }
+        //                                 }}
+        //                                 sx={{
+        //                                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        //                                     borderRadius: "5px",
+        //                                 }}
+        //                             >
+        //                                 {[
+        //                                     "Offered",
+        //                                     "Accepted",
+        //                                     "Missed",
+        //                                     "Interviewed",
+        //                                     "Rescheduled",
+        //                                 ].map((status) => (
+        //                                     <MenuItem key={status} value={status}>
+        //                                         {status}
+        //                                     </MenuItem>
+        //                                 ))}
+        //                             </Select>
+        //                         </FormControl>
+        //                     </SoftBox>
+
+        //                     {/* Status Dropdown */}
+        //                     <SoftBox mb={3}>
+        //                         <SoftTypography variant="body1" mb={1}>
+        //                             Status
+        //                         </SoftTypography>
+        //                         <FormControl fullWidth>
+        //                             <InputLabel sx={{
+        //                                 fontSize: "0.875rem", // smaller font size
+        //                             }}>Status</InputLabel>
+        //                             <Select
+        //                                 name="status"
+        //                                 value={candidate.status}
+        //                                 onChange={handleChange}
+        //                                 inputRef={statusRef}
+        //                                 onKeyDown={(e) => {
+        //                                     if (e.key === "Enter") {
+        //                                         e.preventDefault();
+        //                                         handleSubmit(e);
+        //                                     }
+        //                                 }}
+        //                                 sx={{
+        //                                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        //                                     borderRadius: "5px",
+        //                                 }}
+        //                             >
+
+        //                                 {[
+        //                                     "Pending",
+        //                                     "Shortlisted",
+        //                                     "Rejected",
+        //                                     "Hired",
+        //                                     "Applied",
+        //                                 ].map((status) => (
+        //                                     <MenuItem key={status} value={status}>
+        //                                         {status}
+        //                                     </MenuItem>
+        //                                 ))}
+        //                             </Select>
+        //                         </FormControl>
+        //                     </SoftBox>
+
+        //                     {/* Submit Button */}
+        //                     <SoftBox mt={3} display="flex" justifyContent="space-between">
+        //                         <Button
+        //                             type="submit" variant="gradient" color="info"
+        //                             onClick={handleSubmit}
+        //                         >
+        //                             Add Candidate
+        //                         </Button>
+        //                         <Button
+        //                             variant="outlined"
+        //                             style={{ backgroundColor: "red", color: "#ffffff" }}
+        //                             onClick={() => navigate("/Candidate")}
+        //                         >
+        //                             Cancel
+        //                         </Button>
+        //                     </SoftBox>
+        //                 </form>
+        //             </Card>
+        //         </SoftBox>
+        //     </SoftBox>
+        //     <Footer />
+        // </DashboardLayout>
         <DashboardLayout>
             <DashboardNavbar />
             <SoftBox py={3}>
                 <SoftBox mb={3}>
-                    <Card sx={{ p: 3 }}>
+                    <Card sx={{ p: 3, display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <SoftTypography variant="h5" mb={3}>
                             Add Candidate
                         </SoftTypography>
                         <form onSubmit={handleSubmit}>
-                            {/* Name Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Name
-                                </SoftTypography>
-                                <TextField
-                                    name="name"
-                                    value={candidate.name}
-                                    onChange={handleChange}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            e.preventDefault();
-                                            phoneRef.current?.focus();
-                                        }
-                                    }}
-                                    placeholder="Enter candidate name"
-                                    margin="none"
-                                    sx={textFieldStyles}
-                                    InputLabelProps={{
-                                        sx: {
-                                            fontSize: "0.875rem",
-                                            // Add other label styles here if needed
-                                        }
-                                    }}
-                                />
-
-                            </SoftBox>
-
-                            {/* Phone Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Phone
-                                </SoftTypography>
-
-                                <TextField
-                                    inputRef={phoneRef}
-                                    name="phone"
-                                    value={candidate.phone}
-                                    onChange={handlePhoneChange}  // Use the dedicated handler
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            e.preventDefault();
-                                            if (/^\d{10}$/.test(candidate.phone)) {
-                                                emailRef.current?.focus();
-                                            } else {
-                                                setPhoneError("Phone must be 10 digits");
-                                            }
-                                        }
-                                    }}
-                                    placeholder="Enter phone number"
-                                    margin="none"
-                                    sx={textFieldStyles}
-                                    error={!!phoneError}
-                                    helperText={phoneError}
-                                    inputProps={{
-                                        inputMode: "numeric",  // Better mobile keyboard
-                                        maxLength: 10         // Prevent too long inputs
-                                    }}
-                                />
-
-                            </SoftBox>
-
-                            {/* Location Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Location
-                                </SoftTypography>
-                                <TextField
-                                    inputRef={locationRef}
-                                    name="location"
-                                    value={candidate.location}
-                                    onChange={handleChange}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            e.preventDefault();
-                                            jobRef.current?.focus();
-                                        }
-                                    }}
-                                    placeholder="Enter Location"
-                                    margin="none"
-                                    sx={textFieldStyles}
-                                    InputLabelProps={{
-                                        sx: {
-                                            fontSize: "0.875rem",
-                                            // Add other label styles here if needed
-                                        }
-                                    }}
-                                />
-
-                            </SoftBox>
-                            {/* Job Title Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>Job Title</SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel sx={{
-                                        fontSize: "0.875rem", // smaller font size
-                                    }}>Select Job</InputLabel>
-                                    <Select name="job" value={candidate.jobId} inputRef={jobRef} onChange={handleChange}
-                                        onClose={() => slotRef.current?.focus()} >
-                                        {jobs.map((job) => (
-                                            <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </SoftBox>
-
-                            {/* Time Slot Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Time Slot
-                                </SoftTypography>
-                                <TextField
-                                    inputRef={slotRef}
-                                    fullWidth
-                                    name="interviewSlot"
-                                    value={candidate.interviewSlot}
-                                    onChange={handleChange}
-                                    placeholder="Enter Time slot"
-                                    margin="none"
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            e.preventDefault();
-                                            scheduleRef.current?.focus();
-                                        }
-                                    }}
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
-                                    InputLabelProps={{
-                                        sx: {
-                                            fontSize: "0.875rem",
-                                            // Add other label styles here if needed
-                                        }
-                                    }}
-                                />
-                            </SoftBox>
-
-                            {/* Interview Schedule Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Interview Schedule
-                                </SoftTypography>
-                                <TextField
-                                    inputRef={scheduleRef}
-                                    fullWidth
-                                    name="interviewSchedule"
-                                    type="date"
-                                    value={candidate.interviewSchedule}
-                                    onChange={handleChange}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            e.preventDefault();
-                                            communicationRef.current?.focus();
-                                        }
-                                    }}
-                                    margin="none"
-                                    InputLabelProps={{ shrink: true }}
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
-                                />
-
-
-                            </SoftBox>
-
-                            {/* Communication Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Communication
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel sx={{
-                                        fontSize: "0.875rem", // smaller font size
-                                    }}>Communication</InputLabel>
-                                    <Select
-                                        name="communication"
-                                        value={candidate.communication}
-                                        inputRef={communicationRef}
-                                        onChange={(e) => {
-                                            handleChange(e); // Your existing change handler
-                                            personalityRef.current?.focus(); // Move focus to next field
-                                        }}
-
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
-                                        }}
-                                    >
-                                        {[1, 2, 3, 4, 5].map((value) => (
-                                            <MenuItem key={value} value={value}>
-                                                {value}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </SoftBox>
-
-                            {/* Personality Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Personality
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel sx={{
-                                        fontSize: "0.875rem", // smaller font size
-                                    }}>Personality</InputLabel>
-                                    <Select
-                                        name="personality"
-                                        value={candidate.personality}
-                                        inputRef={personalityRef}
+                            {/* Row 1: Name, Phone, Location */}
+                            <SoftBox
+                                mb={3}
+                                sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
+                            >
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <SoftTypography variant="body1" mb={1} sx={{ fontSize: "1rem" }}>
+                                        Name
+                                    </SoftTypography>
+                                    <TextField
+                                        name="name"
+                                        value={candidate.name}
                                         onChange={handleChange}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") {
                                                 e.preventDefault();
-                                                knowledgeRef.current?.focus();
+                                                phoneRef.current?.focus();
                                             }
                                         }}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
-                                        }}
-                                    >
-                                        {[1, 2, 3, 4, 5].map((value) => (
-                                            <MenuItem key={value} value={value}>
-                                                {value}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </SoftBox>
+                                        placeholder="Enter candidate name"
+                                        sx={textFieldStyles}
+                                    />
+                                </SoftBox>
 
-                            {/* Knowledge Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Knowledge
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel sx={{
-                                        fontSize: "0.875rem", // smaller font size
-                                    }}>Knowledge</InputLabel>
-                                    <Select
-                                        name="knowledge"
-                                        value={candidate.knowledge}
-                                        inputRef={knowledgeRef}
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <SoftTypography variant="body1" mb={1}>Phone</SoftTypography>
+                                    <TextField
+                                        inputRef={phoneRef}
+                                        name="phone"
+                                        value={candidate.phone}
+                                        onChange={handlePhoneChange}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                if (/^\d{10}$/.test(candidate.phone)) {
+                                                    locationRef.current?.focus();
+                                                } else {
+                                                    setPhoneError("Phone must be 10 digits");
+                                                }
+                                            }
+                                        }}
+                                        placeholder="Enter phone number"
+                                        error={!!phoneError}
+                                        helperText={phoneError}
+                                        inputProps={{ inputMode: "numeric", maxLength: 10 }}
+                                        sx={textFieldStyles}
+                                    />
+                                </SoftBox>
+
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <SoftTypography variant="body1" mb={1}>Location</SoftTypography>
+                                    <TextField
+                                        inputRef={locationRef}
+                                        name="location"
+                                        value={candidate.location}
                                         onChange={handleChange}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") {
                                                 e.preventDefault();
-                                                interviewStatusRef.current?.focus();
+                                                jobRef.current?.focus();
                                             }
                                         }}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
-                                        }}
-                                    >
-                                        {[1, 2, 3, 4, 5].map((value) => (
-                                            <MenuItem key={value} value={value}>
-                                                {value}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                        placeholder="Enter location"
+                                        sx={textFieldStyles}
+                                    />
+                                </SoftBox>
                             </SoftBox>
 
-                            {/* Interview Status Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Interview Status
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel sx={{
-                                        fontSize: "0.875rem", // smaller font size
-                                    }}>Interview Status</InputLabel>
-                                    <Select
-                                        name="interviewStatus"
-                                        value={candidate.interviewStatus}
-                                        inputRef={interviewStatusRef}
+                            {/* Row 2: Job Title, Time Slot, Interview Schedule */}
+                            <SoftBox
+                                mb={3}
+                                sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
+                            >
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <SoftTypography variant="body1" mb={1}>Job Title</SoftTypography>
+                                    <FormControl fullWidth sx={{ ...dropdownStyles, width: "370px" }}>
+                                        <InputLabel sx={{ fontSize: "0.875rem" }}>Select Job</InputLabel>
+                                        <Select
+                                            name="job"
+                                            value={candidate.jobId}
+                                            inputRef={jobRef}
+                                            onChange={handleChange}
+                                            onClose={() => slotRef.current?.focus()}
+                                            sx={{ width: "100%" }}
+                                        >
+                                            {jobs.map((job) => (
+                                                <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </SoftBox>
+
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <SoftTypography variant="body1" mb={1}>Time Slot</SoftTypography>
+                                    <TextField
+                                        inputRef={slotRef}
+                                        name="interviewSlot"
+                                        value={candidate.interviewSlot}
+                                        onChange={handleChange}
+                                        placeholder="Enter Time Slot"
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                scheduleRef.current?.focus();
+                                            }
+                                        }}
+                                        sx={textFieldStyles}
+                                    />
+                                </SoftBox>
+
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <SoftTypography variant="body1" mb={1}>Interview Schedule</SoftTypography>
+                                    <TextField
+                                        inputRef={scheduleRef}
+                                        type="date"
+                                        name="interviewSchedule"
+                                        value={candidate.interviewSchedule}
                                         onChange={handleChange}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") {
                                                 e.preventDefault();
-                                                statusRef.current?.focus();
+                                                communicationRef.current?.focus();
                                             }
                                         }}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
-                                        }}
-                                    >
-                                        {[
-                                            "Offered",
-                                            "Accepted",
-                                            "Missed",
-                                            "Interviewed",
-                                            "Rescheduled",
-                                        ].map((status) => (
-                                            <MenuItem key={status} value={status}>
-                                                {status}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                        InputLabelProps={{ shrink: true }}
+                                        sx={textFieldStyles}
+                                    />
+                                </SoftBox>
                             </SoftBox>
 
-                            {/* Status Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Status
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel sx={{
-                                        fontSize: "0.875rem", // smaller font size
-                                    }}>Status</InputLabel>
-                                    <Select
-                                        name="status"
-                                        value={candidate.status}
-                                        onChange={handleChange}
-                                        inputRef={statusRef}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") {
-                                                e.preventDefault();
-                                                handleSubmit(e);
-                                            }
-                                        }}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
-                                        }}
-                                    >
+                            {/* Row 3: Communication, Personality, Knowledge */}
+                            <SoftBox
+                                mb={3}
+                                sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
+                            >
+                                {[
+                                    { label: "Communication", name: "communication", ref: communicationRef, nextRef: personalityRef },
+                                    { label: "Personality", name: "personality", ref: personalityRef, nextRef: knowledgeRef },
+                                    { label: "Knowledge", name: "knowledge", ref: knowledgeRef, nextRef: interviewStatusRef }
+                                ].map(({ label, name, ref, nextRef }) => (
+                                    <SoftBox key={name} sx={{ flex: "0 0 auto", minWidth: 220 }}>
+                                        <SoftTypography variant="body1" mb={1}>{label}</SoftTypography>
+                                        <FormControl fullWidth sx={{ ...dropdownStyles, width: "370px" }}>
+                                            <InputLabel sx={{ fontSize: "0.875rem" }}>{label}</InputLabel>
+                                            <Select
+                                                name={name}
+                                                value={candidate[name]}
+                                                inputRef={ref}
+                                                onChange={(e) => {
+                                                    handleChange(e);
+                                                    nextRef?.current?.focus();
+                                                }}
 
-                                        {[
-                                            "Pending",
-                                            "Shortlisted",
-                                            "Rejected",
-                                            "Hired",
-                                            "Applied",
-                                        ].map((status) => (
-                                            <MenuItem key={status} value={status}>
-                                                {status}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                            >
+                                                {[1, 2, 3, 4, 5].map((value) => (
+                                                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </SoftBox>
+                                ))}
                             </SoftBox>
 
-                            {/* Submit Button */}
+                            {/* Row 4: Interview Status, Status */}
+                            <SoftBox
+                                mb={3}
+                                sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
+                            >
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 220 }}>
+                                    <SoftTypography variant="body1" mb={1}>Interview Status</SoftTypography>
+                                    <FormControl fullWidth sx={{ ...dropdownStyles, width: "370px" }}>
+                                        <InputLabel>Interview Status</InputLabel>
+                                        <Select
+                                            name="interviewStatus"
+                                            value={candidate.interviewStatus}
+                                            inputRef={interviewStatusRef}
+                                            onChange={handleChange}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    e.preventDefault();
+                                                    statusRef.current?.focus();
+                                                }
+                                            }}
+
+                                        >
+                                            {["Offered", "Accepted", "Missed", "Interviewed", "Rescheduled"].map((status) => (
+                                                <MenuItem key={status} value={status}>{status}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </SoftBox>
+
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 220 }}>
+                                    <SoftTypography variant="body1" mb={1}>Status</SoftTypography>
+                                    <FormControl fullWidth>
+                                        <InputLabel>Status</InputLabel>
+                                        <Select
+                                            name="status"
+                                            value={candidate.status}
+                                            inputRef={statusRef}
+                                            onChange={handleChange}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    e.preventDefault();
+                                                    handleSubmit(e);
+                                                }
+                                            }}
+                                            sx={textFieldStyles}
+                                        >
+                                            {["Pending", "Shortlisted", "Rejected", "Hired", "Applied"].map((status) => (
+                                                <MenuItem key={status} value={status}>{status}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </SoftBox>
+                            </SoftBox>
+
+                            {/* Submit & Cancel Buttons */}
                             <SoftBox mt={3} display="flex" justifyContent="space-between">
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                >
+                                <Button type="submit" variant="gradient" color="info" onClick={handleSubmit}>
                                     Add Candidate
                                 </Button>
                                 <Button
@@ -507,6 +751,8 @@ function AddCandidatePage() {
             </SoftBox>
             <Footer />
         </DashboardLayout>
+
+
     );
 }
 

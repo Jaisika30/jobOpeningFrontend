@@ -18,7 +18,7 @@ import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
 import { getCandidateById } from "slices/candidateSlice";
 import { updateCandidate } from "slices/candidateSlice";
-import textFieldStyles from "assets/textFieldStyles";
+import { textFieldStyles } from "assets/textFieldStyles";
 
 function ViewCandidate() {
     const navigate = useNavigate();
