@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 // react-router components
 import { useLocation, Link } from "react-router-dom";
 
@@ -64,6 +64,15 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const navigate = useNavigate(); 
+
+  const handleSignOut = () => {
+    // Clear localStorage or any auth token
+    localStorage.removeItem("token"); // adjust if you're storing auth differently
+
+    // Redirect to sign-in page
+    navigate("/authentication/sign-in");
+  };
 
   useEffect(() => {
     // Setting the navbar type
@@ -155,7 +164,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
             </SoftBox> */}
             <SoftBox color={light ? "white" : "inherit"}>
               <Link to="/authentication/sign-in">
-                <IconButton sx={navbarIconButton} size="small">
+                <IconButton sx={navbarIconButton} size="small" onClick={handleSignOut}>
                   <Icon
                     sx={({ palette: { dark, white } }) => ({
                       color: light ? white.main : dark.main,
