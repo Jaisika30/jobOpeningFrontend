@@ -34,19 +34,27 @@ function AddJob() {
     setJob((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault(); // Prevent form from refreshing the page
-
-  //   try {
-  //     await dispatch(createJob({ jobData: job }));
-  //     navigate("/jobs");
-  //   } catch (error) {
-  //     console.error("Failed to create job:", error);
-  //   }
-  // };
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent form refresh
-
+    e.preventDefault();
+  
+    // User-friendly field names for error messages
+    const fieldLabels = {
+      title: "Job Title",
+      description: "Job Description",
+      location: "Location",
+      postingDate: "Posting Date",
+      status: "Status",
+    };
+  
+    for (let field in fieldLabels) {
+      const value = job[field]?.trim?.() ?? job[field];
+      if (!value) {
+        toast.error(`Please fill in the ${fieldLabels[field]}.`);
+        return;
+      }
+    }
+  
+    // Submit if everything's filled
     try {
       await dispatch(createJob({ jobData: job }));
       toast.success("Job added successfully! 🚀");
@@ -56,6 +64,19 @@ function AddJob() {
       toast.error("Error creating job. Please try again.");
     }
   };
+  
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault(); // Prevent form refresh
+
+  //   try {
+  //     await dispatch(createJob({ jobData: job }));
+  //     toast.success("Job added successfully! 🚀");
+  //     navigate("/jobs");
+  //   } catch (error) {
+  //     console.error("Failed to create job:", error);
+  //     toast.error("Error creating job. Please try again.");
+  //   }
+  // };
 
   if (isLoading) {
     return (
@@ -167,7 +188,7 @@ function AddJob() {
                 <Button variant="contained" color="primary" type="submit">
                   Add Job
                 </Button>
-                <Button variant="outlined" color="secondary" onClick={() => navigate("/jobs")}>
+                <Button variant="outlined" style={{backgroundColor:"red" , color:"white"}} onClick={() => navigate("/jobs")}>
                   Cancel
                 </Button>
               </SoftBox>

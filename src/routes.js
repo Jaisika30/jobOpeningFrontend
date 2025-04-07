@@ -68,6 +68,7 @@ import Forgot from "layouts/authentication/data/Forgot";
 import VerifyOtp from "layouts/authentication/data/VerifyOtp";
 import Reset from "layouts/authentication/data/Reset";
 import ProtectedRoute from "protect/ProtectedRoutes";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 const routes = [
   {
     type: "collapse",
@@ -130,7 +131,7 @@ const routes = [
     name: "Add Job",
     key: "addjob",
     route: "/addjob",
-    icon: <PersonIcon size="12px" />,
+    icon: <PostAddIcon fontSize="small" />,
     component: <ProtectedRoute><AddJob /></ProtectedRoute>,
     // component: <AddJob />,
     noCollapse: true,

@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 import textFieldStyles from "assets/textFieldStyles";
 
 function AddCandidatePage() {
+    const [phoneError, setPhoneError] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const phoneRef = useRef();
@@ -28,6 +29,12 @@ function AddCandidatePage() {
     const slotRef = useRef();
     const scheduleRef = useRef();
     const status = useRef();
+    const personalityRef = useRef();
+    const knowledgeRef = useRef();
+    const interviewStatusRef = useRef();
+    const statusRef = useRef();
+    const communicationRef = useRef();
+
 
     // const [jobs, setJobs] = useState([]);
     const jobs = useSelector((state) => state.jobs.jobs)
@@ -55,20 +62,69 @@ function AddCandidatePage() {
     }, [dispatch]);
 
 
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     console.log("Adding candidate:", candidate);
+
+    //     try {
+    //         dispatch(createCandidate(candidate));
+    //         toast.success("Candidate added successfully! 🎉");  // Success toast
+    //         navigate("/Candidate"); // Redirect after submission
+    //     } catch (error) {
+    //         console.error("Failed to add candidate:", error);
+    //         toast.error("Error adding candidate. Please try again.");  // Error toast
+    //     }
+    // };
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("Adding candidate:", candidate);
+        // Check if any required field is empty
+        const requiredFields = [
+            "name",
+            "phone",
+            "location",
+            "interviewSlot",
+            "interviewSchedule",
+            "communication",
+            "personality",
+            "knowledge",
+            "interviewStatus",
+            "status",
+            "job"
+        ];
 
+        for (let field of requiredFields) {
+            if (!candidate[field]) {
+                toast.error(`Please fill in the ${field} field.`);
+                return; // Stop form submission
+            }
+        }
+
+        // All fields valid, submit
         try {
             dispatch(createCandidate(candidate));
-            toast.success("Candidate added successfully! 🎉");  // Success toast
-            navigate("/Candidate"); // Redirect after submission
+            toast.success("Candidate added successfully! 🎉");
+            navigate("/Candidate");
         } catch (error) {
             console.error("Failed to add candidate:", error);
-            toast.error("Error adding candidate. Please try again.");  // Error toast
+            toast.error("Error adding candidate. Please try again.");
         }
     };
+
+    const handlePhoneChange = (e) => {
+        // Allow only numbers
+        const numericValue = e.target.value.replace(/[^0-9]/g, "");
+        
+        setCandidate({
+          ...candidate,
+          phone: numericValue
+        });
+        
+        setPhoneError(''); // Clear error when typing
+      };
+
+
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -106,22 +162,30 @@ function AddCandidatePage() {
                                 <SoftTypography variant="body1" mb={1}>
                                     Phone
                                 </SoftTypography>
+
                                 <TextField
-                                    fullWidth
                                     inputRef={phoneRef}
                                     name="phone"
                                     value={candidate.phone}
-                                    onChange={handleChange}
+                                    onChange={handlePhoneChange}  // Use the dedicated handler
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
                                             e.preventDefault();
-                                            locationRef.current?.focus();
+                                            if (/^\d{10}$/.test(candidate.phone)) {
+                                                emailRef.current?.focus();
+                                            } else {
+                                                setPhoneError("Phone must be 10 digits");
+                                            }
                                         }
                                     }}
+                                    placeholder="Enter phone number"
                                     margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
+                                    sx={textFieldStyles}
+                                    error={!!phoneError}
+                                    helperText={phoneError}
+                                    inputProps={{
+                                        inputMode: "numeric",  // Better mobile keyboard
+                                        maxLength: 10         // Prevent too long inputs
                                     }}
                                 />
 
@@ -140,7 +204,7 @@ function AddCandidatePage() {
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
                                             e.preventDefault();
-                                            slotRef.current?.focus();
+                                            jobRef.current?.focus();
                                         }
                                     }}
                                     placeholder="Enter Location"
@@ -154,7 +218,8 @@ function AddCandidatePage() {
                                 <SoftTypography variant="body1" mb={1}>Job Title</SoftTypography>
                                 <FormControl fullWidth>
                                     <InputLabel>Select Job</InputLabel>
-                                    <Select name="job" value={candidate.jobId} onChange={handleChange}>
+                                    <Select name="job" value={candidate.jobId} inputRef={jobRef} onChange={handleChange}
+                                        onClose={() => slotRef.current?.focus()} >
                                         {jobs.map((job) => (
                                             <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
                                         ))}
@@ -168,11 +233,19 @@ function AddCandidatePage() {
                                     Time Slot
                                 </SoftTypography>
                                 <TextField
+                                    inputRef={slotRef}
                                     fullWidth
                                     name="interviewSlot"
                                     value={candidate.interviewSlot}
                                     onChange={handleChange}
+                                    placeholder="Enter Time slot"
                                     margin="none"
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            scheduleRef.current?.focus();
+                                        }
+                                    }}
                                     sx={{
                                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                                         borderRadius: "5px",
@@ -195,7 +268,7 @@ function AddCandidatePage() {
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
                                             e.preventDefault();
-                                            handleSubmit(e);
+                                            communicationRef.current?.focus();
                                         }
                                     }}
                                     margin="none"
@@ -219,7 +292,12 @@ function AddCandidatePage() {
                                     <Select
                                         name="communication"
                                         value={candidate.communication}
-                                        onChange={handleChange}
+                                        inputRef={communicationRef}
+                                        onChange={(e) => {
+                                            handleChange(e); // Your existing change handler
+                                            personalityRef.current?.focus(); // Move focus to next field
+                                        }}
+
                                         sx={{
                                             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                                             borderRadius: "5px",
@@ -244,7 +322,14 @@ function AddCandidatePage() {
                                     <Select
                                         name="personality"
                                         value={candidate.personality}
+                                        inputRef={personalityRef}
                                         onChange={handleChange}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                knowledgeRef.current?.focus();
+                                            }
+                                        }}
                                         sx={{
                                             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                                             borderRadius: "5px",
@@ -269,7 +354,14 @@ function AddCandidatePage() {
                                     <Select
                                         name="knowledge"
                                         value={candidate.knowledge}
+                                        inputRef={knowledgeRef}
                                         onChange={handleChange}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                interviewStatusRef.current?.focus();
+                                            }
+                                        }}
                                         sx={{
                                             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                                             borderRadius: "5px",
@@ -294,7 +386,14 @@ function AddCandidatePage() {
                                     <Select
                                         name="interviewStatus"
                                         value={candidate.interviewStatus}
+                                        inputRef={interviewStatusRef}
                                         onChange={handleChange}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                statusRef.current?.focus();
+                                            }
+                                        }}
                                         sx={{
                                             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                                             borderRadius: "5px",
@@ -326,6 +425,7 @@ function AddCandidatePage() {
                                         name="status"
                                         value={candidate.status}
                                         onChange={handleChange}
+                                        inputRef={statusRef}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") {
                                                 e.preventDefault();

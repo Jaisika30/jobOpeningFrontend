@@ -1,6 +1,6 @@
 
 
-import { useRef,useState } from "react";
+import { useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -116,19 +116,15 @@ function SignIn() {
               }
             }}
             // endAdornment={
-            //   <InputAdornment position="end"  sx={{ marginLeft: "20px" }}>
-            //     <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+            //   <InputAdornment position="end" sx={{ marginLeft: "50px" }}>
+            //     <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" >
             //       {showPassword ? <VisibilityOff /> : <Visibility />}
             //     </IconButton>
             //   </InputAdornment>
             // }
-            // sx={{
-            //   display: "flex",
-            //   alignItems: "center",
-            //   justifyContent: "space-between", // Ensures proper alignment
-            // }}
+
           />
-           {formik.touched.password && formik.errors.password && (
+          {formik.touched.password && formik.errors.password && (
             <SoftTypography variant="caption" color="error" fontWeight="regular">
               {formik.errors.password}
             </SoftTypography>
@@ -142,12 +138,12 @@ function SignIn() {
           </SoftTypography>
         )}
 
-        {/* <SoftBox display="flex" alignItems="center">
+        <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
           <SoftTypography variant="button" fontWeight="regular" onClick={handleSetRememberMe} sx={{ cursor: "pointer", userSelect: "none" }}>
             &nbsp;&nbsp;Remember me
           </SoftTypography>
-        </SoftBox> */}
+        </SoftBox>
 
         <SoftBox mt={4} mb={1}>
           <SoftButton type="submit" variant="gradient" color="info" fullWidth>
