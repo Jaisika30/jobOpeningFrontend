@@ -115,14 +115,14 @@ function AddCandidatePage() {
     const handlePhoneChange = (e) => {
         // Allow only numbers
         const numericValue = e.target.value.replace(/[^0-9]/g, "");
-        
+
         setCandidate({
-          ...candidate,
-          phone: numericValue
+            ...candidate,
+            phone: numericValue
         });
-        
+
         setPhoneError(''); // Clear error when typing
-      };
+    };
 
 
     return (
@@ -155,10 +155,10 @@ function AddCandidatePage() {
                                     sx={textFieldStyles}
                                     InputLabelProps={{
                                         sx: {
-                                          fontSize: "0.875rem",
-                                          // Add other label styles here if needed
+                                            fontSize: "0.875rem",
+                                            // Add other label styles here if needed
                                         }
-                                      }}
+                                    }}
                                 />
 
                             </SoftBox>
@@ -218,10 +218,10 @@ function AddCandidatePage() {
                                     sx={textFieldStyles}
                                     InputLabelProps={{
                                         sx: {
-                                          fontSize: "0.875rem",
-                                          // Add other label styles here if needed
+                                            fontSize: "0.875rem",
+                                            // Add other label styles here if needed
                                         }
-                                      }}
+                                    }}
                                 />
 
                             </SoftBox>
@@ -229,12 +229,9 @@ function AddCandidatePage() {
                             <SoftBox mb={3}>
                                 <SoftTypography variant="body1" mb={1}>Job Title</SoftTypography>
                                 <FormControl fullWidth>
-                                    <InputLabel InputLabelProps={{
-                                        sx: {
-                                          fontSize: "0.875rem",
-                                          // Add other label styles here if needed
-                                        }
-                                      }}>Select Job</InputLabel>
+                                    <InputLabel sx={{
+                                        fontSize: "0.875rem", // smaller font size
+                                    }}>Select Job</InputLabel>
                                     <Select name="job" value={candidate.jobId} inputRef={jobRef} onChange={handleChange}
                                         onClose={() => slotRef.current?.focus()} >
                                         {jobs.map((job) => (
@@ -269,10 +266,10 @@ function AddCandidatePage() {
                                     }}
                                     InputLabelProps={{
                                         sx: {
-                                          fontSize: "0.875rem",
-                                          // Add other label styles here if needed
+                                            fontSize: "0.875rem",
+                                            // Add other label styles here if needed
                                         }
-                                      }}
+                                    }}
                                 />
                             </SoftBox>
 
@@ -311,7 +308,9 @@ function AddCandidatePage() {
                                     Communication
                                 </SoftTypography>
                                 <FormControl fullWidth>
-                                    <InputLabel>Communication</InputLabel>
+                                    <InputLabel sx={{
+                                        fontSize: "0.875rem", // smaller font size
+                                    }}>Communication</InputLabel>
                                     <Select
                                         name="communication"
                                         value={candidate.communication}
@@ -341,7 +340,9 @@ function AddCandidatePage() {
                                     Personality
                                 </SoftTypography>
                                 <FormControl fullWidth>
-                                    <InputLabel>Personality</InputLabel>
+                                    <InputLabel sx={{
+                                        fontSize: "0.875rem", // smaller font size
+                                    }}>Personality</InputLabel>
                                     <Select
                                         name="personality"
                                         value={candidate.personality}
@@ -373,7 +374,9 @@ function AddCandidatePage() {
                                     Knowledge
                                 </SoftTypography>
                                 <FormControl fullWidth>
-                                    <InputLabel>Knowledge</InputLabel>
+                                    <InputLabel sx={{
+                                        fontSize: "0.875rem", // smaller font size
+                                    }}>Knowledge</InputLabel>
                                     <Select
                                         name="knowledge"
                                         value={candidate.knowledge}
@@ -405,7 +408,9 @@ function AddCandidatePage() {
                                     Interview Status
                                 </SoftTypography>
                                 <FormControl fullWidth>
-                                    <InputLabel>Interview Status</InputLabel>
+                                    <InputLabel sx={{
+                                        fontSize: "0.875rem", // smaller font size
+                                    }}>Interview Status</InputLabel>
                                     <Select
                                         name="interviewStatus"
                                         value={candidate.interviewStatus}
@@ -443,7 +448,9 @@ function AddCandidatePage() {
                                     Status
                                 </SoftTypography>
                                 <FormControl fullWidth>
-                                    <InputLabel>Status</InputLabel>
+                                    <InputLabel sx={{
+                                        fontSize: "0.875rem", // smaller font size
+                                    }}>Status</InputLabel>
                                     <Select
                                         name="status"
                                         value={candidate.status}
