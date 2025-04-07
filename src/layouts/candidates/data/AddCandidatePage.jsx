@@ -229,7 +229,12 @@ function AddCandidatePage() {
                             <SoftBox mb={3}>
                                 <SoftTypography variant="body1" mb={1}>Job Title</SoftTypography>
                                 <FormControl fullWidth>
-                                    <InputLabel>Select Job</InputLabel>
+                                    <InputLabel InputLabelProps={{
+                                        sx: {
+                                          fontSize: "0.875rem",
+                                          // Add other label styles here if needed
+                                        }
+                                      }}>Select Job</InputLabel>
                                     <Select name="job" value={candidate.jobId} inputRef={jobRef} onChange={handleChange}
                                         onClose={() => slotRef.current?.focus()} >
                                         {jobs.map((job) => (
