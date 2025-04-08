@@ -103,7 +103,7 @@ const useJobData = () => {
 //   );
 // };
 
-const getJobTableData = (jobData, handleDelete) => ({
+const getJobTableData = (jobData, handleDelete) => ({ 
   columns: [
     { name: "jobTitle", label: "Job Title", align: "left" },
     { name: "description", label: "Description", align: "left" },

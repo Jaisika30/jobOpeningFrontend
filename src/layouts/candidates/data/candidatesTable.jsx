@@ -14,6 +14,8 @@ import Swal from "sweetalert2";
 import { getCandidatesByJobID } from "slices/candidateSlice";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import SoftButton from "components/SoftButton";
+import { dropdownStyles } from "assets/textFieldStyles";
 
 // const useCandidateData = () => {
 //   const { id } = useParams();
@@ -123,21 +125,52 @@ const getCandidatesTableData = () => {
   return {
     topAction: (
       <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
-        <Button variant="contained" style={{ backgroundColor: "#4caf50", color: "#ffffff" }} onClick={() => navigate("/Jobs")}>
+
+        <SoftButton
+          variant="gradient"
+          color="success"
+          onClick={() => navigate("/Jobs")}
+        >
           Back
-        </Button>
-        <Button variant="contained" color="primary" style={{ color: "#ffffff" }} onClick={() => navigate("/addCandidate")}>
+        </SoftButton>
+        <SoftButton
+          variant="gradient"
+          color="info"
+          onClick={() => navigate("/addCandidate")}
+        >
           Add Candidate
-        </Button>
+        </SoftButton>
+
+
         <TextField
           label="Search"
           variant="outlined"
           value={searchQuery}
+          InputLabelProps={{
+            sx: {
+                fontSize: "1rem", // 👈 sets the label font size
+            },
+        }}
           onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ width: "250px", border: "2px solid #2196f3", borderRadius: "8px" }}
+        // style={{ width: "250px", border: "2px solid #2196f3", borderRadius: "8px" }}
         />
-        <FormControl style={{ width: "250px", border: "2px solid #4caf50", borderRadius: "8px" }}>
-          <InputLabel>Interview Status</InputLabel>
+         <FormControl sx={{
+           width: "250px",
+           maxWidth: "250px",
+           minWidth: "250px",
+           borderRadius: "5px",
+           display: "flex",
+           "& .MuiInputBase-root": {
+               width: "100%",
+               display: "flex",
+           },
+           "& .MuiInputBase-input": {
+               width: "200px",
+               maxWidth: "200px",
+               minWidth: "200px",
+           },
+        }}>
+          <InputLabel sx={{ fontSize: "1rem", }}>Interview Status</InputLabel>
           <Select
             value={interviewStatusFilter}
             onChange={(e) => setInterviewStatusFilter(e.target.value)}
@@ -151,8 +184,23 @@ const getCandidatesTableData = () => {
             <MenuItem value="Offered">Offered</MenuItem>
           </Select>
         </FormControl>
-        <FormControl style={{ width: "250px", border: "2px solid #ff9800", borderRadius: "8px" }}>
-          <InputLabel>Status</InputLabel>
+        <FormControl sx={{
+           width: "250px",
+           maxWidth: "250px",
+           minWidth: "250px",
+           borderRadius: "5px",
+           display: "flex",
+           "& .MuiInputBase-root": {
+               width: "100%",
+               display: "flex",
+           },
+           "& .MuiInputBase-input": {
+               width: "200px",
+               maxWidth: "200px",
+               minWidth: "200px",
+           },
+        }}>
+          <InputLabel sx={{ fontSize: "1rem", }}>Status</InputLabel>
           <Select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
@@ -248,7 +296,7 @@ const getCandidatesTableData = () => {
             />
           ),
           action: (
-            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Link to={`/viewCandidate/${candidate._id}`}>
                 <IconButton color="primary">
                   <VisibilityIcon />
