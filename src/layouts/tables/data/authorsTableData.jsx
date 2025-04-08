@@ -44,49 +44,6 @@ const useJobData = () => {
   return { jobData, loading: isLoading, setSearchQuery, setStatusFilter, searchQuery, statusFilter, dispatch };
 };
 
-// const getJobTableData = (jobData, handleDelete) => ({
-//   columns: [
-//     { name: "jobTitle", label: "Job Title", align: "left" },
-//     { name: "description", label: "Description", align: "left" },
-//     { name: "postingDate", label: "Posting Date", align: "center" },
-//     { name: "status", label: "Status", align: "center" },
-//     { name: "action", label: "Actions", align: "center" },
-//   ],
-//   rows: jobData.map((job) => ({
-//     jobTitle: <SoftTypography variant="button" fontWeight="medium" color="info" sx={{ marginLeft: "15px", fontSize: "1rem" }} component={Link} to={`/Candidates/${job._id}`}>{job.title}</SoftTypography>,
-//     description: <SoftTypography variant="caption" color="secondary">{job.description}</SoftTypography>,
-//     postingDate: <SoftTypography variant="caption" color="secondary" fontWeight="medium">{new Date(job.postingDate).toLocaleDateString("en-GB")}</SoftTypography>,
-//     status: <SoftBadge variant="gradient" badgeContent={job.status} color={job.status === "Open" ? "success" : "secondary"} size="xs" container />,
-//     action: (
-//       <div style={{ display: "flex", justifyContent: "center", margin: 0, padding: 0 }}>
-//         <Link to={`/viewJob/${job._id}`} title="View">
-//           <IconButton sx={{ fontSize: "24px", color: "black !important" }}>
-//             <VisibilityIcon sx={{ fontSize: "24px" }} />
-//           </IconButton>
-//         </Link>
-//         <Link to={`/editJob/${job._id}`} title="Edit">
-//           <IconButton sx={{ fontSize: "24px", color: "black !important" }}>
-//             <EditIcon sx={{ fontSize: "24px" }} />
-//           </IconButton>
-//         </Link>
-//         <IconButton
-
-//           title="Delete"
-//           onClick={() => handleDelete(job._id)}
-//           sx={{ fontSize: "24px", color: darkGray }}
-//         >
-//           <DeleteIcon sx={{ fontSize: "24px" }} />
-//         </IconButton>
-//         <Link to={`/Candidates/${job._id}`} title="Candidates">
-//           <IconButton sx={{ fontSize: "24px", color: "black !important" }}>
-//             <GroupIcon sx={{ fontSize: "24px" }} />
-//           </IconButton>
-//         </Link>
-//       </div>
-
-//     ),
-//   })),
-// });
 const getJobTableData = (jobData, handleDelete) => {
   // Access theme
   const theme = useTheme();

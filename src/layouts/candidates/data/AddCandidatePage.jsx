@@ -259,31 +259,7 @@ function AddCandidatePage() {
                                         sx={textFieldStyles}
                                     />
                                 </SoftBox>
-                                {/* 
-                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
-                                    <TextField
-                                        inputRef={scheduleRef}
-                                        label="Interview Schedule"
-                                        type="date"
-                                        name="interviewSchedule"
-                                        value={candidate.interviewSchedule}
-                                        onChange={handleChange}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") {
-                                                e.preventDefault();
-                                                communicationRef.current?.focus();
-                                            }
-                                        }}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                            sx: {
-                                                fontSize: "1rem", // 👈 sets the label font size
-                                            },
-                                        }}
-
-                                        sx={textFieldStyles}
-                                    />
-                                </SoftBox> */}
+                                
                                 <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
                                     <TextField
                                         inputRef={scheduleRef}
