@@ -94,7 +94,7 @@ const routes = [
     route: "/editJob/:id", // Add the dynamic ID
     // component: <EditJob />,
     component: <ProtectedRoute><EditJob /></ProtectedRoute>,
-     // Make sure this is the correct component
+    // Make sure this is the correct component
   },
   {
     route: "/viewCandidate/:id", // Add the dynamic ID
@@ -125,16 +125,6 @@ const routes = [
     route: "/Candidates/:id",
     component: <ProtectedRoute><Candidates /></ProtectedRoute>,
     // component: <Candidates />,
-  },
-  {
-    type: "collapse",
-    name: "Add Job",
-    key: "addjob",
-    route: "/addjob",
-    icon: <PostAddIcon fontSize="small" />,
-    component: <ProtectedRoute><AddJob /></ProtectedRoute>,
-    // component: <AddJob />,
-    noCollapse: true,
   },
   {
     route: "/editCandidate/:id",
@@ -184,13 +174,8 @@ const routes = [
   //   noCollapse: true,
   // },
   {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
     route: "/authentication/sign-in",
-    icon: <Document size="12px" />,
     component: <SignIn />,
-    noCollapse: true,
   },
   {
     route: "/forgot-password", // Add the dynamic ID
@@ -204,7 +189,7 @@ const routes = [
     route: "/reset", // Add the dynamic ID
     component: <Reset />, // Make sure this is the correct component
   },
- 
+
 
 ];
 

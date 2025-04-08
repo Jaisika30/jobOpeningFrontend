@@ -1,3 +1,5 @@
+import { colors } from "@mui/material";
+
 // styles/textFieldStyles.js
 const textFieldStyles = {
     width: "100%",
@@ -22,6 +24,17 @@ const dropdownStyles = {
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     borderRadius: "5px",
     display: "flex",
+    "& .MuiInputBase-root": {
+        width: "100%",
+        display: "flex",
+    },
+    "& .MuiInputBase-input": {
+        width: "330px",
+        maxWidth: "330px",
+        minWidth: "330px",
+    },
 };
-
-export { textFieldStyles, dropdownStyles };
+const labelSize = {
+    fontSize: "1rem"
+};
+export { textFieldStyles, dropdownStyles, labelSize };

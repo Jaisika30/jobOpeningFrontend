@@ -101,7 +101,7 @@
 //       if (route.collapse) {
 //         return getRoutes(route.collapse);
 //       }
-  
+
 //       if (route.route) {
 //         return (
 //           <Route 
@@ -112,10 +112,10 @@
 //           />
 //         );
 //       }
-  
+
 //       return [];
 //     });
-  
+
 
 //   const configsButton = (
 //     <SoftBox
@@ -284,18 +284,18 @@ export default function App() {
       if (route.collapse) {
         return getRoutes(route.collapse);
       }
-  
+
       if (route.route) {
         return (
-          <Route 
-            exact 
-            path={route.route} 
-            element={route.component} 
+          <Route
+            exact
+            path={route.route}
+            element={route.component}
             key={route.key || `route-${index}`}
           />
         );
       }
-  
+
       return [];
     });
 
@@ -324,28 +324,21 @@ export default function App() {
   );
 
   return (
-    
+
     <AuthProvider>
       {direction === "rtl" ? (
         <CacheProvider value={rtlCache}>
           <ThemeProvider theme={themeRTL}>
             <CssBaseline />
             <ToastContainer position="top-right" autoClose={3000} />
-            
+
             {/* Show Sidenav only for dashboard layout */}
             {layout === "dashboard" && (
               <>
                 <Sidenav
                   color={sidenavColor}
                   brand={brand}
-                  brandName={
-                    <SoftTypography 
-                      variant="caption" 
-                      sx={{ fontSize: "0.875rem", marginLeft: "1rem" }}
-                    >
-                      Anthem Infotech Pvt. Ltd.
-                    </SoftTypography>
-                  }
+                  // brandName="Soft UI Dashboard"
                   routes={routes}
                   onMouseEnter={handleOnMouseEnter}
                   onMouseLeave={handleOnMouseLeave}
@@ -354,35 +347,36 @@ export default function App() {
                 {configsButton}
               </>
             )}
-            
+
             {layout === "vr" && <Configurator />}
 
-            <Routes>
-              {getRoutes(routes)}
-              {/* Default redirect to Sign In page */}
-              <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
-            </Routes>
+            <SoftBox
+              sx={{
+                height: '100vh',
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                padding: 2, // optional
+              }}
+            >
+              <Routes>
+                {getRoutes(routes)}
+                <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+              </Routes>
+            </SoftBox>
           </ThemeProvider>
         </CacheProvider>
       ) : (
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <ToastContainer position="top-right" autoClose={3000} />
-          
+
           {/* Show Sidenav only for dashboard layout */}
           {layout === "dashboard" && (
             <>
               <Sidenav
                 color={sidenavColor}
                 brand={brand}
-                brandName={
-                  <SoftTypography 
-                    variant="caption"  
-                    sx={{ fontSize: "0.875rem", marginLeft: "1rem" }}
-                  >
-                    Anthem Infotech Pvt. Ltd.
-                  </SoftTypography>
-                }
+                // brandName="Soft UI Dashboard"
                 routes={routes}
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
@@ -391,14 +385,22 @@ export default function App() {
               {configsButton}
             </>
           )}
-          
+
           {layout === "vr" && <Configurator />}
 
-          <Routes>
-            {getRoutes(routes)}
-            {/* Default redirect to Sign In page */}
-            <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
-          </Routes>
+          <SoftBox
+            sx={{
+              height: '100vh',         // Full height of the viewport
+              overflowY: 'auto',       // Only vertical scroll when needed
+              overflowX: 'hidden',     // Prevent horizontal scroll
+              padding: 2,              // Optional spacing
+            }}
+          >
+            <Routes>
+              {getRoutes(routes)}
+              <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+            </Routes>
+          </SoftBox>
         </ThemeProvider>
       )}
     </AuthProvider>

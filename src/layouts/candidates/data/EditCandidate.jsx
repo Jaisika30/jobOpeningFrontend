@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
@@ -20,13 +20,27 @@ import { getCandidateById } from "slices/candidateSlice";
 import { updateCandidate } from "slices/candidateSlice";
 import { toast } from "react-toastify";
 import { textFieldStyles } from "assets/textFieldStyles";
+import SoftButton from "components/SoftButton";
+import { dropdownStyles } from "assets/textFieldStyles";
 
 function EditCandidatePage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
     const jobs = useSelector((State) => State.jobs.jobs);
-    const candidatee= useSelector((State)=>State.candidates.candidate);
+    const candidatee = useSelector((State) => State.candidates.candidate);
+    const [phoneError, setPhoneError] = useState('');
+    const phoneRef = useRef();
+    const locationRef = useRef();
+    const jobRef = useRef();
+    const slotRef = useRef();
+    const scheduleRef = useRef();
+    const status = useRef();
+    const personalityRef = useRef();
+    const knowledgeRef = useRef();
+    const interviewStatusRef = useRef();
+    const statusRef = useRef();
+    const communicationRef = useRef();
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -39,11 +53,12 @@ function EditCandidatePage() {
         interviewStatus: "",
         status: "",
         job: "",
-        
+
     });
 
-     // Populate form fields when candidate data is available
-     useEffect(() => {
+    // Populate form fields when candidate data is available
+    useEffect(() => {
+        console.log("candidateeeeeeeee:::::", candidatee);
         if (candidatee) {
             setCandidate({
                 name: candidatee.name || "",
@@ -58,7 +73,7 @@ function EditCandidatePage() {
                 knowledge: candidatee.knowledge || "",
                 interviewStatus: candidatee.interviewStatus || "",
                 status: candidatee.status || "",
-                job: candidatee.job || "",
+                job: candidatee.job?._id || "",
             });
         }
     }, [candidatee]);
@@ -79,7 +94,7 @@ function EditCandidatePage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("candidateData:::::", candidate);
-    
+
         try {
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             toast.success("Candidate updated successfully! 🎉"); // Success toast
@@ -89,7 +104,17 @@ function EditCandidatePage() {
             toast.error("Error updating candidate. Please try again."); // Error toast
         }
     };
+    const handlePhoneChange = (e) => {
+        // Allow only numbers
+        const numericValue = e.target.value.replace(/[^0-9]/g, "");
 
+        setCandidate({
+            ...candidate,
+            phone: numericValue
+        });
+
+        setPhoneError(''); // Clear error when typing
+    };
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -100,258 +125,273 @@ function EditCandidatePage() {
                             Add Candidate
                         </SoftTypography>
                         <form onSubmit={handleSubmit}>
-                            {/* Name Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Name
-                                </SoftTypography>
-                                <TextField
-                                    name="name"
-                                    value={candidate.name}
-                                    onChange={handleChange}
-                                    placeholder="Enter Candidate name"
-                                    margin="none"
-                                    sx={textFieldStyles}
-                                />
-                            </SoftBox>
+                            {/* Row 1: Name, Phone, Location */}
+                            <SoftBox
+                                mb={3}
+                                sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
+                            >
 
-                            {/* Phone Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Phone
-                                </SoftTypography>
-                                <TextField
-                                    fullWidth
-                                    name="phone"
-                                    value={candidate.phone}
-                                    onChange={handleChange}
-                                    margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
-                                />
-                            </SoftBox>
-
-                            {/* Location Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Location
-                                </SoftTypography>
-                                <TextField
-                                    name="location"
-                                    value={candidate.location}
-                                    onChange={handleChange}
-                                    placeholder="Enter Location"
-                                    margin="none"
-                                    sx={textFieldStyles}
-                                />
-                            </SoftBox>
-                            {/* Job Title Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>Job Title</SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel>Select Job</InputLabel>
-                                    <Select name="job" value={candidate.job.title} onChange={handleChange}>
-                                        {jobs.map((job) => (
-                                            <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </SoftBox>
-
-                            {/* Time Slot Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Time Slot
-                                </SoftTypography>
-                                <TextField
-                                    fullWidth
-                                    name="interviewSlot"
-                                    value={candidate.interviewSlot}
-                                    onChange={handleChange}
-                                    margin="none"
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
-                                />
-                            </SoftBox>
-
-                            {/* Interview Schedule Field */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Interview Schedule
-                                </SoftTypography>
-                                <TextField
-                                    fullWidth
-                                    name="interviewSchedule"
-                                    type="date"
-                                    value={candidate.interviewSchedule}
-                                    onChange={handleChange}
-                                    margin="none"
-                                    InputLabelProps={{ shrink: true }}
-                                    sx={{
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        borderRadius: "5px",
-                                    }}
-                                />
-                            </SoftBox>
-
-                            {/* Communication Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Communication
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel>Communication</InputLabel>
-                                    <Select
-                                        name="communication"
-                                        value={candidate.communication}
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <TextField
+                                        label="Name"
+                                        name="name"
+                                        value={candidate.name}
                                         onChange={handleChange}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                phoneRef.current?.focus();
+                                            }
                                         }}
-                                    >
-                                        {[1, 2, 3, 4, 5].map((value) => (
-                                            <MenuItem key={value} value={value}>
-                                                {value}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </SoftBox>
+                                        placeholder="Enter candidate name"
+                                        sx={textFieldStyles}
+                                        fullWidth
+                                        variant="outlined"
+                                        InputLabelProps={{
+                                            sx: {
+                                                fontSize: "1rem", // 👈 sets the label font size
+                                            },
+                                        }}
+                                    />
+                                </SoftBox>
 
-                            {/* Personality Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Personality
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel>Personality</InputLabel>
-                                    <Select
-                                        name="personality"
-                                        value={candidate.personality}
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <TextField
+                                        inputRef={phoneRef}
+                                        label="Phone"
+                                        name="phone"
+                                        value={candidate.phone}
+                                        onChange={handlePhoneChange}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                if (/^\d{10}$/.test(candidate.phone)) {
+                                                    locationRef.current?.focus();
+                                                } else {
+                                                    setPhoneError("Phone must be 10 digits");
+                                                }
+                                            }
+                                        }}
+                                        placeholder="Enter phone number"
+                                        error={!!phoneError}
+                                        helperText={phoneError}
+                                        InputLabelProps={{
+                                            sx: {
+                                                fontSize: "1rem", // 👈 sets the label font size
+                                            },
+                                        }}
+                                        inputProps={{ inputMode: "numeric", maxLength: 10 }}
+                                        sx={textFieldStyles}
+                                    />
+                                </SoftBox>
+
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <TextField
+                                        inputRef={locationRef}
+                                        label="Location"
+                                        name="location"
+                                        value={candidate.location}
                                         onChange={handleChange}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                jobRef.current?.focus();
+                                            }
                                         }}
-                                    >
-                                        {[1, 2, 3, 4, 5].map((value) => (
-                                            <MenuItem key={value} value={value}>
-                                                {value}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                        placeholder="Enter location"
+                                        InputLabelProps={{
+                                            sx: {
+                                                fontSize: "1rem", // 👈 sets the label font size
+                                            },
+                                        }}
+                                        sx={textFieldStyles}
+                                    />
+                                </SoftBox>
                             </SoftBox>
 
-                            {/* Knowledge Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Knowledge
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel>Knowledge</InputLabel>
-                                    <Select
-                                        name="knowledge"
-                                        value={candidate.knowledge}
+                            {/* Row 2: Job Title, Time Slot, Interview Schedule */}
+                            <SoftBox
+                                mb={3}
+                                sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
+                            >
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <FormControl fullWidth sx={{ ...dropdownStyles, width: "370px" }}>
+                                        <InputLabel id="demo-select-label" sx={{ fontSize: "1rem", }}>Select Job</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+
+                                            name="job"
+                                            value={candidate.job || ""}
+                                            inputRef={jobRef}
+                                            onChange={handleChange}
+                                            onClose={() => slotRef.current?.focus()}
+
+                                            sx={{ width: "100%" }}
+                                        >
+
+                                            {jobs.map((job) => (
+                                                <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </SoftBox>
+
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <TextField
+                                        inputRef={slotRef}
+                                        name="interviewSlot"
+                                        value={candidate.interviewSlot}
                                         onChange={handleChange}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
+                                        placeholder="Enter Time Slot"
+                                        label="Time Slot"
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                scheduleRef.current?.focus();
+                                            }
                                         }}
-                                    >
-                                        {[1, 2, 3, 4, 5].map((value) => (
-                                            <MenuItem key={value} value={value}>
-                                                {value}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </SoftBox>
-
-                            {/* Interview Status Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Interview Status
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel>Interview Status</InputLabel>
-                                    <Select
-                                        name="interviewStatus"
-                                        value={candidate.interviewStatus}
+                                        InputLabelProps={{
+                                            sx: {
+                                                fontSize: "1rem", // 👈 sets the label font size
+                                            },
+                                        }}
+                                        sx={textFieldStyles}
+                                    />
+                                </SoftBox>
+                               
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                                    <TextField
+                                        inputRef={scheduleRef}
+                                        label="Interview Schedule"
+                                        type="date"
+                                        name="interviewSchedule"
+                                        value={candidate.interviewSchedule}
                                         onChange={handleChange}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                communicationRef.current?.focus();
+                                            }
                                         }}
-                                    >
-                                        {[
-                                            "Offered",
-                                            "Accepted",
-                                            "Missed",
-                                            "Interviewed",
-                                            "Rescheduled",
-                                        ].map((status) => (
-                                            <MenuItem key={status} value={status}>
-                                                {status}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                        InputLabelProps={{
+                                            shrink: true, // Ensures the label stays above the input
+                                            sx: {
+                                                fontSize: "1rem", // Sets label font size
+                                                color: "black", // Adjusts label color if needed
+                                            },
+                                        }}
+                                        sx={{
+                                            width: "100%", // Ensures the field takes the full width
+                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Adds a subtle shadow
+                                            borderRadius: "5px", // Rounds the input field edges
+                                        }}
+                                    />
+                                </SoftBox>
+
                             </SoftBox>
 
-                            {/* Status Dropdown */}
-                            <SoftBox mb={3}>
-                                <SoftTypography variant="body1" mb={1}>
-                                    Status
-                                </SoftTypography>
-                                <FormControl fullWidth>
-                                    <InputLabel>Status</InputLabel>
-                                    <Select
-                                        name="status"
-                                        value={candidate.status}
-                                        onChange={handleChange}
-                                        sx={{
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                            borderRadius: "5px",
-                                        }}
-                                    >
-                                        {[
-                                            "Pending",
-                                            "Shortlisted",
-                                            "Rejected",
-                                            "Hired",
-                                            "Applied",
-                                        ].map((status) => (
-                                            <MenuItem key={status} value={status}>
-                                                {status}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                            {/* Row 3: Communication, Personality, Knowledge */}
+                            <SoftBox
+                                mb={3}
+                                sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
+                            >
+                                {[
+                                    { label: "Communication", name: "communication", ref: communicationRef, nextRef: personalityRef },
+                                    { label: "Personality", name: "personality", ref: personalityRef, nextRef: knowledgeRef },
+                                    { label: "Knowledge", name: "knowledge", ref: knowledgeRef, nextRef: interviewStatusRef }
+                                ].map(({ label, name, ref, nextRef }) => (
+                                    <SoftBox key={name} sx={{ flex: "0 0 auto", minWidth: 220 }}>
+                                        <FormControl fullWidth sx={{ ...dropdownStyles, width: "370px" }}>
+                                            <InputLabel id="demo-select-label" sx={{ fontSize: "1rem", }}>Select {label}</InputLabel>
+
+                                            <Select
+                                                name={name}
+                                                value={candidate[name] || ""}
+                                                inputRef={ref}
+                                                onChange={(e) => {
+                                                    handleChange(e);
+                                                    nextRef?.current?.focus();
+                                                }}
+
+                                            >
+
+                                                {[1, 2, 3, 4, 5].map((value) => (
+                                                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </SoftBox>
+                                ))}
                             </SoftBox>
 
-                            {/* Submit Button */}
+                            {/* Row 4: Interview Status, Status */}
+                            <SoftBox
+                                mb={3}
+                                sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
+                            >
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 220 }}>
+                                    <FormControl fullWidth sx={{ ...dropdownStyles, width: "370px" }}>
+                                        <InputLabel id="demo-select-label" sx={{ fontSize: "1rem", }}>Select Interview Status</InputLabel>
+                                        <Select
+                                            name="interviewStatus"
+                                            value={candidate.interviewStatus || ""}
+                                            inputRef={interviewStatusRef}
+                                            onChange={handleChange}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    e.preventDefault();
+                                                    statusRef.current?.focus();
+                                                }
+                                            }}
+
+                                        >
+
+                                            {["Offered", "Accepted", "Missed", "Interviewed", "Rescheduled"].map((status) => (
+                                                <MenuItem key={status} value={status}>{status}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </SoftBox>
+
+                                <SoftBox sx={{ flex: "0 0 auto", minWidth: 220 }}>
+                                    <FormControl fullWidth sx={{ ...dropdownStyles, width: "370px" }}>
+                                        <InputLabel id="demo-select-label" sx={{ fontSize: "1rem", }}>Select Status</InputLabel>
+
+                                        <Select
+                                            name="status"
+                                            value={candidate.status || ""}
+                                            inputRef={statusRef}
+                                            onChange={handleChange}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    e.preventDefault();
+                                                    handleSubmit(e);
+                                                }
+                                            }}
+                                        // sx={textFieldStyles}
+                                        >
+
+                                            {['Contacted', 'Moved to Round 2', ' Moved to Round 3', 'Final Round', 'Shortlisted', 'Rejected', 'Hired', 'On Hold'].map((status) => (
+                                                <MenuItem key={status} value={status}>{status}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </SoftBox>
+                            </SoftBox>
+
+                            {/* Submit & Cancel Buttons */}
                             <SoftBox mt={3} display="flex" justifyContent="space-between">
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                >
+                                <SoftButton type="submit" variant="gradient" color="info" onClick={handleSubmit}>
                                     Edit Candidate
-                                </Button>
-                                <Button
-                                    variant="outlined"
-                                    color="secondary"
-                                    onClick={() => navigate("/Candidates/:id")}
+                                </SoftButton>
+
+                                <SoftButton
+                                    variant="gradient"
+                                    color="error"
+                                    onClick={() => navigate("/Candidate")}
                                 >
                                     Cancel
-                                </Button>
+                                </SoftButton>
                             </SoftBox>
                         </form>
                     </Card>

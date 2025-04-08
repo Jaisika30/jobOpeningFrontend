@@ -174,8 +174,8 @@ import { Grid } from "@mui/material";
 function Footer() {
   return (
     <SoftBox component="footer" py={3}>
-      <hr style={{ border: "1px solid #ddd", marginTop: "20px" }} />
-      <Grid container justifyContent="space-between" alignItems="center" mt={4} sx={{ padding: "0px 20px" }}>
+      <hr style={{ border: "1px solid #ddd"}} />
+      <Grid container justifyContent="space-between" alignItems="center" mt={4} >
         <Grid item>
           <SoftTypography variant="body2" color="secondary" fontWeight="bold">
             © 2025 Anthem Infotech Private Limited. All rights reserved.
