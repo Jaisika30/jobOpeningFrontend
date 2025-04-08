@@ -12,9 +12,9 @@ const textFieldStyles = {
         display: "flex",
     },
     "& .MuiInputBase-input": {
-        width: "300px",
-        maxWidth: "300px",
-        minWidth: "300px",
+        width: "330px",
+        maxWidth: "330px",
+        minWidth: "330px",
     },
 };
 const dropdownStyles = {
