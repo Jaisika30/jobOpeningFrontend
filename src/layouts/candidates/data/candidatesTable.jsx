@@ -298,16 +298,16 @@ const getCandidatesTableData = () => {
           action: (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Link to={`/viewCandidate/${candidate._id}`}>
-                <IconButton color="primary">
+                <IconButton sx={{color: "black !important"}}>
                   <VisibilityIcon />
                 </IconButton>
               </Link>
               <Link to={`/editCandidate/${candidate._id}`}>
-                <IconButton color="secondary">
+                <IconButton sx={{color: "black !important"}}>
                   <EditIcon />
                 </IconButton>
               </Link>
-              <IconButton color="error" onClick={() => handleDelete(candidate._id)}>
+              <IconButton  sx={{color: "black !important"}} onClick={() => handleDelete(candidate._id)}>
                 <DeleteIcon />
               </IconButton>
             </div>

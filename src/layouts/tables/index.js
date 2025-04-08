@@ -134,6 +134,7 @@ import Swal from "sweetalert2";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { textFieldStyles } from "assets/textFieldStyles";
+import SoftButton from "components/SoftButton";
 
 
 function Tables() {
@@ -175,7 +176,7 @@ function Tables() {
               </SoftBox>
 
               {/* Search and Filter UI */}
-              <SoftBox display="flex" gap="10px" p={2} flexWrap="wrap">
+              <SoftBox display="flex" gap="10px" p={2} flexWrap="wrap" >
                 <TextField
                   type="text"
                   label="Search Here"
@@ -231,6 +232,20 @@ function Tables() {
                     <MenuItem value="closed">Closed</MenuItem>
                   </Select>
                 </FormControl>
+                <SoftButton
+                  variant="gradient"
+                  color="info"
+                  onClick={"jobs"}
+                  sx={{
+                    height: "40px",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "5px",
+                    marginLeft: "auto", // Aligns the button to the right
+                    marginRight: "30px",
+                  }}
+                >
+                  Add Job 
+                </SoftButton>
               </SoftBox>
 
               <SoftBox
