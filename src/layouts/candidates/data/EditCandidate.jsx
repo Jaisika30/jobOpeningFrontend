@@ -26,7 +26,8 @@ function EditCandidatePage() {
     const dispatch = useDispatch();
     const { id } = useParams();
     const jobs = useSelector((State) => State.jobs.jobs);
-    const candidatee= useSelector((State)=>State.candidates.candidate);
+    const candidatee = useSelector((State) => State.candidates.candidate);
+    const [phoneError, setPhoneError] = useState('');
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -39,11 +40,11 @@ function EditCandidatePage() {
         interviewStatus: "",
         status: "",
         job: "",
-        
+
     });
 
-     // Populate form fields when candidate data is available
-     useEffect(() => {
+    // Populate form fields when candidate data is available
+    useEffect(() => {
         if (candidatee) {
             setCandidate({
                 name: candidatee.name || "",
@@ -79,7 +80,7 @@ function EditCandidatePage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("candidateData:::::", candidate);
-    
+
         try {
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             toast.success("Candidate updated successfully! 🎉"); // Success toast
@@ -89,7 +90,17 @@ function EditCandidatePage() {
             toast.error("Error updating candidate. Please try again."); // Error toast
         }
     };
+    const handlePhoneChange = (e) => {
+        // Allow only numbers
+        const numericValue = e.target.value.replace(/[^0-9]/g, "");
 
+        setCandidate({
+            ...candidate,
+            phone: numericValue
+        });
+
+        setPhoneError(''); // Clear error when typing
+    };
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -124,7 +135,17 @@ function EditCandidatePage() {
                                     fullWidth
                                     name="phone"
                                     value={candidate.phone}
-                                    onChange={handleChange}
+                                    onChange={handlePhoneChange}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            if (/^\d{10}$/.test(candidate.phone)) {
+                                                locationRef.current?.focus();
+                                            } else {
+                                                setPhoneError("Phone must be 10 digits");
+                                            }
+                                        }
+                                    }}
                                     margin="none"
                                     sx={{
                                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -321,11 +342,7 @@ function EditCandidatePage() {
                                         }}
                                     >
                                         {[
-                                            "Pending",
-                                            "Shortlisted",
-                                            "Rejected",
-                                            "Hired",
-                                            "Applied",
+                                            'Contacted', 'Moved to Round 2', ' Moved to Round 3', 'Final Round', 'Shortlisted', 'Rejected', 'Hired', 'On Hold'
                                         ].map((status) => (
                                             <MenuItem key={status} value={status}>
                                                 {status}
