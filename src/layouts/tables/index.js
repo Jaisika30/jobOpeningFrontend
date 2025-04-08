@@ -135,10 +135,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { textFieldStyles } from "assets/textFieldStyles";
 import SoftButton from "components/SoftButton";
+import { useNavigate } from "react-router-dom";
 
 
 function Tables() {
   const dispatch = useDispatch();
+   const navigate = useNavigate();
   const { jobData, loading, setSearchQuery, setStatusFilter, searchQuery, statusFilter } = useJobData();
   const handleDelete = (id) => {
     Swal.fire({
@@ -235,7 +237,7 @@ function Tables() {
                 <SoftButton
                   variant="gradient"
                   color="info"
-                  onClick={"jobs"}
+                  onClick={() => navigate("/addJob")}
                   sx={{
                     height: "40px",
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
