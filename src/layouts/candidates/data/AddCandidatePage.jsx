@@ -131,22 +131,7 @@ function AddCandidatePage() {
                                 mb={3}
                                 sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
                             >
-                                {/* <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
-                                                        <TextField
-                                        name="name"
-                                        value={candidate.name}
-                                        onChange={handleChange}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") {
-                                                e.preventDefault();
-                                                phoneRef.current?.focus();
-                                            }
-                                        }}
-                                        placeholder="Enter candidate name"
-                                        sx={textFieldStyles}
-                                    />
-                                    <InputLabel id="demo-select-label">Name Option</InputLabel>
-                                </SoftBox> */}
+                            
                                 <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
                                     <TextField
                                         label="Name"
