@@ -187,7 +187,7 @@ function Tables() {
                   sx={{
                     width: "330px",
                     maxWidth: "330px",
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                    // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
                     display: "flex",
                     "& .MuiInputBase-root": {
@@ -210,7 +210,7 @@ function Tables() {
                   width: "250px",
                   maxWidth: "250px",
                   minWidth: "250px",
-                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                  // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                   borderRadius: "7px",
                   display: "flex",
                   "& .MuiInputBase-root": {
