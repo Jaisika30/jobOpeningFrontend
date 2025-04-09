@@ -12,7 +12,6 @@ import SoftButton from "components/SoftButton";
 import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
@@ -332,7 +331,6 @@ function AddCandidatePage() {
                     </Card>
                 </SoftBox>
             </SoftBox>
-            <Footer />
         </DashboardLayout>
     );
 }

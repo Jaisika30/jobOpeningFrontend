@@ -124,7 +124,6 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 import { Input, Select, MenuItem, TextField, InputLabel, FormControl } from "@mui/material";
 import { useJobData, getJobTableData } from "layouts/tables/data/authorsTableData";
@@ -168,7 +167,7 @@ function Tables() {
       <Box
         display="flex"
         flexDirection="column"
-        minHeight="100vh"
+        minHeight="auto"
       >
         <SoftBox py={3}>
           <SoftBox mb={3}>
@@ -275,7 +274,6 @@ function Tables() {
           </SoftBox>
         </SoftBox>
       </Box>
-      <Footer />
     </DashboardLayout>
   );
 }

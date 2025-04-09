@@ -11,7 +11,6 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "slices/jobSlice";
 import { toast } from "react-toastify";
@@ -78,7 +77,6 @@ function AddJob() {
         <SoftBox py={3} textAlign="center">
           <SoftTypography variant="h6">Loading job details...</SoftTypography>
         </SoftBox>
-        <Footer />
       </DashboardLayout>
     );
   }
@@ -314,7 +312,6 @@ function AddJob() {
           </Card>
         </SoftBox>
       </SoftBox>
-      <Footer />
     </DashboardLayout>
   );
 }

@@ -26,7 +26,7 @@ import SoftTypography from "components/SoftTypography";
 
 // Soft UI Dashboard React base styles
 import typography from "assets/theme/base/typography";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 // function Footer({ company, links }) {
 //   const { href, name } = company;
@@ -171,27 +171,48 @@ import { Grid } from "@mui/material";
 //     </SoftBox>
 //   );
 // }
+// function Footer() {
+//   return (
+//     <SoftBox component="footer" >
+//       <hr style={{ border: "1px solid #ddd"}} />
+//       <Grid container justifyContent="space-between" alignItems="center"  >
+//         <Grid item>
+//           <SoftTypography variant="body2" color="secondary" fontWeight="bold">
+//             © 2025 Anthem Infotech Private Limited. All rights reserved.
+//           </SoftTypography>
+//         </Grid>
+//         <Grid item>
+//           <SoftTypography variant="body2" color="secondary" fontWeight="bold">
+//             Powered by Anthem Infotech Pvt. Ltd.
+//           </SoftTypography>
+//         </Grid>
+//       </Grid>
+//     </SoftBox>
+//   );
+// }
+
 function Footer() {
   return (
-    <SoftBox component="footer" py={3}>
-      <hr style={{ border: "1px solid #ddd"}} />
-      <Grid container justifyContent="space-between" alignItems="center" mt={4} >
+    <footer style={{ width: "100%", padding: "16px 8px", borderTop: "1px solid #ddd" }}>
+      <Grid container justifyContent="space-between" alignItems="center">
         <Grid item>
-          <SoftTypography variant="body2" color="secondary" fontWeight="bold">
-            © 2025 Anthem Infotech Private Limited. All rights reserved.
-          </SoftTypography>
+          <Typography variant="body2" color="textSecondary" >
+            © {new Date().getFullYear()} Anthem Infotech Private Limited. All rights reserved.
+          </Typography>
         </Grid>
         <Grid item>
-          <SoftTypography variant="body2" color="secondary" fontWeight="bold">
-            Powered by Anthem Infotech Pvt. Ltd.
-          </SoftTypography>
+          {/* Add clickable link */}
+          <Typography variant="body2" color="textSecondary">
+            Powered by 
+            <Link href="https://antheminfotech.com/" target="_blank" rel="noopener" style={{ textDecoration: "none", color: "inherit" }}>
+              &nbsp;Anthem Infotech Pvt. Ltd.
+            </Link>
+          </Typography>
         </Grid>
       </Grid>
-    </SoftBox>
+    </footer>
   );
 }
-
-
 // Setting default values for the props of Footer
 Footer.defaultProps = {
   company: { href: "https://www.creative-tim.com/", name: "Creative Tim" },
