@@ -135,11 +135,13 @@ import Box from '@mui/material/Box';
 import { textFieldStyles } from "assets/textFieldStyles";
 import SoftButton from "components/SoftButton";
 import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import InputAdornment from "@mui/material/InputAdornment";
 
 
 function Tables() {
   const dispatch = useDispatch();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const { jobData, loading, setSearchQuery, setStatusFilter, searchQuery, statusFilter } = useJobData();
   const handleDelete = (id) => {
     Swal.fire({
@@ -178,7 +180,7 @@ function Tables() {
 
               {/* Search and Filter UI */}
               <SoftBox display="flex" gap="10px" p={2} flexWrap="wrap" >
-                <TextField
+                {/* <TextField
                   type="text"
                   label="Search Here"
                   placeholder="Search by Job Title"
@@ -204,6 +206,35 @@ function Tables() {
                     sx: {
                       fontSize: "1rem", // 👈 sets the label font size
                     },
+                  }}
+                /> */}
+                <TextField
+                  type="text"
+                  // label="Search Here"
+                  placeholder="Search by Job Title"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  sx={{
+                    width: "330px",
+                    borderRadius: "5px",
+                    "& .MuiInputBase-root": {
+                      width: "330px",
+                    },
+                    "& .MuiInputBase-input": {
+                      width: "330px",
+                    },
+                  }}
+                  InputLabelProps={{
+                    sx: {
+                      fontSize: "1rem",
+                    },
+                  }}
+                  InputProps={{
+                    startAdornment: !searchQuery && (
+                      <InputAdornment position="start">
+                     <SearchIcon sx={{ fontSize: "18px !important", color: "#999" }} />
+                      </InputAdornment>
+                    ),
                   }}
                 />
                 <FormControl sx={{
@@ -245,7 +276,7 @@ function Tables() {
                     marginRight: "30px",
                   }}
                 >
-                  Add Job 
+                  Add Job
                 </SoftButton>
               </SoftBox>
 
