@@ -184,28 +184,27 @@ function AddJob() {
                 mb={3}
                 sx={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "flex-start" }}
               >
-                <SoftBox sx={{ flex: "0 0 auto", minWidth: 220 }}>
-                  <FormControl fullWidth sx={{ ...dropdownStyles, width: "370px" }}>
-                    <InputLabel id="demo-select-label" sx={{ fontSize: "1rem", }}>Select Posting Date</InputLabel>
-                    <Select
-                      name="postingDate"
-                      type="date"
-                      value={job.postingDate}
-                      onChange={handleChange}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          statusRef.current?.focus();
-                        }
-                      }}
-
-                    >
-
-                      {["Offered", "Accepted", "Missed", "Interviewed", "Rescheduled"].map((status) => (
-                        <MenuItem key={status} value={status}>{status}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                <SoftBox sx={{ flex: "0 0 auto", minWidth: 320 }}>
+                  <TextField
+                    inputRef={postingDateRef}
+                    label="Posting Date"
+                    name="postingDate"
+                    value={job.postingDate}
+                    onChange={handleChange}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        postingDateRef.current?.focus();
+                      }
+                    }}
+                    placeholder="Enter location"
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "1rem", // 👈 sets the label font size
+                      },
+                    }}
+                    sx={textFieldStyles}
+                  />
                 </SoftBox>
 
                 <SoftBox sx={{ flex: "0 0 auto", minWidth: 220 }}>
