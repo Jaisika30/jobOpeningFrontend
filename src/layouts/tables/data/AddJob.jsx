@@ -203,12 +203,10 @@ function AddJob() {
                     fullWidth
                     variant="outlined"
                     InputLabelProps={{
-                      shrink: true, // Ensures the label stays above the input
                       sx: {
-                          fontSize: "1rem", // Sets label font size
-                          color: "black", // Adjusts label color if needed
+                        fontSize: "1rem", // 👈 sets the label font size
                       },
-                  }}
+                    }}
                   />
                 </SoftBox>
 
