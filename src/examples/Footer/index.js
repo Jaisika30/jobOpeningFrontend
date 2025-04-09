@@ -196,15 +196,19 @@ function Footer() {
     <footer style={{ width: "100%", padding: "16px 8px", borderTop: "1px solid #ddd" }}>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item>
-          <Typography variant="body2" color="textSecondary" >
-            © {new Date().getFullYear()} Anthem Infotech Private Limited. All rights reserved.
+          <Typography variant="body2" color="textSecondary">
+            © {new Date().getFullYear()}{" "}
+            <span style={{ fontWeight: 500 }}>
+              Anthem Infotech Private Limited. All rights reserved.
+            </span>
           </Typography>
+
         </Grid>
         <Grid item>
           {/* Add clickable link */}
           <Typography variant="body2" color="textSecondary">
-            Powered by 
-            <Link href="https://antheminfotech.com/" target="_blank" rel="noopener" style={{ textDecoration: "none", color: "inherit" }}>
+            Powered by
+            <Link href="https://antheminfotech.com/" target="_blank" rel="noopener" style={{ textDecoration: "none", color: "inherit", fontWeight: "500" }}>
               &nbsp;Anthem Infotech Pvt. Ltd.
             </Link>
           </Typography>

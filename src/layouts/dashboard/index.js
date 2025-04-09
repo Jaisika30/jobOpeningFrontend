@@ -24,7 +24,6 @@ import SoftTypography from "components/SoftTypography";
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
@@ -54,7 +53,7 @@ function Dashboard() {
       <Box
       display="flex"
       flexDirection="column"
-      minHeight="100vh"
+      minHeight="auto"
     >
         {/* <SoftBox mb={3}>
           <Grid container spacing={3}>
@@ -151,7 +150,6 @@ function Dashboard() {
         </Grid> */}
       </Box>
       </SoftBox>
-      <Footer />
     </DashboardLayout>
   );
 }
