@@ -98,33 +98,58 @@
 // @mui material components
 
 
-import { Divider } from "@mui/material";
+import { Divider, Link, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
+// function Footer() {
+//   return (
+//     <SoftBox component="footer" py={3}>
+//       <hr style={{ border: "1px solid #ddd", marginTop: "20px" }} />
+//       <Grid container justifyContent="space-between" alignItems="center" mt={4} sx={{ padding: "0px 20px" }}>
+//         <Grid item>
+//           <SoftTypography variant="body2" color="secondary" fontWeight="bold">
+//             © 2025 Anthem Infotech Private Limited. All rights reserved.
+//           </SoftTypography>
+//         </Grid>
+//         <Grid item>
+//           <SoftTypography variant="body2" color="secondary" fontWeight="bold">
+//             Powered by Anthem Infotech Pvt. Ltd.
+//           </SoftTypography>
+//         </Grid>
+//       </Grid>
+//     </SoftBox>
+//   );
+// }
 function Footer() {
   return (
-    <SoftBox component="footer" py={3}>
-      <hr style={{ border: "1px solid #ddd", marginTop: "20px" }} />
-      <Grid container justifyContent="space-between" alignItems="center" mt={4} sx={{ padding: "0px 20px" }}>
+    <footer style={{ width: "98%", padding: "16px 4px", borderTop: "1px solid #ddd" }}>
+      <Grid container justifyContent="space-between" alignItems="center">
         <Grid item>
-          <SoftTypography variant="body2" color="secondary" fontWeight="bold">
-            © 2025 Anthem Infotech Private Limited. All rights reserved.
-          </SoftTypography>
+          <Typography variant="body2" color="textSecondary">
+            © {new Date().getFullYear()}{" "}
+            <span style={{ fontWeight: 500 }}>
+              Anthem Infotech Private Limited. All rights reserved.
+            </span>
+          </Typography>
+
         </Grid>
         <Grid item>
-          <SoftTypography variant="body2" color="secondary" fontWeight="bold">
-            Powered by Anthem Infotech Pvt. Ltd.
-          </SoftTypography>
+          {/* Add clickable link */}
+          <Typography variant="body2" color="textSecondary">
+            Powered by
+            <Link href="https://antheminfotech.com/" target="_blank" rel="noopener" style={{ textDecoration: "none", color: "inherit", fontWeight: "500" }}>
+              &nbsp;Anthem Infotech Pvt. Ltd.
+            </Link>
+          </Typography>
         </Grid>
       </Grid>
-    </SoftBox>
+    </footer>
   );
 }
-
 export default Footer;
 
 
