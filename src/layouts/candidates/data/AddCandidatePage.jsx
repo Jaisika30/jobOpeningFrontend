@@ -722,7 +722,7 @@ function AddCandidatePage() {
                                         px: 3, // Adds horizontal padding
                                     }}
                                 >
-                                    Add Candidate
+                                    Adddd Candidate
                                 </SoftButton>
                                 <SoftButton
                                     variant="gradient"

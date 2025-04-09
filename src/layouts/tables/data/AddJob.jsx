@@ -557,7 +557,7 @@ function AddJob() {
                     px: 3, // Adds horizontal padding
                   }}
                 >
-                  Add Job
+                  Addd Job
                 </SoftButton>
                 <SoftButton
                   variant="gradient"
