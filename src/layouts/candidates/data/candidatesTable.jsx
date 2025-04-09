@@ -248,15 +248,15 @@ const getCandidatesTableData = () => {
           location: "",
           interviewStatus: "",
           status: "",
-          action: (
-            <Button
-              variant="contained"
-              onClick={handleResetFilters}
-              style={{ backgroundColor: 'red', color: 'white' }}
-            >
-              Reset Filters
-            </Button>
-          )
+          // action: (
+          //   <Button
+          //     variant="contained"
+          //     onClick={handleResetFilters}
+          //     style={{ backgroundColor: 'red', color: 'white' }}
+          //   >
+          //     Reset Filters
+          //   </Button>
+          // )
         }]
         : filteredCandidates.map((candidate) => ({
           name: (
