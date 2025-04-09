@@ -14,7 +14,7 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import SoftButton from "components/SoftButton";
-import { IconButton, InputAdornment } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 // Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
@@ -22,6 +22,7 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import curved9 from "assets/images/curved-images/curved-6.jpg";
 import { useAuth } from "protect/AuthContext";
+import { textFieldStyles } from "assets/textFieldStyles";
 const API_URL = process.env.REACT_APP_API_URL;
 console.log("apiiiiiiii irlllll", API_URL)
 function SignIn() {
@@ -45,52 +46,48 @@ function SignIn() {
     }),
     onSubmit: async (values) => {
       try {
-          const response = await axios.post(`${API_URL}/api/auth/login`, values);
-          
-          if (response.data.token) {
-              login(response.data.token);
-              navigate("/dashboard");
-          } else {
-              setErrorMessage(response.data.message || "Login failed");
-          }
-          
+        const response = await axios.post(`${API_URL}/api/auth/login`, values);
+
+        if (response.data.token) {
+          login(response.data.token);
+          navigate("/dashboard");
+        } else {
+          setErrorMessage(response.data.message || "Login failed");
+        }
+
       } catch (error) {
-          console.log("Full error object:", error);
-          
-          // More detailed error handling
-          if (error.response) {
-              // The request was made and the server responded with a status code
-              console.log("Error data:", error.response.data);
-              console.log("Error status:", error.response.status);
-              console.log("Error headers:", error.response.headers);
-              
-              setErrorMessage(error.response.data?.message || "Invalid credentials");
-          } else if (error.request) {
-              // The request was made but no response was received
-              console.log("No response received:", error.request);
-              setErrorMessage("No response from server");
-          } else {
-              // Something happened in setting up the request
-              console.log("Request setup error:", error.message);
-              setErrorMessage("Request error: " + error.message);
-          }
+        console.log("Full error object:", error);
+
+        // More detailed error handling
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          console.log("Error data:", error.response.data);
+          console.log("Error status:", error.response.status);
+          console.log("Error headers:", error.response.headers);
+
+          setErrorMessage(error.response.data?.message || "Invalid credentials");
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log("No response received:", error.request);
+          setErrorMessage("No response from server");
+        } else {
+          // Something happened in setting up the request
+          console.log("Request setup error:", error.message);
+          setErrorMessage("Request error: " + error.message);
+        }
       }
-  }
-    
+    }
+
   });
 
   return (
     <CoverLayout title="Please Sign In Here" description="Enter your email and password to sign in" image={curved9} top={28} color={"info"} bottom={5}>
       <form onSubmit={formik.handleSubmit}>
         <SoftBox mb={2}>
-          <SoftBox mb={1} ml={0.5}>
-            <SoftTypography component="label" variant="caption" fontWeight="bold">
-              Email
-            </SoftTypography>
-          </SoftBox>
-          <SoftInput
+          
+          <TextField
+            label="Email"
             type="email"
-            placeholder="Email"
             name="email"
             value={formik.values.email}
             onChange={formik.handleChange}
@@ -102,6 +99,9 @@ function SignIn() {
                 passwordRef.current?.focus(); // Move to password field
               }
             }}
+            InputLabelProps={{ sx: { fontSize: "1rem" } }}
+            sx={textFieldStyles}
+            placeholder="Enter email"
           />
 
 
@@ -114,14 +114,12 @@ function SignIn() {
 
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
-            <SoftTypography component="label" variant="caption" fontWeight="bold">
-              Password
-            </SoftTypography>
+            
           </SoftBox>
-          <SoftInput
+          <TextField
+          label="Password"
             inputRef={passwordRef}
             type="password"
-            placeholder="Password"
             name="password"
             value={formik.values.password}
             onChange={formik.handleChange}
@@ -133,13 +131,16 @@ function SignIn() {
                 formik.handleSubmit(); // Submit form
               }
             }}
-            // endAdornment={
-            //   <InputAdornment position="end" sx={{ marginLeft: "50px" }}>
-            //     <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" >
-            //       {showPassword ? <VisibilityOff /> : <Visibility />}
-            //     </IconButton>
-            //   </InputAdornment>
-            // }
+            placeholder="Enter password"
+            sx={textFieldStyles}
+            InputLabelProps={{ sx: { fontSize: "1rem" } }}
+          // endAdornment={
+          //   <InputAdornment position="end" sx={{ marginLeft: "50px" }}>
+          //     <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" >
+          //       {showPassword ? <VisibilityOff /> : <Visibility />}
+          //     </IconButton>
+          //   </InputAdornment>
+          // }
 
           />
           {formik.touched.password && formik.errors.password && (
