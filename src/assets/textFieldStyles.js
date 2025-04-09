@@ -17,27 +17,10 @@ const textFieldStyles = {
         minWidth: "330px",
     },
 };
-// const dropdownStyles = {
-//     width: "360px",
-//     maxWidth: "360px",
-//     minWidth: "360px",
-//     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-//     borderRadius: "5px",
-//     display: "flex",
-//     "& .MuiInputBase-root": {
-//         width: "100%",
-//         display: "flex",
-//     },
-//     "& .MuiInputBase-input": {
-//         width: "360px",
-//         maxWidth: "360px",
-//         minWidth: "360px",
-//     },
-// };
- const dropdownStyles = {
-    width: "100%", // allow it to grow/shrink within parent
-    maxWidth: "360px", // cap width on large screens
-    minWidth: "0", // allow shrinking on smaller screens
+const dropdownStyles = {
+    width: "370px",
+    maxWidth: "370px",
+    minWidth: "370px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     borderRadius: "5px",
     display: "flex",
@@ -46,10 +29,11 @@ const textFieldStyles = {
         display: "flex",
     },
     "& .MuiInputBase-input": {
-        width: "100%",
+        width: "330px",
+        maxWidth: "330px",
+        minWidth: "330px",
     },
 };
-
 const labelSize = {
     fontSize: "1rem"
 };
