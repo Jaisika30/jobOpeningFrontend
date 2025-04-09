@@ -11,6 +11,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import SoftTypography from "components/SoftTypography";
 import SoftBadge from "components/SoftBadge";
 import { useTheme } from '@mui/material/styles';
+import JobTableContainer from "layouts/scrollbar/tableContainer";
 
 const useJobData = () => {
   const [jobData, setJobData] = useState([]);
