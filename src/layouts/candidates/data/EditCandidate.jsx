@@ -404,7 +404,7 @@ function EditCandidatePage() {
                 <SoftBox mb={3}>
                     <Card sx={{ p: 3 }}>
                         <SoftTypography variant="h5" mb={3} textAlign="center">
-                            Add Candidate
+                            Edit Candidate
                         </SoftTypography>
                         <form onSubmit={handleSubmit}>
                             {/* Row 1: Name, Phone, Location */}
@@ -643,7 +643,7 @@ function EditCandidatePage() {
                                         px: 3,
                                     }}
                                 >
-                                    Add Candidate
+                                    Edit Candidate
                                 </SoftButton>
                                 <SoftButton
                                     variant="gradient"
