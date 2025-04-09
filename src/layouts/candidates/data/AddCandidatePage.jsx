@@ -281,11 +281,12 @@ function AddCandidatePage() {
                                                 color: "black", // Adjusts label color if needed
                                             },
                                         }}
-                                        sx={{
-                                            width: "100%", // Ensures the field takes the full width
-                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Adds a subtle shadow
-                                            borderRadius: "5px", // Rounds the input field edges
-                                        }}
+                                        // sx={{
+                                        //     width: "100%", // Ensures the field takes the full width
+                                        //     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Adds a subtle shadow
+                                        //     borderRadius: "5px", // Rounds the input field edges
+                                        // }}
+                                        sx={textFieldStyles}
                                     />
                                 </SoftBox>
 
