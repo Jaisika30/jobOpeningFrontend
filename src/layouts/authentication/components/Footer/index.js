@@ -126,7 +126,7 @@ import SoftTypography from "components/SoftTypography";
 // }
 function Footer() {
   return (
-    <footer style={{ width: "98%", padding: "16px 4px", borderTop: "1px solid #ddd" }}>
+    <footer  style={{ width: "98%", padding: "16px 4px", borderTop: "1px solid #ddd" , marginTop:"20px" }}>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item>
           <Typography variant="body2" color="textSecondary">
