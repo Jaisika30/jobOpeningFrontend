@@ -45,7 +45,7 @@ function CoverLayout({ color, header, title, description, image, top, children ,
         container
         justifyContent="center"
         sx={{
-          minHeight: "75vh",
+          minHeight: "100vh",
           margin: 0,
         }}
       >
