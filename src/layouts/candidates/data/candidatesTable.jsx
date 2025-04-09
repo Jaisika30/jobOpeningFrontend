@@ -275,8 +275,13 @@ const getCandidatesTableData = () => {
               badgeContent={candidate.interviewStatus}
               color={
                 candidate.interviewStatus === "Accepted" ? "success" :
-                  candidate.interviewStatus === "Rejected" ? "error" :
-                    candidate.interviewStatus === "Pending" ? "warning" : "info"
+                candidate.interviewStatus === "Rejected" ? "error" :
+                candidate.interviewStatus === "Pending" ? "warning" :
+                candidate.interviewStatus === "Offered" ? "info" :
+                candidate.interviewStatus === "Interviewed" ? "secondary" :
+                candidate.interviewStatus === "Rescheduled" ? "warning" :
+                candidate.interviewStatus === "Missed" ? "error" :
+                "light" // default/fallback
               }
               size="xs"
               container
