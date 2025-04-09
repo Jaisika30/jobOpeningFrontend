@@ -485,7 +485,7 @@ function AddJob() {
               {/* Submit & Cancel Buttons */}
               <SoftBox mt={3} display="flex" justifyContent="space-between">
                 <SoftButton type="submit" variant="gradient" color="info" onClick={handleSubmit}>
-                  Add Job
+                  Addd Job
                 </SoftButton>
                 <SoftButton
                   variant="gradient"
