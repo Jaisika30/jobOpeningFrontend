@@ -207,11 +207,15 @@ const getCandidatesTableData = () => {
             label="Status"
           >
             <MenuItem value="">All</MenuItem>
-            <MenuItem value="Applied">Applied</MenuItem>
-            <MenuItem value="Hired">Hired</MenuItem>
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="Contacted">Contacted</MenuItem>
+            <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
+            <MenuItem value="Moved to Round 3">Moved to Round 3</MenuItem>
             <MenuItem value="Shortlisted">Shortlisted</MenuItem>
-            <MenuItem value="Pending">Pending</MenuItem>
             <MenuItem value="Rejected">Rejected</MenuItem>
+            <MenuItem value="Final Round">Final Round</MenuItem>
+            <MenuItem value="Hired">Hired</MenuItem>
+            <MenuItem value="On Hold">On Hold</MenuItem>
           </Select>
         </FormControl>
       </div>
@@ -293,8 +297,14 @@ const getCandidatesTableData = () => {
               badgeContent={candidate.status}
               color={
                 candidate.status === "Hired" ? "success" :
-                  candidate.status === "Rejected" ? "error" :
-                    candidate.status === "Pending" ? "warning" : "info"
+                candidate.status === "Rejected" ? "error" :
+                candidate.status === "Contacted" ? "info" :
+                candidate.status === "Moved to Round 2" ? "primary" :
+                candidate.status === "Moved to Round 3" ? "primary" :
+                candidate.status === "Shortlisted" ? "secondary" :
+                candidate.status === "Final Round" ? "warning" :
+                candidate.status === "On Hold" ? "warning" :
+                "default"
               }
               size="xs"
               container
