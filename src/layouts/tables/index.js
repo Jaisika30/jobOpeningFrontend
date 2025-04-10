@@ -135,11 +135,11 @@ import Box from '@mui/material/Box';
 import { textFieldStyles } from "assets/textFieldStyles";
 import SoftButton from "components/SoftButton";
 import { useNavigate } from "react-router-dom";
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function Tables() {
   const dispatch = useDispatch();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const { jobData, loading, setSearchQuery, setStatusFilter, searchQuery, statusFilter } = useJobData();
   const handleDelete = (id) => {
     Swal.fire({
@@ -206,7 +206,7 @@ function Tables() {
                     },
                   }}
                 />
-                <FormControl sx={{
+                {/* <FormControl sx={{
                   width: "250px",
                   maxWidth: "250px",
                   minWidth: "250px",
@@ -232,6 +232,35 @@ function Tables() {
                     <MenuItem value="open">Open</MenuItem>
                     <MenuItem value="closed">Closed</MenuItem>
                   </Select>
+                </FormControl> */}
+                <FormControl
+                  sx={{
+                    width: "250px",
+                    maxWidth: "250px",
+                    minWidth: "250px",
+                    borderRadius: "5px",
+                    display: "flex",
+                    "& .MuiInputBase-root": {
+                      width: "100%",
+                      display: "flex",
+                    },
+                    "& .MuiInputBase-input": {
+                      width: "200px",
+                      maxWidth: "200px",
+                      minWidth: "200px",
+                    },
+                  }}
+                >
+                  <InputLabel sx={{ fontSize: "1rem" }}>All Status</InputLabel>
+                  <Select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    IconComponent={KeyboardArrowDownIcon}
+                  >
+                    <MenuItem value="">All</MenuItem>
+                    <MenuItem value="open">Open</MenuItem>
+                    <MenuItem value="closed">Closed</MenuItem>
+                  </Select>
                 </FormControl>
                 <SoftButton
                   variant="gradient"
@@ -245,7 +274,7 @@ function Tables() {
                     marginRight: "30px",
                   }}
                 >
-                  Add Job 
+                  Add Job
                 </SoftButton>
               </SoftBox>
 
