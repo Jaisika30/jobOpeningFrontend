@@ -63,6 +63,7 @@ export const getJobById = createAsyncThunk(
     '/jobs/getJob',
     async (id, { rejectWithValue }) => {
         try {
+            console.log("iddddddddddddiiiiiiiiii::::",id)
             const token = localStorage.getItem('token'); // Retrieve token from storage
             const response = await axios.get(`${API_URL}/api/jobs/getJob/${id}`, {
                 headers: {

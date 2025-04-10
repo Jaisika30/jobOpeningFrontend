@@ -110,7 +110,60 @@
 // export default Candidates;
 
 
-import { useState } from "react";
+// import { useState } from "react";
+// import Card from "@mui/material/Card";
+// import SoftBox from "components/SoftBox";
+// import SoftTypography from "components/SoftTypography";
+// import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+// import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+// import Candidate from "examples/Candidates/Candidate";
+// import { Box } from "@mui/material";
+// import getCandidatesTableData from "layouts/candidates/data/candidatesTable";
+
+// function Candidates() {
+//   const [open, setOpen] = useState(false);
+
+//   const handleOpen = () => setOpen(true);
+
+
+//   const { topAction, columns, rows } = getCandidatesTableData(handleOpen);
+
+//   return (
+//     <DashboardLayout>
+//       <DashboardNavbar />
+//       <Box
+//         display="flex"
+//         flexDirection="column"
+//         minHeight="auto"
+//       >
+//         <SoftBox py={3}>
+//           <SoftBox mb={3}>
+//             <Card>
+//               <SoftBox p={3}>
+//                 {/* Header */}
+//                 <SoftTypography variant="h6" textAlign="center">Candidates</SoftTypography>
+
+//                 {/* Top action on a new line */}
+//                 <SoftBox mt={2}>
+//                   {topAction}
+//                 </SoftBox>
+//               </SoftBox>
+
+//               {/* Candidate table */}
+//                 <Candidate columns={columns} rows={rows} />
+//             </Card>
+//           </SoftBox>
+//         </SoftBox>
+
+//       </Box>
+//     </DashboardLayout>
+//   );
+// }
+
+// export default Candidates;
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "@mui/material/Card";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
@@ -119,59 +172,102 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Candidate from "examples/Candidates/Candidate";
 import { Box } from "@mui/material";
 import getCandidatesTableData from "layouts/candidates/data/candidatesTable";
+import { getJobById } from "slices/jobSlice";
 
+// function Candidates() {
+//   const { id } = useParams(); // Get the 'id' parameter from the URL
+//   const [open, setOpen] = useState(false);
+//   const data = useSelector((state) => state.job); // Access Redux state
+//   const dispatch = useDispatch();
+//   const handleOpen = () => setOpen(true);
+//   const { topAction, columns, rows } = getCandidatesTableData(handleOpen);
+//   console.log("job table idddd0", id);
+
+//   useEffect(() => {
+//     console.log("job table idddd1", id);
+
+//     if (id) {
+//       console.log("job table idddd2", id);
+
+//       // Fetch the job title by id if 'id' is present in the URL
+//       dispatch(getJobById(id));
+//     }
+//   }, [id, dispatch]);
+//   console.log("dataaaaaaaaatatat", data)
+//   return (
+//     <DashboardLayout>
+//       <DashboardNavbar />
+//       <Box display="flex" flexDirection="column" minHeight="auto">
+//         <SoftBox py={3}>
+//           <SoftBox mb={3}>
+//             <Card>
+//               <SoftBox p={3}>
+//                 {/* Header */}
+//                 <SoftTypography variant="h6" textAlign="center">
+//                   {id ? `Candidates for Job: ${jobTitle}` : "All Candidates"}
+//                 </SoftTypography>
+
+//                 {/* Top action on a new line */}
+//                 <SoftBox mt={2}>{topAction}</SoftBox>
+//               </SoftBox>
+
+//               {/* Candidate table */}
+//               <Candidate columns={columns} rows={rows} />
+//             </Card>
+//           </SoftBox>
+//         </SoftBox>
+//       </Box>
+//     </DashboardLayout>
+//   );
+// }
 function Candidates() {
+  const { id } = useParams(); // Get the 'id' parameter from the URL
+  const [job, setJob] = useState(null);
   const [open, setOpen] = useState(false);
-  const [newCandidate, setNewCandidate] = useState({ name: "", location: "", timeOffered: "" });
+  const data = useSelector((state) => state.payload); // Access Redux state
+  const jobDetail = useSelector((state) => state.jobs.job);
+  const dispatch = useDispatch();
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const handleChange = (e) => {
-    setNewCandidate({ ...newCandidate, [e.target.name]: e.target.value });
-  };
-
-  const handleDateChange = (date, field) => {
-    setNewCandidate((prev) => ({
-      ...prev,
-      [field]: date, // Updates the correct field
-    }));
-  };
-
-  const handleSubmit = () => {
-    console.log("Submitting new candidate:", newCandidate);
-    handleClose();
-  };
-
   const { topAction, columns, rows } = getCandidatesTableData(handleOpen);
+  console.log("ID from URL (before useEffect):", id);
+  console.log("Redux state updatedvvvvvvvvv:", jobDetail); // Debugging to check data in Redux
+
+  useEffect(() => {
+    console.log("ID from URL:", id);
+    if (id) {
+
+      dispatch(getJobById(id));
+      setJob(data);
+    }
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    console.log("Redux state updated:", data); // Debugging to check data in Redux
+  }, [data]);
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Box
-        display="flex"
-        flexDirection="column"
-        minHeight="auto"
-      >
+      <Box display="flex" flexDirection="column" minHeight="auto">
         <SoftBox py={3}>
           <SoftBox mb={3}>
             <Card>
               <SoftBox p={3}>
                 {/* Header */}
-                <SoftTypography variant="h6" textAlign="center">Candidates</SoftTypography>
+                <SoftTypography variant="h6" textAlign="center">
+                  {id ? `Candidates for Job: ${jobDetail.title}`: "All Candidates"}
+                </SoftTypography>
 
                 {/* Top action on a new line */}
-                <SoftBox mt={2}>
-                  {topAction}
-                </SoftBox>
+                <SoftBox mt={2}>{topAction}</SoftBox>
               </SoftBox>
 
               {/* Candidate table */}
-                <Candidate columns={columns} rows={rows} />
+              <Candidate columns={columns} rows={rows} />
             </Card>
           </SoftBox>
         </SoftBox>
-
       </Box>
     </DashboardLayout>
   );
