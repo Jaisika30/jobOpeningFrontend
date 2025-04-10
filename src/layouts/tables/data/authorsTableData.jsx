@@ -43,7 +43,10 @@ const useJobData = () => {
 
   return { jobData, loading: isLoading, setSearchQuery, setStatusFilter, searchQuery, statusFilter, dispatch };
 };
-
+const truncateText = (text, maxLength) => {
+  if (!text) return ""; // Handle empty/null text
+  return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+};
 const getJobTableData = (jobData, handleDelete) => {
   // Access theme
   const theme = useTheme();
@@ -67,12 +70,12 @@ const getJobTableData = (jobData, handleDelete) => {
           component={Link}
           to={`/Candidates/${job._id}`}
         >
-          {job.title}
+          {truncateText(job.title, 20)} 
         </SoftTypography>
       ),
       description: (
         <SoftTypography variant="caption" color="secondary">
-          {job.description}
+          {truncateText(job.description, 40)}
         </SoftTypography>
       ),
       postingDate: (
