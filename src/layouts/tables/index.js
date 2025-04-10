@@ -229,7 +229,7 @@ function Tables() {
                     onChange={(e) => setStatusFilter(e.target.value)}
                   >
                     {/* <MenuItem value="">All Status</MenuItem> */}
-                    <MenuItem value="open">open</MenuItem>
+                    <MenuItem value="open">Open</MenuItem>
                     <MenuItem value="closed">Closed</MenuItem>
                   </Select>
                 </FormControl>
