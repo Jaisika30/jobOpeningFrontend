@@ -137,7 +137,7 @@ function Candidates() {
       [field]: date, // Updates the correct field
     }));
   };
-  
+
   const handleSubmit = () => {
     console.log("Submitting new candidate:", newCandidate);
     handleClose();
@@ -149,24 +149,30 @@ function Candidates() {
     <DashboardLayout>
       <DashboardNavbar />
       <Box
-      display="flex"
-      flexDirection="column"
-      minHeight="auto"
-    >
-      <SoftBox py={3}>
-        <SoftBox mb={3}>
-          <Card>
-            <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <SoftTypography variant="h6">Candidates</SoftTypography>
-              {topAction} {/* Render the Add Candidate button */}
-            </SoftBox>
-            <SoftBox>
-              <Candidate columns={columns} rows={rows} />
-            </SoftBox>
-          </Card>
+        display="flex"
+        flexDirection="column"
+        minHeight="auto"
+      >
+        <SoftBox py={3}>
+          <SoftBox mb={3}>
+            <Card>
+              <SoftBox p={3}>
+                {/* Header */}
+                <SoftTypography variant="h6" textAlign="center">Candidates</SoftTypography>
+
+                {/* Top action on a new line */}
+                <SoftBox mt={2}>
+                  {topAction}
+                </SoftBox>
+              </SoftBox>
+
+              {/* Candidate table */}
+                <Candidate columns={columns} rows={rows} />
+            </Card>
+          </SoftBox>
         </SoftBox>
-      </SoftBox>
-    </Box>
+
+      </Box>
     </DashboardLayout>
   );
 }

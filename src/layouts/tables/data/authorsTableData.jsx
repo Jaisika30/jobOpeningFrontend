@@ -20,7 +20,6 @@ const useJobData = () => {
   const dispatch = useDispatch();
   const jobs = useSelector((state) => state.jobs.jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
-  const theme = useTheme();
 
   useEffect(() => {
     dispatch(getJobs());
