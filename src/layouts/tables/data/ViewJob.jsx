@@ -287,7 +287,7 @@ function ViewJob() {
         
                         <FormControl sx={dropdownStyles}>
                           <InputLabel id="status-label" sx={{ fontSize: "1rem" }}>
-                            Select Status
+                             Status
                           </InputLabel>
                           <Select
                             name="status"
