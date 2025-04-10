@@ -189,7 +189,7 @@ function ViewJob() {
                 <SoftBox mb={3}>
                   <Card sx={{ p: 3 }}>
                     <SoftTypography variant="h5" mb={3} textAlign="center">
-                      Edit Job Details
+                      View Job Details
                     </SoftTypography>
                     <form onSubmit={handleSubmit}>
                       {/* First Row */}
