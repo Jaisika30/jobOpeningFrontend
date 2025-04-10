@@ -136,7 +136,7 @@ import { textFieldStyles } from "assets/textFieldStyles";
 import SoftButton from "components/SoftButton";
 import { useNavigate } from "react-router-dom";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import { inputLabelStyle ,dropdownIconStyle } from "assets/textFieldStyles";
+import { inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 function Tables() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -172,8 +172,15 @@ function Tables() {
         <SoftBox py={3}>
           <SoftBox mb={3}>
             <Card>
-              <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                <SoftTypography variant="h6">Job Listings</SoftTypography>
+              <SoftBox
+                display="flex"
+                justifyContent="center"  // Centers horizontally
+                alignItems="center"  // Centers vertically
+                p={3}
+              >
+                <SoftTypography variant="h6" textAlign="center">
+                  Job Listings
+                </SoftTypography>
               </SoftBox>
 
               {/* Search and Filter UI */}
