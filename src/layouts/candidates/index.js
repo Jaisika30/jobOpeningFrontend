@@ -221,30 +221,24 @@ import { getJobById } from "slices/jobSlice";
 //   );
 // }
 function Candidates() {
-  const { id } = useParams(); // Get the 'id' parameter from the URL
-  const [job, setJob] = useState(null);
+  const { id } = useParams();
   const [open, setOpen] = useState(false);
-  const data = useSelector((state) => state.payload); // Access Redux state
-  const jobDetail = useSelector((state) => state.jobs.job);
+  const jobDetail = useSelector((state) => state.jobs.job); // Get job from Redux
   const dispatch = useDispatch();
 
   const handleOpen = () => setOpen(true);
   const { topAction, columns, rows } = getCandidatesTableData(handleOpen);
-  console.log("ID from URL (before useEffect):", id);
-  console.log("Redux state updatedvvvvvvvvv:", jobDetail); // Debugging to check data in Redux
+
+  // Debugging logs
+  console.log("Current jobDetail:", jobDetail);
+  console.log("ID from URL:", id);
 
   useEffect(() => {
-    console.log("ID from URL:", id);
+    console.log("useEffect triggered with id:", id);
     if (id) {
-
       dispatch(getJobById(id));
-      setJob(data);
     }
-  }, [id, dispatch]);
-
-  useEffect(() => {
-    console.log("Redux state updated:", data); // Debugging to check data in Redux
-  }, [data]);
+  }, [id, dispatch]); // This will run when id changes
 
   return (
     <DashboardLayout>
@@ -254,16 +248,19 @@ function Candidates() {
           <SoftBox mb={3}>
             <Card>
               <SoftBox p={3}>
-                {/* Header */}
+                {/* Header - now using jobDetail.title */}
                 <SoftTypography variant="h6" textAlign="center">
-                  {id ? `Candidates for Job: ${jobDetail.title}`: "All Candidates"}
+                {id 
+                    ? jobDetail 
+                      ? `Candidates for: ${jobDetail.title}` 
+                      : "Loading job details..."
+                    : "All Candidates"
+                  }
                 </SoftTypography>
 
-                {/* Top action on a new line */}
                 <SoftBox mt={2}>{topAction}</SoftBox>
               </SoftBox>
 
-              {/* Candidate table */}
               <Candidate columns={columns} rows={rows} />
             </Card>
           </SoftBox>
