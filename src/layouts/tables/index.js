@@ -228,7 +228,7 @@ function Tables() {
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                   >
-                    {/* <MenuItem value="">All Status</MenuItem> */}
+                    <MenuItem value="">All </MenuItem>
                     <MenuItem value="open">Open</MenuItem>
                     <MenuItem value="closed">Closed</MenuItem>
                   </Select>
