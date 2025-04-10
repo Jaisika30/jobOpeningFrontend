@@ -72,7 +72,7 @@ const getCandidatesTableData = () => {
   const [interviewStatusFilter, setInterviewStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
- const theme = useTheme();
+  const theme = useTheme();
   const darkGray = theme.palette.grey[600];
   const handleResetFilters = () => {
     setInterviewStatusFilter("");
@@ -128,123 +128,6 @@ const getCandidatesTableData = () => {
 
   return {
     topAction: (
-      // <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
-
-
-
-      //   <TextField
-      //     label="Search"
-      //     variant="outlined"
-      //     value={searchQuery}
-      //     InputLabelProps={{
-      //       sx: {
-      //         fontSize: "1rem", // 👈 sets the label font size
-      //       },
-      //     }}
-      //     onChange={(e) => setSearchQuery(e.target.value)}
-      //   />
-      //   <FormControl sx={{
-      //     width: "250px",
-      //     maxWidth: "250px",
-      //     minWidth: "250px",
-      //     borderRadius: "5px",
-      //     display: "flex",
-      //     position: "relative",
-      //     "& .MuiInputBase-root": {
-      //       width: "100%",
-      //       display: "flex",
-      //     },
-      //     "& .MuiInputBase-input": {
-      //       width: "200px",
-      //       maxWidth: "200px",
-      //       minWidth: "200px",
-      //     },
-      //   }}>
-      //     <InputLabel sx={{ ...inputLabelStyle }} >Interview Status</InputLabel>
-      //     <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-      //       <Select
-      //         value={interviewStatusFilter}
-      //         onChange={(e) => setInterviewStatusFilter(e.target.value)}
-      //         label="Interview Status"
-      //         sx={{
-      //           width: "100%", // Ensures full width
-      //           paddingRight: "40px", // Creates space for the icon
-      //         }}
-      //       >
-      //         <MenuItem value="">All</MenuItem>
-      //         <MenuItem value="Accepted">Accepted</MenuItem>
-      //         <MenuItem value="Interviewed">Interviewed</MenuItem>
-      //         <MenuItem value="Missed">Missed</MenuItem>
-      //         <MenuItem value="Rescheduled">Rescheduled</MenuItem>
-      //         <MenuItem value="Offered">Offered</MenuItem>
-      //       </Select>
-      //       <ArrowDropDownCircleIcon
-      //         sx={{
-      //           ...dropdownIconStyle
-      //         }}
-      //       />
-      //     </Box>
-      //   </FormControl>
-      //   <FormControl sx={{
-      //     width: "250px",
-      //     maxWidth: "250px",
-      //     minWidth: "250px",
-      //     borderRadius: "5px",
-      //     display: "flex",
-      //     "& .MuiInputBase-root": {
-      //       width: "100%",
-      //       display: "flex",
-      //     },
-      //     "& .MuiInputBase-input": {
-      //       width: "200px",
-      //       maxWidth: "200px",
-      //       minWidth: "200px",
-      //     },
-      //   }}>
-      //     <InputLabel  sx={{ ...inputLabelStyle }}>Status</InputLabel>
-      //     <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-      //       <Select
-      //         value={statusFilter}
-      //         onChange={(e) => setStatusFilter(e.target.value)}
-      //         label="Status"
-      //         sx={{
-      //           width: "100%", // Ensures full width
-      //           paddingRight: "40px", // Creates space for the icon
-      //         }}
-      //       >
-      //         <MenuItem value="">All</MenuItem>
-      //         <MenuItem value="Contacted">Contacted</MenuItem>
-      //         <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
-      //         <MenuItem value="Moved to Round 3">Moved to Round 3</MenuItem>
-      //         <MenuItem value="Shortlisted">Shortlisted</MenuItem>
-      //         <MenuItem value="Rejected">Rejected</MenuItem>
-      //         <MenuItem value="Final Round">Final Round</MenuItem>
-      //         <MenuItem value="Hired">Hired</MenuItem>
-      //         <MenuItem value="On Hold">On Hold</MenuItem>
-      //       </Select>
-      //       <ArrowDropDownCircleIcon
-      //         sx={{
-      //           ...dropdownIconStyle
-      //         }}
-      //       />
-      //    </Box>
-      //   </FormControl>
-
-      //   <SoftButton
-      //     variant="gradient"
-      //     color="success"
-      //     onClick={() => navigate("/Jobs")}
-      //   >
-      //     Back
-      //   </SoftButton>
-      //   <SoftButton
-      //     variant="gradient"
-      //     color="info"
-      //     onClick={() => navigate("/addCandidate")}
-      //   >
-      //     Add Candidate
-      //   </SoftButton>
-      // </div>
       <div
         style={{
           display: "flex",
@@ -256,7 +139,7 @@ const getCandidatesTableData = () => {
         }}
       >
         {/* Left side: Search and Filters */}
-        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap"}}>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <TextField
             label="Search"
             variant="outlined"
@@ -457,7 +340,7 @@ const getCandidatesTableData = () => {
                 </IconButton>
               </Link>
               <Link to={`/editCandidate/${candidate._id}`}>
-                <IconButton sx={{color: darkGray }}>
+                <IconButton sx={{ color: darkGray }}>
                   <EditIcon />
                 </IconButton>
               </Link>
