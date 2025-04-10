@@ -148,27 +148,27 @@ const getCandidatesTableData = () => {
           value={searchQuery}
           InputLabelProps={{
             sx: {
-                fontSize: "1rem", // 👈 sets the label font size
+              fontSize: "1rem", // 👈 sets the label font size
             },
-        }}
+          }}
           onChange={(e) => setSearchQuery(e.target.value)}
         // style={{ width: "250px", border: "2px solid #2196f3", borderRadius: "8px" }}
         />
-         <FormControl sx={{
-           width: "250px",
-           maxWidth: "250px",
-           minWidth: "250px",
-           borderRadius: "5px",
-           display: "flex",
-           "& .MuiInputBase-root": {
-               width: "100%",
-               display: "flex",
-           },
-           "& .MuiInputBase-input": {
-               width: "200px",
-               maxWidth: "200px",
-               minWidth: "200px",
-           },
+        <FormControl sx={{
+          width: "250px",
+          maxWidth: "250px",
+          minWidth: "250px",
+          borderRadius: "5px",
+          display: "flex",
+          "& .MuiInputBase-root": {
+            width: "100%",
+            display: "flex",
+          },
+          "& .MuiInputBase-input": {
+            width: "200px",
+            maxWidth: "200px",
+            minWidth: "200px",
+          },
         }}>
           <InputLabel sx={{ fontSize: "1rem", }}>Interview Status</InputLabel>
           <Select
@@ -185,20 +185,20 @@ const getCandidatesTableData = () => {
           </Select>
         </FormControl>
         <FormControl sx={{
-           width: "250px",
-           maxWidth: "250px",
-           minWidth: "250px",
-           borderRadius: "5px",
-           display: "flex",
-           "& .MuiInputBase-root": {
-               width: "100%",
-               display: "flex",
-           },
-           "& .MuiInputBase-input": {
-               width: "200px",
-               maxWidth: "200px",
-               minWidth: "200px",
-           },
+          width: "250px",
+          maxWidth: "250px",
+          minWidth: "250px",
+          borderRadius: "5px",
+          display: "flex",
+          "& .MuiInputBase-root": {
+            width: "100%",
+            display: "flex",
+          },
+          "& .MuiInputBase-input": {
+            width: "200px",
+            maxWidth: "200px",
+            minWidth: "200px",
+          },
         }}>
           <InputLabel sx={{ fontSize: "1rem", }}>Status</InputLabel>
           <Select
@@ -206,7 +206,6 @@ const getCandidatesTableData = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             label="Status"
           >
-            <MenuItem value="">All</MenuItem>
             <MenuItem value="">All</MenuItem>
             <MenuItem value="Contacted">Contacted</MenuItem>
             <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
@@ -279,13 +278,13 @@ const getCandidatesTableData = () => {
               badgeContent={candidate.interviewStatus}
               color={
                 candidate.interviewStatus === "Accepted" ? "success" :
-                candidate.interviewStatus === "Rejected" ? "error" :
-                candidate.interviewStatus === "Pending" ? "warning" :
-                candidate.interviewStatus === "Offered" ? "info" :
-                candidate.interviewStatus === "Interviewed" ? "secondary" :
-                candidate.interviewStatus === "Rescheduled" ? "warning" :
-                candidate.interviewStatus === "Missed" ? "error" :
-                "light" // default/fallback
+                  candidate.interviewStatus === "Rejected" ? "error" :
+                    candidate.interviewStatus === "Pending" ? "warning" :
+                      candidate.interviewStatus === "Offered" ? "info" :
+                        candidate.interviewStatus === "Interviewed" ? "secondary" :
+                          candidate.interviewStatus === "Rescheduled" ? "warning" :
+                            candidate.interviewStatus === "Missed" ? "error" :
+                              "light" // default/fallback
               }
               size="xs"
               container
@@ -297,14 +296,14 @@ const getCandidatesTableData = () => {
               badgeContent={candidate.status}
               color={
                 candidate.status === "Hired" ? "success" :
-                candidate.status === "Rejected" ? "error" :
-                candidate.status === "Contacted" ? "info" :
-                candidate.status === "Moved to Round 2" ? "primary" :
-                candidate.status === "Moved to Round 3" ? "primary" :
-                candidate.status === "Shortlisted" ? "secondary" :
-                candidate.status === "Final Round" ? "warning" :
-                candidate.status === "On Hold" ? "warning" :
-                "default"
+                  candidate.status === "Rejected" ? "error" :
+                    candidate.status === "Contacted" ? "info" :
+                      candidate.status === "Moved to Round 2" ? "primary" :
+                        candidate.status === "Moved to Round 3" ? "primary" :
+                          candidate.status === "Shortlisted" ? "secondary" :
+                            candidate.status === "Final Round" ? "warning" :
+                              candidate.status === "On Hold" ? "warning" :
+                                "default"
               }
               size="xs"
               container
@@ -313,16 +312,16 @@ const getCandidatesTableData = () => {
           action: (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Link to={`/viewCandidate/${candidate._id}`}>
-                <IconButton sx={{color: "black !important"}}>
+                <IconButton sx={{ color: "black !important" }}>
                   <VisibilityIcon />
                 </IconButton>
               </Link>
               <Link to={`/editCandidate/${candidate._id}`}>
-                <IconButton sx={{color: "black !important"}}>
+                <IconButton sx={{ color: "black !important" }}>
                   <EditIcon />
                 </IconButton>
               </Link>
-              <IconButton  sx={{color: "black !important"}} onClick={() => handleDelete(candidate._id)}>
+              <IconButton sx={{ color: "black !important" }} onClick={() => handleDelete(candidate._id)}>
                 <DeleteIcon />
               </IconButton>
             </div>
