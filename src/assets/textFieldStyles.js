@@ -53,8 +53,22 @@ const dropdownStyles = {
 //     },
 // };
 
-
+const inputLabelStyle = {
+    fontSize: "0.85rem",
+    display: "flex", // Enables flexbox for vertical alignment
+    alignItems: "center", // Centers text vertically
+    justifyContent: "center", // Centers it horizontally (optional)
+    position: "absolute", // Ensures correct positioning
+}
+const dropdownIconStyle = {
+    position: "absolute",
+    right: "10px", // Ensures the icon is on the right end
+    top: "50%", // Centers icon vertically
+    transform: "translateY(-50%)",
+    fontSize: "1rem", // Customize icon size
+    color: "gray", // Ensures visibility
+}
 const labelSize = {
     fontSize: "1rem"
 };
-export { textFieldStyles, dropdownStyles, labelSize };
+export { textFieldStyles, dropdownStyles, labelSize, inputLabelStyle, dropdownIconStyle };

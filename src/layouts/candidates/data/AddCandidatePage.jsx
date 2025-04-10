@@ -354,7 +354,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { createCandidate } from "slices/candidateSlice";
 import { toast } from "react-toastify";
-import { textFieldStyles ,dropdownStyles } from "assets/textFieldStyles";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import { textFieldStyles, dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
+import Box from '@mui/material/Box';
+
 
 function AddCandidatePage() {
     const [phoneError, setPhoneError] = useState('');
@@ -452,8 +455,8 @@ function AddCandidatePage() {
                                 mb={3}
                                 sx={{
                                     display: "grid",
-                                    gridTemplateColumns: { 
-                                        xs: "1fr", 
+                                    gridTemplateColumns: {
+                                        xs: "1fr",
                                         sm: "repeat(2, 1fr)",
                                         md: "repeat(3, 1fr)"
                                     },
@@ -469,7 +472,9 @@ function AddCandidatePage() {
                                     onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), phoneRef.current?.focus())}
                                     placeholder="Enter candidate name"
                                     sx={textFieldStyles}
-                                    InputLabelProps={{ sx: { fontSize: "1rem" } }}
+                                    InputLabelProps={{
+                                        sx: { ...inputLabelStyle },
+                                    }}
                                 />
 
                                 <TextField
@@ -491,7 +496,9 @@ function AddCandidatePage() {
                                     placeholder="Enter phone number"
                                     error={!!phoneError}
                                     helperText={phoneError}
-                                    InputLabelProps={{ sx: { fontSize: "1rem" } }}
+                                    InputLabelProps={{
+                                        sx: { ...inputLabelStyle },
+                                    }}
                                     inputProps={{ inputMode: "numeric", maxLength: 10 }}
                                     sx={textFieldStyles}
                                 />
@@ -504,7 +511,9 @@ function AddCandidatePage() {
                                     onChange={handleChange}
                                     onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), jobRef.current?.focus())}
                                     placeholder="Enter location"
-                                    InputLabelProps={{ sx: { fontSize: "1rem" } }}
+                                    InputLabelProps={{
+                                        sx: { ...inputLabelStyle },
+                                    }}
                                     sx={textFieldStyles}
                                 />
                             </SoftBox>
@@ -514,8 +523,8 @@ function AddCandidatePage() {
                                 mb={3}
                                 sx={{
                                     display: "grid",
-                                    gridTemplateColumns: { 
-                                        xs: "1fr", 
+                                    gridTemplateColumns: {
+                                        xs: "1fr",
                                         sm: "repeat(2, 1fr)",
                                         md: "repeat(3, 1fr)"
                                     },
@@ -523,21 +532,32 @@ function AddCandidatePage() {
                                     alignItems: "flex-start"
                                 }}
                             >
-                                <FormControl sx={{...dropdownStyles}}>
-                                    <InputLabel id="job-label" sx={{ fontSize: "1rem" }}>Select Job</InputLabel>
-                                    <Select
-                                        labelId="job-label"
-                                        name="job"
-                                        value={candidate.job || ""}
-                                        inputRef={jobRef}
-                                        onChange={handleChange}
-                                        onClose={() => slotRef.current?.focus()}
-                                        label="Select Job"
-                                    >
-                                        {jobs.map((job) => (
-                                            <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
-                                        ))}
-                                    </Select>
+                                <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
+                                    <InputLabel id="job-label" sx={{ ...inputLabelStyle }}>Select Job</InputLabel>
+                                    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+                                        <Select
+                                            labelId="job-label"
+                                            name="job"
+                                            value={candidate.job || ""}
+                                            inputRef={jobRef}
+                                            onChange={handleChange}
+                                            onClose={() => slotRef.current?.focus()}
+                                            label="Select Job"
+                                            sx={{
+                                                width: "100%", // Ensures full width
+                                                paddingRight: "40px", // Creates space for the icon
+                                            }}
+                                        >
+                                            {jobs.map((job) => (
+                                                <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
+                                            ))}
+                                        </Select>
+                                        <ArrowDropDownCircleIcon
+                                            sx={{
+                                                ...dropdownIconStyle
+                                            }}
+                                        />
+                                    </Box>
                                 </FormControl>
 
                                 <TextField
@@ -548,7 +568,9 @@ function AddCandidatePage() {
                                     placeholder="Enter Time Slot"
                                     label="Time Slot"
                                     onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), scheduleRef.current?.focus())}
-                                    InputLabelProps={{ sx: { fontSize: "1rem" } }}
+                                    InputLabelProps={{
+                                        sx: { ...inputLabelStyle },
+                                    }}
                                     sx={textFieldStyles}
                                 />
 
@@ -562,7 +584,7 @@ function AddCandidatePage() {
                                     onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), communicationRef.current?.focus())}
                                     InputLabelProps={{
                                         shrink: true,
-                                        sx: { fontSize: "1rem" }
+                                        ...inputLabelStyle
                                     }}
                                     sx={textFieldStyles}
                                 />
@@ -573,8 +595,8 @@ function AddCandidatePage() {
                                 mb={3}
                                 sx={{
                                     display: "grid",
-                                    gridTemplateColumns: { 
-                                        xs: "1fr", 
+                                    gridTemplateColumns: {
+                                        xs: "1fr",
                                         sm: "repeat(2, 1fr)",
                                         md: "repeat(3, 1fr)"
                                     },
@@ -587,23 +609,35 @@ function AddCandidatePage() {
                                     { label: "Personality", name: "personality", ref: personalityRef, nextRef: knowledgeRef },
                                     { label: "Knowledge", name: "knowledge", ref: knowledgeRef, nextRef: interviewStatusRef }
                                 ].map(({ label, name, ref, nextRef }) => (
-                                    <FormControl key={name} sx={{...dropdownStyles}}>
-                                        <InputLabel id={`${name}-label`} sx={{ fontSize: "1rem" }}>Select {label}</InputLabel>
-                                        <Select
-                                            labelId={`${name}-label`}
-                                            name={name}
-                                            value={candidate[name] || ""}
-                                            inputRef={ref}
-                                            onChange={(e) => {
-                                                handleChange(e);
-                                                nextRef?.current?.focus();
-                                            }}
-                                            label={`Select ${label}`}
-                                        >
-                                            {[1, 2, 3, 4, 5].map((value) => (
-                                                <MenuItem key={value} value={value}>{value}</MenuItem>
-                                            ))}
-                                        </Select>
+                                    <FormControl key={name} sx={{ ...dropdownStyles, position: "relative" }}>
+                                        <InputLabel id={`${name}-label`} sx={{ ...inputLabelStyle }}>Select {label}</InputLabel>
+                                        <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+
+                                            <Select
+                                                labelId={`${name}-label`}
+                                                name={name}
+                                                value={candidate[name] || ""}
+                                                inputRef={ref}
+                                                onChange={(e) => {
+                                                    handleChange(e);
+                                                    nextRef?.current?.focus();
+                                                }}
+                                                label={`Select ${label}`}
+                                                sx={{
+                                                    width: "100%", // Ensures full width
+                                                    paddingRight: "40px", // Creates space for the icon
+                                                }}
+                                            >
+                                                {[1, 2, 3, 4, 5].map((value) => (
+                                                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                                                ))}
+                                            </Select>
+                                            <ArrowDropDownCircleIcon
+                                                sx={{
+                                                    ...dropdownIconStyle
+                                                }}
+                                            />
+                                        </Box>
                                     </FormControl>
                                 ))}
                             </SoftBox>
@@ -622,8 +656,8 @@ function AddCandidatePage() {
                                 // }}
                                 sx={{
                                     display: "grid",
-                                    gridTemplateColumns: { 
-                                        xs: "1fr", 
+                                    gridTemplateColumns: {
+                                        xs: "1fr",
                                         sm: "repeat(2, 1fr)",
                                         md: "repeat(3, 1fr)"
                                     },
@@ -631,38 +665,62 @@ function AddCandidatePage() {
                                     alignItems: "flex-start"
                                 }}
                             >
-                                <FormControl sx={{...dropdownStyles}}>
-                                    <InputLabel id="interview-status-label" sx={{ fontSize: "1rem" }}>Select Interview Status</InputLabel>
-                                    <Select
-                                        labelId="interview-status-label"
-                                        name="interviewStatus"
-                                        value={candidate.interviewStatus || ""}
-                                        inputRef={interviewStatusRef}
-                                        onChange={handleChange}
-                                        onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), statusRef.current?.focus())}
-                                        label="Select Interview Status"
-                                    >
-                                        {["Offered", "Accepted", "Missed", "Interviewed", "Rescheduled"].map((status) => (
-                                            <MenuItem key={status} value={status}>{status}</MenuItem>
-                                        ))}
-                                    </Select>
+                                <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
+                                    <InputLabel id="interview-status-label" sx={{ ...inputLabelStyle }}>Select Interview Status</InputLabel>
+                                    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+
+                                        <Select
+                                            labelId="interview-status-label"
+                                            name="interviewStatus"
+                                            value={candidate.interviewStatus || ""}
+                                            inputRef={interviewStatusRef}
+                                            onChange={handleChange}
+                                            onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), statusRef.current?.focus())}
+                                            label="Select Interview Status"
+                                            sx={{
+                                                width: "100%", // Ensures full width
+                                                paddingRight: "40px", // Creates space for the icon
+                                            }}
+                                        >
+                                            {["Offered", "Accepted", "Missed", "Interviewed", "Rescheduled"].map((status) => (
+                                                <MenuItem key={status} value={status}>{status}</MenuItem>
+                                            ))}
+                                        </Select>
+                                        <ArrowDropDownCircleIcon
+                                            sx={{
+                                                ...dropdownIconStyle
+                                            }}
+                                        />
+                                    </Box>
                                 </FormControl>
 
-                                <FormControl sx={{...dropdownStyles}}>
-                                    <InputLabel id="status-label" sx={{ fontSize: "1rem" }}>Select Status</InputLabel>
-                                    <Select
-                                        labelId="status-label"
-                                        name="status"
-                                        value={candidate.status || ""}
-                                        inputRef={statusRef}
-                                        onChange={handleChange}
-                                        onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleSubmit(e))}
-                                        label="Select Status"
-                                    >
-                                        {['Contacted', 'Moved to Round 2', 'Moved to Round 3', 'Final Round', 'Shortlisted', 'Rejected', 'Hired', 'On Hold'].map((status) => (
-                                            <MenuItem key={status} value={status}>{status}</MenuItem>
-                                        ))}
-                                    </Select>
+                                <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
+                                    <InputLabel id="status-label" sx={{ ...inputLabelStyle }}>Select Status</InputLabel>
+                                    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+
+                                        <Select
+                                            labelId="status-label"
+                                            name="status"
+                                            value={candidate.status || ""}
+                                            inputRef={statusRef}
+                                            onChange={handleChange}
+                                            onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleSubmit(e))}
+                                            label="Select Status"
+                                            sx={{
+                                                width: "100%", // Ensures full width
+                                                paddingRight: "40px", // Creates space for the icon
+                                            }}
+                                        >
+                                            {['Contacted', 'Moved to Round 2', 'Moved to Round 3', 'Final Round', 'Shortlisted', 'Rejected', 'Hired', 'On Hold'].map((status) => (
+                                                <MenuItem key={status} value={status}>{status}</MenuItem>
+                                            ))}
+                                        </Select>
+                                        <ArrowDropDownCircleIcon
+                                            sx={{
+                                                ...dropdownIconStyle
+                                            }}
+                                        />
+                                    </Box>
                                 </FormControl>
                             </SoftBox>
 

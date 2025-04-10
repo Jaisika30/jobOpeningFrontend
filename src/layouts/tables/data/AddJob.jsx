@@ -277,6 +277,13 @@ import { textFieldStyles } from "assets/textFieldStyles";
 import { InputLabel } from "@mui/material";
 import SoftButton from "components/SoftButton";
 import { dropdownStyles } from "assets/textFieldStyles";
+import { inputLabelStyle } from "assets/textFieldStyles";
+import { dropdownIconStyle } from "assets/textFieldStyles";
+// import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+
+import Box from '@mui/material/Box';
+
 
 function AddJob() {
   const navigate = useNavigate();
@@ -382,7 +389,7 @@ function AddJob() {
                   placeholder="Enter Job Title"
                   sx={textFieldStyles}
                   InputLabelProps={{
-                    sx: { fontSize: "1rem" },
+                    sx: { ...inputLabelStyle },
                   }}
                 />
 
@@ -400,7 +407,7 @@ function AddJob() {
                   }}
                   placeholder="Enter job description"
                   InputLabelProps={{
-                    sx: { fontSize: "1rem" },
+                    sx: { ...inputLabelStyle },
                   }}
                   sx={textFieldStyles}
                 />
@@ -419,7 +426,7 @@ function AddJob() {
                   }}
                   placeholder="Enter location"
                   InputLabelProps={{
-                    sx: { fontSize: "1rem" },
+                    sx: { ...inputLabelStyle },
                   }}
                   sx={textFieldStyles}
                 />
@@ -481,27 +488,39 @@ function AddJob() {
                     "& .MuiInputBase-root": {
                       width: "100%",
                     },
-                  
+
                     // Don't add other layout-related custom styles that might mess with the input type="date"
                   }}
                 />
 
 
-                <FormControl sx={dropdownStyles}>
-                  <InputLabel id="status-label" sx={{ fontSize: "1rem" }}>
+                <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
+                  <InputLabel id="status-label" sx={{ ...inputLabelStyle }}>
                     Select Status
                   </InputLabel>
-                  <Select
-                    name="status"
-                    value={job.status || ""}
-                    inputRef={statusRef}
-                    onChange={handleChange}
-                    label="Select Status"
-                  >
-                    {['Open', 'Closed'].map((status) => (
-                      <MenuItem key={status} value={status}>{status}</MenuItem>
-                    ))}
-                  </Select>
+                  <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+
+                    <Select
+                      name="status"
+                      value={job.status || ""}
+                      inputRef={statusRef}
+                      onChange={handleChange}
+                      label="Select Status"
+                      sx={{
+                        width: "100%", // Ensures full width
+                        paddingRight: "40px", // Creates space for the icon
+                      }}
+                    >
+                      {['Open', 'Closed'].map((status) => (
+                        <MenuItem key={status} value={status}>{status}</MenuItem>
+                      ))}
+                    </Select>
+                    <ArrowDropDownCircleIcon
+                      sx={{
+                        ...dropdownIconStyle
+                      }}
+                    />
+                  </Box>
                 </FormControl>
               </SoftBox>
 

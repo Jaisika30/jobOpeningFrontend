@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect , useRef  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
@@ -18,6 +18,12 @@ import { textFieldStyles } from "assets/textFieldStyles";
 import { InputLabel } from "@mui/material";
 import SoftButton from "components/SoftButton";
 import { dropdownStyles } from "assets/textFieldStyles";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import { inputLabelStyle } from "assets/textFieldStyles";
+import Box from '@mui/material/Box';
+import { dropdownIconStyle } from "assets/textFieldStyles";
+
+
 
 function formatDate(isoString) {
   if (!isoString) return "";
@@ -37,7 +43,7 @@ function EditJob() {
   const dispatch = useDispatch();
   const jobDetail = useSelector((state) => state.jobs.job);
   const isLoading = useSelector((state) => state.jobs.loading);
- const titleRef = useRef();
+  const titleRef = useRef();
   const descriptionRef = useRef();
   const locationRef = useRef();
   const postingDateRef = useRef();
@@ -47,7 +53,7 @@ function EditJob() {
     title: "",
     description: "",
     postingDate: "",
-    location:"",
+    location: "",
     status: "Open", // Default value
   });
 
@@ -64,7 +70,7 @@ function EditJob() {
       setJob({
         title: jobDetail.title || "",
         description: jobDetail.description || "",
-        location:jobDetail.location || "",
+        location: jobDetail.location || "",
         postingDate: jobDetail.createdAt ? jobDetail.createdAt.split("T")[0] : "",
         // Proper date format
         status: jobDetail.status || "Open",
@@ -80,19 +86,19 @@ function EditJob() {
   };
 
   const handleSubmit = async () => {
-    console.log("update id:::",id);
-    console.log("job updatedData",job)
+    console.log("update id:::", id);
+    console.log("job updatedData", job)
     // dispatch(updateJob({ id, updatedData: job }));
     dispatch(updateJob({ id, updatedData: job }))
-    .unwrap()
-    .then(() => {
+      .unwrap()
+      .then(() => {
         toast.success("Job updated successfully!");
         navigate("/jobs");
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         toast.error("Failed to update job. Please try again.");
         console.error("Update error:", error);
-    });
+      });
     navigate("/jobs");
   };
 
@@ -198,101 +204,101 @@ function EditJob() {
     //   <Footer />
     // </DashboardLayout>
     <DashboardLayout>
-          <DashboardNavbar />
-          <SoftBox py={3}>
-            <SoftBox mb={3}>
-              <Card sx={{ p: 3 }}>
-                <SoftTypography variant="h5" mb={3} textAlign="center">
-                  Edit Job Details
-                </SoftTypography>
-                <form onSubmit={handleSubmit}>
-                  {/* First Row */}
-                  <SoftBox
-                    mb={3}
-                    sx={{
-                      display: "grid",
-                      gridTemplateColumns: {
-                        xs: "1fr",
-                        sm: "1fr 1fr",
-                        md: "1fr 1fr 1fr"
-                      },
-                      gap: 3,
-                      alignItems: "flex-start"
-                    }}
-                  >
-                    <TextField
-                      inputRef={titleRef}
-                      label="Title"
-                      name="title"
-                      value={job.title}
-                      onChange={handleChange}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          descriptionRef.current?.focus();
-                        }
-                      }}
-                      placeholder="Enter Job Title"
-                      sx={textFieldStyles}
-                      InputLabelProps={{
-                        sx: { fontSize: "1rem" },
-                      }}
-                    />
-    
-                    <TextField
-                      inputRef={descriptionRef}
-                      label="Description"
-                      name="description"
-                      value={job.description}
-                      onChange={handleChange}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          locationRef.current?.focus();
-                        }
-                      }}
-                      placeholder="Enter job description"
-                      InputLabelProps={{
-                        sx: { fontSize: "1rem" },
-                      }}
-                      sx={textFieldStyles}
-                    />
-    
-                    <TextField
-                      inputRef={locationRef}
-                      label="Location"
-                      name="location"
-                      value={job.location}
-                      onChange={handleChange}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          postingDateRef.current?.focus();
-                        }
-                      }}
-                      placeholder="Enter location"
-                      InputLabelProps={{
-                        sx: { fontSize: "1rem" },
-                      }}
-                      sx={textFieldStyles}
-                    />
-                  </SoftBox>
-    
-                  {/* Second Row */}
-                  <SoftBox
-                    mb={3}
-                    sx={{
-                      display: "grid",
-                      gridTemplateColumns: {
-                        xs: "1fr",
-                        sm: "1fr 1fr",
-                        md: "1fr 1fr 1fr"
-                      },
-                      gap: 3,
-                      alignItems: "flex-start"
-                    }}
-                  >
-                    {/* <TextField
+      <DashboardNavbar />
+      <SoftBox py={3}>
+        <SoftBox mb={3}>
+          <Card sx={{ p: 3 }}>
+            <SoftTypography variant="h5" mb={3} textAlign="center">
+              Edit Job Details
+            </SoftTypography>
+            <form onSubmit={handleSubmit}>
+              {/* First Row */}
+              <SoftBox
+                mb={3}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    sm: "1fr 1fr",
+                    md: "1fr 1fr 1fr"
+                  },
+                  gap: 3,
+                  alignItems: "flex-start"
+                }}
+              >
+                <TextField
+                  inputRef={titleRef}
+                  label="Title"
+                  name="title"
+                  value={job.title}
+                  onChange={handleChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      descriptionRef.current?.focus();
+                    }
+                  }}
+                  placeholder="Enter Job Title"
+                  sx={textFieldStyles}
+                  InputLabelProps={{
+                    sx: { fontSize: "1rem" },
+                  }}
+                />
+
+                <TextField
+                  inputRef={descriptionRef}
+                  label="Description"
+                  name="description"
+                  value={job.description}
+                  onChange={handleChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      locationRef.current?.focus();
+                    }
+                  }}
+                  placeholder="Enter job description"
+                  InputLabelProps={{
+                    sx: { fontSize: "1rem" },
+                  }}
+                  sx={textFieldStyles}
+                />
+
+                <TextField
+                  inputRef={locationRef}
+                  label="Location"
+                  name="location"
+                  value={job.location}
+                  onChange={handleChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      postingDateRef.current?.focus();
+                    }
+                  }}
+                  placeholder="Enter location"
+                  InputLabelProps={{
+                    sx: { fontSize: "1rem" },
+                  }}
+                  sx={textFieldStyles}
+                />
+              </SoftBox>
+
+              {/* Second Row */}
+              <SoftBox
+                mb={3}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    sm: "1fr 1fr",
+                    md: "1fr 1fr 1fr"
+                  },
+                  gap: 3,
+                  alignItems: "flex-start"
+                }}
+              >
+                {/* <TextField
                       inputRef={postingDateRef}
                       label="Posting Date"
                       name="postingDate"
@@ -310,90 +316,101 @@ function EditJob() {
                         sx: { fontSize: "1rem" },
                       }}
                     /> */}
-                    <TextField
-                      inputRef={postingDateRef}
-                      label="Posting Date"
-                      name="postingDate"
-                      value={job.postingDate}
+                <TextField
+                  inputRef={postingDateRef}
+                  label="Posting Date"
+                  name="postingDate"
+                  value={job.postingDate}
+                  onChange={handleChange}
+                  type="date"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                    sx: { fontSize: "1rem" },
+                  }}
+                  inputProps={{
+                    style: {
+                      paddingRight: "0.5rem", // ensures date icon doesn't get cut off
+                    },
+                  }}
+                  sx={{
+                    "& input": {
+                      fontSize: "1rem",
+                    },
+                    "& .MuiInputBase-root": {
+                      width: "100%",
+                    },
+
+                    // Don't add other layout-related custom styles that might mess with the input type="date"
+                  }}
+                />
+
+
+                <FormControl sx={{ ...dropdownStyles, position: "relative", }}>
+                  <InputLabel id="status-label" sx={{ fontSize:"1rem" }}>
+                    Select Status
+                  </InputLabel>
+                  <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+                    <Select
+                      name="status"
+                      value={job.status || ""}
+                      inputRef={statusRef}
                       onChange={handleChange}
-                      type="date"
-                      fullWidth
-                      InputLabelProps={{
-                        shrink: true,
-                        sx: { fontSize: "1rem" },
-                      }}
-                      inputProps={{
-                        style: {
-                          paddingRight: "0.5rem", // ensures date icon doesn't get cut off
-                        },
-                      }}
+                      label="Select Status"
                       sx={{
-                        "& input": {
-                          fontSize: "1rem",
-                        },
-                        "& .MuiInputBase-root": {
-                          width: "100%",
-                        },
-                      
-                        // Don't add other layout-related custom styles that might mess with the input type="date"
+                        width: "100%", // Ensures full width
+                        paddingRight: "40px", // Creates space for the icon
+                      }}
+                    >
+                      {['Open', 'Closed'].map((status) => (
+                        <MenuItem key={status} value={status}>{status}</MenuItem>
+                      ))}
+                    </Select>
+                    <ArrowDropDownCircleIcon
+                      sx={{
+                        ...dropdownIconStyle
                       }}
                     />
-    
-    
-                    <FormControl sx={dropdownStyles}>
-                      <InputLabel id="status-label" sx={{ fontSize: "1rem" }}>
-                        Select Status
-                      </InputLabel>
-                      <Select
-                        name="status"
-                        value={job.status || ""}
-                        inputRef={statusRef}
-                        onChange={handleChange}
-                        label="Select Status"
-                      >
-                        {['Open', 'Closed'].map((status) => (
-                          <MenuItem key={status} value={status}>{status}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </SoftBox>
-    
-                  {/* Buttons */}
-                  <SoftBox
-                    mt={3}
-                    display="flex"
-                    justifyContent="space-between"
-                    flexDirection={{ xs: "column", sm: "row" }}
-                    gap={2}
-                  >
-                    <SoftButton
-                      type="submit"
-                      variant="gradient"
-                      color="info"
-                      sx={{
-                        width: { xs: '100%', sm: 'auto' },
-                        px: 3,
-                      }}
-                    >
-                      Edit Job
-                    </SoftButton>
-                    <SoftButton
-                      variant="gradient"
-                      color="error"
-                      onClick={() => navigate("/jobs")}
-                      sx={{
-                        width: { xs: '100%', sm: 'auto' },
-                        px: 3,
-                      }}
-                    >
-                      Cancel
-                    </SoftButton>
-                  </SoftBox>
-                </form>
-              </Card>
-            </SoftBox>
-          </SoftBox>
-        </DashboardLayout>
+                  </Box>
+                </FormControl>
+              </SoftBox>
+
+              {/* Buttons */}
+              <SoftBox
+                mt={3}
+                display="flex"
+                justifyContent="space-between"
+                flexDirection={{ xs: "column", sm: "row" }}
+                gap={2}
+              >
+                <SoftButton
+                  type="submit"
+                  variant="gradient"
+                  color="info"
+                  sx={{
+                    width: { xs: '100%', sm: 'auto' },
+                    px: 3,
+                  }}
+                >
+                  Edit Job
+                </SoftButton>
+                <SoftButton
+                  variant="gradient"
+                  color="error"
+                  onClick={() => navigate("/jobs")}
+                  sx={{
+                    width: { xs: '100%', sm: 'auto' },
+                    px: 3,
+                  }}
+                >
+                  Cancel
+                </SoftButton>
+              </SoftBox>
+            </form>
+          </Card>
+        </SoftBox>
+      </SoftBox>
+    </DashboardLayout >
   );
 }
 

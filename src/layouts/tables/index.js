@@ -135,8 +135,8 @@ import Box from '@mui/material/Box';
 import { textFieldStyles } from "assets/textFieldStyles";
 import SoftButton from "components/SoftButton";
 import { useNavigate } from "react-router-dom";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import { inputLabelStyle ,dropdownIconStyle } from "assets/textFieldStyles";
 function Tables() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -238,8 +238,10 @@ function Tables() {
                     width: "250px",
                     maxWidth: "250px",
                     minWidth: "250px",
+                    // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
                     display: "flex",
+                    position: "relative",
                     "& .MuiInputBase-root": {
                       width: "100%",
                       display: "flex",
@@ -250,17 +252,32 @@ function Tables() {
                       minWidth: "200px",
                     },
                   }}
+
                 >
-                  <InputLabel sx={{ fontSize: "1rem" }}>All Status</InputLabel>
-                  <Select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    IconComponent={KeyboardArrowDownIcon}
-                  >
-                    <MenuItem value="">All</MenuItem>
-                    <MenuItem value="open">Open</MenuItem>
-                    <MenuItem value="closed">Closed</MenuItem>
-                  </Select>
+                  <InputLabel sx={{ ...inputLabelStyle }}>All Status</InputLabel>
+
+                  {/* Wrap Select and Icon in a container to align them correctly */}
+                  <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+                    <Select
+                      value={statusFilter}
+                      onChange={(e) => setStatusFilter(e.target.value)}
+                      sx={{
+                        width: "100%", // Ensures full width
+                        paddingRight: "40px", // Creates space for the icon
+                      }}
+                    >
+                      <MenuItem value="">All</MenuItem>
+                      <MenuItem value="open">Open</MenuItem>
+                      <MenuItem value="closed">Closed</MenuItem>
+                    </Select>
+
+                    {/* Manually add the icon inside the box, positioning it correctly */}
+                    <ArrowDropDownCircleIcon
+                      sx={{
+                        ...dropdownIconStyle
+                      }}
+                    />
+                  </Box>
                 </FormControl>
                 <SoftButton
                   variant="gradient"

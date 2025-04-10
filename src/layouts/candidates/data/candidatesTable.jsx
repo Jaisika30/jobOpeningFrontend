@@ -15,7 +15,8 @@ import { getCandidatesByJobID } from "slices/candidateSlice";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import SoftButton from "components/SoftButton";
-import { dropdownStyles } from "assets/textFieldStyles";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; // Import icon
+import { dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 
 // const useCandidateData = () => {
 //   const { id } = useParams();
@@ -160,6 +161,7 @@ const getCandidatesTableData = () => {
           minWidth: "250px",
           borderRadius: "5px",
           display: "flex",
+          position: "relative",
           "& .MuiInputBase-root": {
             width: "100%",
             display: "flex",
@@ -170,19 +172,30 @@ const getCandidatesTableData = () => {
             minWidth: "200px",
           },
         }}>
-          <InputLabel sx={{ fontSize: "1rem", }}>Interview Status</InputLabel>
-          <Select
-            value={interviewStatusFilter}
-            onChange={(e) => setInterviewStatusFilter(e.target.value)}
-            label="Interview Status"
-          >
-            <MenuItem value="">All</MenuItem>
-            <MenuItem value="Accepted">Accepted</MenuItem>
-            <MenuItem value="Interviewed">Interviewed</MenuItem>
-            <MenuItem value="Missed">Missed</MenuItem>
-            <MenuItem value="Rescheduled">Rescheduled</MenuItem>
-            <MenuItem value="Offered">Offered</MenuItem>
-          </Select>
+          <InputLabel sx={{ ...inputLabelStyle }} >Interview Status</InputLabel>
+          <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+            <Select
+              value={interviewStatusFilter}
+              onChange={(e) => setInterviewStatusFilter(e.target.value)}
+              label="Interview Status"
+              sx={{
+                width: "100%", // Ensures full width
+                paddingRight: "40px", // Creates space for the icon
+              }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="Accepted">Accepted</MenuItem>
+              <MenuItem value="Interviewed">Interviewed</MenuItem>
+              <MenuItem value="Missed">Missed</MenuItem>
+              <MenuItem value="Rescheduled">Rescheduled</MenuItem>
+              <MenuItem value="Offered">Offered</MenuItem>
+            </Select>
+            <ArrowDropDownCircleIcon
+              sx={{
+                ...dropdownIconStyle
+              }}
+            />
+          </Box>
         </FormControl>
         <FormControl sx={{
           width: "250px",
@@ -200,22 +213,33 @@ const getCandidatesTableData = () => {
             minWidth: "200px",
           },
         }}>
-          <InputLabel sx={{ fontSize: "1rem", }}>Status</InputLabel>
-          <Select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            label="Status"
-          >
-            <MenuItem value="">All</MenuItem>
-            <MenuItem value="Contacted">Contacted</MenuItem>
-            <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
-            <MenuItem value="Moved to Round 3">Moved to Round 3</MenuItem>
-            <MenuItem value="Shortlisted">Shortlisted</MenuItem>
-            <MenuItem value="Rejected">Rejected</MenuItem>
-            <MenuItem value="Final Round">Final Round</MenuItem>
-            <MenuItem value="Hired">Hired</MenuItem>
-            <MenuItem value="On Hold">On Hold</MenuItem>
-          </Select>
+          <InputLabel  sx={{ ...inputLabelStyle }}>Status</InputLabel>
+          <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+            <Select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              label="Status"
+              sx={{
+                width: "100%", // Ensures full width
+                paddingRight: "40px", // Creates space for the icon
+              }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="Contacted">Contacted</MenuItem>
+              <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
+              <MenuItem value="Moved to Round 3">Moved to Round 3</MenuItem>
+              <MenuItem value="Shortlisted">Shortlisted</MenuItem>
+              <MenuItem value="Rejected">Rejected</MenuItem>
+              <MenuItem value="Final Round">Final Round</MenuItem>
+              <MenuItem value="Hired">Hired</MenuItem>
+              <MenuItem value="On Hold">On Hold</MenuItem>
+            </Select>
+            <ArrowDropDownCircleIcon
+              sx={{
+                ...dropdownIconStyle
+              }}
+            />
+         </Box>
         </FormControl>
       </div>
     ),
