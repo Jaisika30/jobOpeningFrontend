@@ -134,11 +134,12 @@ const getCandidatesTableData = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-evenly",
+          justifyContent: "space-between",
           alignItems: "flex-start",
-          gap: "16px",
+          gap: "20px",
           marginBottom: "16px",
           flexWrap: "wrap",
+          width:"96%"
         }}
       >
         {/* Left side: Search and Filters */}
