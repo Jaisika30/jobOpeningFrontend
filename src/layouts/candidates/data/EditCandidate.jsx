@@ -53,6 +53,7 @@ function EditCandidatePage() {
         interviewStatus: "",
         status: "",
         job: "",
+        comments: ""
 
     });
 
@@ -75,6 +76,7 @@ function EditCandidatePage() {
                 interviewStatus: candidatee.interviewStatus || "",
                 status: candidatee.status || "",
                 job: candidatee.job?._id || "",
+                comments: candidatee.comments || ""
             });
         }
     }, [candidatee]);
@@ -392,6 +394,18 @@ function EditCandidatePage() {
                                         />
                                     </Box>
                                 </FormControl>
+                                <TextField
+                                    label="Comments"
+                                    name="comments"
+                                    value={candidate.comments}
+                                    onChange={handleChange}
+                                    onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), phoneRef.current?.focus())}
+                                    placeholder="Write comments"
+                                    sx={textFieldStyles}
+                                    InputLabelProps={{
+                                        sx: { ...inputLabelStyle },
+                                    }}
+                                />
                             </SoftBox>
 
                             {/* Buttons */}

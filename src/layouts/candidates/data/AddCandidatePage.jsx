@@ -387,6 +387,7 @@ function AddCandidatePage() {
         interviewStatus: "",
         status: "",
         job: "",
+        comments:"",
     });
 
     // Custom dropdown styles that are responsive
@@ -414,7 +415,7 @@ function AddCandidatePage() {
 
         const requiredFields = [
             "name", "phone", "location", "interviewSlot", "interviewSchedule",
-            "communication", "personality", "knowledge", "interviewStatus", "status", "job"
+           "job"
         ];
 
         for (let field of requiredFields) {
@@ -610,7 +611,7 @@ function AddCandidatePage() {
                                     { label: "Knowledge", name: "knowledge", ref: knowledgeRef, nextRef: interviewStatusRef }
                                 ].map(({ label, name, ref, nextRef }) => (
                                     <FormControl key={name} sx={{ ...dropdownStyles, position: "relative" }}>
-                                        <InputLabel id={`${name}-label`} sx={{ ...inputLabelStyle }}>Select {label}</InputLabel>
+                                        <InputLabel id={`${name}-label`} sx={{ ...inputLabelStyle }}>Rate {label}</InputLabel>
                                         <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
 
                                             <Select
@@ -722,6 +723,18 @@ function AddCandidatePage() {
                                         />
                                     </Box>
                                 </FormControl>
+                                <TextField
+                                    label="Comments"
+                                    name="comments"
+                                    value={candidate.comments}
+                                    onChange={handleChange}
+                                    onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), phoneRef.current?.focus())}
+                                    placeholder="Write comments"
+                                    sx={textFieldStyles}
+                                    InputLabelProps={{
+                                        sx: { ...inputLabelStyle },
+                                    }}
+                                />
                             </SoftBox>
 
                             {/* Buttons */}
