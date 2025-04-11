@@ -146,17 +146,12 @@ const getCandidatesTableData = () => {
             variant="outlined"
             value={searchQuery}
             InputLabelProps={{
-              sx: { fontSize: "1rem" },
+              sx: { fontSize: "0.85rem" },
             }}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-
-          {/* Interview Status Filter */}
-          <FormControl
             sx={{
-              width: "250px",
-              maxWidth: "250px",
-              minWidth: "250px",
+              width: "200px",
+              maxWidth: "200px",
+              minWidth: "200px",
               borderRadius: "5px",
               display: "flex",
               "& .MuiInputBase-root": {
@@ -164,9 +159,30 @@ const getCandidatesTableData = () => {
                 display: "flex",
               },
               "& .MuiInputBase-input": {
-                width: "200px",
-                maxWidth: "200px",
-                minWidth: "200px",
+                width: "180px",
+                maxWidth: "180px",
+                minWidth: "180px",
+              },
+            }}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+
+          {/* Interview Status Filter */}
+          <FormControl
+            sx={{
+              width: "200px",
+              maxWidth: "200px",
+              minWidth: "200px",
+              borderRadius: "5px",
+              display: "flex",
+              "& .MuiInputBase-root": {
+                width: "100%",
+                display: "flex",
+              },
+              "& .MuiInputBase-input": {
+                width: "180px",
+                maxWidth: "180px",
+                minWidth: "180px",
               },
             }}
           >
@@ -192,9 +208,9 @@ const getCandidatesTableData = () => {
           {/* Status Filter */}
           <FormControl
             sx={{
-              width: "250px",
-              maxWidth: "250px",
-              minWidth: "250px",
+              width: "200px",
+              maxWidth: "200px",
+              minWidth: "200px",
               borderRadius: "5px",
               display: "flex",
               "& .MuiInputBase-root": {
@@ -202,9 +218,9 @@ const getCandidatesTableData = () => {
                 display: "flex",
               },
               "& .MuiInputBase-input": {
-                width: "200px",
-                maxWidth: "200px",
-                minWidth: "200px",
+                width: "180px",
+                maxWidth: "180px",
+                minWidth: "180px",
               },
             }}
           >

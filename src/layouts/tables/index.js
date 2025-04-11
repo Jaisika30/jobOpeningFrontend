@@ -136,7 +136,7 @@ import { textFieldStyles } from "assets/textFieldStyles";
 import SoftButton from "components/SoftButton";
 import { useNavigate } from "react-router-dom";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import { inputLabelStyle ,dropdownIconStyle } from "assets/textFieldStyles";
+import { inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 function Tables() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -173,7 +173,7 @@ function Tables() {
           <SoftBox mb={3}>
             <Card>
               <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                <SoftTypography variant="h6">Job Listings</SoftTypography>
+                <SoftTypography variant="h6" textAlign="center">Job Listings</SoftTypography>
               </SoftBox>
 
               {/* Search and Filter UI */}
@@ -185,24 +185,25 @@ function Tables() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   sx={{
-                    width: "330px",
-                    maxWidth: "330px",
+                    width: "250px",
+                    maxWidth: "250px",
                     // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
                     display: "flex",
+                    height: "10px",
                     "& .MuiInputBase-root": {
-                      width: "330px",
+                      width: "250px",
                       display: "flex",
                     },
                     "& .MuiInputBase-input": {
-                      width: "330px",
-                      maxWidth: "330px",
-                      minWidth: "330px",
+                      width: "220px",
+                      maxWidth: "220px",
+                      minWidth: "220px",
                     },
                   }}
                   InputLabelProps={{
                     sx: {
-                      fontSize: "1rem", // 👈 sets the label font size
+                      fontSize: "0.85rem", // 👈 sets the label font size
                     },
                   }}
                 />
@@ -242,9 +243,11 @@ function Tables() {
                     borderRadius: "5px",
                     display: "flex",
                     position: "relative",
+                    
                     "& .MuiInputBase-root": {
                       width: "100%",
                       display: "flex",
+                      height: "40px !important",
                     },
                     "& .MuiInputBase-input": {
                       width: "200px",
