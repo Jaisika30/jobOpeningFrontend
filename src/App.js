@@ -368,7 +368,7 @@ export default function App() {
       ) : (
         <ThemeProvider theme={themeRTL}>
           <CssBaseline />
-          <ToastContainer position="top-right" autoClose={3000} />
+          <ToastContainer position="top-center" autoClose={3000} />
 
           {/* Show Sidenav only for dashboard layout */}
           {layout === "dashboard" && (
