@@ -1,6 +1,22 @@
 import { colors } from "@mui/material";
 
 // styles/textFieldStyles.js
+// const textFieldStyles = {
+//     width: "100%",
+//     maxWidth: "100%",
+//     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+//     borderRadius: "5px",
+//     display: "flex",
+//     "& .MuiInputBase-root": {
+//         width: "100%",
+//         display: "flex",
+//     },
+//     "& .MuiInputBase-input": {
+//         width: "330px",
+//         maxWidth: "330px",
+//         minWidth: "330px",
+//     },
+// };
 const textFieldStyles = {
     width: "100%",
     maxWidth: "100%",
@@ -15,8 +31,18 @@ const textFieldStyles = {
         width: "330px",
         maxWidth: "330px",
         minWidth: "330px",
+        paddingTop: "10px", // Adds space to prevent label from being pushed too high
+    },
+    "& .MuiInputLabel-root": {
+        fontSize: "0.85rem", // Ensures a readable label size
+        transition: "all 0.2s ease-in-out", // Smooth floating animation
+    },
+    "& .MuiInputLabel-shrink": {
+        fontSize: "0.90rem", // Ensures label isn't too small when floating
+        top: "3px", // Adjusts floating label position slightly downward
     },
 };
+
 
 const dropdownStyles = {
     width: "100%",
@@ -34,25 +60,16 @@ const dropdownStyles = {
         maxWidth: "360px",
         minWidth: "360px",
     },
+    "& .MuiInputLabel-root": {
+        fontSize: "0.85rem", // Ensures a readable label size
+        transition: "all 0.2s ease-in-out", // Smooth floating animation
+    },
+    "& .MuiInputLabel-shrink": {
+        fontSize: "0.90rem", // Ensures label isn't too small when floating
+        top: "3px", // Adjusts floating label position slightly downward
+    },
 };
-//  const dropdownStyles = {
-//     width: "100%", // allow it to grow/shrink within parent
-//     minWidth: "0", // allow shrinking on smaller screens
-//     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-//     borderRadius: "5px",
-//     display: "flex",
-//     "& .MuiInputBase-root": {
-//         // width: "100%",
-//         height: '44px',
-//         display: "flex",
-//     },
-//     "& .MuiInputBase-input": {
-//         width: "100%",
-//     },
-//     '& .MuiSelect-select': {
-//         padding: '10px 14px',
-//     },
-// };
+
 
 const inputLabelStyle = {
     fontSize: "0.85rem",

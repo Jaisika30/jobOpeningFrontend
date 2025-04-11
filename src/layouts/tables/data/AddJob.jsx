@@ -283,6 +283,7 @@ import { dropdownIconStyle } from "assets/textFieldStyles";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 
 import Box from '@mui/material/Box';
+import { FloatingTextarea } from "assets/FloatingTextarea";
 
 
 // function AddJob() {
@@ -618,19 +619,19 @@ function AddJob() {
   // TextArea styles
   const textAreaStyles = {
     width: "100%",
-    // minHeight: 100,
+    minHeight: 100,
     maxHeight: 300,
-    // // borderWidth: 1,
-    // borderStyle: "solid",
-    // borderColor: "#c6c6c6",
-    // borderRadius: "8px",
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#c6c6c6",
+    borderRadius: "8px",
     overflow: "auto",
     resize: "vertical",
-    // padding: "10px",
+    padding: "10px",
     fontFamily: "inherit",
     fontSize: "1rem",
-    // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-    
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+
   };
 
   // Character counter styles
@@ -740,6 +741,7 @@ function AddJob() {
                   placeholder="Enter Job Title"
                   sx={textFieldStyles}
                   InputLabelProps={{
+                  
                     sx: { ...inputLabelStyle },
                   }}
                 />
@@ -779,65 +781,15 @@ function AddJob() {
                 }}
               >
                 <SoftBox>
-                  {/* <SoftTypography 
-                    component="label" 
-                    htmlFor="description" 
-                    variant="caption" 
-                    fontWeight="bold"
-                    display="block"
-                    mb={0.5}
-                  >
-                    Description
-                  </SoftTypography> */}
-                  {/* <textarea
-                    id="description"
-                    name="description"
-                    ref={descriptionRef}
+                  <FloatingTextarea
+                    descriptionRef={descriptionRef}
                     value={job.description}
                     onChange={handleChange}
-                    // maxLength={500}
-                    label="description"
-                    style={textAreaStyles}
                     placeholder="Enter job description"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        locationRef.current?.focus();
-                      }
-                    }}
-
-                  /> */}
-                     <TextField
-                  inputRef={descriptionRef}
-                  label="Description"
-                  name="description"
-                  value={job.description}
-                  onChange={handleChange}
-                  multiline
-                  rows={4}
-                  placeholder="Enter job description"
-                  sx={textAreaStyles}
-                  InputLabelProps={{
-                    sx: { ...inputLabelStyle },
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                      e.preventDefault();
-                      locationRef.current?.focus();
-                    }
-                  }}
-                  inputProps={{
-                    style: {
-                      resize: 'vertical',
-                    },
-                  }}
-                />
-                  {/* <div style={counterContainer}>
-                    <div style={counterFill((charCount / 500) * 100)}>
-                      <span style={counterText}>{`${charCount} / 500`}</span>
-                    </div>
-                  </div> */}
+                    onEnter={() => locationRef.current?.focus()}
+                  />
                 </SoftBox>
+
               </SoftBox>
 
               {/* Second Row */}
