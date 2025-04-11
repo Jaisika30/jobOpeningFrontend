@@ -19,6 +19,11 @@ import { textFieldStyles } from "assets/textFieldStyles";
 import { dropdownStyles } from "assets/textFieldStyles";
 import { InputLabel } from "@mui/material";
 import SoftButton from "components/SoftButton";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import Box from '@mui/material/Box';
+import { FloatingTextarea } from "assets/FloatingTextarea";
+import { inputLabelStyle } from "assets/textFieldStyles";
+import { dropdownIconStyle } from "assets/textFieldStyles";
 
 function formatDate(isoString) {
   if (!isoString) return "";
@@ -60,7 +65,7 @@ function ViewJob() {
       setJob({
         title: jobDetail.title || "",
         description: jobDetail.description || "",
-        location:jobDetail.location || "",
+        location: jobDetail.location || "",
         postingDate: jobDetail.createdAt ? jobDetail.createdAt.split("T")[0] : "",
         // Proper date format
         status: jobDetail.status || "Open",
@@ -76,8 +81,8 @@ function ViewJob() {
   };
 
   const handleSubmit = async () => {
-    console.log("update id:::",id);
-    console.log("job updatedData",job)
+    console.log("update id:::", id);
+    console.log("job updatedData", job)
     dispatch(updateJob({ id, updatedData: job }));
     navigate("/jobs");
   };
@@ -94,239 +99,244 @@ function ViewJob() {
   }
 
   return (
+
     // <DashboardLayout>
     //   <DashboardNavbar />
     //   <SoftBox py={3}>
     //     <SoftBox mb={3}>
     //       <Card sx={{ p: 3 }}>
-    //         <SoftTypography variant="h5" mb={3}>
-    //           Edit Job
+    //         <SoftTypography variant="h5" mb={3} textAlign="center">
+    //           View Job Details
     //         </SoftTypography>
-    //         <form>
-    //           <SoftBox mb={3}>
-    //             <SoftTypography variant="body1" mb={1}>
-    //               Job Title
-    //             </SoftTypography>
+    //         <form onSubmit={handleSubmit}>
+    //           {/* First Row */}
+    //           <SoftBox
+    //             mb={3}
+    //             sx={{
+    //               display: "grid",
+    //               gridTemplateColumns: {
+    //                 xs: "1fr",
+    //                 sm: "1fr 1fr",
+    //                 md: "1fr 1fr 1fr"
+    //               },
+    //               gap: 3,
+    //               alignItems: "flex-start"
+    //             }}
+    //           >
     //             <TextField
+    //               label="Title"
     //               name="title"
     //               value={job.title}
-    //               onChange={handleChange}
     //               placeholder="Enter Job Title"
-    //               margin="none"
-    //               sx={{
-    //                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-    //                 borderRadius: "5px",
+    //               sx={textFieldStyles}
+    //               InputLabelProps={{
+    //                 sx: { fontSize: "1rem" },
     //               }}
     //             />
-    //           </SoftBox>
 
-    //           <SoftBox mb={3} sx={{ width: "100%" }}>
-    //             <SoftTypography variant="body1" mb={1}>
-    //               Description
-    //             </SoftTypography>
     //             <TextField
+    //               label="Description"
     //               name="description"
     //               value={job.description}
-    //               onChange={handleChange}
+
     //               placeholder="Enter job description"
-    //               margin="none"
-    //               multiline
-    //               rows={4}
-    //                sx={textFieldStyles}
-    //             />
-    //           </SoftBox>
-    //           <SoftBox mb={3}>
-    //             <SoftTypography variant="body1" mb={1}>
-    //               Posting Date
-    //             </SoftTypography>
-    //             <TextField
-    //               fullWidth
-    //               name="postingDate"
-    //               type="date"
-    //               value={job.postingDate}
-    //               onChange={handleChange}
-    //               margin="none"
-    //               InputLabelProps={{ shrink: true }}
-    //               sx={{
-    //                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-    //                 borderRadius: "5px",
+    //               InputLabelProps={{
+    //                 sx: { fontSize: "1rem" },
     //               }}
+    //               sx={textFieldStyles}
+    //             />
+
+    //             <TextField
+    //               label="Location"
+    //               name="location"
+    //               value={job.location}
+
+    //               placeholder="Enter location"
+    //               InputLabelProps={{
+    //                 sx: { fontSize: "1rem" },
+    //               }}
+    //               sx={textFieldStyles}
     //             />
     //           </SoftBox>
 
-    //           <SoftBox mb={3}>
-    //             <SoftTypography variant="body1" mb={1}>
-    //               Status
-    //             </SoftTypography>
-    //             <FormControl
+    //           {/* Second Row */}
+    //           <SoftBox
+    //             mb={3}
+    //             sx={{
+    //               display: "grid",
+    //               gridTemplateColumns: {
+    //                 xs: "1fr",
+    //                 sm: "1fr 1fr",
+    //                 md: "1fr 1fr 1fr"
+    //               },
+    //               gap: 3,
+    //               alignItems: "flex-start"
+    //             }}
+    //           >
+
+    //             <TextField
+    //               label="Posting Date"
+    //               name="postingDate"
+    //               value={job.postingDate}
+    //               type="date"
     //               fullWidth
-    //               sx={{
-    //                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-    //                 borderRadius: "5px",
+    //               InputLabelProps={{
+    //                 shrink: true,
+    //                 sx: { fontSize: "1rem" },
     //               }}
-    //             >
-    //               <Select name="status" value={job.status} onChange={handleChange}>
-    //                 <MenuItem value="Open">Open</MenuItem>
-    //                 <MenuItem value="Closed">Closed</MenuItem>
+    //               inputProps={{
+    //                 style: {
+    //                   paddingRight: "0.5rem", // ensures date icon doesn't get cut off
+    //                 },
+    //               }}
+    //               sx={{
+    //                 "& input": {
+    //                   fontSize: "1rem",
+    //                 },
+    //                 "& .MuiInputBase-root": {
+    //                   width: "100%",
+    //                 },
+
+    //                 // Don't add other layout-related custom styles that might mess with the input type="date"
+    //               }}
+    //             />
+
+
+    //             <FormControl sx={dropdownStyles}>
+    //               <InputLabel id="status-label" sx={{ fontSize: "1rem" }}>
+    //                 Status
+    //               </InputLabel>
+    //               <Select
+    //                 name="status"
+    //                 value={job.status || ""}
+    //                 label="Select Status"
+    //               >
+    //                 {['Open', 'Closed'].map((status) => (
+    //                   <MenuItem key={status} value={status}>{status}</MenuItem>
+    //                 ))}
     //               </Select>
     //             </FormControl>
     //           </SoftBox>
 
-    //           <SoftBox mt={3} display="flex" justifyContent="space-between">
-    //             <Button variant="contained" color="primary"  onClick={() => navigate("/jobs")}>
+    //           {/* Buttons */}
+    //           <SoftBox
+    //             mt={3}
+    //             display="flex"
+    //             justifyContent="space-between"
+    //             flexDirection={{ xs: "column", sm: "row" }}
+    //             gap={2}
+    //           >
+
+    //             <SoftButton
+    //               variant="gradient"
+    //               color="info"
+    //               onClick={() => navigate("/jobs")}
+    //               sx={{
+    //                 width: { xs: '100%', sm: 'auto' },
+    //                 px: 3,
+    //               }}
+    //             >
     //               Back
-    //             </Button>
+    //             </SoftButton>
     //           </SoftBox>
     //         </form>
     //       </Card>
     //     </SoftBox>
     //   </SoftBox>
-    //   <Footer />
     // </DashboardLayout>
-     <DashboardLayout>
-              <DashboardNavbar />
-              <SoftBox py={3}>
-                <SoftBox mb={3}>
-                  <Card sx={{ p: 3 }}>
-                    <SoftTypography variant="h5" mb={3} textAlign="center">
-                      View Job Details
-                    </SoftTypography>
-                    <form onSubmit={handleSubmit}>
-                      {/* First Row */}
-                      <SoftBox
-                        mb={3}
-                        sx={{
-                          display: "grid",
-                          gridTemplateColumns: {
-                            xs: "1fr",
-                            sm: "1fr 1fr",
-                            md: "1fr 1fr 1fr"
-                          },
-                          gap: 3,
-                          alignItems: "flex-start"
-                        }}
-                      >
-                        <TextField
-                          label="Title"
-                          name="title"
-                          value={job.title}
-                                                    placeholder="Enter Job Title"
-                          sx={textFieldStyles}
-                          InputLabelProps={{
-                            sx: { fontSize: "1rem" },
-                          }}
-                        />
-        
-                        <TextField
-                          label="Description"
-                          name="description"
-                          value={job.description}
-                          
-                          placeholder="Enter job description"
-                          InputLabelProps={{
-                            sx: { fontSize: "1rem" },
-                          }}
-                          sx={textFieldStyles}
-                        />
-        
-                        <TextField
-                          label="Location"
-                          name="location"
-                          value={job.location}
-                         
-                          placeholder="Enter location"
-                          InputLabelProps={{
-                            sx: { fontSize: "1rem" },
-                          }}
-                          sx={textFieldStyles}
-                        />
-                      </SoftBox>
-        
-                      {/* Second Row */}
-                      <SoftBox
-                        mb={3}
-                        sx={{
-                          display: "grid",
-                          gridTemplateColumns: {
-                            xs: "1fr",
-                            sm: "1fr 1fr",
-                            md: "1fr 1fr 1fr"
-                          },
-                          gap: 3,
-                          alignItems: "flex-start"
-                        }}
-                      >
-                       
-                        <TextField
-                          label="Posting Date"
-                          name="postingDate"
-                          value={job.postingDate}
-                          type="date"
-                          fullWidth
-                          InputLabelProps={{
-                            shrink: true,
-                            sx: { fontSize: "1rem" },
-                          }}
-                          inputProps={{
-                            style: {
-                              paddingRight: "0.5rem", // ensures date icon doesn't get cut off
-                            },
-                          }}
-                          sx={{
-                            "& input": {
-                              fontSize: "1rem",
-                            },
-                            "& .MuiInputBase-root": {
-                              width: "100%",
-                            },
-                          
-                            // Don't add other layout-related custom styles that might mess with the input type="date"
-                          }}
-                        />
-        
-        
-                        <FormControl sx={dropdownStyles}>
-                          <InputLabel id="status-label" sx={{ fontSize: "1rem" }}>
-                             Status
-                          </InputLabel>
-                          <Select
-                            name="status"
-                            value={job.status || ""}
-                            label="Select Status"
-                          >
-                            {['Open', 'Closed'].map((status) => (
-                              <MenuItem key={status} value={status}>{status}</MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </SoftBox>
-        
-                      {/* Buttons */}
-                      <SoftBox
-                        mt={3}
-                        display="flex"
-                        justifyContent="space-between"
-                        flexDirection={{ xs: "column", sm: "row" }}
-                        gap={2}
-                      >
-                        
-                        <SoftButton
-                          variant="gradient"
-                          color="info"
-                          onClick={() => navigate("/jobs")}
-                          sx={{
-                            width: { xs: '100%', sm: 'auto' },
-                            px: 3,
-                          }}
-                        >
-                          Back
-                        </SoftButton>
-                      </SoftBox>
-                    </form>
-                  </Card>
-                </SoftBox>
+    <DashboardLayout>
+      <DashboardNavbar />
+      <SoftBox py={3}>
+        <SoftBox mb={3}>
+          <Card sx={{ p: 3 }}>
+            <SoftTypography variant="h5" mb={3} textAlign="center">
+              View Job Details
+            </SoftTypography>
+
+            {/* Job Details Section */}
+            <SoftBox
+              mb={3}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                gap: 3,
+                alignItems: "flex-start",
+              }}
+            >
+              {/* Title */}
+              <SoftBox>
+                <SoftTypography variant="subtitle1" fontWeight="bold">
+                  Title:
+                </SoftTypography>
+                <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.title}</SoftTypography>
               </SoftBox>
-            </DashboardLayout>
+
+              {/* Location */}
+              <SoftBox>
+                <SoftTypography variant="subtitle1" fontWeight="bold">
+                  Location:
+                </SoftTypography>
+                <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.location}</SoftTypography>
+              </SoftBox>
+            </SoftBox>
+
+            {/* Description */}
+            <SoftBox mb={3}>
+              <SoftTypography variant="subtitle1" fontWeight="bold">
+                Description:
+              </SoftTypography>
+              <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.description}</SoftTypography>
+            </SoftBox>
+
+            {/* Posting Date & Status */}
+            <SoftBox
+              mb={3}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                gap: 3,
+                alignItems: "flex-start",
+              }}
+            >
+              {/* Posting Date */}
+              <SoftBox>
+                <SoftTypography variant="subtitle1" fontWeight="bold">
+                  Posting Date:
+                </SoftTypography>
+                <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>
+                  {new Date(job.postingDate).toLocaleDateString("en-GB")}
+                </SoftTypography>
+              </SoftBox>
+
+              {/* Status */}
+              <SoftBox>
+                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                  Status:
+                </SoftTypography>
+                <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.status}</SoftTypography>
+              </SoftBox>
+            </SoftBox>
+
+            {/* Buttons */}
+            <SoftBox
+              mt={3}
+              display="flex"
+              justifyContent="flex-end" 
+              flexDirection={{ xs: "column", sm: "row" }}
+              gap={2}
+            >
+              <SoftButton variant="gradient" color="error" onClick={() => navigate("/jobs")}>
+                Cancel
+              </SoftButton>
+              <SoftButton variant="gradient" color="info" onClick={() => navigate(`/editJob/${id}`)}>
+                Edit Job
+              </SoftButton>
+            </SoftBox>
+          </Card>
+        </SoftBox>
+      </SoftBox>
+    </DashboardLayout>
+
   );
 }
 
