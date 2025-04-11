@@ -258,7 +258,7 @@ function Candidates() {
                   }
                 </SoftTypography>
 
-                <SoftBox mt={2}>{topAction}</SoftBox>
+                <SoftBox mt={4}>{topAction}</SoftBox>
               </SoftBox>
 
               <Candidate columns={columns} rows={rows} />

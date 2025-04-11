@@ -173,7 +173,7 @@ function Tables() {
           <SoftBox mb={3}>
             <Card>
               <SoftBox p={3}>
-                <SoftTypography variant="h5" textAlign="center">Job Listings</SoftTypography>
+                <SoftTypography variant="h5" textAlign="center">Jobs</SoftTypography>
               </SoftBox>
 
               {/* Search and Filter UI */}

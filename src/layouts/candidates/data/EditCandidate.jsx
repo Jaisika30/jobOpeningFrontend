@@ -239,8 +239,8 @@ function EditCandidatePage() {
                                     name="interviewSlot"
                                     value={candidate.interviewSlot}
                                     onChange={handleChange}
-                                    placeholder="Enter Time Slot"
-                                    label="Time Slot"
+                                    placeholder="Time Offered"
+                                    label="Time Offered"
                                     onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), scheduleRef.current?.focus())}
                                     InputLabelProps={{ sx: { fontSize: "1rem" } }}
                                     sx={textFieldStyles}
