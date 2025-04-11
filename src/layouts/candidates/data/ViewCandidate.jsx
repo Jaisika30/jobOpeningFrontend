@@ -289,7 +289,7 @@ function ViewCandidate() {
 
                                 <SoftButton
                                     variant="gradient"
-                                    color="info"
+                                     color="error"
                                     onClick={() => navigate("/Candidate")}
                                     sx={{
                                         width: { xs: '100%', sm: 'auto' },

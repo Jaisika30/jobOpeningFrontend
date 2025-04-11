@@ -249,10 +249,10 @@ function Candidates() {
             <Card>
               <SoftBox p={3}>
                 {/* Header - now using jobDetail.title */}
-                <SoftTypography variant="h6" textAlign="center">
+                <SoftTypography variant="h5" textAlign="center">
                 {id 
                     ? jobDetail 
-                      ? `Candidates for: ${jobDetail.title}` 
+                      ? `Candidates For : ${jobDetail.title}` 
                       : "Loading job details..."
                     : "All Candidates"
                   }

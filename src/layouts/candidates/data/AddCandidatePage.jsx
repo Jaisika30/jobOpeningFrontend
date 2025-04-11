@@ -391,21 +391,10 @@ function AddCandidatePage() {
                             <SoftBox
                                 mt={3}
                                 display="flex"
-                                justifyContent="space-between"
+                                justifyContent="flex-end"
                                 flexDirection={{ xs: "column", sm: "row" }}
                                 gap={2}
                             >
-                                <SoftButton
-                                    type="submit"
-                                    variant="gradient"
-                                    color="info"
-                                    sx={{
-                                        width: { xs: '100%', sm: 'auto' },
-                                        px: 3,
-                                    }}
-                                >
-                                    Add Candidate
-                                </SoftButton>
                                 <SoftButton
                                     variant="gradient"
                                     color="error"
@@ -417,6 +406,18 @@ function AddCandidatePage() {
                                 >
                                     Cancel
                                 </SoftButton>
+                                <SoftButton
+                                    type="submit"
+                                    variant="gradient"
+                                    color="info"
+                                    sx={{
+                                        width: { xs: '100%', sm: 'auto' },
+                                        px: 3,
+                                    }}
+                                >
+                                    Add Candidate
+                                </SoftButton>
+                                
                             </SoftBox>
                         </form>
                     </Card>

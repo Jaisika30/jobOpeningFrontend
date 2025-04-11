@@ -178,7 +178,7 @@ function Tables() {
                 alignItems="center"  // Centers vertically
                 p={3}
               >
-                <SoftTypography variant="h6" textAlign="center">
+                <SoftTypography variant="h5" textAlign="center">
                   Job Listings
                 </SoftTypography>
               </SoftBox>
@@ -261,7 +261,7 @@ function Tables() {
                   }}
 
                 >
-                  <InputLabel sx={{ ...inputLabelStyle }}>All Status</InputLabel>
+                  <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
 
                   {/* Wrap Select and Icon in a container to align them correctly */}
                   <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>

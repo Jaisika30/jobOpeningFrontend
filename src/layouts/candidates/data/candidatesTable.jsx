@@ -122,7 +122,10 @@ const getCandidatesTableData = () => {
       }
     });
   };
-
+  const truncateText = (text, maxLength) => {
+    if (!text) return ""; // Handle empty/null text
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  };
 
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
 
@@ -247,6 +250,7 @@ const getCandidatesTableData = () => {
       { name: "location", label: "Location", align: "left" },
       { name: "interviewStatus", label: "Interview Status", align: "center" },
       { name: "status", label: "Status", align: "center" },
+      { name: "comments", label: "Comments", align: "center" },
       { name: "action", label: "Action", align: "center" },
     ],
     rows: loading
@@ -262,6 +266,7 @@ const getCandidatesTableData = () => {
         location: "",
         interviewStatus: "",
         status: "",
+        comments: "",
         action: ""
       }]
       : noCandidatesFound
@@ -274,6 +279,7 @@ const getCandidatesTableData = () => {
           location: "",
           interviewStatus: "",
           status: "",
+          comments: "",
           // action: (
           //   <Button
           //     variant="contained"
@@ -292,7 +298,8 @@ const getCandidatesTableData = () => {
           ),
           location: (
             <SoftTypography variant="caption" color="secondary">
-              {candidate.location}
+              {truncateText(candidate.location, 20)}
+
             </SoftTypography>
           ),
           interviewStatus: (
@@ -331,6 +338,12 @@ const getCandidatesTableData = () => {
               size="xs"
               container
             />
+          ),
+          comments: (
+            <SoftTypography variant="caption" color="secondary">
+              {truncateText(candidate.comments, 30)}
+
+            </SoftTypography>
           ),
           action: (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
