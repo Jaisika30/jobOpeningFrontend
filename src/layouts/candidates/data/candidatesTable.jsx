@@ -251,6 +251,7 @@ const getCandidatesTableData = () => {
       { name: "interviewStatus", label: "Interview Status", align: "center" },
       { name: "status", label: "Status", align: "center" },
       { name: "comments", label: "Comments", align: "center" },
+      { name: "interviewSlot", label: "Time Offered", align: "center" },
       { name: "action", label: "Action", align: "center" },
     ],
     rows: loading
@@ -267,6 +268,7 @@ const getCandidatesTableData = () => {
         interviewStatus: "",
         status: "",
         comments: "",
+        interviewSlot:"",
         action: ""
       }]
       : noCandidatesFound
@@ -344,6 +346,12 @@ const getCandidatesTableData = () => {
               {truncateText(candidate.comments, 30)}
 
             </SoftTypography>
+          ),
+          interviewSlot:(
+            <SoftTypography variant="caption" color="secondary">
+            {candidate.interviewSlot}
+
+          </SoftTypography>
           ),
           action: (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
