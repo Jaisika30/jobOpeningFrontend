@@ -59,6 +59,7 @@ function EditCandidatePage() {
     // Populate form fields when candidate data is available
     useEffect(() => {
         console.log("candidateeeeeeeee:::::", candidatee);
+       
         if (candidatee) {
             setCandidate({
                 name: candidatee.name || "",
@@ -93,12 +94,12 @@ function EditCandidatePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("candidateData:::::", candidate);
+        console.log("candidateData:::::", candidate.job._id);
 
         try {
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             toast.success("Candidate updated successfully! 🎉"); // Success toast
-            navigate('/Candidate'); // Redirect after updating
+            navigate(`/Candidates/${candidate.job}`); // Redirect after updating
         } catch (error) {
             console.error("Failed to update candidate:", error);
             toast.error("Error updating candidate. Please try again."); // Error toast
@@ -679,7 +680,7 @@ function EditCandidatePage() {
                             <SoftBox
                                 mt={3}
                                 display="flex"
-                                justifyContent="space-between"
+                                justifyContent="flex-end"
                                 flexDirection={{ xs: "column", sm: "row" }}
                                 gap={2}
                             >
@@ -697,7 +698,7 @@ function EditCandidatePage() {
                                 <SoftButton
                                     variant="gradient"
                                     color="error"
-                                    onClick={() => navigate("/Candidate")}
+                                    onClick={() => navigate(`/Candidates/${candidate.job}`)}
                                     sx={{
                                         width: { xs: '100%', sm: 'auto' },
                                         px: 3,
