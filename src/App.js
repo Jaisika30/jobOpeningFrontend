@@ -230,6 +230,7 @@ import { AuthProvider } from "protect/AuthContext";
 // Images
 import brand from "assets/images/logo-ct.png";
 import SoftTypography from "components/SoftTypography";
+import { CustomToastContainer } from "assets/ToastConatiner";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -330,8 +331,7 @@ export default function App() {
         <CacheProvider value={rtlCache}>
           <ThemeProvider theme={themeRTL}>
             <CssBaseline />
-            <ToastContainer position="top-center" autoClose={3000}  width="250px" fontSize= "0.85rem"/>
-
+            <ToastContainer position="top-center" autoClose={3000} />
             {/* Show Sidenav only for dashboard layout */}
             {layout === "dashboard" && (
               <>
@@ -366,7 +366,7 @@ export default function App() {
           </ThemeProvider>
         </CacheProvider>
       ) : (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeRTL}>
           <CssBaseline />
           <ToastContainer position="top-right" autoClose={3000} />
 
