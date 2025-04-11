@@ -57,8 +57,8 @@ const dropdownStyles = {
     },
     "& .MuiInputBase-input": {
         width: "100%",
-        maxWidth: "100%",
-        minWidth: "100%",
+        maxWidth: "90%",
+        minWidth: "90%",
     },
     "& .MuiInputLabel-root": {
         fontSize: "0.85rem", // Ensures a readable label size
