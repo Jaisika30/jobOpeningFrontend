@@ -48,7 +48,7 @@ function AddCandidatePage() {
         interviewStatus: "",
         status: "",
         job: "",
-        comments:"",
+        comments: "",
     });
 
     const handleChange = (e) => {
@@ -65,7 +65,7 @@ function AddCandidatePage() {
 
         const requiredFields = [
             "name", "phone", "location", "interviewSlot", "interviewSchedule",
-           "job"
+            "job"
         ];
 
         for (let field of requiredFields) {
@@ -417,7 +417,7 @@ function AddCandidatePage() {
                                 >
                                     Add Candidate
                                 </SoftButton>
-                                
+
                             </SoftBox>
                         </form>
                     </Card>

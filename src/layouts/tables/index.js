@@ -172,8 +172,8 @@ function Tables() {
         <SoftBox py={3}>
           <SoftBox mb={3}>
             <Card>
-              <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                <SoftTypography variant="h6" textAlign="center">Job Listings</SoftTypography>
+              <SoftBox p={3}>
+                <SoftTypography variant="h5" textAlign="center">Job Listings</SoftTypography>
               </SoftBox>
 
               {/* Search and Filter UI */}

@@ -60,7 +60,7 @@ function EditCandidatePage() {
     // Populate form fields when candidate data is available
     useEffect(() => {
         console.log("candidateeeeeeeee:::::", candidatee);
-       
+
         if (candidatee) {
             setCandidate({
                 name: candidatee.name || "",
@@ -119,7 +119,7 @@ function EditCandidatePage() {
         setPhoneError(''); // Clear error when typing
     };
     return (
-       
+
         <DashboardLayout>
             <DashboardNavbar />
             <SoftBox py={3}>
@@ -438,7 +438,7 @@ function EditCandidatePage() {
                                 >
                                     Edit Candidate
                                 </SoftButton>
-                                
+
                             </SoftBox>
                         </form>
                     </Card>

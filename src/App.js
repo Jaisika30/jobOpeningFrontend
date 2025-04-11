@@ -330,7 +330,7 @@ export default function App() {
         <CacheProvider value={rtlCache}>
           <ThemeProvider theme={themeRTL}>
             <CssBaseline />
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer position="top-center" autoClose={3000}  width="250px" fontSize= "0.85rem"/>
 
             {/* Show Sidenav only for dashboard layout */}
             {layout === "dashboard" && (

@@ -89,4 +89,7 @@ const dropdownIconStyle = {
 const labelSize = {
     fontSize: "1rem"
 };
-export { textFieldStyles, dropdownStyles, labelSize, inputLabelStyle, dropdownIconStyle };
+const toastSuccess = {
+    fontSize: "0.85rem", padding: "8px", minWidth: "200px"
+}
+export { textFieldStyles, dropdownStyles, labelSize, inputLabelStyle, dropdownIconStyle, toastSuccess };
