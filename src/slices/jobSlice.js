@@ -95,9 +95,9 @@ export const updateJob = createAsyncThunk(
                 }
             );
             console.log("update edit job:::", response)
-            // if (response.status === 200) {
-            //     toast.success("Job updated successfully!"); // ✅ Success Toaster
-            // }
+            if (response.status === 200) {
+                toast.success("Job updated successfully!"); // ✅ Success Toaster
+            }
             return response.data;
         } catch (error) {
             // toast.error(error.response?.data?.message || "Failed to update job!"); 

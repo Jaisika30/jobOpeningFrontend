@@ -91,16 +91,7 @@ function EditJob() {
     console.log("update id:::", id);
     console.log("job updatedData", job)
     // dispatch(updateJob({ id, updatedData: job }));
-    dispatch(updateJob({ id, updatedData: job }))
-      .unwrap()
-      .then(() => {
-        toast.success("Job updated successfully!");
-        navigate("/jobs");
-      })
-      .catch((error) => {
-        toast.error("Failed to update job. Please try again.");
-        console.error("Update error:", error);
-      });
+    dispatch(updateJob({ id, updatedData: job }));
     navigate("/jobs");
   };
 
