@@ -35,7 +35,7 @@ function AddCandidatePage() {
     const statusRef = useRef();
     const communicationRef = useRef();
 
-    const jobs = useSelector((state) => state.jobs.jobs);
+    const jobs = useSelector((state) => state.jobs.jobs.jobs);
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",

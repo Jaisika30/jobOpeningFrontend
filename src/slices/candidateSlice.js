@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // const API_URL = 'http://localhost:8085/api/candidate'; // Adjust based on your backend URL
 const API_URL = process.env.REACT_APP_API_URL;
-console.log(";;;;;;;;;;",API_URL)
+console.log(";;;;;;;;;;", API_URL)
 // 1. Create Candidate
 export const createCandidate = createAsyncThunk(
     "candidates/createCandidate",
@@ -43,17 +43,17 @@ export const getCandidates = createAsyncThunk(
                 },
             });
 
-            console.log("responseeeeeeeeeeeeeeeeeeeeeeee::::",response);
+            console.log("responseeeeeeeeeeeeeeeeeeeeeeee::::", response);
             if (response.data.length === 0) {
                 import("sweetalert2").then((Swal) => {
                     Swal.default.fire({
-                      title: "No Candidates Available!",
-                      text: "Please add candidates for see the details.",
-                      icon: "info",
-                      confirmButtonText: "OK",
+                        title: "No Candidates Available!",
+                        text: "Please add candidates for see the details.",
+                        icon: "info",
+                        confirmButtonText: "OK",
                     });
-                  });
-              }
+                });
+            }
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "An error occurred");
@@ -91,7 +91,7 @@ export const updateCandidate = createAsyncThunk(
     async ({ id, updatedData }, { rejectWithValue, getState }) => {
         try {
             // Retrieve token from Redux state or localStorage
-            console.log("object")
+            console.log("object", typeof (id));
             const token = localStorage.getItem("token");
             console.log("id::", id, "udate Data :::", updatedData);
             // Set headers with Authorization token
@@ -169,39 +169,39 @@ export const deleteCandidate = createAsyncThunk(
 // Assuming your token is stored in localStorage (you can adjust based on where you store the token
 
 export const getCandidatesByJobID = createAsyncThunk(
-  'candidates/getCandidatesByJobID',
-  async (id, { rejectWithValue }) => {
-    try {
-      console.log("slice id:::", id);
-      const token = localStorage.getItem("token");
-      // Send token in Authorization header if it exists
-      const config = token
-        ? {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        : {};
+    'candidates/getCandidatesByJobID',
+    async (id, { rejectWithValue }) => {
+        try {
+            console.log("slice id:::", id);
+            const token = localStorage.getItem("token");
+            // Send token in Authorization header if it exists
+            const config = token
+                ? {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+                : {};
 
-      const response = await axios.get(`${API_URL}/api/candidate/getCandidatesbyJobID/${id}`, config);
-      if (response.data.length === 0) {
-        import("sweetalert2").then((Swal) => {
-            Swal.default.fire({
-              title: "No Candidates Available",
-              text: "There are no candidates available for this job.",
-              icon: "info",
-              confirmButtonText: "OK",
-            });
-          });
-      }
-      console.log("slice resp:::", response);
-     
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching candidates by job ID:", error);
-      return rejectWithValue(error.response ? error.response.data : error.message);
+            const response = await axios.get(`${API_URL}/api/candidate/getCandidatesbyJobID/${id}`, config);
+            if (response.data.length === 0) {
+                import("sweetalert2").then((Swal) => {
+                    Swal.default.fire({
+                        title: "No Candidates Available",
+                        text: "There are no candidates available for this job.",
+                        icon: "info",
+                        confirmButtonText: "OK",
+                    });
+                });
+            }
+            console.log("slice resp:::", response);
+
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching candidates by job ID:", error);
+            return rejectWithValue(error.response ? error.response.data : error.message);
+        }
     }
-  }
 );
 
 
@@ -277,17 +277,17 @@ const candidateSlice = createSlice({
             .addCase(getCandidatesByJobID.pending, (state) => {
                 state.loading = true;
                 state.error = null; // Reset error on new request
-              })
-              .addCase(getCandidatesByJobID.fulfilled, (state, action) => {
+            })
+            .addCase(getCandidatesByJobID.fulfilled, (state, action) => {
                 console.log("API Response:", action.payload);
                 state.loading = false;
                 state.candidates = action.payload;
-              })
-              .addCase(getCandidatesByJobID.rejected, (state, action) => {
+            })
+            .addCase(getCandidatesByJobID.rejected, (state, action) => {
                 state.loading = false;
                 // Check if action.payload exists or if it's a network error
                 state.error = action.payload || 'Failed to fetch candidates';
-              });
+            });
     },
 });
 
