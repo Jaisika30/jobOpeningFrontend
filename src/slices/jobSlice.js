@@ -51,7 +51,7 @@ export const getJobs = createAsyncThunk(
                 });
             }
             console.log(response.data?.jobs );
-            return response.data?.jobs;
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed to fetch jobs");
         }

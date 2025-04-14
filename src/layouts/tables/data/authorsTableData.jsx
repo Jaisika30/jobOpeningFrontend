@@ -18,7 +18,7 @@ const useJobData = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const dispatch = useDispatch();
-  const jobs = useSelector((state) => state.jobs.jobs);
+  const jobs = useSelector((state) => state.jobs.jobs.jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
 
   useEffect(() => {
