@@ -43,11 +43,19 @@ import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData"
 import { Box } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import GroupIcon from '@mui/icons-material/Group';
+import { useDispatch, useSelector } from "react-redux";
+import { getJobs } from "slices/jobSlice";
+import { useEffect } from "react";
 
 function Dashboard() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
-
+   const jobcount = useSelector((state) => state.jobs.jobs.openJobsCount);
+  const dispatch = useDispatch();
+  console.log("openJobsCount:::",jobcount)
+  useEffect(() => {
+    dispatch(getJobs());
+  }, [dispatch]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -63,7 +71,7 @@ function Dashboard() {
                 <MiniStatisticsCard
                   bgColor="white"
                   title={{ text: "Total Job Openings" }}
-                  count="24"
+                  count={jobcount}
                   percentage={{ color: "text", text: "+2 from last month" }}
                   icon={{ color: "info", component: "work" }}
                 />

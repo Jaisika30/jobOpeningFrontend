@@ -130,14 +130,14 @@ function MiniStatisticsCard({ bgColor, title, count, percentage, icon, direction
                 >
                   {count}{" "}
                 </SoftTypography>
-                <SoftTypography 
+                {/* <SoftTypography 
                   variant="button" 
                   sx={{ color: "#cbcacb" }} 
                   fontSize={"10px"} 
                   fontWeight="bold"
                 >
                   {percentage.text}
-                </SoftTypography>
+                </SoftTypography> */}
               </SoftBox>
             </Grid>
 
