@@ -139,7 +139,7 @@ const getCandidatesTableData = () => {
           gap: "20px",
           marginBottom: "16px",
           flexWrap: "wrap",
-          width:"96%"
+          width: "96%"
         }}
       >
         {/* Left side: Search and Filters */}
@@ -265,10 +265,10 @@ const getCandidatesTableData = () => {
     columns: [
       { name: "name", label: "Name", align: "left" },
       { name: "location", label: "Location", align: "left" },
+      { name: "interviewSlot", label: "Time Offered", align: "center" },
       { name: "interviewStatus", label: "Interview Status", align: "center" },
       { name: "status", label: "Status", align: "center" },
       { name: "comments", label: "Comments", align: "center" },
-      { name: "interviewSlot", label: "Time Offered", align: "center" },
       { name: "action", label: "Action", align: "center" },
     ],
     rows: loading
@@ -282,10 +282,10 @@ const getCandidatesTableData = () => {
           </Box>
         ),
         location: "",
+        interviewSlot: "",
         interviewStatus: "",
         status: "",
         comments: "",
-        interviewSlot:"",
         action: ""
       }]
       : noCandidatesFound
@@ -296,6 +296,7 @@ const getCandidatesTableData = () => {
             </SoftTypography>
           ),
           location: "",
+          interviewSlot: "",
           interviewStatus: "",
           status: "",
           comments: "",
@@ -318,6 +319,12 @@ const getCandidatesTableData = () => {
           location: (
             <SoftTypography variant="caption" color="secondary">
               {truncateText(candidate.location, 20)}
+
+            </SoftTypography>
+          ),
+          interviewSlot: (
+            <SoftTypography variant="caption" color="secondary">
+              {candidate.interviewSlot}
 
             </SoftTypography>
           ),
@@ -364,12 +371,7 @@ const getCandidatesTableData = () => {
 
             </SoftTypography>
           ),
-          interviewSlot:(
-            <SoftTypography variant="caption" color="secondary">
-            {candidate.interviewSlot}
 
-          </SoftTypography>
-          ),
           action: (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Link to={`/viewCandidate/${candidate._id}`}>
