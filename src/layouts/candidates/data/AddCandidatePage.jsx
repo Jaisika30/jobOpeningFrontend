@@ -261,7 +261,7 @@ function AddCandidatePage() {
                                     { label: "Knowledge", name: "knowledge", ref: knowledgeRef, nextRef: interviewStatusRef }
                                 ].map(({ label, name, ref, nextRef }) => (
                                     <FormControl key={name} sx={{ ...dropdownStyles, position: "relative" }}>
-                                        <InputLabel id={`${name}-label`} sx={{ ...inputLabelStyle }}>Rate {label}</InputLabel>
+                                        <InputLabel id={`${name}-label`} sx={{ ...inputLabelStyle }}>Rate {label} (Optional)</InputLabel>
                                         <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
 
                                             <Select
