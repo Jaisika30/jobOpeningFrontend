@@ -46,16 +46,22 @@ import GroupIcon from '@mui/icons-material/Group';
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { useEffect } from "react";
+import { getCandidates } from "slices/candidateSlice";
 
 function Dashboard() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
-   const jobcount = useSelector((state) => state.jobs.jobs.openJobsCount);
+  const jobcount = useSelector((state) => state.jobs.jobs.openJobsCount);
+  const hiredCandidates = useSelector((state) => state.candidates.candidates.hiredCount);
   const dispatch = useDispatch();
-  console.log("openJobsCount:::",jobcount)
+  console.log("openJobsCount:::", jobcount)
   useEffect(() => {
     dispatch(getJobs());
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(getCandidates());
+  }, [dispatch]);
+  
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -88,7 +94,7 @@ function Dashboard() {
               <Grid item xs={12} sm={6} xl={3}>
                 <MiniStatisticsCard
                   bgColor="white"
-                    title={{ text: "Scheduled Interviews" }}
+                  title={{ text: "Scheduled Interviews" }}
                   count="18"
                   percentage={{ color: "text", text: "For this week" }}
                   icon={{ color: "info", component: "event_available" }}
@@ -97,8 +103,8 @@ function Dashboard() {
               <Grid item xs={12} sm={6} xl={3}>
                 <MiniStatisticsCard
                   bgColor="white"
-                  title={{ text: "Hired This Month" }}
-                  count="8"
+                  title={{ text: "Hired Candidates" }}
+                  count={hiredCandidates}
                   percentage={{ color: "text", text: "+2 from last month" }}
                   icon={{
                     color: "info",

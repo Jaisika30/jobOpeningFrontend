@@ -46,16 +46,19 @@ import { useTheme } from '@mui/material/styles';
 const useCandidateData = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const allCandidates = useSelector((state) => state.candidates.candidates);
+  // const allCandidates = useSelector((state) => state.candidates.candidates.candidates);
+  const allCandidates = useSelector((state) => 
+    id ? state.candidates.candidates : state.candidates.candidates.candidates
+  );
   const isLoading = useSelector((state) => state.candidates.loading);
   useEffect(() => {
     if (id) {
       console.log("iddddddd", id)
-      console.log("allcandidates:::::::::", allCandidates);
       dispatch(getCandidatesByJobID(id));
       if (allCandidates.length === 0) {
         console.log("no candidate available.")
       } // Fetch candidates for specific job
+      console.log("allcandidates33333333333:::::::::", allCandidates);
     } else {
       console.log("helooooooo");
       dispatch(getCandidates()); // Fetch all candidates

@@ -43,8 +43,9 @@ export const getCandidates = createAsyncThunk(
                 },
             });
 
-            console.log("responseeeeeeeeeeeeeeeeeeeeeeee::::", response);
-            if (response.data.length === 0) {
+            console.log("responseeeeeeeeeeeeeeeeeeeeeeee::::", response.data);
+            if (response.data.
+                candidates.length === 0) {
                 import("sweetalert2").then((Swal) => {
                     Swal.default.fire({
                         title: "No Candidates Available!",
@@ -255,7 +256,7 @@ const candidateSlice = createSlice({
             })
             .addCase(updateCandidate.fulfilled, (state, action) => {
                 state.loading = false;
-                state.candidates = state.candidates.map((candidate) =>
+                state.candidates = state.candidates.candidates.map((candidate) =>
                     candidate._id === action.payload._id ? action.payload : candidate
                 );
             })
