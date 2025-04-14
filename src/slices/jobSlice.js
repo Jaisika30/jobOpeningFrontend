@@ -145,7 +145,7 @@ const jobSlice = createSlice({
             })
             .addCase(createJob.fulfilled, (state, action) => {
                 state.loading = false;
-                state.jobs.push(action.payload);
+                state.jobs.jobs.push(action.payload);
             })
             .addCase(createJob.rejected, (state, action) => {
                 state.loading = false;
@@ -178,7 +178,7 @@ const jobSlice = createSlice({
             })
             .addCase(updateJob.fulfilled, (state, action) => {
                 state.loading = false;
-                state.jobs = state.jobs.map((job) =>
+                state.jobs = state.jobs.jobs.map((job) =>
                     job._id === action.payload._id ? action.payload : job
                 );
             })

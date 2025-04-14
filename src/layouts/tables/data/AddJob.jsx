@@ -683,6 +683,7 @@ function AddJob() {
     // Submit if everything's filled
     try {
       await dispatch(createJob({ jobData: job }));
+      console.log("heyyyyyyy honey")
       toast.success("Job added successfully! 🚀");
       navigate("/jobs");
     } catch (error) {
@@ -866,10 +867,21 @@ function AddJob() {
               <SoftBox
                 mt={3}
                 display="flex"
-                justifyContent="space-between"
+                justifyContent="flex-end"
                 flexDirection={{ xs: "column", sm: "row" }}
                 gap={2}
               >
+                <SoftButton
+                  variant="gradient"
+                  color="error"
+                  onClick={() => navigate("/jobs")}
+                  sx={{
+                    width: { xs: '100%', sm: 'auto' },
+                    px: 3,
+                  }}
+                >
+                  Cancel
+                </SoftButton>
                 <SoftButton
                   type="submit"
                   variant="gradient"
@@ -882,17 +894,7 @@ function AddJob() {
                   Add Job
                 </SoftButton>
 
-                <SoftButton
-                  variant="gradient"
-                  color="error"
-                  onClick={() => navigate("/jobs")}
-                  sx={{
-                    width: { xs: '100%', sm: 'auto' },
-                    px: 3,
-                  }}
-                >
-                  Cancel
-                </SoftButton>
+                
               </SoftBox>
             </form>
           </Card>
