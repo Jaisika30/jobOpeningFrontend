@@ -12,13 +12,13 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getCandidatesByJobID } from "slices/candidateSlice";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import SoftButton from "components/SoftButton";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; // Import icon
 import { dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
-import { useTheme } from '@mui/material/styles';
-
+import { useTheme } from "@mui/material/styles";
+import Tooltip from "@mui/material/Tooltip";
 
 // const useCandidateData = () => {
 //   const { id } = useParams();
@@ -33,7 +33,7 @@ import { useTheme } from '@mui/material/styles';
 //   // Filter candidates based on ID if present
 //   const candidates = useMemo(() => {
 //     if (!id) return allCandidates;
-//     return allCandidates.filter(candidate => 
+//     return allCandidates.filter(candidate =>
 //       candidate.id === id || // Adjust this condition based on your data structure
 //       candidate.job === id || // Or whatever field links candidates to the ID
 //       candidate.relatedId === id
@@ -57,10 +57,10 @@ const useCandidateData = () => {
   const isLoading = useSelector((state) => state.candidates.loading);
   useEffect(() => {
     if (id) {
-      console.log("iddddddd", id)
+      console.log("iddddddd", id);
       dispatch(getCandidatesByJobID(id));
       if (allCandidates.length === 0) {
-        console.log("no candidate available.")
+        console.log("no candidate available.");
       } // Fetch candidates for specific job
       console.log("allcandidates33333333333:::::::::", allCandidates);
     } else {
@@ -89,24 +89,27 @@ const getCandidatesTableData = () => {
 
   const filteredCandidates = useMemo(() => {
     let result = candidates || [];
-console.log("::::::::result:::",result)
+    console.log("::::::::result:::", result);
     if (searchQuery.trim()) {
-      result = result.filter((candidate) =>
-        candidate.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        candidate.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        candidate.location?.toLowerCase().includes(searchQuery.toLowerCase())
+      result = result.filter(
+        (candidate) =>
+          candidate.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          candidate.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          candidate.location?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
     if (statusFilter) {
-      result = result.filter((candidate) =>
-        candidate.status?.trim().toLowerCase() === statusFilter.trim().toLowerCase()
+      result = result.filter(
+        (candidate) => candidate.status?.trim().toLowerCase() === statusFilter.trim().toLowerCase()
       );
     }
 
     if (interviewStatusFilter) {
-      result = result.filter((candidate) =>
-        candidate.interviewStatus?.trim().toLowerCase() === interviewStatusFilter.trim().toLowerCase()
+      result = result.filter(
+        (candidate) =>
+          candidate.interviewStatus?.trim().toLowerCase() ===
+          interviewStatusFilter.trim().toLowerCase()
       );
     }
 
@@ -146,7 +149,7 @@ console.log("::::::::result:::",result)
           gap: "20px",
           marginBottom: "16px",
           flexWrap: "wrap",
-          width: "96%"
+          width: "96%",
         }}
       >
         {/* Left side: Search and Filters */}
@@ -267,72 +270,82 @@ console.log("::::::::result:::",result)
           </SoftButton>
         </div>
       </div>
-
     ),
     columns: [
       { name: "name", label: "Name", align: "left" },
       { name: "location", label: "Location", align: "left" },
-      { name: "interviewSlot", label: "Time Offered", align: "center" },
-      { name: "interviewStatus", label: "Interview Status", align: "center" },
+      { name: "interviewSlot", label: "Time Offered", align: "left" },
+      { name: "interviewStatus", label: "Interview Status", align: "left" },
       { name: "status", label: "Status", align: "center" },
-      { name: "comments", label: "Comments", align: "center" },
+      { name: "comments", label: "Comments", align: "left" },
       { name: "action", label: "Action", align: "center" },
     ],
     rows: loading
-      ? [{
-        name: (
-          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" width="100%" mt={2}>
-            <CircularProgress color="primary" size={30} />
-            <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
-              Loading candidates...
-            </SoftTypography>
-          </Box>
-        ),
-        location: "",
-        interviewSlot: "",
-        interviewStatus: "",
-        status: "",
-        comments: "",
-        action: ""
-      }]
+      ? [
+          {
+            name: (
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                width="100%"
+                mt={2}
+              >
+                <CircularProgress color="primary" size={30} />
+                <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
+                  Loading candidates...
+                </SoftTypography>
+              </Box>
+            ),
+            location: "",
+            interviewSlot: "",
+            interviewStatus: "",
+            status: "",
+            comments: "",
+            action: "",
+          },
+        ]
       : noCandidatesFound
-        ? [{
-          name: (
-            <SoftTypography variant="h6" color="secondary" align="center">
-              No candidates match the criteria.
-            </SoftTypography>
-          ),
-          location: "",
-          interviewSlot: "",
-          interviewStatus: "",
-          status: "",
-          comments: "",
-          // action: (
-          //   <Button
-          //     variant="contained"
-          //     onClick={handleResetFilters}
-          //     style={{ backgroundColor: 'red', color: 'white' }}
-          //   >
-          //     Reset Filters
-          //   </Button>
-          // )
-        }]
-        : filteredCandidates?.map((candidate) => ({
+      ? [
+          {
+            name: (
+              <SoftTypography variant="h6" color="secondary" align="center">
+                No candidates match the criteria.
+              </SoftTypography>
+            ),
+            location: "",
+            interviewSlot: "",
+            interviewStatus: "",
+            status: "",
+            comments: "",
+            // action: (
+            //   <Button
+            //     variant="contained"
+            //     onClick={handleResetFilters}
+            //     style={{ backgroundColor: 'red', color: 'white' }}
+            //   >
+            //     Reset Filters
+            //   </Button>
+            // )
+          },
+        ]
+      : filteredCandidates?.map((candidate) => ({
           name: (
             <SoftTypography variant="button" fontWeight="medium" color="dark">
               {candidate.name}
             </SoftTypography>
           ),
           location: (
-            <SoftTypography variant="caption" color="secondary">
-              {truncateText(candidate.location, 20)}
-
-            </SoftTypography>
+            <Tooltip title={candidate.location || ""} arrow>
+              <SoftTypography variant="caption" color="secondary">
+                {truncateText(candidate.location, 20)}
+              </SoftTypography>
+            </Tooltip>
           ),
           interviewSlot: (
             <SoftTypography variant="caption" color="secondary">
               {candidate.interviewSlot}
-
             </SoftTypography>
           ),
           interviewStatus: (
@@ -340,14 +353,21 @@ console.log("::::::::result:::",result)
               variant="gradient"
               badgeContent={candidate.interviewStatus}
               color={
-                candidate.interviewStatus === "Accepted" ? "success" :
-                  candidate.interviewStatus === "Rejected" ? "error" :
-                    candidate.interviewStatus === "Pending" ? "warning" :
-                      candidate.interviewStatus === "Offered" ? "info" :
-                        candidate.interviewStatus === "Interviewed" ? "secondary" :
-                          candidate.interviewStatus === "Rescheduled" ? "warning" :
-                            candidate.interviewStatus === "Missed" ? "error" :
-                              "light" // default/fallback
+                candidate.interviewStatus === "Accepted"
+                  ? "success"
+                  : candidate.interviewStatus === "Rejected"
+                  ? "error"
+                  : candidate.interviewStatus === "Pending"
+                  ? "warning"
+                  : candidate.interviewStatus === "Offered"
+                  ? "info"
+                  : candidate.interviewStatus === "Interviewed"
+                  ? "secondary"
+                  : candidate.interviewStatus === "Rescheduled"
+                  ? "warning"
+                  : candidate.interviewStatus === "Missed"
+                  ? "error"
+                  : "light" // default/fallback
               }
               size="xs"
               container
@@ -358,29 +378,38 @@ console.log("::::::::result:::",result)
               variant="gradient"
               badgeContent={candidate.status}
               color={
-                candidate.status === "Hired" ? "success" :
-                  candidate.status === "Rejected" ? "error" :
-                    candidate.status === "Contacted" ? "info" :
-                      candidate.status === "Moved to Round 2" ? "primary" :
-                        candidate.status === "Moved to Round 3" ? "primary" :
-                          candidate.status === "Shortlisted" ? "secondary" :
-                            candidate.status === "Final Round" ? "warning" :
-                              candidate.status === "On Hold" ? "warning" :
-                                "default"
+                candidate.status === "Hired"
+                  ? "success"
+                  : candidate.status === "Rejected"
+                  ? "error"
+                  : candidate.status === "Contacted"
+                  ? "info"
+                  : candidate.status === "Moved to Round 2"
+                  ? "primary"
+                  : candidate.status === "Moved to Round 3"
+                  ? "primary"
+                  : candidate.status === "Shortlisted"
+                  ? "secondary"
+                  : candidate.status === "Final Round"
+                  ? "warning"
+                  : candidate.status === "On Hold"
+                  ? "warning"
+                  : "default"
               }
               size="xs"
               container
             />
           ),
           comments: (
+            <Tooltip title={candidate.comments || ""} arrow>
             <SoftTypography variant="caption" color="secondary">
               {truncateText(candidate.comments, 15)}
-
             </SoftTypography>
+          </Tooltip>
           ),
 
           action: (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <Link to={`/viewCandidate/${candidate._id}`}>
                 <IconButton sx={{ color: darkGray }}>
                   <VisibilityIcon />
@@ -396,10 +425,8 @@ console.log("::::::::result:::",result)
               </IconButton>
             </div>
           ),
-        }))
-
+        })),
   };
 };
-
 
 export default getCandidatesTableData;
