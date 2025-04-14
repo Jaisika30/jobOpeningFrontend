@@ -4,31 +4,31 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // const API_URL = 'http://localhost:8085/api'; // Adjust based on your backend URL
 const API_URL = process.env.REACT_APP_API_URL;
-console.log(";;;;;;;;;;",API_URL)
+console.log(";;;;;;;;;;", API_URL)
 // 1. Create Job
 export const createJob = createAsyncThunk(
     "jobs/createJob",
     async ({ jobData }, { rejectWithValue }) => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.post(
-          `${API_URL}/api/jobs/createJob`,
-          jobData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Attach token
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log("create job::",response.data)
-  
-        return response.data;
-      } catch (error) {
-        return rejectWithValue(error.response?.data || "Something went wrong");
-      }
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.post(
+                `${API_URL}/api/jobs/createJob`,
+                jobData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Attach token
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            console.log("create job::", response.data)
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Something went wrong");
+        }
     }
-  );
+);
 
 export const getJobs = createAsyncThunk(
     "jobs/getJobs",
@@ -43,14 +43,14 @@ export const getJobs = createAsyncThunk(
             if (response.data.length === 0) {
                 import("sweetalert2").then((Swal) => {
                     Swal.default.fire({
-                      title: "No Jobs Available",
-                      text: "There are no Jobs available please add Job for see details.",
-                      icon: "info",
-                      confirmButtonText: "OK",
+                        title: "No Jobs Available",
+                        text: "There are no Jobs available please add Job for see details.",
+                        icon: "info",
+                        confirmButtonText: "OK",
                     });
-                  });
-              }
-
+                });
+            }
+            console.log(response);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed to fetch jobs");
@@ -63,7 +63,7 @@ export const getJobById = createAsyncThunk(
     '/jobs/getJob',
     async (id, { rejectWithValue }) => {
         try {
-            console.log("iddddddddddddiiiiiiiiii::::",id)
+            console.log("iddddddddddddiiiiiiiiii::::", id)
             const token = localStorage.getItem('token'); // Retrieve token from storage
             const response = await axios.get(`${API_URL}/api/jobs/getJob/${id}`, {
                 headers: {
@@ -111,23 +111,23 @@ export const updateJob = createAsyncThunk(
 export const deleteJob = createAsyncThunk(
     "jobs/deleteJob",
     async ({ id }, { rejectWithValue }) => {
-      try {
-        console.log("iddddddddddd:::",id)
-        const token = localStorage.getItem("token");
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`, // Attach token
-          },
-        };
-  
-      const resp =  await axios.delete(`${API_URL}/api/jobs/deleteJob/${id}`, config);
-      console.log(resp)
-        return id; // Return ID to remove from Redux store
-      } catch (error) {
-        return rejectWithValue(error.response?.data || "Failed to delete job");
-      }
+        try {
+            console.log("iddddddddddd:::", id)
+            const token = localStorage.getItem("token");
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token
+                },
+            };
+
+            const resp = await axios.delete(`${API_URL}/api/jobs/deleteJob/${id}`, config);
+            console.log(resp)
+            return id; // Return ID to remove from Redux store
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Failed to delete job");
+        }
     }
-  );
+);
 // Redux Slice
 const jobSlice = createSlice({
     name: 'jobs',
