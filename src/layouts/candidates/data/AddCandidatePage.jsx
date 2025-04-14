@@ -346,7 +346,7 @@ function AddCandidatePage() {
                                 </FormControl>
 
                                 <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
-                                    <InputLabel id="status-label" sx={{ ...inputLabelStyle }}>Select Status</InputLabel>
+                                    <InputLabel id="status-label" sx={{ ...inputLabelStyle }}>Select Status (Optional)</InputLabel>
                                     <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
 
                                         <Select
