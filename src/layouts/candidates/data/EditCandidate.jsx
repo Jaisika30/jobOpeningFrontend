@@ -96,11 +96,12 @@ function EditCandidatePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("candidateData:::::", candidate.job._id);
+        console.log("candidateData:::::", candidate);
 
         try {
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             toast.success("Candidate updated successfully! 🎉"); // Success toast
+            console.log("candidate.job...........candidate.job",candidate.job)
             navigate(`/Candidates/${candidate.job}`); // Redirect after updating
         } catch (error) {
             console.error("Failed to update candidate:", error);

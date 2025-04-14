@@ -79,7 +79,7 @@ export const getCandidateById = createAsyncThunk(
                 },
             });
 
-            console.log(response.data);
+            console.log("response:::::***********",response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "An error occurred");
