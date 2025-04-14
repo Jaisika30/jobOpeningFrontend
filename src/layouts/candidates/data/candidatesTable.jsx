@@ -47,9 +47,13 @@ const useCandidateData = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   // const allCandidates = useSelector((state) => state.candidates.candidates.candidates);
-  const allCandidates = useSelector((state) => 
-    id ? state.candidates.candidates : state.candidates.candidates.candidates
-  );
+  const allCandidates = useSelector((state) => {
+    if (id) {
+      return state.candidates?.candidates || [];
+    } else {
+      return state.candidates?.candidates?.candidates || [];
+    }
+  });
   const isLoading = useSelector((state) => state.candidates.loading);
   useEffect(() => {
     if (id) {
@@ -85,7 +89,7 @@ const getCandidatesTableData = () => {
 
   const filteredCandidates = useMemo(() => {
     let result = candidates || [];
-
+console.log("::::::::result:::",result)
     if (searchQuery.trim()) {
       result = result.filter((candidate) =>
         candidate.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -313,7 +317,7 @@ const getCandidatesTableData = () => {
           //   </Button>
           // )
         }]
-        : filteredCandidates.map((candidate) => ({
+        : filteredCandidates?.map((candidate) => ({
           name: (
             <SoftTypography variant="button" fontWeight="medium" color="dark">
               {candidate.name}
@@ -370,7 +374,7 @@ const getCandidatesTableData = () => {
           ),
           comments: (
             <SoftTypography variant="caption" color="secondary">
-              {truncateText(candidate.comments, 30)}
+              {truncateText(candidate.comments, 15)}
 
             </SoftTypography>
           ),
