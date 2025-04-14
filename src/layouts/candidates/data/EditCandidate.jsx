@@ -27,7 +27,7 @@ function EditCandidatePage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
-    const jobs = useSelector((State) => State.jobs.jobs);
+    const jobs = useSelector((State) => State.jobs.jobs.jobs);
     const candidatee = useSelector((State) => State.candidates.candidate);
     const [phoneError, setPhoneError] = useState('');
     const phoneRef = useRef();
