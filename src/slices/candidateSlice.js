@@ -105,7 +105,7 @@ export const updateCandidate = createAsyncThunk(
 
             // Send request with token
             const response = await axios.put(`${API_URL}/api/candidate/updateCandidate/${id}`, updatedData, config);
-            console.log(response)
+            console.log("update responseeeeeeeeeee:::::::",response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Something went wrong");
@@ -223,7 +223,7 @@ const candidateSlice = createSlice({
             })
             .addCase(createCandidate.fulfilled, (state, action) => {
                 state.loading = false;
-                state.candidates.push(action.payload);
+                state.candidates.candidates.push(action.payload);
             })
             .addCase(createCandidate.rejected, (state, action) => {
                 state.loading = false;
@@ -255,11 +255,15 @@ const candidateSlice = createSlice({
                 state.loading = true;
             })
             .addCase(updateCandidate.fulfilled, (state, action) => {
+                console.log("11111111111",state.candidates);
+                console.log("22222222",state.candidates.candidates);
+                console.log("33333333333333",state.candidates.candidates.candidates)
                 state.loading = false;
                 state.candidates = state.candidates.candidates.map((candidate) =>
-                    candidate._id === action.payload._id ? action.payload : candidate
+                  candidate._id === action.payload._id ? action.payload : candidate
                 );
-            })
+              })
+                      
             .addCase(updateCandidate.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;

@@ -60,7 +60,7 @@ function EditCandidatePage() {
     // Populate form fields when candidate data is available
     useEffect(() => {
         console.log("candidateeeeeeeee:::::", candidatee);
-
+        console.log("jobsxxxxxxxxxxccccccccccccccccccccsssssss:::::", jobs);
         if (candidatee) {
             setCandidate({
                 name: candidatee.name || "",
@@ -223,7 +223,7 @@ function EditCandidatePage() {
                                                 paddingRight: "40px", // Creates space for the icon
                                             }}
                                         >
-                                            {jobs.map((job) => (
+                                            {jobs?.map((job) => (
                                                 <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
                                             ))}
                                         </Select>

@@ -18,6 +18,7 @@ import SoftButton from "components/SoftButton";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; // Import icon
 import { dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 import { useTheme } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
 
 
 // const useCandidateData = () => {
@@ -47,9 +48,17 @@ const useCandidateData = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   // const allCandidates = useSelector((state) => state.candidates.candidates.candidates);
-  const allCandidates = useSelector((state) => 
-    id ? state.candidates.candidates : state.candidates.candidates.candidates
-  );
+  // const allCandidates = useSelector((state) => 
+  //   id ? state.candidates.candidates : state.candidates.candidates.candidates
+  // );
+  const allCandidates = useSelector((state) => {
+    if (id) {
+      return state.candidates?.candidates || [];
+    } else {
+      return state.candidates?.candidates?.candidates || [];
+    }
+  });
+
   const isLoading = useSelector((state) => state.candidates.loading);
   useEffect(() => {
     if (id) {
@@ -105,7 +114,7 @@ const getCandidatesTableData = () => {
         candidate.interviewStatus?.trim().toLowerCase() === interviewStatusFilter.trim().toLowerCase()
       );
     }
-
+    console.log("filtered candidates:::::::::", result)
     return result;
   }, [candidates, searchQuery, statusFilter, interviewStatusFilter]);
 
@@ -313,17 +322,18 @@ const getCandidatesTableData = () => {
           //   </Button>
           // )
         }]
-        : filteredCandidates.map((candidate) => ({
+        : filteredCandidates?.map((candidate) => ({
           name: (
             <SoftTypography variant="button" fontWeight="medium" color="dark">
               {candidate.name}
             </SoftTypography>
           ),
           location: (
-            <SoftTypography variant="caption" color="secondary">
-              {truncateText(candidate.location, 20)}
-
-            </SoftTypography>
+            <Tooltip title={candidate.location || ""} arrow>
+              <SoftTypography variant="caption" color="secondary">
+                {truncateText(candidate.location, 20)}
+              </SoftTypography>
+            </Tooltip>
           ),
           interviewSlot: (
             <SoftTypography variant="caption" color="secondary">
@@ -369,10 +379,11 @@ const getCandidatesTableData = () => {
             />
           ),
           comments: (
-            <SoftTypography variant="caption" color="secondary">
-              {truncateText(candidate.comments, 30)}
-
-            </SoftTypography>
+            <Tooltip title={candidate.comments || ""} arrow>
+              <SoftTypography variant="caption" color="secondary">
+                {truncateText(candidate.comments, 15)}
+              </SoftTypography>
+            </Tooltip>
           ),
 
           action: (

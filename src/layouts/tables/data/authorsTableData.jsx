@@ -11,6 +11,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import SoftTypography from "components/SoftTypography";
 import SoftBadge from "components/SoftBadge";
 import { useTheme } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
+
 import JobTableContainer from "layouts/scrollbar/tableContainer";
 
 const useJobData = () => {
@@ -62,7 +64,8 @@ const getJobTableData = (jobData, handleDelete) => {
     ],
     rows: jobData.map((job) => ({
       jobTitle: (
-        <SoftTypography
+        <Tooltip title={job.title || ""} arrow>
+           <SoftTypography
           variant="button"
           fontWeight="medium"
           color="info"
@@ -70,13 +73,18 @@ const getJobTableData = (jobData, handleDelete) => {
           component={Link}
           to={`/Candidates/${job._id}`}
         >
-          {truncateText(job.title, 20)} 
+          {truncateText(job.title, 20)}
         </SoftTypography>
+        </Tooltip>
+       
       ),
       description: (
-        <SoftTypography variant="caption" color="secondary">
-          {truncateText(job.description, 40)}
-        </SoftTypography>
+
+        <Tooltip title={job.description || ""} arrow>
+          <SoftTypography variant="caption" color="secondary">
+            {truncateText(job.description, 40)}
+          </SoftTypography>
+        </Tooltip>
       ),
       postingDate: (
         <SoftTypography variant="caption" color="secondary" fontWeight="medium">

@@ -199,7 +199,7 @@ function AddCandidatePage() {
                                                 paddingRight: "40px", // Creates space for the icon
                                             }}
                                         >
-                                            {jobs.map((job) => (
+                                            {jobs?.map((job) => (
                                                 <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
                                             ))}
                                         </Select>
