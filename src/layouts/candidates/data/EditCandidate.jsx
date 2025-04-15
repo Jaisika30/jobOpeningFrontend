@@ -103,7 +103,8 @@ function EditCandidatePage() {
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             toast.success("Candidate updated successfully! 🎉"); // Success toast
             console.log("candidate.job...........candidate.job",candidate.job)
-            navigate(`/Candidates/${candidate.job}`); // Redirect after updating
+            navigate(candidate.job ? `/Candidates/${candidate.job}` : `/Candidate`);
+            // navigate(`/Candidates/${candidate.job}`); // Redirect after updating
         } catch (error) {
             console.error("Failed to update candidate:", error);
             toast.error("Error updating candidate. Please try again."); // Error toast
