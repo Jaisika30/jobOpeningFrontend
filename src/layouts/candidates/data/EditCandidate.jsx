@@ -56,6 +56,13 @@ function EditCandidatePage() {
         comments: ""
 
     });
+    useEffect(() => {
+        dispatch(getJobs());
+    }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(getCandidateById(id));
+    }, [dispatch]);
 
     // Populate form fields when candidate data is available
     useEffect(() => {
@@ -86,13 +93,7 @@ function EditCandidatePage() {
         const { name, value } = e.target;
         setCandidate((prev) => ({ ...prev, [name]: value }));
     };
-    useEffect(() => {
-        dispatch(getJobs());
-    }, [dispatch]);
-
-    useEffect(() => {
-        dispatch(getCandidateById(id));
-    }, [dispatch]);
+   
 
     const handleSubmit = (e) => {
         e.preventDefault();

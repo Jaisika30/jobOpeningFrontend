@@ -19,6 +19,7 @@ import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; /
 import { dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 import { useTheme } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
+import { tooltipStyle } from "assets/textFieldStyles";
 
 
 // const useCandidateData = () => {
@@ -44,39 +45,71 @@ import Tooltip from '@mui/material/Tooltip';
 //   return { candidates, loading: isLoading };
 // };
 
+// const useCandidateData = () => {
+//   const { id } = useParams();
+//   const dispatch = useDispatch();
+//   // const allCandidates = useSelector((state) => state.candidates.candidates.candidates);
+//   // const allCandidates = useSelector((state) => 
+//   //   id ? state.candidates.candidates : state.candidates.candidates.candidates
+//   // );
+//   const allCandidates = useSelector((state) => {
+//     if (id) {
+//       console.log("hiiiii id all candidates.......",state.candidates?.candidates)
+//       return state.candidates?.candidates || [];
+//     } else {
+//       return state.candidates?.candidates?.candidates || [];
+//     }
+//   });
+
+//   const isLoading = useSelector((state) => state.candidates.loading);
+//   useEffect(() => {
+//     if (id) {
+//       console.log("iddddddd", id)
+//       dispatch(getCandidatesByJobID(id));
+//       if (allCandidates.length === 0) {
+//         console.log("no candidate available.")
+//       } // Fetch candidates for specific job
+//       console.log("allcandidates33333333333:::::::::", allCandidates);
+//     } else {
+//       console.log("helooooooo");
+//       dispatch(getCandidates()); // Fetch all candidates
+//     }
+//   }, [dispatch, id]);
+
+//   // No need to filter here since the API should return the correct data
+//   return { candidates: allCandidates, loading: isLoading };
+// };
 const useCandidateData = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  // const allCandidates = useSelector((state) => state.candidates.candidates.candidates);
-  // const allCandidates = useSelector((state) => 
-  //   id ? state.candidates.candidates : state.candidates.candidates.candidates
-  // );
+
+  // Get the correct data structure based on whether we have an ID
   const allCandidates = useSelector((state) => {
     if (id) {
-      return state.candidates?.candidates || [];
+      console.log("With ID - candidates data:", state.candidates?.candidates);
+      return state.candidates?.candidates || []; // Array of candidates for specific job
     } else {
-      return state.candidates?.candidates?.candidates || [];
+      console.log("Without ID - candidates data:", state.candidates?.candidates?.candidates);
+      return state.candidates?.candidates?.candidates || []; // Array of all candidates
     }
   });
 
   const isLoading = useSelector((state) => state.candidates.loading);
+
   useEffect(() => {
     if (id) {
-      console.log("iddddddd", id)
+      console.log("Fetching candidates for job ID:", id);
       dispatch(getCandidatesByJobID(id));
-      if (allCandidates.length === 0) {
-        console.log("no candidate available.")
-      } // Fetch candidates for specific job
-      console.log("allcandidates33333333333:::::::::", allCandidates);
     } else {
-      console.log("helooooooo");
-      dispatch(getCandidates()); // Fetch all candidates
+      console.log("Fetching all candidates");
+      dispatch(getCandidates());
     }
   }, [dispatch, id]);
 
-  // No need to filter here since the API should return the correct data
-  return { candidates: allCandidates, loading: isLoading };
+  // Ensure we always return an array
+  return { candidates: Array.isArray(allCandidates) ? allCandidates : [], loading: isLoading };
 };
+
 const getCandidatesTableData = () => {
   const { candidates, loading } = useCandidateData();
   const navigate = useNavigate();
@@ -93,7 +126,7 @@ const getCandidatesTableData = () => {
   };
 
   const filteredCandidates = useMemo(() => {
-    let result = candidates || [];
+    let result = Array.isArray(candidates) ? candidates : [];
 
     if (searchQuery.trim()) {
       result = result.filter((candidate) =>
@@ -277,10 +310,10 @@ const getCandidatesTableData = () => {
     columns: [
       { name: "name", label: "Name", align: "left" },
       { name: "location", label: "Location", align: "left" },
-      { name: "interviewSlot", label: "Time Offered", align: "center" },
+      { name: "interviewSlot", label: "Time Offered", align: "left" },
       { name: "interviewStatus", label: "Interview Status", align: "center" },
-      { name: "status", label: "Status", align: "center" },
-      { name: "comments", label: "Comments", align: "center" },
+      { name: "status", label: "Status", align: "left" },
+      { name: "comments", label: "Comments", align: "left" },
       { name: "action", label: "Action", align: "center" },
     ],
     rows: loading
@@ -329,7 +362,18 @@ const getCandidatesTableData = () => {
             </SoftTypography>
           ),
           location: (
-            <Tooltip title={candidate.location || ""} arrow>
+            <Tooltip
+              placement="top"
+              title={
+                <div style={{
+                  display: 'inline-block',
+                  maxWidth: '200px'
+                }}>
+                  {candidate.location || ""}
+                </div>}
+              arrow
+              componentsProps={tooltipStyle}
+            >
               <SoftTypography variant="caption" color="secondary">
                 {truncateText(candidate.location, 20)}
               </SoftTypography>
@@ -379,7 +423,7 @@ const getCandidatesTableData = () => {
             />
           ),
           comments: (
-            <Tooltip title={candidate.comments || ""} arrow>
+            <Tooltip title={candidate.comments || ""} arrow placement="top" componentsProps={tooltipStyle}>
               <SoftTypography variant="caption" color="secondary">
                 {truncateText(candidate.comments, 15)}
               </SoftTypography>

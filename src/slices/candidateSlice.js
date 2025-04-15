@@ -79,7 +79,7 @@ export const getCandidateById = createAsyncThunk(
                 },
             });
 
-            console.log("response:::::***********",response.data);
+            console.log("response:::::***********", response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "An error occurred");
@@ -105,7 +105,7 @@ export const updateCandidate = createAsyncThunk(
 
             // Send request with token
             const response = await axios.put(`${API_URL}/api/candidate/updateCandidate/${id}`, updatedData, config);
-            console.log("update responseeeeeeeeeee:::::::",response.data)
+            console.log("update responseeeeeeeeeee:::::::", response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Something went wrong");
@@ -195,7 +195,7 @@ export const getCandidatesByJobID = createAsyncThunk(
                     });
                 });
             }
-            console.log("slice resp:::", response);
+            console.log("slice resp:::", response.data);
 
             return response.data;
         } catch (error) {
@@ -254,16 +254,35 @@ const candidateSlice = createSlice({
             .addCase(updateCandidate.pending, (state) => {
                 state.loading = true;
             })
+            // .addCase(updateCandidate.fulfilled, (state, action) => {
+            //     console.log("11111111111",state.candidates);
+            //     // console.log("22222222",state.candidates.candidates);
+            //     state.loading = false;
+            //     state.candidates = state.candidates.map((candidate) =>
+            //       candidate._id === action.payload._id ? action.payload : candidate
+            //     );
+            //   })
             .addCase(updateCandidate.fulfilled, (state, action) => {
-                console.log("11111111111",state.candidates);
-                console.log("22222222",state.candidates.candidates);
-                console.log("33333333333333",state.candidates.candidates.candidates)
                 state.loading = false;
-                state.candidates = state.candidates.candidates.map((candidate) =>
-                  candidate._id === action.payload._id ? action.payload : candidate
-                );
-              })
-                      
+
+                // Safely handle cases where candidates might not be an array
+                if (Array.isArray(state.candidates)) {
+                    state.candidates = state.candidates.map((candidate) =>
+                        candidate._id === action.payload._id ? action.payload : candidate
+                    );
+                }
+                // If candidates is an object with nested array (common with paginated responses)
+                else if (state.candidates?.candidates && Array.isArray(state.candidates.candidates)) {
+                    state.candidates.candidates = state.candidates.candidates.map((candidate) =>
+                        candidate._id === action.payload._id ? action.payload : candidate
+                    );
+                }
+                // If candidates is null/undefined, initialize it as an array with the updated candidate
+                else {
+                    state.candidates = [action.payload];
+                }
+            })
+
             .addCase(updateCandidate.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;

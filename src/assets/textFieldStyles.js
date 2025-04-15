@@ -92,4 +92,26 @@ const labelSize = {
 const toastSuccess = {
     fontSize: "0.85rem", padding: "8px", minWidth: "200px"
 }
-export { textFieldStyles, dropdownStyles, labelSize, inputLabelStyle, dropdownIconStyle, toastSuccess };
+const tooltipStyle = {
+    tooltip: {
+        sx: {
+            backgroundColor: 'rgba(239, 238, 238, 0.87) !important', // Remove background
+            color: 'rgba(130, 127, 127, 0.87)', // Dark gray text
+            fontSize: '0.875rem', // Match your typography
+            boxShadow: 'none', // Remove shadow
+            paddingX: 2,
+            padding: '4px 8px',
+            maxWidth: '800px !important',
+            whiteSpace: 'normal',
+            wordWrap: 'break-word',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+        }
+    },
+    arrow: {
+        sx: {
+            color: 'transparent!important', // Dark gray arrow
+        }
+    }
+}
+export { textFieldStyles, dropdownStyles, labelSize, inputLabelStyle, dropdownIconStyle, toastSuccess, tooltipStyle };

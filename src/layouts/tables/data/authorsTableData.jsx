@@ -14,6 +14,7 @@ import { useTheme } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 
 import JobTableContainer from "layouts/scrollbar/tableContainer";
+import { tooltipStyle } from "assets/textFieldStyles";
 
 const useJobData = () => {
   const [jobData, setJobData] = useState([]);
@@ -64,23 +65,40 @@ const getJobTableData = (jobData, handleDelete) => {
     ],
     rows: jobData.map((job) => ({
       jobTitle: (
-        <Tooltip title={job.title || ""} arrow>
-           <SoftTypography
-          variant="button"
-          fontWeight="medium"
-          color="info"
-          sx={{ marginLeft: "15px", fontSize: "1rem" }}
-          component={Link}
-          to={`/Candidates/${job._id}`}
-        >
-          {truncateText(job.title, 20)}
-        </SoftTypography>
+        <Tooltip title={
+          <div style={{
+            display: 'inline-block',
+            maxWidth: '200px'
+          }}>
+            {job.title || ""}
+          </div>} arrow
+          componentsProps={tooltipStyle}
+          placement="top">
+          <SoftTypography
+            variant="button"
+            fontWeight="medium"
+            color="info"
+            sx={{ marginLeft: "15px", fontSize: "1rem" }}
+            component={Link}
+            to={`/Candidates/${job._id}`}
+
+          >
+            {truncateText(job.title, 20)}
+          </SoftTypography>
         </Tooltip>
-       
+
       ),
       description: (
 
-        <Tooltip title={job.description || ""} arrow>
+        <Tooltip title={
+          <div style={{
+            display: 'inline-block',
+            maxWidth: '600px'
+          }}>
+            {job.description || ""}
+          </div>} arrow
+          componentsProps={tooltipStyle}
+          placement="top">
           <SoftTypography variant="caption" color="secondary">
             {truncateText(job.description, 40)}
           </SoftTypography>
