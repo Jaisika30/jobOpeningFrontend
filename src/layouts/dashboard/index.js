@@ -47,11 +47,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { useEffect } from "react";
 import { getCandidates } from "slices/candidateSlice";
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
   const jobcount = useSelector((state) => state.jobs.jobs.openJobsCount);
+  const totalJobs = useSelector((state) => state.jobs.jobs.totalJobs);
   const hiredCandidates = useSelector((state) => state.candidates.candidates.hiredCount);
   const dispatch = useDispatch();
   console.log("openJobsCount:::", jobcount)
@@ -61,7 +63,7 @@ function Dashboard() {
   useEffect(() => {
     dispatch(getCandidates());
   }, [dispatch]);
-  
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -74,22 +76,27 @@ function Dashboard() {
           <SoftBox mb={3}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} xl={3}>
-                <MiniStatisticsCard
-                  bgColor="white"
-                  title={{ text: "Total Job Openings" }}
-                  count={jobcount}
-                  percentage={{ color: "text", text: "+2 from last month" }}
-                  icon={{ color: "info", component: "work" }}
-                />
+                <Link to="/jobs" style={{ textDecoration: 'none' }}>
+
+                  <MiniStatisticsCard
+                    bgColor="white"
+                    title={{ text: "Total Jobs" }}
+                    count={totalJobs}
+                    percentage={{ color: "text", text: "+2 from last month" }}
+                    icon={{ color: "info", component: "work" }}
+                  />
+                </Link>
               </Grid>
               <Grid item xs={12} sm={6} xl={3}>
-                <MiniStatisticsCard
-                  bgColor="white"
-                  title={{ text: "Active Candidates" }}
-                  count="142"
-                  percentage={{ color: "text", text: "+28 from last month" }}
-                  icon={{ color: "info", component: "group" }}
-                />
+                <Link to="/jobs?status=Open" style={{ textDecoration: 'none' }}>
+                  <MiniStatisticsCard
+                    bgColor="white"
+                    title={{ text: "Total Jobs Openings" }}
+                    count={jobcount}
+                    percentage={{ color: "text", text: "+28 from last month" }}
+                    icon={{ color: "info", component: "group" }}
+                  />
+                </Link>
               </Grid>
               <Grid item xs={12} sm={6} xl={3}>
                 <MiniStatisticsCard

@@ -243,6 +243,7 @@ const getCandidatesTableData = () => {
                 sx={{ width: "100%", paddingRight: "40px" }}
               >
                 <MenuItem value="">All</MenuItem>
+                <MenuItem value="Scheduled">Scheduled</MenuItem>
                 <MenuItem value="Accepted">Accepted</MenuItem>
                 <MenuItem value="Interviewed">Interviewed</MenuItem>
                 <MenuItem value="Missed">Missed</MenuItem>

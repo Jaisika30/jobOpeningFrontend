@@ -65,7 +65,7 @@ function AddCandidatePage() {
 
         const requiredFields = [
             "name", "phone", "location", "interviewSlot", "interviewSchedule",
-            "job"
+            "job", "interviewStatus"
         ];
 
         for (let field of requiredFields) {
@@ -333,7 +333,7 @@ function AddCandidatePage() {
                                                 paddingRight: "40px", // Creates space for the icon
                                             }}
                                         >
-                                            {["Offered", "Accepted", "Missed", "Interviewed", "Rescheduled"].map((status) => (
+                                            {["Scheduled", "Offered", "Accepted", "Missed", "Interviewed", "Rescheduled"].map((status) => (
                                                 <MenuItem key={status} value={status}>{status}</MenuItem>
                                             ))}
                                         </Select>

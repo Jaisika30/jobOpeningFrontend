@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState ,useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs, deleteJob } from "slices/jobSlice";
 import Swal from "sweetalert2";
@@ -15,15 +15,29 @@ import Tooltip from '@mui/material/Tooltip';
 
 import JobTableContainer from "layouts/scrollbar/tableContainer";
 import { tooltipStyle } from "assets/textFieldStyles";
-
 const useJobData = () => {
   const [jobData, setJobData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const dispatch = useDispatch();
-  const jobs = useSelector((state) => state.jobs.jobs.jobs);
+  // const jobs = useSelector((state) => state.jobs.jobs.jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
+  const location = useLocation();
+  const urlStatus = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('status');
+  }, [location.search]);
+  console.log("urlStatusurlStatusurlStatus::::", urlStatus)
 
+    const jobs = useSelector((state) => {
+      if (urlStatus === 'Open') {
+        console.log("With status - jobs data:", state.jobs.jobs?.openJobs);
+        return state.jobs.jobs?.openJobs || [];
+      } else {
+        console.log("Without status - jobs data:", state.jobs.jobs?.jobs);
+        return state.jobs.jobs?.jobs || [];
+      }
+    });
   useEffect(() => {
     dispatch(getJobs());
   }, [dispatch]);
