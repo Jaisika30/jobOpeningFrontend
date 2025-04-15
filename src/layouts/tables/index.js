@@ -309,7 +309,17 @@ function Tables() {
                 }}
               >
                 {loading ? (
-                  <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={2}>
+                  <Box position="fixed"
+                  top={0}
+                  left={0}
+                  right={0}
+                  bottom={0}
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
+                  zIndex={9999}>
                     <CircularProgress color="secondary" size={30} />
                     <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
                       Loading jobs...

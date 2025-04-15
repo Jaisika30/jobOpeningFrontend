@@ -337,8 +337,18 @@ const getCandidatesTableData = () => {
     rows: loading
       ? [{
         name: (
-          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" width="100%" mt={2}>
-            <CircularProgress color="primary" size={30} />
+          <Box position="fixed"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
+          zIndex={9999}>
+            <CircularProgress color="secondary" size={30} />
             <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
               Loading candidates...
             </SoftTypography>
