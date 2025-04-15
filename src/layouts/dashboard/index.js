@@ -55,8 +55,10 @@ function Dashboard() {
   const jobcount = useSelector((state) => state.jobs.jobs.openJobsCount);
   const totalJobs = useSelector((state) => state.jobs.jobs.totalJobs);
   const hiredCandidates = useSelector((state) => state.candidates.candidates.hiredCount);
+  const scheduledCount = useSelector((state) => state.candidates?.candidates?.scheduledCount);
+
   const dispatch = useDispatch();
-  console.log("openJobsCount:::", jobcount)
+  console.log("scheduledCandidatesCount:::", scheduledCount)
   useEffect(() => {
     dispatch(getJobs());
   }, [dispatch]);
@@ -99,15 +101,18 @@ function Dashboard() {
                 </Link>
               </Grid>
               <Grid item xs={12} sm={6} xl={3}>
-                <MiniStatisticsCard
-                  bgColor="white"
-                  title={{ text: "Scheduled Interviews" }}
-                  count="18"
-                  percentage={{ color: "text", text: "For this week" }}
-                  icon={{ color: "info", component: "event_available" }}
-                />
+                <Link to="/Candidate?interviewStatus=Scheduled" style={{ textDecoration: 'none' }}>
+                  <MiniStatisticsCard
+                    bgColor="white"
+                    title={{ text: "Scheduled Interviews" }}
+                    count={scheduledCount}
+                    percentage={{ color: "text", text: "For this week" }}
+                    icon={{ color: "info", component: "event_available" }}
+                  />
+                </Link>
               </Grid>
               <Grid item xs={12} sm={6} xl={3}>
+              <Link to="/Candidate?status=Hired" style={{ textDecoration: 'none' }}>
                 <MiniStatisticsCard
                   bgColor="white"
                   title={{ text: "Hired Candidates" }}
@@ -118,6 +123,7 @@ function Dashboard() {
                     component: "person_add"  // Material Icon name as string
                   }}
                 />
+                </Link>
               </Grid>
             </Grid>
           </SoftBox>

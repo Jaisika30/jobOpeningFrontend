@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SoftTypography from "components/SoftTypography";
 import SoftBadge from "components/SoftBadge";
 import { getCandidates, deleteCandidate } from "slices/candidateSlice";
@@ -82,13 +82,30 @@ import { tooltipStyle } from "assets/textFieldStyles";
 const useCandidateData = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const urlinterviewStatus = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('interviewStatus');
+  }, [location.search]);
+  const urlStatus = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('status');
+  }, [location.search]);
+  console.log("urlinterviewStatusurlinterviewStatusurlinterviewStatus::", urlinterviewStatus);
+  console.log("urlStatusurlStatusurlStatus:::", urlStatus);
   // Get the correct data structure based on whether we have an ID
   const allCandidates = useSelector((state) => {
     if (id) {
       console.log("With ID - candidates data:", state.candidates?.candidates);
       return state.candidates?.candidates || []; // Array of candidates for specific job
-    } else {
+    } else if (urlStatus === 'Hired') {
+      console.log("hiredCandidates:", state.candidates?.candidates?.hiredCandidates || []);
+      return state.candidates?.candidates?.hiredCandidates || [];
+    } else if (urlinterviewStatus === 'Scheduled') {
+      console.log("scheduledCandidates:", state.candidates?.candidates?.scheduledCandidates || []);
+      return state.candidates?.candidates?.scheduledCandidates || [];
+    }
+    else {
       console.log("Without ID - candidates data:", state.candidates?.candidates?.candidates);
       return state.candidates?.candidates?.candidates || []; // Array of all candidates
     }
@@ -313,7 +330,7 @@ const getCandidatesTableData = () => {
       { name: "location", label: "Location", align: "left" },
       { name: "interviewSlot", label: "Time Offered", align: "left" },
       { name: "interviewStatus", label: "Interview Status", align: "center" },
-      { name: "status", label: "Status", align: "left" },
+      { name: "status", label: "Status", align: "center" },
       { name: "comments", label: "Comments", align: "left" },
       { name: "action", label: "Action", align: "center" },
     ],

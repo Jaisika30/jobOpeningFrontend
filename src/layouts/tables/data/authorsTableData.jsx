@@ -73,7 +73,7 @@ const getJobTableData = (jobData, handleDelete) => {
     columns: [
       { name: "jobTitle", label: "Job Title", align: "left" },
       { name: "description", label: "Description", align: "left" },
-      { name: "postingDate", label: "Posting Date", align: "center" },
+      { name: "postingDate", label: "Posting Date", align: "left" },
       { name: "status", label: "Status", align: "center" },
       { name: "action", label: "Actions", align: "center" },
     ],
