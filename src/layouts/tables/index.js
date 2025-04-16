@@ -177,7 +177,19 @@ function Tables() {
               </SoftBox>
 
               {/* Search and Filter UI */}
-              <SoftBox display="flex" gap="10px" p={2} flexWrap="wrap" >
+
+
+              <SoftBox
+                display="flex"
+                gap="10px"
+                p={2}
+                flexWrap="wrap"
+                sx={{
+                  flexDirection: { xs: "column", sm: "row" }, // Stack items on mobile, row on larger screens
+                  alignItems: "center",
+                  justifyContent: "space-between"
+                }}
+              >
                 <TextField
                   type="text"
                   label="Search Here"
@@ -185,65 +197,31 @@ function Tables() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   sx={{
-                    width: "250px",
+                    width: { xs: "100%", sm: "250px" }, // Full width on mobile
                     maxWidth: "250px",
-                    // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
-                    display: "flex",
-                    height: "10px",
+                    height: "40px",
                     "& .MuiInputBase-root": {
-                      width: "250px",
-                      display: "flex",
+                      width: "100%",
                     },
                     "& .MuiInputBase-input": {
-                      width: "220px",
-                      maxWidth: "220px",
-                      minWidth: "220px",
+                      width: "100%",
                     },
                   }}
                   InputLabelProps={{
                     sx: {
-                      fontSize: "0.85rem", // 👈 sets the label font size
+                      fontSize: "0.85rem",
                     },
                   }}
                 />
-                {/* <FormControl sx={{
-                  width: "250px",
-                  maxWidth: "250px",
-                  minWidth: "250px",
-                  // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                  borderRadius: "5px",
-                  display: "flex",
-                  "& .MuiInputBase-root": {
-                    width: "100%",
-                    display: "flex",
-                  },
-                  "& .MuiInputBase-input": {
-                    width: "200px",
-                    maxWidth: "200px",
-                    minWidth: "200px",
-                  },
-                }}>
-                  <InputLabel sx={{ fontSize: "1rem", }}>All Status</InputLabel>
-                  <Select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                  >
-                    <MenuItem value="">All </MenuItem>
-                    <MenuItem value="open">Open</MenuItem>
-                    <MenuItem value="closed">Closed</MenuItem>
-                  </Select>
-                </FormControl> */}
+
                 <FormControl
                   sx={{
-                    width: "250px",
+                    width: { xs: "100%", sm: "250px" }, // Responsive width
                     maxWidth: "250px",
-                    minWidth: "250px",
-                    // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
                     display: "flex",
                     position: "relative",
-                    
                     "& .MuiInputBase-root": {
                       width: "100%",
                       display: "flex",
@@ -255,49 +233,40 @@ function Tables() {
                       minWidth: "200px",
                     },
                   }}
-
                 >
                   <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
-
-                  {/* Wrap Select and Icon in a container to align them correctly */}
-                  <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-                    <Select
-                      value={statusFilter}
-                      onChange={(e) => setStatusFilter(e.target.value)}
-                      sx={{
-                        width: "100%", // Ensures full width
-                        paddingRight: "40px", // Creates space for the icon
-                      }}
-                    >
-                      <MenuItem value="">All</MenuItem>
-                      <MenuItem value="open">Open</MenuItem>
-                      <MenuItem value="closed">Closed</MenuItem>
-                      <MenuItem value="paused">Paused</MenuItem>
-                    </Select>
-
-                    {/* Manually add the icon inside the box, positioning it correctly */}
-                    <ArrowDropDownCircleIcon
-                      sx={{
-                        ...dropdownIconStyle
-                      }}
-                    />
-                  </Box>
+                  <Select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    sx={{
+                      width: "100%",
+                      paddingRight: "40px",
+                    }}
+                  >
+                    <MenuItem value="">All</MenuItem>
+                    <MenuItem value="open">Open</MenuItem>
+                    <MenuItem value="closed">Closed</MenuItem>
+                    <MenuItem value="paused">Paused</MenuItem>
+                  </Select>
+                  <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
                 </FormControl>
+
                 <SoftButton
                   variant="gradient"
                   color="info"
                   onClick={() => navigate("/addJob")}
                   sx={{
+                    width: { xs: "95%", sm: "auto" }, // Full width on mobile, auto on large screens
                     height: "40px",
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
-                    marginLeft: "auto", // Aligns the button to the right
-                    marginRight: "30px",
+                    marginLeft: { sm: "auto" }, // Align right on larger screens
                   }}
                 >
                   Add Job
                 </SoftButton>
               </SoftBox>
+
 
               <SoftBox
                 sx={{
@@ -311,16 +280,16 @@ function Tables() {
               >
                 {loading ? (
                   <Box position="fixed"
-                  top={0}
-                  left={0}
-                  right={0}
-                  bottom={0}
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
-                  zIndex={9999}>
+                    top={0}
+                    left={0}
+                    right={0}
+                    bottom={0}
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
+                    zIndex={9999}>
                     <CircularProgress color="secondary" size={30} />
                     <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
                       Loading jobs...

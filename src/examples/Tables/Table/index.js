@@ -7,6 +7,7 @@ import { Table as MuiTable } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
@@ -22,10 +23,6 @@ function Table({ columns, rows }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
-
-  // Log props to verify values
-  console.log("Columns:", columns);
-  console.log("Rows:", rows);
 
   // Render table columns
   const renderColumns = (columns || []).map(({ name, align, width }, key) => {
@@ -58,8 +55,12 @@ function Table({ columns, rows }) {
         color="secondary"
         opacity={0.7}
         borderBottom={`${borderWidth[1]} solid ${light.main}`}
+        sx={{
+          whiteSpace: "nowrap", // Prevent text wrapping
+          minWidth: width || "100px", // Set minimum width for columns
+        }}
       >
-      {name.replace(/([a-z])([A-Z])/g, "$1 $2").toUpperCase()}
+        {name.replace(/([a-z])([A-Z])/g, "$1 $2").toUpperCase()}
       </SoftBox>
     );
   });
@@ -67,7 +68,6 @@ function Table({ columns, rows }) {
   // Render table rows
   const renderRows = (rows || []).map((row, key) => {
     const rowKey = `row-${key}`;
-console.log("rowKey", rowKey);
     const tableRow = (columns || []).map(({ name, align }) => {
       let template;
 
@@ -78,6 +78,7 @@ console.log("rowKey", rowKey);
             component="td"
             p={1}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+            sx={{ whiteSpace: "nowrap" }}
           >
             <SoftBox display="flex" alignItems="center" py={0.5} px={1}>
               <SoftBox mr={2}>
@@ -97,6 +98,7 @@ console.log("rowKey", rowKey);
             p={1}
             textAlign={align}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+            sx={{ whiteSpace: "nowrap" }}
           >
             <SoftTypography
               variant="button"
@@ -118,14 +120,30 @@ console.log("rowKey", rowKey);
 
   return useMemo(
     () => (
-      <TableContainer>
-        <MuiTable>
-          <SoftBox component="thead">
-            <TableRow>{renderColumns}</TableRow>
-          </SoftBox>
-          <TableBody>{renderRows}</TableBody>
-        </MuiTable>
-      </TableContainer>
+      <Paper
+        sx={{
+          width: "100%",
+          overflowX: "auto", // Enable horizontal scrolling
+          borderRadius: "12px",
+          boxShadow: "none",
+        }}
+      >
+        <TableContainer>
+          <MuiTable
+            sx={{
+              minWidth: "650px", // Set minimum width to ensure table doesn't shrink too much
+              "& .MuiTableCell-root": {
+                whiteSpace: "nowrap", // Prevent cell content from wrapping
+              },
+            }}
+          >
+            <SoftBox component="thead">
+              <TableRow>{renderColumns}</TableRow>
+            </SoftBox>
+            <TableBody>{renderRows}</TableBody>
+          </MuiTable>
+        </TableContainer>
+      </Paper>
     ),
     [columns, rows]
   );
@@ -134,7 +152,7 @@ console.log("rowKey", rowKey);
 // Setting default values for the props of Table
 Table.defaultProps = {
   columns: [],
-  rows: [], // Ensure rows is an empty array by default
+  rows: [],
 };
 
 // Typechecking props for the Table
