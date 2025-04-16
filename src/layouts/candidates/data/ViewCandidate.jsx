@@ -126,7 +126,7 @@ function ViewCandidate() {
 
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Name:
+                                        Name
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.name}
@@ -134,7 +134,7 @@ function ViewCandidate() {
                                 </SoftBox>
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Phone:
+                                        Phone
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.phone}
@@ -143,7 +143,7 @@ function ViewCandidate() {
 
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Location:
+                                        Location
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.location}
@@ -170,7 +170,7 @@ function ViewCandidate() {
 
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Job:
+                                        Job
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.job}
@@ -178,7 +178,7 @@ function ViewCandidate() {
                                 </SoftBox>
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Time Slot:
+                                        Time Slot
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.interviewSlot}
@@ -186,7 +186,7 @@ function ViewCandidate() {
                                 </SoftBox>
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Interview Schedule:
+                                        Interview Schedule
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.interviewSchedule}
@@ -211,7 +211,7 @@ function ViewCandidate() {
                             >
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Communication:
+                                        Communication
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.communication}
@@ -219,7 +219,7 @@ function ViewCandidate() {
                                 </SoftBox>
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Personality:
+                                        Personality
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.personality}
@@ -227,7 +227,7 @@ function ViewCandidate() {
                                 </SoftBox>
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Knowledge:
+                                        Knowledge
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.knowledge}
@@ -253,7 +253,7 @@ function ViewCandidate() {
                             >
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Interview Status:
+                                        Interview Status
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.interviewStatus}
@@ -261,7 +261,7 @@ function ViewCandidate() {
                                 </SoftBox>
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Status:
+                                        Status
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.status}
@@ -269,7 +269,7 @@ function ViewCandidate() {
                                 </SoftBox>
                                 <SoftBox>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
-                                        Comments:
+                                        Comments
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
                                         {candidate.comments}

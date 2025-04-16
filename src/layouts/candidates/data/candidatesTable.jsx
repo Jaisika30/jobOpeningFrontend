@@ -84,6 +84,7 @@ const getCandidatesTableData = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const theme = useTheme();
   const darkGray = theme.palette.grey[600];
+  const { id } = useParams();
   const handleResetFilters = () => {
     setInterviewStatusFilter("");
     setSearchQuery("");
@@ -267,7 +268,7 @@ const getCandidatesTableData = () => {
           <SoftButton variant="gradient" color="success" onClick={() => navigate("/Jobs")}>
             Back
           </SoftButton>
-          <SoftButton variant="gradient" color="info" onClick={() => navigate("/addCandidate")}>
+          <SoftButton variant="gradient" color="info" onClick={() => navigate(id ? `/addCandidate/${id}` : "/addCandidate")}>
             Add Candidate
           </SoftButton>
         </div>

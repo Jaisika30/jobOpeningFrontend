@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { textFieldStyles, dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 import Box from '@mui/material/Box';
+import { getJobById } from "slices/jobSlice";
 
 
 function AddCandidatePage() {
@@ -34,8 +35,9 @@ function AddCandidatePage() {
     const interviewStatusRef = useRef();
     const statusRef = useRef();
     const communicationRef = useRef();
-
+    const { id } = useParams();
     const jobs = useSelector((state) => state.jobs.jobs.jobs);
+    const jobDetail = useSelector((state) => state.jobs.job);
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -55,6 +57,11 @@ function AddCandidatePage() {
         const { name, value } = e.target;
         setCandidate((prev) => ({ ...prev, [name]: value }));
     };
+    useEffect(() => {
+        if (id) {
+            dispatch(getJobById(id));
+        }
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getJobs());
@@ -65,7 +72,7 @@ function AddCandidatePage() {
 
         const requiredFields = [
             "name", "phone", "location", "interviewSlot", "interviewSchedule",
-            "job", "interviewStatus"
+            ...(id ? [] : ["job"]), "interviewStatus"
         ];
 
         for (let field of requiredFields) {
@@ -74,11 +81,21 @@ function AddCandidatePage() {
                 return;
             }
         }
+        if (id && jobDetail?._id) {
+            candidate.job = jobDetail._id;
+        }
+
 
         try {
+            console.log("Submitting data Submitting Submitting Submitting Submitting:", candidate);
+
             dispatch(createCandidate(candidate));
             toast.success("Candidate added successfully! 🎉");
-            navigate("/Candidate");
+            if (id) {
+                navigate(`/Candidates/${id}`);
+            } else {
+                navigate("/Candidate");
+            }
         } catch (error) {
             console.error("Failed to add candidate:", error);
             toast.error("Error adding candidate. Please try again.");
@@ -183,7 +200,17 @@ function AddCandidatePage() {
                                     alignItems: "flex-start"
                                 }}
                             >
-                                <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
+
+                                {id ? (
+                                    <TextField
+                                        inputRef={jobRef}
+                                        label="Job"
+                                        name="job"
+                                        value={jobDetail?.title}
+                                        InputLabelProps={{ sx: { fontSize: "1rem" } }}
+                                    sx={textFieldStyles}
+                                    />
+                                ) : <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
                                     <InputLabel id="job-label" sx={{ ...inputLabelStyle }}>Select Job</InputLabel>
                                     <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
                                         <Select
@@ -198,10 +225,15 @@ function AddCandidatePage() {
                                                 width: "100%", // Ensures full width
                                                 paddingRight: "40px", // Creates space for the icon
                                             }}
+
                                         >
-                                            {jobs?.map((job) => (
-                                                <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
-                                            ))}
+                                            {
+                                                jobs?.map((job) => (
+                                                    <MenuItem key={job._id} value={job._id}>
+                                                        {job.title}
+                                                    </MenuItem>
+                                                ))
+                                            }
                                         </Select>
                                         <ArrowDropDownCircleIcon
                                             sx={{
@@ -209,7 +241,8 @@ function AddCandidatePage() {
                                             }}
                                         />
                                     </Box>
-                                </FormControl>
+                                </FormControl>}
+
 
                                 <TextField
                                     inputRef={slotRef}

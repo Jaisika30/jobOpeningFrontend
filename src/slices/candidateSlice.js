@@ -10,7 +10,7 @@ export const createCandidate = createAsyncThunk(
     "candidates/createCandidate",
     async (candidateData, { rejectWithValue }) => {
         try {
-            console.log(candidateData);
+            console.log("::::candidateDatacandidateData::", candidateData);
             const token = localStorage.getItem("token");
             const response = await axios.post(`${API_URL}/api/candidate/create`, candidateData, {
                 headers: {
@@ -223,7 +223,10 @@ const candidateSlice = createSlice({
             })
             .addCase(createCandidate.fulfilled, (state, action) => {
                 state.loading = false;
-                state.candidates.candidates.push(action.payload);
+                if (Array.isArray(state.candidates.candidates)) {
+                    state.candidates.candidates.push(action.payload);
+                }
+                // state.candidates.candidates.push(action.payload);
             })
             .addCase(createCandidate.rejected, (state, action) => {
                 state.loading = false;

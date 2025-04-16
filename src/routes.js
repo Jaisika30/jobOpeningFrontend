@@ -136,6 +136,11 @@ const routes = [
     component: <ProtectedRoute><AddCandidatePage /></ProtectedRoute>,
     // component: <AddCandidatePage />,
   },
+  {
+    route: "/addCandidate/:id",
+    component: <ProtectedRoute><AddCandidatePage /></ProtectedRoute>,
+    // component: <AddCandidatePage />,
+  },
   // {
   //   type: "collapse",
   //   name: "Interviews",

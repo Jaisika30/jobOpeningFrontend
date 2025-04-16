@@ -265,16 +265,16 @@ function ViewJob() {
             >
               {/* Title */}
               <SoftBox>
-                <SoftTypography variant="subtitle1" fontWeight="bold">
-                  Title:
+                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                  Title
                 </SoftTypography>
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.title}</SoftTypography>
               </SoftBox>
 
               {/* Location */}
               <SoftBox>
-                <SoftTypography variant="subtitle1" fontWeight="bold">
-                  Location:
+                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                  Location
                 </SoftTypography>
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.location}</SoftTypography>
               </SoftBox>
@@ -282,8 +282,8 @@ function ViewJob() {
 
             {/* Description */}
             <SoftBox mb={3}>
-              <SoftTypography variant="subtitle1" fontWeight="bold">
-                Description:
+              <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                Description
               </SoftTypography>
               <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.description}</SoftTypography>
             </SoftBox>
@@ -300,8 +300,8 @@ function ViewJob() {
             >
               {/* Posting Date */}
               <SoftBox>
-                <SoftTypography variant="subtitle1" fontWeight="bold">
-                  Posting Date:
+                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                  Posting Date
                 </SoftTypography>
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>
                   {new Date(job.postingDate).toLocaleDateString("en-GB")}
@@ -311,7 +311,7 @@ function ViewJob() {
               {/* Status */}
               <SoftBox>
                 <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
-                  Status:
+                  Status
                 </SoftTypography>
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.status}</SoftTypography>
               </SoftBox>
