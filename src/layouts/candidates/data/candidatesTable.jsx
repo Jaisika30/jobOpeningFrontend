@@ -56,7 +56,7 @@ const useCandidateData = () => {
   });
   const jobs = useSelector((state) => state.jobs.jobs.jobs || []);
   const isLoading = useSelector((state) => state.candidates.loading);
-  console.log("Jobssss candidaye table:::",jobs)
+  console.log("Jobssss candidaye table:::", jobs)
   useEffect(() => {
     dispatch(getJobs());
   }, [dispatch]);
@@ -451,9 +451,12 @@ const getCandidatesTableData = () => {
       : noCandidatesFound
         ? [{
           name: (
-            <SoftTypography variant="h6" color="secondary" align="center">
-              No candidates match the criteria.
-            </SoftTypography>
+            <Box display="flex" justifyContent="center" width="100%" >
+              <SoftTypography variant="h7" color="error" textAlign="center">
+                No Candidates available.
+              </SoftTypography>
+            </Box>
+
           ),
           location: "",
           interviewSlot: "",

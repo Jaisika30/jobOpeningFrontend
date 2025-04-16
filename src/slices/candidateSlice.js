@@ -295,7 +295,11 @@ const candidateSlice = createSlice({
             })
             .addCase(deleteCandidate.fulfilled, (state, action) => {
                 state.loading = false;
-                state.candidates = state.candidates.filter((candidate) => candidate._id !== action.payload);
+                if (Array.isArray(state.candidates)) {
+                    state.candidates = state.candidates.filter(
+                        (candidate) => candidate._id !== action.payload
+                    );
+                }
             })
             .addCase(deleteCandidate.rejected, (state, action) => {
                 state.loading = false;
