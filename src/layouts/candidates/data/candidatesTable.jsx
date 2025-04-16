@@ -90,6 +90,11 @@ const getCandidatesTableData = () => {
     setSearchQuery("");
     setStatusFilter("");
   };
+  const location = useLocation();
+  const urlStatus = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('status');
+  }, [location.search]);
 
   const filteredCandidates = useMemo(() => {
     let result = Array.isArray(candidates) ? candidates : [];
@@ -210,12 +215,12 @@ const getCandidatesTableData = () => {
                 sx={{ width: "100%", paddingRight: "40px" }}
               >
                 <MenuItem value="">All</MenuItem>
-                <MenuItem value="Scheduled">Scheduled</MenuItem>
                 <MenuItem value="Accepted">Accepted</MenuItem>
                 <MenuItem value="Interviewed">Interviewed</MenuItem>
                 <MenuItem value="Missed">Missed</MenuItem>
-                <MenuItem value="Rescheduled">Rescheduled</MenuItem>
                 <MenuItem value="Offered">Offered</MenuItem>
+                <MenuItem value="Rescheduled">Rescheduled</MenuItem>
+                <MenuItem value="Scheduled">Scheduled</MenuItem>
               </Select>
               <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
             </Box>
@@ -250,13 +255,13 @@ const getCandidatesTableData = () => {
               >
                 <MenuItem value="">All</MenuItem>
                 <MenuItem value="Contacted">Contacted</MenuItem>
-                <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
-                <MenuItem value="Moved to Round 3">Moved to Round 3</MenuItem>
-                <MenuItem value="Shortlisted">Shortlisted</MenuItem>
-                <MenuItem value="Rejected">Rejected</MenuItem>
                 <MenuItem value="Final Round">Final Round</MenuItem>
                 <MenuItem value="Hired">Hired</MenuItem>
+                <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
+                <MenuItem value="Moved to Round 3">Moved to Round 3</MenuItem>
                 <MenuItem value="On Hold">On Hold</MenuItem>
+                <MenuItem value="Rejected">Rejected</MenuItem>
+                <MenuItem value="Shortlisted">Shortlisted</MenuItem>
               </Select>
               <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
             </Box>
@@ -414,11 +419,16 @@ const getCandidatesTableData = () => {
     ),
     columns: [
       { name: "name", label: "Name", align: "left" },
+      ...(urlStatus == "Hired"
+        ? [{ name: "job", label: "Jobs", align: "left" }]
+        : []),
       { name: "location", label: "Location", align: "left" },
       { name: "interviewSlot", label: "Time Offered", align: "left" },
       { name: "interviewStatus", label: "Interview Status", align: "center" },
       { name: "status", label: "Status", align: "center" },
-      { name: "comments", label: "Comments", align: "left" },
+      ...(urlStatus !== "Hired"
+        ? [{ name: "comments", label: "Comments", align: "left" }]
+        : []),
       { name: "action", label: "Action", align: "center" },
     ],
     rows: loading
@@ -441,6 +451,7 @@ const getCandidatesTableData = () => {
             </SoftTypography>
           </Box>
         ),
+        job: "",
         location: "",
         interviewSlot: "",
         interviewStatus: "",
@@ -458,6 +469,7 @@ const getCandidatesTableData = () => {
             </Box>
 
           ),
+          job: "",
           location: "",
           interviewSlot: "",
           interviewStatus: "",
@@ -475,9 +487,40 @@ const getCandidatesTableData = () => {
         }]
         : filteredCandidates?.map((candidate) => ({
           name: (
+            <Tooltip
+            placement="top"
+            title={
+              <div style={{
+                display: 'inline-block',
+                maxWidth: '200px'
+              }}>
+                {candidate?.name || ""}
+              </div>}
+            arrow
+            componentsProps={tooltipStyle}
+          >
             <SoftTypography variant="button" fontWeight="medium" color="dark">
-              {candidate.name}
+               {truncateText(candidate?.name, 15)}
             </SoftTypography>
+            </Tooltip>
+          ),
+          job: (
+            <Tooltip
+            placement="top"
+            title={
+              <div style={{
+                display: 'inline-block',
+                maxWidth: '200px'
+              }}>
+                {candidate?.job?.title || ""}
+              </div>}
+            arrow
+            componentsProps={tooltipStyle}
+          >
+            <SoftTypography variant="caption" color="secondary">
+              {truncateText(candidate?.job?.title, 15)}
+            </SoftTypography>
+            </Tooltip>
           ),
           location: (
             <Tooltip

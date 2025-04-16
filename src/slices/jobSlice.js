@@ -145,7 +145,10 @@ const jobSlice = createSlice({
             })
             .addCase(createJob.fulfilled, (state, action) => {
                 state.loading = false;
-                state.jobs.jobs.push(action.payload);
+                if (Array.isArray(state.jobs)) {
+                    state.jobs.jobs.push(action.payload);
+                }
+               
             })
             .addCase(createJob.rejected, (state, action) => {
                 state.loading = false;
