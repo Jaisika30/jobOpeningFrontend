@@ -162,7 +162,7 @@
 
 // export default Candidates;
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "@mui/material/Card";
 import SoftBox from "components/SoftBox";
@@ -170,9 +170,14 @@ import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Candidate from "examples/Candidates/Candidate";
-import { Box } from "@mui/material";
+import { Box, InputLabel, MenuItem, Select, FormControl } from "@mui/material";
 import getCandidatesTableData from "layouts/candidates/data/candidatesTable";
 import { getJobById } from "slices/jobSlice";
+import { inputLabelStyle } from "assets/textFieldStyles";
+import { dropdownIconStyle } from "assets/textFieldStyles";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; // Import icon
+import { getJobs } from "slices/jobSlice";
+
 
 // function Candidates() {
 //   const { id } = useParams(); // Get the 'id' parameter from the URL
@@ -225,20 +230,34 @@ function Candidates() {
   const [open, setOpen] = useState(false);
   const jobDetail = useSelector((state) => state.jobs.job); // Get job from Redux
   const dispatch = useDispatch();
-
+  const [selectedJob, setSelectedJob] = useState("");
+  const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const { topAction, columns, rows } = getCandidatesTableData(handleOpen);
 
   // Debugging logs
   console.log("Current jobDetail:", jobDetail);
   console.log("ID from URL:", id);
-
+  const jobs = useSelector((state) => state.jobs.jobs.jobs || []);
+  const sortedJobs = [...jobs].sort((a, b) => a.title.localeCompare(b.title));
+  console.log("Jobssss candidaye table:::", jobs)
+  useEffect(() => {
+    dispatch(getJobs());
+  }, [dispatch]);
   useEffect(() => {
     console.log("useEffect triggered with id:", id);
     if (id) {
       dispatch(getJobById(id));
     }
   }, [id, dispatch]); // This will run when id changes
+  const handleChange = (event) => {
+    const jobId = event.target.value;
+    setSelectedJob(jobId);
+    console.log("JobIddd", jobId);
+    if (jobId) {
+      navigate(`/Candidates/${jobId}`);
+    }
+  };
 
   return (
     <DashboardLayout>
@@ -249,14 +268,51 @@ function Candidates() {
             <Card>
               <SoftBox p={3}>
                 {/* Header - now using jobDetail.title */}
-                <SoftTypography variant="h5" textAlign="center">
-                {id 
-                    ? jobDetail 
-                      ? `Candidates For : ${jobDetail.title}` 
-                      : "Loading job details..."
-                    : "All Candidates"
-                  }
-                </SoftTypography>
+                <div style={{ textAlign: "center", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", gap: "10px" }}>
+                  <SoftTypography variant="h5">
+                    {id
+                      ? jobDetail
+                        ? `Candidates For: ${jobDetail.title}`
+                        : "Loading job details..."
+                      : "Candidates"}
+                  </SoftTypography>
+
+                  <FormControl
+                    sx={{
+                      width: "200px",
+                      maxWidth: "200px",
+                      borderRadius: "5px",
+                      display: "flex",
+                      "& .MuiInputBase-root": {
+                        width: "100%",
+                        display: "flex",
+                      },
+                      "& .MuiInputBase-input": {
+                        width: "180px",
+                        maxWidth: "180px",
+                        minWidth: "180px",
+                      },
+                    }}
+                  >
+                    <InputLabel sx={{ ...inputLabelStyle }}>All Jobs</InputLabel>
+                    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+                      <Select
+                        value={""}
+                        sx={{ width: "100%", paddingRight: "40px" }}
+                        onChange={handleChange}
+                      >
+
+                        {/* <MenuItem value="">All</MenuItem> */}
+                        {sortedJobs.map((job) => (
+                          <MenuItem key={job._id} value={job._id} >
+                            {job.title}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+                    </Box>
+                  </FormControl>
+                </div>
 
                 <SoftBox mt={4}>{topAction}</SoftBox>
               </SoftBox>

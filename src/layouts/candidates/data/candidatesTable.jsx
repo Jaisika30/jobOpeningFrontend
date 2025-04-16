@@ -20,65 +20,8 @@ import { dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textF
 import { useTheme } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import { tooltipStyle } from "assets/textFieldStyles";
+import { getJobs } from "slices/jobSlice";
 
-
-// const useCandidateData = () => {
-//   const { id } = useParams();
-//   const dispatch = useDispatch();
-//   const allCandidates = useSelector((state) => state.candidates.candidates);
-//   const isLoading = useSelector((state) => state.candidates.loading);
-
-//   useEffect(() => {
-//     dispatch(getCandidates(id)); // Pass the ID to the API call if needed
-//   }, [dispatch, id]);
-
-//   // Filter candidates based on ID if present
-//   const candidates = useMemo(() => {
-//     if (!id) return allCandidates;
-//     return allCandidates.filter(candidate => 
-//       candidate.id === id || // Adjust this condition based on your data structure
-//       candidate.job === id || // Or whatever field links candidates to the ID
-//       candidate.relatedId === id
-//     );
-//   }, [allCandidates, id]);
-
-//   return { candidates, loading: isLoading };
-// };
-
-// const useCandidateData = () => {
-//   const { id } = useParams();
-//   const dispatch = useDispatch();
-//   // const allCandidates = useSelector((state) => state.candidates.candidates.candidates);
-//   // const allCandidates = useSelector((state) => 
-//   //   id ? state.candidates.candidates : state.candidates.candidates.candidates
-//   // );
-//   const allCandidates = useSelector((state) => {
-//     if (id) {
-//       console.log("hiiiii id all candidates.......",state.candidates?.candidates)
-//       return state.candidates?.candidates || [];
-//     } else {
-//       return state.candidates?.candidates?.candidates || [];
-//     }
-//   });
-
-//   const isLoading = useSelector((state) => state.candidates.loading);
-//   useEffect(() => {
-//     if (id) {
-//       console.log("iddddddd", id)
-//       dispatch(getCandidatesByJobID(id));
-//       if (allCandidates.length === 0) {
-//         console.log("no candidate available.")
-//       } // Fetch candidates for specific job
-//       console.log("allcandidates33333333333:::::::::", allCandidates);
-//     } else {
-//       console.log("helooooooo");
-//       dispatch(getCandidates()); // Fetch all candidates
-//     }
-//   }, [dispatch, id]);
-
-//   // No need to filter here since the API should return the correct data
-//   return { candidates: allCandidates, loading: isLoading };
-// };
 const useCandidateData = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -91,6 +34,7 @@ const useCandidateData = () => {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get('status');
   }, [location.search]);
+
   console.log("urlinterviewStatusurlinterviewStatusurlinterviewStatus::", urlinterviewStatus);
   console.log("urlStatusurlStatusurlStatus:::", urlStatus);
   // Get the correct data structure based on whether we have an ID
@@ -110,8 +54,12 @@ const useCandidateData = () => {
       return state.candidates?.candidates?.candidates || []; // Array of all candidates
     }
   });
-
+  const jobs = useSelector((state) => state.jobs.jobs.jobs || []);
   const isLoading = useSelector((state) => state.candidates.loading);
+  console.log("Jobssss candidaye table:::",jobs)
+  useEffect(() => {
+    dispatch(getJobs());
+  }, [dispatch]);
 
   useEffect(() => {
     if (id) {
@@ -233,6 +181,7 @@ const getCandidatesTableData = () => {
           />
 
           {/* Interview Status Filter */}
+
           <FormControl
             sx={{
               width: "200px",
@@ -323,6 +272,143 @@ const getCandidatesTableData = () => {
           </SoftButton>
         </div>
       </div>
+      // <div
+      //   style={{
+      //     display: "flex",
+      //     flexWrap: "wrap",
+      //     alignItems: "center",
+      //     justifyContent: "space-between",
+      //     gap: "10px",
+      //     marginBottom: "16px",
+      //     width: "98%",
+      //   }}
+      // >
+      //   {/* Search and Filters */}
+      //   <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
+      //     <TextField
+      //       label="Search"
+      //       variant="outlined"
+      //       value={searchQuery}
+
+      //       sx={{
+      //         width: { xs: "100%", sm: "180px", md: "200px" },
+      //         "& .MuiInputBase-root": {
+      //           width: "100%",
+      //           display: "flex",
+      //         },
+      //         "& .MuiInputBase-input": {
+      //           width: "180px",
+      //           maxWidth: "180px",
+      //           minWidth: "180px",
+      //         },
+      //       }}
+      //       InputLabelProps={{
+      //         sx: { fontSize: "0.85rem" },
+      //       }}
+      //       onChange={(e) => setSearchQuery(e.target.value)}
+      //     />
+
+      //     {/* Jobs Filter */}
+      //     <FormControl sx={{
+      //       width: { xs: "100%", sm: "180px", md: "200px" }, "& .MuiInputBase-root": {
+      //         width: "100%",
+      //         display: "flex",
+      //       },
+      //       "& .MuiInputBase-input": {
+      //         width: "180px",
+      //         maxWidth: "180px",
+      //         minWidth: "180px",
+      //       },
+      //     }}>
+
+      //       <InputLabel sx={{ ...inputLabelStyle }}>Jobs</InputLabel>
+      //       <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+      //         <Select
+      //           value={interviewStatusFilter}
+      //           onChange={(e) => setInterviewStatusFilter(e.target.value)}
+      //           sx={{ width: "100%", paddingRight: "40px" }}
+      //         >
+      //           <MenuItem value="">All</MenuItem>
+      //           <MenuItem value="BDE">BDE</MenuItem>
+      //           <MenuItem value="Java Developer">Java Developer</MenuItem>
+      //         </Select>
+      //       </Box>
+      //       <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+      //     </FormControl>
+
+      //     {/* Interview Status Filter */}
+      //     <FormControl sx={{
+      //       width: { xs: "100%", sm: "180px", md: "200px" }, "& .MuiInputBase-root": {
+      //         width: "100%",
+      //         display: "flex",
+      //       },
+      //       "& .MuiInputBase-input": {
+      //         width: "180px",
+      //         maxWidth: "180px",
+      //         minWidth: "180px",
+      //       },
+      //     }}>
+      //       <InputLabel sx={{ ...inputLabelStyle }}>Interview Status</InputLabel>
+      //       <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+      //         <Select
+      //           value={interviewStatusFilter}
+      //           onChange={(e) => setInterviewStatusFilter(e.target.value)}
+      //         >
+      //           <MenuItem value="">All</MenuItem>
+      //           <MenuItem value="Scheduled">Scheduled</MenuItem>
+      //           <MenuItem value="Accepted">Accepted</MenuItem>
+      //           <MenuItem value="Interviewed">Interviewed</MenuItem>
+      //           <MenuItem value="Missed">Missed</MenuItem>
+      //           <MenuItem value="Rescheduled">Rescheduled</MenuItem>
+      //           <MenuItem value="Offered">Offered</MenuItem>
+      //         </Select>
+      //       </Box>
+      //       <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+      //     </FormControl>
+
+      //     {/* Status Filter */}
+      //     <FormControl sx={{
+      //       width: { xs: "100%", sm: "180px", md: "200px" }, "& .MuiInputBase-root": {
+      //         width: "100%",
+      //         display: "flex",
+      //       },
+      //       "& .MuiInputBase-input": {
+      //         width: "180px",
+      //         maxWidth: "180px",
+      //         minWidth: "180px",
+      //       },
+      //     }}>
+      //       <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
+      //       <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+      //         <Select
+      //           value={statusFilter}
+      //           onChange={(e) => setStatusFilter(e.target.value)}
+      //         >
+      //           <MenuItem value="">All</MenuItem>
+      //           <MenuItem value="Contacted">Contacted</MenuItem>
+      //           <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
+      //           <MenuItem value="Moved to Round 3">Moved to Round 3</MenuItem>
+      //           <MenuItem value="Shortlisted">Shortlisted</MenuItem>
+      //           <MenuItem value="Rejected">Rejected</MenuItem>
+      //           <MenuItem value="Final Round">Final Round</MenuItem>
+      //           <MenuItem value="Hired">Hired</MenuItem>
+      //           <MenuItem value="On Hold">On Hold</MenuItem>
+      //         </Select>
+      //       </Box>
+      //       <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+      //     </FormControl>
+      //   </div>
+
+      //   {/* Buttons */}
+      //   <div style={{ display: "flex", gap: "10px" }}>
+      //     <SoftButton variant="gradient" color="success" onClick={() => navigate("/Jobs")}>
+      //       Back
+      //     </SoftButton>
+      //     <SoftButton variant="gradient" color="info" onClick={() => navigate("/addCandidate")}>
+      //       Add Candidate
+      //     </SoftButton>
+      //   </div>
+      // </div>
 
     ),
     columns: [
@@ -338,16 +424,16 @@ const getCandidatesTableData = () => {
       ? [{
         name: (
           <Box position="fixed"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
-          zIndex={9999}>
+            top={0}
+            left={0}
+            right={0}
+            bottom={0}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
+            zIndex={9999}>
             <CircularProgress color="secondary" size={30} />
             <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
               Loading candidates...
