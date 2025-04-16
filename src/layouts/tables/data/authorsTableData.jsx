@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs, deleteJob } from "slices/jobSlice";
@@ -15,35 +15,86 @@ import Tooltip from '@mui/material/Tooltip';
 
 import JobTableContainer from "layouts/scrollbar/tableContainer";
 import { tooltipStyle } from "assets/textFieldStyles";
+// const useJobData = () => {
+//   const [jobData, setJobData] = useState([]);
+//   const [searchQuery, setSearchQuery] = useState("");
+//   const [statusFilter, setStatusFilter] = useState("");
+//   const dispatch = useDispatch();
+//   // const jobs = useSelector((state) => state.jobs.jobs.jobs);
+//   const isLoading = useSelector((state) => state.jobs.loading);
+//   const location = useLocation();
+//   const urlStatus = React.useMemo(() => {
+//     const searchParams = new URLSearchParams(location.search);
+//     return searchParams.get('status');
+//   }, [location.search]);
+//   console.log("urlStatusurlStatusurlStatus::::", urlStatus)
+
+//   const jobs = useSelector((state) => {
+//     if (urlStatus === 'Open') {
+//       console.log("With status - jobs data:", state.jobs.jobs?.openJobs);
+//       return state.jobs.jobs?.openJobs || [];
+//     } else {
+//       console.log("Without status - jobs data:", state.jobs.jobs?.jobs);
+//       return state.jobs.jobs?.jobs || [];
+//     }
+//   });
+//   useEffect(() => {
+//     dispatch(getJobs());
+//   }, [dispatch]);
+
+//   useEffect(() => {
+//     let filteredJobs = jobs || [];
+
+//     if (searchQuery.trim()) {
+//       filteredJobs = filteredJobs.filter((job) =>
+//         job.title.toLowerCase().includes(searchQuery.toLowerCase())
+//       );
+//     }
+
+//     if (statusFilter.trim()) {
+//       filteredJobs = filteredJobs.filter((job) => job.status?.trim().toLowerCase() === statusFilter.trim().toLowerCase());
+//     }
+
+//     setJobData(filteredJobs);
+//   }, [jobs, searchQuery, statusFilter]);
+
+//   return { jobData, loading: isLoading, setSearchQuery, setStatusFilter, searchQuery, statusFilter, dispatch };
+// };
+
 const useJobData = () => {
   const [jobData, setJobData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const dispatch = useDispatch();
-  // const jobs = useSelector((state) => state.jobs.jobs.jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
   const location = useLocation();
+
   const urlStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get('status');
   }, [location.search]);
-  console.log("urlStatusurlStatusurlStatus::::", urlStatus)
 
-    const jobs = useSelector((state) => {
-      if (urlStatus === 'Open') {
-        console.log("With status - jobs data:", state.jobs.jobs?.openJobs);
-        return state.jobs.jobs?.openJobs || [];
-      } else {
-        console.log("Without status - jobs data:", state.jobs.jobs?.jobs);
-        return state.jobs.jobs?.jobs || [];
-      }
-    });
+  // Memoize jobs data with proper null checks
+  const jobs = useSelector((state) => {
+    if (!state.jobs?.jobs) return [];
+    
+    if (urlStatus === 'Open') {
+      return state.jobs.jobs.openJobs || [];
+    } else {
+      return state.jobs.jobs.jobs || [];
+    }
+  });
+
+  // Dispatch only once on mount
   useEffect(() => {
     dispatch(getJobs());
   }, [dispatch]);
 
+  // Filter jobs only when necessary data changes
   useEffect(() => {
-    let filteredJobs = jobs || [];
+    if (!jobs) return;
+
+    let filteredJobs = [...jobs]; // Create a new array to avoid mutation
 
     if (searchQuery.trim()) {
       filteredJobs = filteredJobs.filter((job) =>
@@ -52,14 +103,29 @@ const useJobData = () => {
     }
 
     if (statusFilter.trim()) {
-      filteredJobs = filteredJobs.filter((job) => job.status?.trim().toLowerCase() === statusFilter.trim().toLowerCase());
+      filteredJobs = filteredJobs.filter(
+        (job) => job.status?.trim().toLowerCase() === statusFilter.trim().toLowerCase()
+      );
     }
 
-    setJobData(filteredJobs);
-  }, [jobs, searchQuery, statusFilter]);
+    // Only update if the data actually changed
+    if (JSON.stringify(filteredJobs) !== JSON.stringify(jobData)) {
+      setJobData(filteredJobs);
+    }
+  }, [jobs, searchQuery, statusFilter]); // Removed jobData from dependencies to prevent loop
 
-  return { jobData, loading: isLoading, setSearchQuery, setStatusFilter, searchQuery, statusFilter, dispatch };
+  return { 
+    jobData, 
+    loading: isLoading, 
+    setSearchQuery, 
+    setStatusFilter, 
+    searchQuery, 
+    statusFilter, 
+    dispatch 
+  };
 };
+
+
 const truncateText = (text, maxLength) => {
   if (!text) return ""; // Handle empty/null text
   return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;

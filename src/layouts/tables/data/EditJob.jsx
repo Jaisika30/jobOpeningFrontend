@@ -254,7 +254,7 @@ function EditJob() {
                         paddingRight: "40px", // Creates space for the icon
                       }}
                     >
-                      {['Open', 'Closed', 'Pause'].map((status) => (
+                      {['Open', 'Closed', 'Paused'].map((status) => (
                         <MenuItem key={status} value={status}>{status}</MenuItem>
                       ))}
                     </Select>

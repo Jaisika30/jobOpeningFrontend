@@ -272,6 +272,7 @@ function Tables() {
                       <MenuItem value="">All</MenuItem>
                       <MenuItem value="open">Open</MenuItem>
                       <MenuItem value="closed">Closed</MenuItem>
+                      <MenuItem value="paused">Paused</MenuItem>
                     </Select>
 
                     {/* Manually add the icon inside the box, positioning it correctly */}
