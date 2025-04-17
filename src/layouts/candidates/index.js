@@ -177,7 +177,7 @@ import { inputLabelStyle } from "assets/textFieldStyles";
 import { dropdownIconStyle } from "assets/textFieldStyles";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; // Import icon
 import { getJobs } from "slices/jobSlice";
-import CustomPagination from "examples/Candidates/CustomPagination";
+import CustomPagination from "assets/CustomPagination";
 
 
 // function Candidates() {
