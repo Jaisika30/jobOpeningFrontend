@@ -488,38 +488,38 @@ const getCandidatesTableData = () => {
         : filteredCandidates?.map((candidate) => ({
           name: (
             <Tooltip
-            placement="top"
-            title={
-              <div style={{
-                display: 'inline-block',
-                maxWidth: '200px'
-              }}>
-                {candidate?.name || ""}
-              </div>}
-            arrow
-            componentsProps={tooltipStyle}
-          >
-            <SoftTypography variant="button" fontWeight="medium" color="dark">
-               {truncateText(candidate?.name, 15)}
-            </SoftTypography>
+              placement="top"
+              title={
+                <div style={{
+                  display: 'inline-block',
+                  maxWidth: '200px'
+                }}>
+                  {candidate?.name || ""}
+                </div>}
+              arrow
+              componentsProps={tooltipStyle}
+            >
+              <SoftTypography variant="button" fontWeight="medium" color="dark">
+                {truncateText(candidate?.name, 15)}
+              </SoftTypography>
             </Tooltip>
           ),
           job: (
             <Tooltip
-            placement="top"
-            title={
-              <div style={{
-                display: 'inline-block',
-                maxWidth: '200px'
-              }}>
-                {candidate?.job?.title || ""}
-              </div>}
-            arrow
-            componentsProps={tooltipStyle}
-          >
-            <SoftTypography variant="caption" color="secondary">
-              {truncateText(candidate?.job?.title, 15)}
-            </SoftTypography>
+              placement="top"
+              title={
+                <div style={{
+                  display: 'inline-block',
+                  maxWidth: '200px'
+                }}>
+                  {candidate?.job?.title || ""}
+                </div>}
+              arrow
+              componentsProps={tooltipStyle}
+            >
+              <SoftTypography variant="caption" color="secondary">
+                {truncateText(candidate?.job?.title, 15)}
+              </SoftTypography>
             </Tooltip>
           ),
           location: (
@@ -541,10 +541,22 @@ const getCandidatesTableData = () => {
             </Tooltip>
           ),
           interviewSlot: (
+            <Tooltip
+              placement="top"
+              title={
+                <div style={{
+                  display: 'inline-block',
+                  maxWidth: '200px'
+                }}>
+                  {candidate.interviewSlot || ""}
+                </div>}
+              arrow
+              componentsProps={tooltipStyle}
+            >
             <SoftTypography variant="caption" color="secondary">
-              {candidate.interviewSlot}
-
+              {truncateText(candidate.interviewSlot, 20)}
             </SoftTypography>
+            </Tooltip>
           ),
           interviewStatus: (
             <SoftBadge

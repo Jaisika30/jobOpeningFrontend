@@ -35,6 +35,10 @@ function AddCandidatePage() {
     const interviewStatusRef = useRef();
     const statusRef = useRef();
     const communicationRef = useRef();
+    const [slotError, setSlotError] = useState(false);
+
+    const timeSlotRegex = /^(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*\|\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)\s*-\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
+
     const { id } = useParams();
     const jobs = useSelector((state) => state.jobs.jobs.jobs);
     const jobDetail = useSelector((state) => state.jobs.job);
@@ -208,7 +212,7 @@ function AddCandidatePage() {
                                         name="job"
                                         value={jobDetail?.title}
                                         InputLabelProps={{ sx: { fontSize: "1rem" } }}
-                                    sx={textFieldStyles}
+                                        sx={textFieldStyles}
                                     />
                                 ) : <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
                                     <InputLabel id="job-label" sx={{ ...inputLabelStyle }}>Select Job</InputLabel>
@@ -244,7 +248,7 @@ function AddCandidatePage() {
                                 </FormControl>}
 
 
-                                <TextField
+                                {/* <TextField
                                     inputRef={slotRef}
                                     name="interviewSlot"
                                     value={candidate.interviewSlot}
@@ -252,6 +256,56 @@ function AddCandidatePage() {
                                     placeholder=" Time Offered"
                                     label="Time Offered"
                                     onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), scheduleRef.current?.focus())}
+                                    InputLabelProps={{
+                                        sx: { ...inputLabelStyle },
+                                    }}
+                                    sx={textFieldStyles}
+                                /> */}
+                                <TextField
+                                    inputRef={slotRef}
+                                    name="interviewSlot"
+                                    value={candidate.interviewSlot}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+
+                                        if (value.length <= 50) {
+                                            handleChange(e);
+                                            setSlotError(false);
+                                        }
+                                    }}
+                                    onBlur={(e) => {
+                                        const value = e.target.value.trim();
+
+                                        if (value && !timeSlotRegex.test(value)) {
+                                            setSlotError(true);
+                                        } else {
+                                            setSlotError(false);
+                                        }
+                                    }}
+                                    error={slotError}
+                                    helperText={
+                                        slotError
+                                            ? "Format: 18 April 2025 | 8:00 AM - 8:15 AM"
+                                            : ""
+                                    }
+                                    placeholder="e.g. 18 April 2025 | 8:00 AM - 8:15 AM"
+                                    label="Time Offered"
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            const value = e.target.value.trim();
+
+                                            if (!timeSlotRegex.test(value)) {
+                                                setSlotError(true);
+                                            } else {
+                                                setSlotError(false);
+                                                scheduleRef.current?.focus();
+                                            }
+                                        }
+                                    }}
+                                    inputProps={{
+                                        maxLength: 50,
+                                    }}
                                     InputLabelProps={{
                                         sx: { ...inputLabelStyle },
                                     }}

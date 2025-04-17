@@ -161,8 +161,8 @@
 // }
 
 // export default Candidates;
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "@mui/material/Card";
 import SoftBox from "components/SoftBox";
@@ -234,7 +234,11 @@ function Candidates() {
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const { topAction, columns, rows } = getCandidatesTableData(handleOpen);
-
+  const location = useLocation();
+  const urlStatus = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('status');
+  }, [location.search]);
   // Debugging logs
   console.log("Current jobDetail:", jobDetail);
   console.log("ID from URL:", id);
@@ -276,42 +280,44 @@ function Candidates() {
                         : "Loading job details..."
                       : "Candidates"}
                   </SoftTypography>
-
-                  <FormControl
-                    sx={{
-                      width: "200px",
-                      maxWidth: "200px",
-                      borderRadius: "5px",
-                      display: "flex",
-                      "& .MuiInputBase-root": {
-                        width: "100%",
+                  {
+                    urlStatus != "Hired"? <FormControl
+                      sx={{
+                        width: "200px",
+                        maxWidth: "200px",
+                        borderRadius: "5px",
                         display: "flex",
-                      },
-                      "& .MuiInputBase-input": {
-                        width: "180px",
-                        maxWidth: "180px",
-                        minWidth: "180px",
-                      },
-                    }}
-                  >
-                    <InputLabel sx={{ ...inputLabelStyle }}>All Jobs</InputLabel>
-                    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-                      <Select
-                        value={""}
-                        sx={{ width: "100%", paddingRight: "40px" }}
-                        onChange={handleChange}
-                      >
+                        "& .MuiInputBase-root": {
+                          width: "100%",
+                          display: "flex",
+                        },
+                        "& .MuiInputBase-input": {
+                          width: "180px",
+                          maxWidth: "180px",
+                          minWidth: "180px",
+                        },
+                      }}
+                    >
+                      <InputLabel sx={{ ...inputLabelStyle }}>All Jobs</InputLabel>
+                      <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+                        <Select
+                          value={""}
+                          sx={{ width: "100%", paddingRight: "40px" }}
+                          onChange={handleChange}
+                        >
 
-                        {/* <MenuItem value="">All</MenuItem> */}
-                        {sortedJobs.map((job) => (
-                          <MenuItem key={job._id} value={job._id} >
-                            {job.title}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                      <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
-                    </Box>
-                  </FormControl>
+                          {/* <MenuItem value="">All</MenuItem> */}
+                          {sortedJobs.map((job) => (
+                            <MenuItem key={job._id} value={job._id} >
+                              {job.title}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                        <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+                      </Box>
+                    </FormControl> : ""
+                  }
+
                 </div>
 
                 <SoftBox mt={4}>{topAction}</SoftBox>
