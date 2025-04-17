@@ -32,12 +32,18 @@ export const createJob = createAsyncThunk(
 
 export const getJobs = createAsyncThunk(
     "jobs/getJobs",
-    async (_, { rejectWithValue }) => {
+    async ({ page, limit, searchQuery }, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem("token");
             if (!token) throw new Error("No authentication token found");
 
             const response = await axios.get(`${API_URL}/api/jobs/getJobs`, {
+                params: {
+                    page,
+                    limit,
+                    ...(searchQuery && { searchQuery }),
+                   
+                },
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.data.length === 0) {
@@ -59,6 +65,8 @@ export const getJobs = createAsyncThunk(
 );
 
 // 3. Get Job by ID
+
+
 export const getJobById = createAsyncThunk(
     '/jobs/getJob',
     async (id, { rejectWithValue }) => {
@@ -136,6 +144,9 @@ const jobSlice = createSlice({
         job: null,
         loading: false,
         error: null,
+        total: 0,
+        page: 1,
+        limit: 10,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -148,7 +159,7 @@ const jobSlice = createSlice({
                 if (Array.isArray(state.jobs)) {
                     state.jobs.jobs.push(action.payload);
                 }
-               
+
             })
             .addCase(createJob.rejected, (state, action) => {
                 state.loading = false;
@@ -160,6 +171,9 @@ const jobSlice = createSlice({
             .addCase(getJobs.fulfilled, (state, action) => {
                 state.loading = false;
                 state.jobs = action.payload;
+                state.total = action.payload.total;     // total number of candidates
+                state.page = action.payload.page;       // current page from backend
+                state.limit = action.payload.limit;
             })
             .addCase(getJobs.rejected, (state, action) => {
                 state.loading = false;
