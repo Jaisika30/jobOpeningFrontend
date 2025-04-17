@@ -21,11 +21,14 @@ import { useTheme } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import { tooltipStyle } from "assets/textFieldStyles";
 import { getJobs } from "slices/jobSlice";
+import Pagination from '@mui/material/Pagination';
 
-const useCandidateData = () => {
+const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const location = useLocation();
+  const [page, setPage] = useState(1);
+  const limit = 3;
   const urlinterviewStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get('interviewStatus');
@@ -38,6 +41,10 @@ const useCandidateData = () => {
   console.log("urlinterviewStatusurlinterviewStatusurlinterviewStatus::", urlinterviewStatus);
   console.log("urlStatusurlStatusurlStatus:::", urlStatus);
   // Get the correct data structure based on whether we have an ID
+
+  const currentPage = useSelector((state) => state.candidates?.candidates?.currentPage || "");
+
+
   const allCandidates = useSelector((state) => {
     if (id) {
       console.log("With ID - candidates data:", state.candidates?.candidates);
@@ -67,29 +74,32 @@ const useCandidateData = () => {
       dispatch(getCandidatesByJobID(id));
     } else {
       console.log("Fetching all candidates");
-      dispatch(getCandidates());
+      dispatch(getCandidates({ page, limit, searchQuery: searchQuery, statusFilter: statusFilter, interviewStatusFilter: interviewStatusFilter }));
+
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, page, searchQuery, statusFilter, interviewStatusFilter]);
 
   // Ensure we always return an array
-  return { candidates: Array.isArray(allCandidates) ? allCandidates : [], loading: isLoading };
+  return { candidates: Array.isArray(allCandidates) ? allCandidates : [], loading: isLoading, page, setPage };
 };
 
 const getCandidatesTableData = () => {
-  const { candidates, loading } = useCandidateData();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [interviewStatusFilter, setInterviewStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [interviewStatusFilter, setInterviewStatusFilter] = useState("");
+
+  const { candidates, loading, page, setPage } = useCandidateData({
+    searchQuery,
+    statusFilter,
+    interviewStatusFilter
+  });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const theme = useTheme();
-  const darkGray = theme.palette.grey[600];
   const { id } = useParams();
-  const handleResetFilters = () => {
-    setInterviewStatusFilter("");
-    setSearchQuery("");
-    setStatusFilter("");
-  };
+  const darkGray = theme.palette.grey[600];
+
   const location = useLocation();
   const urlStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -97,7 +107,7 @@ const getCandidatesTableData = () => {
   }, [location.search]);
 
   const filteredCandidates = useMemo(() => {
-    let result = Array.isArray(candidates) ? candidates : [];
+    let result = candidates || [];
 
     if (searchQuery.trim()) {
       result = result.filter((candidate) =>
@@ -107,20 +117,9 @@ const getCandidatesTableData = () => {
       );
     }
 
-    if (statusFilter) {
-      result = result.filter((candidate) =>
-        candidate.status?.trim().toLowerCase() === statusFilter.trim().toLowerCase()
-      );
-    }
-
-    if (interviewStatusFilter) {
-      result = result.filter((candidate) =>
-        candidate.interviewStatus?.trim().toLowerCase() === interviewStatusFilter.trim().toLowerCase()
-      );
-    }
-    console.log("filtered candidates:::::::::", result)
     return result;
-  }, [candidates, searchQuery, statusFilter, interviewStatusFilter]);
+  }, [candidates, searchQuery]);
+
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -142,7 +141,11 @@ const getCandidatesTableData = () => {
     if (!text) return ""; // Handle empty/null text
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   };
-
+  // const total = 50;
+  // const limit = 5;
+  // const totalCandidates = useSelector((state) => state.candidates?.candidates?.totalCandidates || "");
+  const totalPages = useSelector((state) => state.candidates?.candidates?.totalPages || 1);
+  console.log("tota;;;;;pages:::::", totalPages);
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
 
   return {
@@ -278,143 +281,7 @@ const getCandidatesTableData = () => {
           </SoftButton>
         </div>
       </div>
-      // <div
-      //   style={{
-      //     display: "flex",
-      //     flexWrap: "wrap",
-      //     alignItems: "center",
-      //     justifyContent: "space-between",
-      //     gap: "10px",
-      //     marginBottom: "16px",
-      //     width: "98%",
-      //   }}
-      // >
-      //   {/* Search and Filters */}
-      //   <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
-      //     <TextField
-      //       label="Search"
-      //       variant="outlined"
-      //       value={searchQuery}
 
-      //       sx={{
-      //         width: { xs: "100%", sm: "180px", md: "200px" },
-      //         "& .MuiInputBase-root": {
-      //           width: "100%",
-      //           display: "flex",
-      //         },
-      //         "& .MuiInputBase-input": {
-      //           width: "180px",
-      //           maxWidth: "180px",
-      //           minWidth: "180px",
-      //         },
-      //       }}
-      //       InputLabelProps={{
-      //         sx: { fontSize: "0.85rem" },
-      //       }}
-      //       onChange={(e) => setSearchQuery(e.target.value)}
-      //     />
-
-      //     {/* Jobs Filter */}
-      //     <FormControl sx={{
-      //       width: { xs: "100%", sm: "180px", md: "200px" }, "& .MuiInputBase-root": {
-      //         width: "100%",
-      //         display: "flex",
-      //       },
-      //       "& .MuiInputBase-input": {
-      //         width: "180px",
-      //         maxWidth: "180px",
-      //         minWidth: "180px",
-      //       },
-      //     }}>
-
-      //       <InputLabel sx={{ ...inputLabelStyle }}>Jobs</InputLabel>
-      //       <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-      //         <Select
-      //           value={interviewStatusFilter}
-      //           onChange={(e) => setInterviewStatusFilter(e.target.value)}
-      //           sx={{ width: "100%", paddingRight: "40px" }}
-      //         >
-      //           <MenuItem value="">All</MenuItem>
-      //           <MenuItem value="BDE">BDE</MenuItem>
-      //           <MenuItem value="Java Developer">Java Developer</MenuItem>
-      //         </Select>
-      //       </Box>
-      //       <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
-      //     </FormControl>
-
-      //     {/* Interview Status Filter */}
-      //     <FormControl sx={{
-      //       width: { xs: "100%", sm: "180px", md: "200px" }, "& .MuiInputBase-root": {
-      //         width: "100%",
-      //         display: "flex",
-      //       },
-      //       "& .MuiInputBase-input": {
-      //         width: "180px",
-      //         maxWidth: "180px",
-      //         minWidth: "180px",
-      //       },
-      //     }}>
-      //       <InputLabel sx={{ ...inputLabelStyle }}>Interview Status</InputLabel>
-      //       <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-      //         <Select
-      //           value={interviewStatusFilter}
-      //           onChange={(e) => setInterviewStatusFilter(e.target.value)}
-      //         >
-      //           <MenuItem value="">All</MenuItem>
-      //           <MenuItem value="Scheduled">Scheduled</MenuItem>
-      //           <MenuItem value="Accepted">Accepted</MenuItem>
-      //           <MenuItem value="Interviewed">Interviewed</MenuItem>
-      //           <MenuItem value="Missed">Missed</MenuItem>
-      //           <MenuItem value="Rescheduled">Rescheduled</MenuItem>
-      //           <MenuItem value="Offered">Offered</MenuItem>
-      //         </Select>
-      //       </Box>
-      //       <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
-      //     </FormControl>
-
-      //     {/* Status Filter */}
-      //     <FormControl sx={{
-      //       width: { xs: "100%", sm: "180px", md: "200px" }, "& .MuiInputBase-root": {
-      //         width: "100%",
-      //         display: "flex",
-      //       },
-      //       "& .MuiInputBase-input": {
-      //         width: "180px",
-      //         maxWidth: "180px",
-      //         minWidth: "180px",
-      //       },
-      //     }}>
-      //       <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
-      //       <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-      //         <Select
-      //           value={statusFilter}
-      //           onChange={(e) => setStatusFilter(e.target.value)}
-      //         >
-      //           <MenuItem value="">All</MenuItem>
-      //           <MenuItem value="Contacted">Contacted</MenuItem>
-      //           <MenuItem value="Moved to Round 2">Moved to Round 2</MenuItem>
-      //           <MenuItem value="Moved to Round 3">Moved to Round 3</MenuItem>
-      //           <MenuItem value="Shortlisted">Shortlisted</MenuItem>
-      //           <MenuItem value="Rejected">Rejected</MenuItem>
-      //           <MenuItem value="Final Round">Final Round</MenuItem>
-      //           <MenuItem value="Hired">Hired</MenuItem>
-      //           <MenuItem value="On Hold">On Hold</MenuItem>
-      //         </Select>
-      //       </Box>
-      //       <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
-      //     </FormControl>
-      //   </div>
-
-      //   {/* Buttons */}
-      //   <div style={{ display: "flex", gap: "10px" }}>
-      //     <SoftButton variant="gradient" color="success" onClick={() => navigate("/Jobs")}>
-      //       Back
-      //     </SoftButton>
-      //     <SoftButton variant="gradient" color="info" onClick={() => navigate("/addCandidate")}>
-      //       Add Candidate
-      //     </SoftButton>
-      //   </div>
-      // </div>
 
     ),
     columns: [
@@ -553,9 +420,9 @@ const getCandidatesTableData = () => {
               arrow
               componentsProps={tooltipStyle}
             >
-            <SoftTypography variant="caption" color="secondary">
-              {truncateText(candidate.interviewSlot, 20)}
-            </SoftTypography>
+              <SoftTypography variant="caption" color="secondary">
+                {truncateText(candidate.interviewSlot, 20)}
+              </SoftTypography>
             </Tooltip>
           ),
           interviewStatus: (
@@ -621,7 +488,12 @@ const getCandidatesTableData = () => {
             </div>
           ),
         }))
-
+    ,
+    pagination: {
+      totalPages,       // number
+      currentPage: page, // number
+      onPageChange: (e, value) => setPage(value) // function
+    }
   };
 };
 

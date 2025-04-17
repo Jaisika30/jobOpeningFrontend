@@ -177,6 +177,7 @@ import { inputLabelStyle } from "assets/textFieldStyles";
 import { dropdownIconStyle } from "assets/textFieldStyles";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; // Import icon
 import { getJobs } from "slices/jobSlice";
+import CustomPagination from "examples/Candidates/CustomPagination";
 
 
 // function Candidates() {
@@ -233,13 +234,14 @@ function Candidates() {
   const [selectedJob, setSelectedJob] = useState("");
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
-  const { topAction, columns, rows } = getCandidatesTableData(handleOpen);
+  const { topAction, columns, rows, pagination } = getCandidatesTableData(handleOpen);
   const location = useLocation();
   const urlStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get('status');
   }, [location.search]);
   // Debugging logs
+  console.log("Pagination config:", pagination);
   console.log("Current jobDetail:", jobDetail);
   console.log("ID from URL:", id);
   const jobs = useSelector((state) => state.jobs.jobs.jobs || []);
@@ -281,7 +283,7 @@ function Candidates() {
                       : "Candidates"}
                   </SoftTypography>
                   {
-                    urlStatus != "Hired"? <FormControl
+                    urlStatus != "Hired" ? <FormControl
                       sx={{
                         width: "200px",
                         maxWidth: "200px",
@@ -324,12 +326,36 @@ function Candidates() {
               </SoftBox>
 
               <Candidate columns={columns} rows={rows} />
+              <CustomPagination pagination={pagination} />
             </Card>
           </SoftBox>
         </SoftBox>
       </Box>
     </DashboardLayout>
   );
+
+
+
+  // return (
+  //   <DashboardLayout>
+  //     <DashboardNavbar />
+  //     <Box display="flex" flexDirection="column" minHeight="auto">
+  //       <SoftBox py={3}>
+  //         <SoftBox mb={3}>
+  //           <Card>
+  //             {/* Your header content */}
+              
+  //             {/* Table without pagination */}
+  //             <Candidate columns={columns} rows={rows} />
+              
+  //             {/* Separate pagination component */}
+  //             <CustomPagination pagination={pagination} />
+  //           </Card>
+  //         </SoftBox>
+  //       </SoftBox>
+  //     </Box>
+  //   </DashboardLayout>
+  // );
 }
 
 export default Candidates;

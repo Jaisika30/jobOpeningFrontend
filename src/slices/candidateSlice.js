@@ -29,20 +29,31 @@ export const createCandidate = createAsyncThunk(
 // 2. Get All Candidates (with filters: jobId, status, search)
 export const getCandidates = createAsyncThunk(
     "candidates/getCandidates",
-    async (_, { rejectWithValue, getState }) => {
+    async ({ page, limit, searchQuery, statusFilter, interviewStatusFilter }, { rejectWithValue, getState }) => {
         try {
-            console.log("Fetching candidates...");
-
+            console.log("Fetching candidates...", page, limit);
+            
             // Get token from Redux state (assuming you store it in auth slice)
             const token = localStorage.getItem("token");
 
+            // const response = await axios.get(`${API_URL}/api/candidate/getCandidates?page=${page}&limit=${limit}`, {
+            //     params: {},
+            //     headers: {
+            //         Authorization: `Bearer ${token}`, // Attach token in headers
+            //     },
+            // });
             const response = await axios.get(`${API_URL}/api/candidate/getCandidates`, {
-                params: {},
+                params: {
+                    page,
+                    limit,
+                    ...(searchQuery && { searchQuery }),
+                    ...(statusFilter && { statusFilter }),
+                    ...(interviewStatusFilter && { interviewStatusFilter })
+                },
                 headers: {
-                    Authorization: `Bearer ${token}`, // Attach token in headers
+                    Authorization: `Bearer ${token}`,
                 },
             });
-
             console.log("responseeeeeeeeeeeeeeeeeeeeeeee::::", response.data);
             if (response.data.
                 candidates.length === 0) {
@@ -214,6 +225,9 @@ const candidateSlice = createSlice({
         candidate: null,
         loading: false,
         error: null,
+        total: 0,
+        page: 1,
+        limit: 10,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -237,7 +251,10 @@ const candidateSlice = createSlice({
             })
             .addCase(getCandidates.fulfilled, (state, action) => {
                 state.loading = false;
-                state.candidates = action.payload;
+                state.candidates = action.payload; // this should be your candidates array
+                state.total = action.payload.total;     // total number of candidates
+                state.page = action.payload.page;       // current page from backend
+                state.limit = action.payload.limit;
             })
             .addCase(getCandidates.rejected, (state, action) => {
                 state.loading = false;

@@ -144,12 +144,167 @@
 // };
 
 // export default Candidate;
+// import { useMemo } from "react";
+// import PropTypes from "prop-types";
+// import { v4 as uuidv4 } from "uuid";
+
+// // @mui material components
+// import { Table as MuiTable } from "@mui/material";
+// import TableBody from "@mui/material/TableBody";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableRow from "@mui/material/TableRow";
+
+// // Soft UI Dashboard React components
+// import SoftBox from "components/SoftBox";
+// import SoftAvatar from "components/SoftAvatar";
+// import SoftTypography from "components/SoftTypography";
+
+// // Soft UI Dashboard React base styles
+// import colors from "assets/theme/base/colors";
+// import typography from "assets/theme/base/typography";
+// import borders from "assets/theme/base/borders";
+
+// function Candidate({ columns, rows , pagination }) {
+//   const { light } = colors;
+//   const { size, fontWeightBold } = typography;
+//   const { borderWidth } = borders;
+
+//   // Render table columns with proper spacing
+//   const renderColumns = (columns || []).map(({ name, align, width }, key) => {
+//     let pl;
+//     let pr;
+
+//     if (key === 0) {
+//       pl = 3;
+//       pr = 3;
+//     } else if (key === columns.length - 1) {
+//       pl = 3;
+//       pr = 3;
+//     } else {
+//       pl = 1;
+//       pr = 1;
+//     }
+
+//     return (
+//       <SoftBox
+//   key={name}
+//   component="th"
+//   width={width || "auto"}
+//   pt={1.5}
+//   pb={1.25}
+//   pl={align === "left" ? pl : 3}
+//   pr={align === "right" ? pr : 3}
+//   textAlign={align}
+//   fontSize={size.xxs}
+//   fontWeight={fontWeightBold}
+//   color="secondary"
+//   opacity={0.7}
+//   borderBottom={`${borderWidth[1]} solid ${light.main}`}
+//   sx={{
+//     whiteSpace: "nowrap", // Prevent text wrapping
+//     paddingLeft: "16px", // Add consistent padding
+//     paddingRight: "16px", // Add consistent padding
+//   }}
+// >
+//   {name.replace(/([a-z])([A-Z])/g, "$1 $2").toUpperCase()}
+// </SoftBox>
+//     );
+//   });
+
+//   // Render table rows
+//   const renderRows = (rows || []).map((row, key) => {
+//     const rowKey = `row-${key}`;
+//     const tableRow = (columns || []).map(({ name, align }) => {
+//       let template;
+
+//       if (Array.isArray(row[name])) {
+//         template = (
+//           <SoftBox
+//             key={uuidv4()}
+//             component="td"
+//             p={1}
+//             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+//           >
+//             <SoftBox display="flex" alignItems="center" py={0.5} px={1}>
+//               <SoftBox mr={2}>
+//                 <SoftAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
+//               </SoftBox>
+//               <SoftTypography variant="button" fontWeight="medium" sx={{ width: "max-content" }}>
+//                 {row[name][1]}
+//               </SoftTypography>
+//             </SoftBox>
+//           </SoftBox>
+//         );
+//       } else {
+//         template = (
+//           <SoftBox
+//             key={uuidv4()}
+//             component="td"
+//             p={1}
+//             textAlign={align}
+//             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+//             sx={{
+//               paddingLeft: "16px",
+//               paddingRight: "16px",
+//             }}
+//           >
+//             <SoftTypography
+//               variant="button"
+//               fontWeight="regular"
+//               color="secondary"
+//               sx={{ display: "inline-block", width: "max-content" }}
+//             >
+//               {row[name]}
+//             </SoftTypography>
+//           </SoftBox>
+//         );
+//       }
+
+//       return template;
+//     });
+
+//     return <TableRow key={rowKey}>{tableRow}</TableRow>;
+//   });
+
+//   return useMemo(
+//     () => (
+//       <TableContainer>
+//         <MuiTable sx={{ tableLayout: "fixed" }}> {/* Add fixed table layout */}
+//           <SoftBox component="thead">
+//             <TableRow>{renderColumns}</TableRow>
+//           </SoftBox>
+//           <TableBody>{renderRows}</TableBody>
+//         </MuiTable>
+//       </TableContainer>
+//     ),
+//     [columns, rows]
+//   );
+// }
+
+// // Setting default values for the props of Table
+// Candidate.defaultProps = {
+//   columns: [],
+//   rows: [],
+// };
+
+// // Typechecking props for the Table
+// Candidate.propTypes = {
+//   columns: PropTypes.arrayOf(PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     align: PropTypes.oneOf(["left", "right", "center"]),
+//     width: PropTypes.string,
+//   })),
+//   rows: PropTypes.arrayOf(PropTypes.object),
+// };
+
+// export default Candidate;
+
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
 // @mui material components
-import { Table as MuiTable } from "@mui/material";
+import { Table as MuiTable, Pagination, Box } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -163,138 +318,179 @@ import SoftTypography from "components/SoftTypography";
 import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+} from '@mui/icons-material';
 
 function Candidate({ columns, rows }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
 
-  // Render table columns with proper spacing
+  const ltrTheme = createTheme({
+    direction: "ltr",
+  });
   const renderColumns = (columns || []).map(({ name, align, width }, key) => {
-    let pl;
-    let pr;
-
-    if (key === 0) {
+    let pl = 1, pr = 1;
+    if (key === 0 || key === columns.length - 1) {
       pl = 3;
       pr = 3;
-    } else if (key === columns.length - 1) {
-      pl = 3;
-      pr = 3;
-    } else {
-      pl = 1;
-      pr = 1;
     }
 
     return (
       <SoftBox
-  key={name}
-  component="th"
-  width={width || "auto"}
-  pt={1.5}
-  pb={1.25}
-  pl={align === "left" ? pl : 3}
-  pr={align === "right" ? pr : 3}
-  textAlign={align}
-  fontSize={size.xxs}
-  fontWeight={fontWeightBold}
-  color="secondary"
-  opacity={0.7}
-  borderBottom={`${borderWidth[1]} solid ${light.main}`}
-  sx={{
-    whiteSpace: "nowrap", // Prevent text wrapping
-    paddingLeft: "16px", // Add consistent padding
-    paddingRight: "16px", // Add consistent padding
-  }}
->
-  {name.replace(/([a-z])([A-Z])/g, "$1 $2").toUpperCase()}
-</SoftBox>
+        key={name}
+        component="th"
+        width={width || "auto"}
+        pt={1.5}
+        pb={1.25}
+        pl={align === "left" ? pl : 3}
+        pr={align === "right" ? pr : 3}
+        textAlign={align}
+        fontSize={size.xxs}
+        fontWeight={fontWeightBold}
+        color="secondary"
+        opacity={0.7}
+        borderBottom={`${borderWidth[1]} solid ${light.main}`}
+        sx={{
+          whiteSpace: "nowrap",
+          paddingLeft: "16px",
+          paddingRight: "16px",
+        }}
+      >
+        {name.replace(/([a-z])([A-Z])/g, "$1 $2").toUpperCase()}
+      </SoftBox>
     );
   });
 
-  // Render table rows
   const renderRows = (rows || []).map((row, key) => {
     const rowKey = `row-${key}`;
     const tableRow = (columns || []).map(({ name, align }) => {
-      let template;
+      let content;
 
       if (Array.isArray(row[name])) {
-        template = (
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-          >
-            <SoftBox display="flex" alignItems="center" py={0.5} px={1}>
-              <SoftBox mr={2}>
-                <SoftAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
-              </SoftBox>
-              <SoftTypography variant="button" fontWeight="medium" sx={{ width: "max-content" }}>
-                {row[name][1]}
-              </SoftTypography>
+        content = (
+          <SoftBox display="flex" alignItems="center" py={0.5} px={1}>
+            <SoftBox mr={2}>
+              <SoftAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
             </SoftBox>
-          </SoftBox>
-        );
-      } else {
-        template = (
-          <SoftBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            textAlign={align}
-            borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-            sx={{
-              paddingLeft: "16px",
-              paddingRight: "16px",
-            }}
-          >
-            <SoftTypography
-              variant="button"
-              fontWeight="regular"
-              color="secondary"
-              sx={{ display: "inline-block", width: "max-content" }}
-            >
-              {row[name]}
+            <SoftTypography variant="button" fontWeight="medium" sx={{ width: "max-content" }}>
+              {row[name][1]}
             </SoftTypography>
           </SoftBox>
         );
+      } else {
+        content = (
+          <SoftTypography
+            variant="button"
+            fontWeight="regular"
+            color="secondary"
+            sx={{ display: "inline-block", width: "max-content" }}
+          >
+            {row[name]}
+          </SoftTypography>
+        );
       }
 
-      return template;
+      return (
+        <SoftBox
+          key={uuidv4()}
+          component="td"
+          p={1}
+          textAlign={align}
+          borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+          sx={{ paddingLeft: "16px", paddingRight: "16px" }}
+        >
+          {content}
+        </SoftBox>
+      );
     });
 
     return <TableRow key={rowKey}>{tableRow}</TableRow>;
   });
 
-  return useMemo(
-    () => (
-      <TableContainer>
-        <MuiTable sx={{ tableLayout: "fixed" }}> {/* Add fixed table layout */}
-          <SoftBox component="thead">
-            <TableRow>{renderColumns}</TableRow>
-          </SoftBox>
-          <TableBody>{renderRows}</TableBody>
-        </MuiTable>
-      </TableContainer>
-    ),
-    [columns, rows]
-  );
+//   return useMemo(
+//     () => (
+//       <>
+//         <TableContainer>
+//           <MuiTable sx={{ tableLayout: "fixed" }}>
+//             <SoftBox component="thead">
+//               <TableRow>{renderColumns}</TableRow>
+//             </SoftBox>
+//             <TableBody>{renderRows}</TableBody>
+//           </MuiTable>
+//         </TableContainer>
+
+//         {/* Pagination controls */}
+//         {pagination && (
+//           <ThemeProvider theme={ltrTheme}>
+//             <Box display="flex" justifyContent="flex-end" p={2} mt={6}>
+//               <Pagination
+//                 count={pagination.totalPages}
+//                 page={pagination.currentPage}
+//                 onChange={pagination.onPageChange}
+//                 color="primary"
+//               />
+//             </Box>
+//           </ThemeProvider>
+//         )}
+//       </>
+//     ),
+//     [columns, rows, pagination]
+//   );
+// }
+
+// Candidate.defaultProps = {
+//   columns: [],
+//   rows: [],
+//   pagination: null,
+// };
+
+// Candidate.propTypes = {
+//   columns: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       align: PropTypes.oneOf(["left", "right", "center"]),
+//       width: PropTypes.string,
+//     })
+//   ),
+//   rows: PropTypes.arrayOf(PropTypes.object),
+//   pagination: PropTypes.shape({
+//     totalPages: PropTypes.number.isRequired,
+//     currentPage: PropTypes.number.isRequired,
+//     onPageChange: PropTypes.func.isRequired,
+//   }),
+// };
+return useMemo(
+  () => (
+    <TableContainer>
+      <MuiTable sx={{ tableLayout: "fixed" }}>
+        <SoftBox component="thead">
+          <TableRow>{renderColumns}</TableRow>
+        </SoftBox>
+        <TableBody>{renderRows}</TableBody>
+      </MuiTable>
+    </TableContainer>
+  ),
+  [columns, rows]
+);
 }
 
-// Setting default values for the props of Table
 Candidate.defaultProps = {
-  columns: [],
-  rows: [],
+columns: [],
+rows: [],
 };
 
-// Typechecking props for the Table
 Candidate.propTypes = {
-  columns: PropTypes.arrayOf(PropTypes.shape({
+columns: PropTypes.arrayOf(
+  PropTypes.shape({
     name: PropTypes.string.isRequired,
     align: PropTypes.oneOf(["left", "right", "center"]),
     width: PropTypes.string,
-  })),
-  rows: PropTypes.arrayOf(PropTypes.object),
-};
-
+  })
+),
+rows: PropTypes.arrayOf(PropTypes.object),
+}
 export default Candidate;
