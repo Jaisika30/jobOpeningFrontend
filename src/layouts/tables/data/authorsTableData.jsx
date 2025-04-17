@@ -327,7 +327,7 @@ const useJobData = () => {
       setJobData(filteredJobs);
     }
   }, [jobs, searchQuery, statusFilter]);
- 
+
   return {
     jobData,
     loading: isLoading,
@@ -341,7 +341,7 @@ const useJobData = () => {
     limit,
     totalPages,
     totalJobs,
-   
+
   };
 };
 
