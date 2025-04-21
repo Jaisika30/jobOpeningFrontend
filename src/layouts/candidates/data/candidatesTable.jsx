@@ -54,7 +54,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
       return state.candidates?.candidates?.hiredCandidates || [];
     } else if (urlinterviewStatus === 'Scheduled') {
       console.log("scheduledCandidates:", state.candidates?.candidates?.scheduledCandidates || []);
-      return state.candidates?.candidates?.scheduledCandidates || [];
+      return state.candidates?.candidates?.ScheduledCandidates || [];
     }
     else {
       console.log("Without ID - candidates data:", state.candidates?.candidates?.candidates);
@@ -107,6 +107,11 @@ const getCandidatesTableData = () => {
     return searchParams.get('status');
   }, [location.search]);
 
+  const urlinterviewStatus = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('interviewStatus');
+  }, [location.search]);
+
   const filteredCandidates = useMemo(() => {
     let result = candidates || [];
 
@@ -146,9 +151,16 @@ const getCandidatesTableData = () => {
   // const limit = 5;
   // const totalCandidates = useSelector((state) => state.candidates?.candidates?.totalCandidates || "");
   const hiredCount = useSelector((state) => state.candidates?.candidates?.hiredCount || 0);
+  const scheduledCount = useSelector((state) => state.candidates?.candidates?.scheduledCount || 0);
+  // const totalPages = urlStatus === 'Hired'
+  //   ? Math.ceil(hiredCount / limit) || 1 : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
+  const totalPages =
+    urlStatus === "Hired"
+      ? Math.ceil(hiredCount / limit) || 1
+      : urlinterviewStatus === "Scheduled"
+        ? Math.ceil(scheduledCount / limit) || 1
+        : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
 
-  const totalPages = urlStatus === 'Hired'
-    ? Math.ceil(hiredCount / limit) || 1 : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
   console.log("tota;;;;;pages:::::", totalPages);
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
 
@@ -277,7 +289,7 @@ const getCandidatesTableData = () => {
 
         {/* Right side: Buttons */}
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          <SoftButton variant="gradient" color="success" onClick={() => navigate(urlStatus === "Hired" ? "/dashboard" : "/Jobs")}>
+          <SoftButton variant="gradient" color="success" onClick={() => navigate(urlStatus === "Hired" || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/Jobs")}>
             Back
           </SoftButton>
           <SoftButton variant="gradient" color="info" onClick={() => navigate(id ? `/addCandidate/${id}` : "/addCandidate")}>
