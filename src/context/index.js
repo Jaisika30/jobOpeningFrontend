@@ -68,7 +68,7 @@ function SoftUIControllerProvider({ children }) {
     miniSidenav: false,
     transparentSidenav: false,
     sidenavColor: "info",
-    transparentNavbar: true,
+    transparentNavbar: false,
     fixedNavbar: true,
     openConfigurator: false,
     direction: "ltr",

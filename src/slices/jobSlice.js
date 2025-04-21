@@ -32,7 +32,7 @@ export const createJob = createAsyncThunk(
 
 export const getJobs = createAsyncThunk(
     "jobs/getJobs",
-    async ({ page, limit, searchQuery }, { rejectWithValue }) => {
+    async ({ page, limit, searchQuery, statusFilter }, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem("token");
             if (!token) throw new Error("No authentication token found");
@@ -42,7 +42,8 @@ export const getJobs = createAsyncThunk(
                     page,
                     limit,
                     ...(searchQuery && { searchQuery }),
-                   
+                    ...(statusFilter && { statusFilter }),
+
                 },
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -56,7 +57,7 @@ export const getJobs = createAsyncThunk(
                     });
                 });
             }
-            console.log("getJobsgetJobsgetJobsgetJobs::::",response.data );
+            console.log("getJobsgetJobsgetJobsgetJobs::::", response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed to fetch jobs");

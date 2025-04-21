@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -44,12 +44,15 @@ function EditJob() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const jobDetail = useSelector((state) => state.jobs.job);
+  const currentPage = useSelector((state) => state.jobs.jobs.currentPage);
   const isLoading = useSelector((state) => state.jobs.loading);
   const titleRef = useRef();
   const descriptionRef = useRef();
   const locationRef = useRef();
   const postingDateRef = useRef();
   const statusRef = useRef();
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page");
 
   const [job, setJob] = useState({
     title: "",
@@ -86,14 +89,10 @@ function EditJob() {
     const { name, value } = e.target;
     setJob((prev) => ({ ...prev, [name]: value }));
   };
-
   const handleSubmit = async () => {
-    console.log("update id:::", id);
-    console.log("job updatedData", job)
-    // dispatch(updateJob({ id, updatedData: job }));
-    dispatch(updateJob({ id, updatedData: job }))
-
-    navigate("/jobs");
+    dispatch(updateJob({ id, updatedData: job }));
+    console.log("pagee edit ...",page);
+    navigate(`/jobs?page=${page}`);
   };
 
   if (isLoading) {
