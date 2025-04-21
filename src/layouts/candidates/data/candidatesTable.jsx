@@ -27,7 +27,12 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   const { id } = useParams();
   const dispatch = useDispatch();
   const location = useLocation();
-  const [page, setPage] = useState(1);
+
+  const page = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return parseInt(searchParams.get("page")) || 1;
+  }, [location.search]);
+  console.log("candidate page ,,.....", page);
   const limit = 5;
   const urlinterviewStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -80,7 +85,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   }, [dispatch, id, page, searchQuery, statusFilter, interviewStatusFilter]);
 
   // Ensure we always return an array
-  return { candidates: Array.isArray(allCandidates) ? allCandidates : [], loading: isLoading, page, setPage, limit };
+  return { candidates: Array.isArray(allCandidates) ? allCandidates : [], loading: isLoading, page, limit };
 };
 
 const getCandidatesTableData = () => {
@@ -88,12 +93,13 @@ const getCandidatesTableData = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [interviewStatusFilter, setInterviewStatusFilter] = useState("");
 
-  const { candidates, loading, page, setPage, limit } = useCandidateData({
+  const { candidates, loading, page, limit } = useCandidateData({
     searchQuery,
     statusFilter,
     interviewStatusFilter,
 
   });
+  console.log("pageeeee candidate:::", page)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -493,7 +499,7 @@ const getCandidatesTableData = () => {
                   <VisibilityIcon />
                 </IconButton>
               </Link>
-              <Link to={`/editCandidate/${candidate._id}`}>
+              <Link to={`/editCandidate/${candidate._id}?page=${page}&&flag=true`}>
                 <IconButton sx={{ color: darkGray }}>
                   <EditIcon />
                 </IconButton>
@@ -507,8 +513,12 @@ const getCandidatesTableData = () => {
     ,
     pagination: {
       totalPages,       // number
-      currentPage: page, // number
-      onPageChange: (e, value) => setPage(value) // function
+      currentPage: page,
+      onPageChange: (event, value) => {
+        const newParams = new URLSearchParams(window.location.search);
+        newParams.set('page', value);
+        navigate({ search: newParams.toString() });
+      },
     }
   };
 };

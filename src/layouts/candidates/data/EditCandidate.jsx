@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -41,6 +41,8 @@ function EditCandidatePage() {
     const interviewStatusRef = useRef();
     const statusRef = useRef();
     const communicationRef = useRef();
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get("page");
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -106,7 +108,8 @@ function EditCandidatePage() {
         try {
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             toast.success("Candidate updated successfully! 🎉"); // Success toast
-            console.log("candidate.job...........candidate.job", candidate.job)
+            console.log("candidate.job...........candidate.job", candidate.job);
+            // navigate(`/jobs?page=${page}`);
             navigate(candidate.job ? `/Candidates/${candidate.job}` : `/Candidate`);
             // navigate(`/Candidates/${candidate.job}`); // Redirect after updating
         } catch (error) {
