@@ -112,17 +112,17 @@ function Dashboard() {
                 </Link>
               </Grid>
               <Grid item xs={12} sm={6} xl={3}>
-              <Link to="/Candidate?status=Hired" style={{ textDecoration: 'none' }}>
-                <MiniStatisticsCard
-                  bgColor="white"
-                  title={{ text: "Hired Candidates" }}
-                  count={hiredCandidates}
-                  percentage={{ color: "text", text: "+2 from last month" }}
-                  icon={{
-                    color: "info",
-                    component: "person_add"  // Material Icon name as string
-                  }}
-                />
+                <Link to="/Candidate?status=Hired" style={{ textDecoration: 'none' }}>
+                  <MiniStatisticsCard
+                    bgColor="white"
+                    title={{ text: "Hired Candidates" }}
+                    count={hiredCandidates}
+                    percentage={{ color: "text", text: "+2 from last month" }}
+                    icon={{
+                      color: "info",
+                      component: "person_add"  // Material Icon name as string
+                    }}
+                  />
                 </Link>
               </Grid>
             </Grid>
