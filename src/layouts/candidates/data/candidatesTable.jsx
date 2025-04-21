@@ -28,7 +28,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(1);
-  const limit = 3;
+  const limit = 5;
   const urlinterviewStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get('interviewStatus');
@@ -80,7 +80,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   }, [dispatch, id, page, searchQuery, statusFilter, interviewStatusFilter]);
 
   // Ensure we always return an array
-  return { candidates: Array.isArray(allCandidates) ? allCandidates : [], loading: isLoading, page, setPage };
+  return { candidates: Array.isArray(allCandidates) ? allCandidates : [], loading: isLoading, page, setPage, limit };
 };
 
 const getCandidatesTableData = () => {
@@ -88,10 +88,11 @@ const getCandidatesTableData = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [interviewStatusFilter, setInterviewStatusFilter] = useState("");
 
-  const { candidates, loading, page, setPage } = useCandidateData({
+  const { candidates, loading, page, setPage, limit } = useCandidateData({
     searchQuery,
     statusFilter,
-    interviewStatusFilter
+    interviewStatusFilter,
+
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -144,7 +145,10 @@ const getCandidatesTableData = () => {
   // const total = 50;
   // const limit = 5;
   // const totalCandidates = useSelector((state) => state.candidates?.candidates?.totalCandidates || "");
-  const totalPages = useSelector((state) => state.candidates?.candidates?.totalPages || 1);
+  const hiredCount = useSelector((state) => state.candidates?.candidates?.hiredCount || 0);
+
+  const totalPages = urlStatus === 'Hired'
+    ? Math.ceil(hiredCount / limit) || 1 : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
   console.log("tota;;;;;pages:::::", totalPages);
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
 

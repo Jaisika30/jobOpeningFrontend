@@ -367,12 +367,22 @@ const useJobData = () => {
   const isLoading = useSelector((state) => state.jobs.loading);
   const urlStatus = new URLSearchParams(location.search).get('status');
 
+  // const jobs = useSelector((state) => {
+  //   const data = state.jobs?.jobs || {};
+  //   return urlStatus === 'Open' ? data.openJobs || [] : data.jobs || [];
+  // });
   const jobs = useSelector((state) => {
-    const data = state.jobs?.jobs || {};
-    return urlStatus === 'Open' ? data.openJobs || [] : data.jobs || [];
-  });
+    if (!state.jobs?.jobs) return [];
 
-  const totalPages = useSelector((state) => state.jobs.jobs?.totalPages || 1);
+    if (urlStatus === 'Open') {
+      return state.jobs.jobs.openJobs || [];
+    } else {
+      return state.jobs.jobs.jobs || [];
+    }
+  });
+  const openJobsCount = useSelector((state) => state.jobs.jobs?.openJobsCount || 1);
+
+  const totalPages = urlStatus === 'Open' ? Math.ceil(openJobsCount / limit) || 1 : useSelector((state) => state.jobs.jobs?.totalPages || 1);
   const totalJobs = useSelector((state) => state.jobs.jobs?.totalJobs || 0);
 
   // 🔄 Sync page in URL when filters change
