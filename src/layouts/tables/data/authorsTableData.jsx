@@ -567,7 +567,7 @@ const getJobTableData = (jobData, handleDelete) => {
     ],
     rows: jobs.map((job) => ({
       jobTitle: (
-        <Tooltip title={<div style={{ maxWidth: '200px' }}>{job.title || ""}</div>} arrow>
+        <Tooltip placement="top" title={<div style={{ maxWidth: '200px' }}>{job.title || ""}</div>} arrow componentsProps={tooltipStyle}>
           <SoftTypography
             variant="button"
             fontWeight="medium"
@@ -581,7 +581,7 @@ const getJobTableData = (jobData, handleDelete) => {
         </Tooltip>
       ),
       description: (
-        <Tooltip title={<div style={{ maxWidth: '600px' }}>{job.description || ""}</div>} arrow>
+        <Tooltip placement="top" title={<div style={{ maxWidth: '600px' }}>{job.description || ""}</div>} arrow componentsProps={tooltipStyle}>
           <SoftTypography variant="caption" color="secondary">
             {truncateText(job.description, 40)}
           </SoftTypography>

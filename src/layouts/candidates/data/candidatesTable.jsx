@@ -277,7 +277,7 @@ const getCandidatesTableData = () => {
 
         {/* Right side: Buttons */}
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          <SoftButton variant="gradient" color="success" onClick={() => navigate("/Jobs")}>
+          <SoftButton variant="gradient" color="success" onClick={() => navigate(urlStatus === "Hired" ? "/dashboard" : "/Jobs")}>
             Back
           </SoftButton>
           <SoftButton variant="gradient" color="info" onClick={() => navigate(id ? `/addCandidate/${id}` : "/addCandidate")}>

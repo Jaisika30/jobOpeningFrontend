@@ -334,7 +334,7 @@ import CustomPagination from "assets/CustomPagination";
 function Tables() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const {
     jobData,
     loading,
@@ -367,7 +367,7 @@ function Tables() {
     });
   };
 
- 
+
 
   const tableData = getJobTableData(jobData, handleDelete, pagination, setPage);
 
@@ -383,7 +383,7 @@ function Tables() {
               </SoftBox>
 
               {/* Search and Filter UI */}
-              <SoftBox
+              {/* <SoftBox
                 display="flex"
                 gap="10px"
                 p={2}
@@ -457,6 +457,20 @@ function Tables() {
 
                 <SoftButton
                   variant="gradient"
+                  color="success"
+                  onClick={() => navigate("/dashboard")}
+                  sx={{
+                    width: { xs: "95%", sm: "auto" },
+                    height: "40px",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "5px",
+                    marginLeft: { sm: "auto" },
+                  }}
+                >
+                  Back
+                </SoftButton>
+                <SoftButton
+                  variant="gradient"
                   color="info"
                   onClick={() => navigate("/addJob")}
                   sx={{
@@ -469,7 +483,132 @@ function Tables() {
                 >
                   Add Job
                 </SoftButton>
+              </SoftBox> */}
+
+              <SoftBox
+                display="flex"
+                gap="10px"
+                p={2}
+                flexWrap="wrap"
+                sx={{
+                  flexDirection: { xs: "column", sm: "row" },
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                {/* Left-side filters */}
+                <Box
+                  display="flex"
+                  gap="10px"
+                  flexWrap="wrap"
+                  sx={{
+                    flexDirection: { xs: "column", sm: "row" },
+                    alignItems: "center",
+                  }}
+                >
+                  <TextField
+                    type="text"
+                    label="Search Here"
+                    placeholder="Search by Job Title"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    sx={{
+                      width: { xs: "100%", sm: "250px" },
+                      maxWidth: "250px",
+                      borderRadius: "5px",
+                      height: "40px",
+                      "& .MuiInputBase-root": {
+                        width: "100%",
+                      },
+                      "& .MuiInputBase-input": {
+                        width: "100%",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontSize: "0.85rem",
+                      },
+                    }}
+                  />
+
+                  <FormControl
+                    sx={{
+                      width: { xs: "100%", sm: "250px" },
+                      maxWidth: "250px",
+                      borderRadius: "5px",
+                      display: "flex",
+                      position: "relative",
+                      "& .MuiInputBase-root": {
+                        width: "100%",
+                        display: "flex",
+                        height: "40px !important",
+                      },
+                      "& .MuiInputBase-input": {
+                        width: "200px",
+                        maxWidth: "200px",
+                        minWidth: "200px",
+                      },
+                    }}
+                  >
+                    <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
+                    <Select
+                      value={statusFilter}
+                      onChange={(e) => setStatusFilter(e.target.value)}
+                      sx={{
+                        width: "100%",
+                        paddingRight: "40px",
+                      }}
+                    >
+                      <MenuItem value="">All</MenuItem>
+                      <MenuItem value="open">Open</MenuItem>
+                      <MenuItem value="closed">Closed</MenuItem>
+                      <MenuItem value="paused">Paused</MenuItem>
+                    </Select>
+                    <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+                  </FormControl>
+                </Box>
+
+                {/* Right-side buttons */}
+                <Box
+                  display="flex"
+                  gap="10px"
+                  flexWrap="wrap"
+                  sx={{
+                    flexDirection: { xs: "row", sm: "row" },
+                    justifyContent: { xs: "flex-start", sm: "flex-end" },
+                    flexWrap:{xs:"nowrap"},
+                    marginTop: { xs: "10px", sm: 0 },
+                  }}
+                >
+                  <SoftButton
+                    variant="gradient"
+                    color="success"
+                    onClick={() => navigate("/dashboard")}
+                    sx={{
+                      height: "40px",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                      borderRadius: "5px",
+                      width: { xs: "100%", sm: "auto" },
+                    }}
+                  >
+                    Back
+                  </SoftButton>
+                  <SoftButton
+                    variant="gradient"
+                    color="info"
+                    onClick={() => navigate("/addJob")}
+                    sx={{
+                      height: "40px",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                      borderRadius: "5px",
+                      width: { xs: "100%", sm: "auto" },
+                    }}
+                  >
+                    Add Job
+                  </SoftButton>
+                </Box>
               </SoftBox>
+
 
               <SoftBox
                 sx={{
