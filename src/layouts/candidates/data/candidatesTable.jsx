@@ -106,6 +106,11 @@ const getCandidatesTableData = () => {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get('status');
   }, [location.search]);
+  const urlFlag = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('flag');
+  }, [location.search]);
+
 
   const filteredCandidates = useMemo(() => {
     let result = candidates || [];
@@ -277,7 +282,19 @@ const getCandidatesTableData = () => {
 
         {/* Right side: Buttons */}
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          <SoftButton variant="gradient" color="success" onClick={() => navigate(urlStatus === "Hired" ? "/dashboard" : "/Jobs")}>
+          <SoftButton
+            variant="gradient"
+            color="success"
+            onClick={() => {
+              if (urlFlag === "true") {
+                navigate("/Candidate");
+              } else if (urlStatus === "Hired") {
+                navigate("/dashboard");
+              } else {
+                navigate("/Jobs");
+              }
+            }}
+          >
             Back
           </SoftButton>
           <SoftButton variant="gradient" color="info" onClick={() => navigate(id ? `/addCandidate/${id}` : "/addCandidate")}>

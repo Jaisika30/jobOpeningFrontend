@@ -261,7 +261,7 @@ function Candidates() {
     setSelectedJob(jobId);
     console.log("JobIddd", jobId);
     if (jobId) {
-      navigate(`/Candidates/${jobId}`);
+      navigate(`/Candidates/${jobId}?flag=true`);
     }
   };
 
@@ -283,7 +283,7 @@ function Candidates() {
                       : "Candidates"}
                   </SoftTypography>
                   {
-                    urlStatus != "Hired" ? <FormControl
+                    urlStatus != "Hired" && !id ? <FormControl
                       sx={{
                         width: "200px",
                         maxWidth: "200px",
