@@ -299,6 +299,152 @@
 
 // export default Candidate;
 
+// import { useMemo } from "react";
+// import PropTypes from "prop-types";
+// import { v4 as uuidv4 } from "uuid";
+
+// // @mui material components
+// import { Table as MuiTable, Pagination, Box } from "@mui/material";
+// import TableBody from "@mui/material/TableBody";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableRow from "@mui/material/TableRow";
+
+// // Soft UI Dashboard React components
+// import SoftBox from "components/SoftBox";
+// import SoftAvatar from "components/SoftAvatar";
+// import SoftTypography from "components/SoftTypography";
+
+// // Soft UI Dashboard React base styles
+// import colors from "assets/theme/base/colors";
+// import typography from "assets/theme/base/typography";
+// import borders from "assets/theme/base/borders";
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import {
+//   KeyboardArrowLeft,
+//   KeyboardArrowRight,
+// } from '@mui/icons-material';
+
+// function Candidate({ columns, rows }) {
+//   const { light } = colors;
+//   const { size, fontWeightBold } = typography;
+//   const { borderWidth } = borders;
+
+//   const ltrTheme = createTheme({
+//     direction: "ltr",
+//   });
+//   const renderColumns = (columns || []).map(({ name, align, width }, key) => {
+//     let pl = 1, pr = 1;
+//     if (key === 0 || key === columns.length - 1) {
+//       pl = 3;
+//       pr = 3;
+//     }
+
+//     return (
+//       <SoftBox
+//         key={name}
+//         component="th"
+//         width={width || "auto"}
+//         pt={1.5}
+//         pb={1.25}
+//         pl={align === "left" ? pl : 3}
+//         pr={align === "right" ? pr : 3}
+//         textAlign={align}
+//         fontSize={size.xxs}
+//         fontWeight={fontWeightBold}
+//         color="secondary"
+//         opacity={0.7}
+//         borderBottom={`${borderWidth[1]} solid ${light.main}`}
+//         sx={{
+//           whiteSpace: "nowrap",
+//           paddingLeft: "16px",
+//           paddingRight: "16px",
+//         }}
+//       >
+//         {name.replace(/([a-z])([A-Z])/g, "$1 $2").toUpperCase()}
+//       </SoftBox>
+//     );
+//   });
+
+//   const renderRows = (rows || []).map((row, key) => {
+//     const rowKey = `row-${key}`;
+//     const tableRow = (columns || []).map(({ name, align }) => {
+//       let content;
+
+//       if (Array.isArray(row[name])) {
+//         content = (
+//           <SoftBox display="flex" alignItems="center" py={0.5} px={1}>
+//             <SoftBox mr={2}>
+//               <SoftAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
+//             </SoftBox>
+//             <SoftTypography variant="button" fontWeight="medium" sx={{ width: "max-content" }}>
+//               {row[name][1]}
+//             </SoftTypography>
+//           </SoftBox>
+//         );
+//       } else {
+//         content = (
+//           <SoftTypography
+//             variant="button"
+//             fontWeight="regular"
+//             color="secondary"
+//             sx={{ display: "inline-block", width: "max-content" }}
+//           >
+//             {row[name]}
+//           </SoftTypography>
+//         );
+//       }
+
+//       return (
+//         <SoftBox
+//           key={uuidv4()}
+//           component="td"
+//           p={1}
+//           textAlign={align}
+//           borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
+//           sx={{ paddingLeft: "16px", paddingRight: "16px" }}
+//         >
+//           {content}
+//         </SoftBox>
+//       );
+//     });
+
+//     return <TableRow key={rowKey}>{tableRow}</TableRow>;
+//   });
+
+
+
+// return useMemo(
+//   () => (
+//     <TableContainer>
+//       <MuiTable sx={{ tableLayout: "fixed" }}>
+//         <SoftBox component="thead">
+//           <TableRow>{renderColumns}</TableRow>
+//         </SoftBox>
+//         <TableBody>{renderRows}</TableBody>
+//       </MuiTable>
+//     </TableContainer>
+//   ),
+//   [columns, rows]
+// );
+// }
+
+// Candidate.defaultProps = {
+// columns: [],
+// rows: [],
+// };
+
+// Candidate.propTypes = {
+// columns: PropTypes.arrayOf(
+//   PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     align: PropTypes.oneOf(["left", "right", "center"]),
+//     width: PropTypes.string,
+//   })
+// ),
+// rows: PropTypes.arrayOf(PropTypes.object),
+// }
+// export default Candidate;
+
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
@@ -308,6 +454,7 @@ import { Table as MuiTable, Pagination, Box } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
@@ -318,20 +465,13 @@ import SoftTypography from "components/SoftTypography";
 import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-} from '@mui/icons-material';
 
 function Candidate({ columns, rows }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
+  const isMobile = useMediaQuery('(max-width:600px)');
 
-  const ltrTheme = createTheme({
-    direction: "ltr",
-  });
   const renderColumns = (columns || []).map(({ name, align, width }, key) => {
     let pl = 1, pr = 1;
     if (key === 0 || key === columns.length - 1) {
@@ -349,7 +489,7 @@ function Candidate({ columns, rows }) {
         pl={align === "left" ? pl : 3}
         pr={align === "right" ? pr : 3}
         textAlign={align}
-        fontSize={size.xxs}
+        fontSize={isMobile ? "0.6rem" : size.xxs}
         fontWeight={fontWeightBold}
         color="secondary"
         opacity={0.7}
@@ -376,7 +516,11 @@ function Candidate({ columns, rows }) {
             <SoftBox mr={2}>
               <SoftAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
             </SoftBox>
-            <SoftTypography variant="button" fontWeight="medium" sx={{ width: "max-content" }}>
+            <SoftTypography
+              variant="button"
+              fontWeight="medium"
+              sx={{ width: "max-content", fontSize: isMobile ? "0.7rem" : "inherit" }}
+            >
               {row[name][1]}
             </SoftTypography>
           </SoftBox>
@@ -387,7 +531,7 @@ function Candidate({ columns, rows }) {
             variant="button"
             fontWeight="regular"
             color="secondary"
-            sx={{ display: "inline-block", width: "max-content" }}
+            sx={{ display: "inline-block", width: "max-content", fontSize: isMobile ? "0.7rem" : "inherit" }}
           >
             {row[name]}
           </SoftTypography>
@@ -411,86 +555,47 @@ function Candidate({ columns, rows }) {
     return <TableRow key={rowKey}>{tableRow}</TableRow>;
   });
 
-//   return useMemo(
-//     () => (
-//       <>
-//         <TableContainer>
-//           <MuiTable sx={{ tableLayout: "fixed" }}>
-//             <SoftBox component="thead">
-//               <TableRow>{renderColumns}</TableRow>
-//             </SoftBox>
-//             <TableBody>{renderRows}</TableBody>
-//           </MuiTable>
-//         </TableContainer>
-
-//         {/* Pagination controls */}
-//         {pagination && (
-//           <ThemeProvider theme={ltrTheme}>
-//             <Box display="flex" justifyContent="flex-end" p={2} mt={6}>
-//               <Pagination
-//                 count={pagination.totalPages}
-//                 page={pagination.currentPage}
-//                 onChange={pagination.onPageChange}
-//                 color="primary"
-//               />
-//             </Box>
-//           </ThemeProvider>
-//         )}
-//       </>
-//     ),
-//     [columns, rows, pagination]
-//   );
-// }
-
-// Candidate.defaultProps = {
-//   columns: [],
-//   rows: [],
-//   pagination: null,
-// };
-
-// Candidate.propTypes = {
-//   columns: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       name: PropTypes.string.isRequired,
-//       align: PropTypes.oneOf(["left", "right", "center"]),
-//       width: PropTypes.string,
-//     })
-//   ),
-//   rows: PropTypes.arrayOf(PropTypes.object),
-//   pagination: PropTypes.shape({
-//     totalPages: PropTypes.number.isRequired,
-//     currentPage: PropTypes.number.isRequired,
-//     onPageChange: PropTypes.func.isRequired,
-//   }),
-// };
-return useMemo(
-  () => (
-    <TableContainer>
-      <MuiTable sx={{ tableLayout: "fixed" }}>
-        <SoftBox component="thead">
-          <TableRow>{renderColumns}</TableRow>
-        </SoftBox>
-        <TableBody>{renderRows}</TableBody>
-      </MuiTable>
-    </TableContainer>
-  ),
-  [columns, rows]
-);
+  return useMemo(
+    () => (
+      <Box sx={{ width: "100%", overflowX: "auto" }}>
+        <TableContainer sx={{ minWidth: 650 }}>
+          <MuiTable
+            sx={{
+              tableLayout: "auto",
+              minWidth: 650,
+              "& th, & td": {
+                whiteSpace: "nowrap",
+              },
+            }}
+          >
+            <SoftBox component="thead">
+              <TableRow>{renderColumns}</TableRow>
+            </SoftBox>
+            <TableBody>{renderRows}</TableBody>
+          </MuiTable>
+        </TableContainer>
+      </Box>
+    ),
+    [columns, rows, isMobile]
+  );
+  
 }
 
 Candidate.defaultProps = {
-columns: [],
-rows: [],
+  columns: [],
+  rows: [],
 };
 
 Candidate.propTypes = {
-columns: PropTypes.arrayOf(
-  PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    align: PropTypes.oneOf(["left", "right", "center"]),
-    width: PropTypes.string,
-  })
-),
-rows: PropTypes.arrayOf(PropTypes.object),
-}
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      align: PropTypes.oneOf(["left", "right", "center"]),
+      width: PropTypes.string,
+    })
+  ),
+  rows: PropTypes.arrayOf(PropTypes.object),
+};
+
 export default Candidate;
+

@@ -59,12 +59,11 @@ function Dashboard() {
 
   const dispatch = useDispatch();
   console.log("scheduledCandidatesCount:::", scheduledCount)
+
   useEffect(() => {
-    dispatch(getJobs());
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(getCandidates());
-  }, [dispatch]);
+  dispatch(getJobs());
+  dispatch(getCandidates());
+}, [dispatch]);
 
   return (
     <DashboardLayout>
