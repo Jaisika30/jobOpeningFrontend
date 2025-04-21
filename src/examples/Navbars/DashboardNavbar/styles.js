@@ -22,10 +22,15 @@ function navbar(theme, ownerState) {
   const { borderRadius } = borders;
 
   return {
-    boxShadow: transparentNavbar || absolute ? "none" : navbarBoxShadow,
-    backdropFilter: transparentNavbar || absolute ? "none" : `saturate(200%) blur(${pxToRem(30)})`,
-    backgroundColor:
-      transparentNavbar || absolute ? `${transparent.main} !important` : rgba(white.main, 0.8),
+    // boxShadow: transparentNavbar || absolute ? "none" : navbarBoxShadow,
+    // backdropFilter: transparentNavbar || absolute ? "none" : `saturate(200%) blur(${pxToRem(30)})`,
+    boxShadow: navbarBoxShadow,
+    backdropFilter: `saturate(200%) blur(${pxToRem(30)})`,
+
+    backgroundColor: `${white.main} !important`,
+
+    // backgroundColor:
+    //   transparentNavbar || absolute ? `${transparent.main} !important` : rgba(white.main, 0.8),
 
     color: () => {
       let color;
