@@ -61,8 +61,19 @@ function Dashboard() {
   console.log("scheduledCandidatesCount:::", scheduledCount)
 
   useEffect(() => {
-  dispatch(getJobs());
-  dispatch(getCandidates());
+    console.log("dashbbbbboard uiiii")
+    dispatch(getJobs({
+      page: 1,
+      limit: 5,
+      searchQuery: "",
+      statusFilter: "",
+    }));
+  dispatch(getCandidates({
+    page: 1,
+    limit: 5,
+    searchQuery: "",
+    statusFilter: "",
+  }));
 }, [dispatch]);
 
   return (
