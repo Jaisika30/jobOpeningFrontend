@@ -71,7 +71,12 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   const isLoading = useSelector((state) => state.candidates.loading);
   console.log("Jobssss candidaye table:::", jobs)
   useEffect(() => {
-    dispatch(getJobs());
+    dispatch(getJobs({
+      page: 1,
+      limit: 5,
+      searchQuery: "",
+      statusFilter: "",
+    }));
   }, [dispatch]);
 
   useEffect(() => {

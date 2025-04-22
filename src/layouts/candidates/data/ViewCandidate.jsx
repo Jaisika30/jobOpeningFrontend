@@ -85,7 +85,12 @@ function ViewCandidate() {
         setCandidate((prev) => ({ ...prev, [name]: value }));
     };
     useEffect(() => {
-        dispatch(getJobs());
+        dispatch(getJobs({
+            page: 1,
+            limit: 5,
+            searchQuery: "",
+            statusFilter: "",
+        }));
     }, [dispatch]);
 
     useEffect(() => {
