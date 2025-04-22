@@ -127,12 +127,14 @@ function EditCandidatePage() {
             console.log("candidate.job...........candidate.job", candidate.job);
             localStorage.removeItem("flag");
             // navigate(`/jobs?page=${page}`);
+            
             if (flag) {
 
                 navigate(candidate.job ? `/Candidates/${candidate.job}` : `/Candidate`);
             } else {
                 navigate('/Candidate');
             }
+           
             // navigate(`/Candidates/${candidate.job}`); // Redirect after updating
         } catch (error) {
             console.error("Failed to update candidate:", error);

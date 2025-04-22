@@ -69,7 +69,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleSignOut = () => {
     // Clear localStorage or any auth token
     localStorage.removeItem("token"); // adjust if you're storing auth differently
-
+    localStorage.removeItem("flag");
     // Redirect to sign-in page
     navigate("/authentication/sign-in");
   };

@@ -53,6 +53,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
 
   const allCandidates = useSelector((state) => {
     if (id) {
+
       console.log("With ID - candidates data:", state.candidates?.candidates);
       return state.candidates?.candidates || []; // Array of candidates for specific job
     } else if (urlStatus === 'Hired') {
@@ -71,6 +72,14 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   const isLoading = useSelector((state) => state.candidates.loading);
   console.log("Jobssss candidaye table:::", jobs)
   useEffect(() => {
+    if (id) {
+      console.log("hiiiiiiii localstorage");
+      localStorage.setItem("flag", true);
+    } else {
+      localStorage.removeItem("flag");
+    }
+  })
+  useEffect(() => {
     dispatch(getJobs({
       page: 1,
       limit: 5,
@@ -82,6 +91,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   useEffect(() => {
     if (id) {
       console.log("Fetching candidates for job ID:", id);
+
       dispatch(getCandidatesByJobID(id));
     } else {
       console.log("Fetching all candidates");
