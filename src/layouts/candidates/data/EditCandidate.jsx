@@ -43,6 +43,7 @@ function EditCandidatePage() {
     const communicationRef = useRef();
     const [searchParams] = useSearchParams();
     const page = searchParams.get("page");
+    const flag = localStorage.getItem("flag");
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -109,8 +110,14 @@ function EditCandidatePage() {
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             toast.success("Candidate updated successfully! 🎉"); // Success toast
             console.log("candidate.job...........candidate.job", candidate.job);
+            localStorage.removeItem("flag");
             // navigate(`/jobs?page=${page}`);
-            navigate(candidate.job ? `/Candidates/${candidate.job}` : `/Candidate`);
+            if (flag) {
+
+                navigate(candidate.job ? `/Candidates/${candidate.job}` : `/Candidate`);
+            } else {
+                navigate('/Candidate');
+            }
             // navigate(`/Candidates/${candidate.job}`); // Redirect after updating
         } catch (error) {
             console.error("Failed to update candidate:", error);
@@ -479,7 +486,7 @@ function EditCandidatePage() {
                                 <SoftButton
                                     variant="gradient"
                                     color="error"
-                                    onClick={() => navigate(`/Candidates/${candidate.job}`)}
+                                    onClick={() => navigate(flag ? " `/Candidates/${candidate.job}`" : "/Candidate")}
                                     sx={{
                                         width: { xs: '100%', sm: 'auto' },
                                         px: 3,

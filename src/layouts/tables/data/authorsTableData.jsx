@@ -396,6 +396,7 @@ const useJobData = () => {
 
   // ⬇ Fetch jobs when page, search or status changes
   useEffect(() => {
+    localStorage.setItem("flag", true);
     dispatch(getJobs({ page, limit, searchQuery: searchQuery, statusFilter: statusFilter }));
   }, [dispatch, page, limit, statusFilter, searchQuery]);
 
