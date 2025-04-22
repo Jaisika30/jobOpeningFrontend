@@ -161,7 +161,7 @@
 // }
 
 // export default Candidates;
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "@mui/material/Card";
@@ -228,11 +228,14 @@ import CustomPagination from "assets/CustomPagination";
 // }
 function Candidates() {
   const { id } = useParams();
+
   const [open, setOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
   const jobDetail = useSelector((state) => state.jobs.job); // Get job from Redux
   const dispatch = useDispatch();
   const [selectedJob, setSelectedJob] = useState("");
   const navigate = useNavigate();
+  const selectRef = useRef();
   const handleOpen = () => setOpen(true);
   const { topAction, columns, rows, pagination } = getCandidatesTableData(handleOpen);
   const location = useLocation();
@@ -248,7 +251,12 @@ function Candidates() {
   const sortedJobs = [...jobs].sort((a, b) => a.title.localeCompare(b.title));
   console.log("Jobssss candidaye table:::", jobs)
   useEffect(() => {
-    dispatch(getJobs());
+    dispatch(getJobs({
+      page: 1,
+      limit: 5,
+      searchQuery: "",
+      statusFilter: "",
+    }));
   }, [dispatch]);
   useEffect(() => {
     console.log("useEffect triggered with id:", id);
@@ -263,6 +271,10 @@ function Candidates() {
     if (jobId) {
       navigate(`/Candidates/${jobId}`);
     }
+    setOpenDropdown(false);
+  };
+  const handleIconClick = () => {
+    setOpenDropdown(true); // Opens the Select dropdown
   };
 
   return (
@@ -305,7 +317,10 @@ function Candidates() {
                         <Select
                           value={""}
                           sx={{ width: "100%", paddingRight: "40px" }}
+                          open={openDropdown}
                           onChange={handleChange}
+                          onClose={() => setOpenDropdown(false)}
+                          onOpen={() => setOpenDropdown(true)}
                         >
 
                           {/* <MenuItem value="">All</MenuItem> */}
@@ -315,7 +330,7 @@ function Candidates() {
                             </MenuItem>
                           ))}
                         </Select>
-                        <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+                        <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} onClick={handleIconClick} />
                       </Box>
                     </FormControl> : ""
                   }
@@ -344,10 +359,10 @@ function Candidates() {
   //         <SoftBox mb={3}>
   //           <Card>
   //             {/* Your header content */}
-              
+
   //             {/* Table without pagination */}
   //             <Candidate columns={columns} rows={rows} />
-              
+
   //             {/* Separate pagination component */}
   //             <CustomPagination pagination={pagination} />
   //           </Card>

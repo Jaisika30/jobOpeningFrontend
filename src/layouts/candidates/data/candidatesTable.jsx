@@ -28,6 +28,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   const dispatch = useDispatch();
   const location = useLocation();
 
+
   const page = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
     return parseInt(searchParams.get("page")) || 1;
@@ -92,6 +93,8 @@ const getCandidatesTableData = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [interviewStatusFilter, setInterviewStatusFilter] = useState("");
+  const [openStatusDropdown, setOpenStatusDropdown] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
 
   const { candidates, loading, page, limit } = useCandidateData({
     searchQuery,
@@ -169,7 +172,20 @@ const getCandidatesTableData = () => {
 
   console.log("tota;;;;;pages:::::", totalPages);
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
-
+  const handleIconClick = () => {
+    setOpenDropdown(true); // Opens the Select dropdown
+  };
+  const handleStatusIconClick = () => {
+    setOpenStatusDropdown(true); // Opens the Select dropdown
+  };
+  const handleChange = (e) => {
+    setInterviewStatusFilter(e.target.value);
+    setOpenDropdown(false);
+  }
+  const handleStatusChange = (e) => {
+    setStatusFilter(e.target.value)
+    setOpenStatusDropdown(false);
+  }
   return {
     topAction: (
       <div
@@ -235,9 +251,12 @@ const getCandidatesTableData = () => {
             <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
               <Select
                 value={interviewStatusFilter}
-                onChange={(e) => setInterviewStatusFilter(e.target.value)}
+                onChange={handleChange}
                 label="Interview Status"
                 sx={{ width: "100%", paddingRight: "40px" }}
+                open={openDropdown}
+                onClose={() => setOpenDropdown(false)}
+                onOpen={() => setOpenDropdown(true)}
               >
                 <MenuItem value="">All</MenuItem>
                 <MenuItem value="Accepted">Accepted</MenuItem>
@@ -247,7 +266,7 @@ const getCandidatesTableData = () => {
                 <MenuItem value="Rescheduled">Rescheduled</MenuItem>
                 <MenuItem value="Scheduled">Scheduled</MenuItem>
               </Select>
-              <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+              <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} onClick={handleIconClick} />
             </Box>
           </FormControl>
 
@@ -274,9 +293,12 @@ const getCandidatesTableData = () => {
             <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
               <Select
                 value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
+                onChange={handleStatusChange}
                 label="Status"
                 sx={{ width: "100%", paddingRight: "40px" }}
+                open={openStatusDropdown}
+                onClose={() => setOpenStatusDropdown(false)}
+                onOpen={() => setOpenStatusDropdown(true)}
               >
                 <MenuItem value="">All</MenuItem>
                 <MenuItem value="Contacted">Contacted</MenuItem>
@@ -288,7 +310,7 @@ const getCandidatesTableData = () => {
                 <MenuItem value="Rejected">Rejected</MenuItem>
                 <MenuItem value="Shortlisted">Shortlisted</MenuItem>
               </Select>
-              <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+              <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} onClick={handleStatusIconClick} />
             </Box>
           </FormControl>
         </div>
