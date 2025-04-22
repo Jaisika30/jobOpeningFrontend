@@ -594,6 +594,7 @@ function AddJob() {
   const locationRef = useRef();
   const postingDateRef = useRef();
   const statusRef = useRef();
+    const [openDropdown, setOpenDropdown] = useState(false);
 
   const [job, setJob] = useState({
     title: "",
@@ -609,11 +610,12 @@ function AddJob() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJob((prev) => ({ ...prev, [name]: value }));
-
+    setOpenDropdown(false);
     // Update character count for description
     if (name === "description") {
       setCharCount(value.length);
     }
+
   };
 
   // TextArea styles
@@ -702,7 +704,9 @@ function AddJob() {
       </DashboardLayout>
     );
   }
-
+  const handleIconClick = () => {
+    setOpenDropdown(true); // Opens the Select dropdown
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -849,6 +853,9 @@ function AddJob() {
                         width: "100%", // Ensures full width
                         paddingRight: "40px", // Creates space for the icon
                       }}
+                      open={openDropdown}
+                      onClose={() => setOpenDropdown(false)}
+                      onOpen={() => setOpenDropdown(true)}
                     >
                       {['Open', 'Closed', 'Paused'].map((status) => (
                         <MenuItem key={status} value={status}>{status}</MenuItem>
@@ -858,6 +865,7 @@ function AddJob() {
                       sx={{
                         ...dropdownIconStyle
                       }}
+                      onClick={handleIconClick}
                     />
                   </Box>
                 </FormControl>
