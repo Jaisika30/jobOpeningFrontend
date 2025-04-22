@@ -52,6 +52,7 @@ function EditJob() {
   const postingDateRef = useRef();
   const statusRef = useRef();
   const [searchParams] = useSearchParams();
+  const [openDropdown, setOpenDropdown] = useState(false);
   const page = searchParams.get("page");
 
   const [job, setJob] = useState({
@@ -88,11 +89,15 @@ function EditJob() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJob((prev) => ({ ...prev, [name]: value }));
+    setOpenDropdown(false);
   };
   const handleSubmit = async () => {
     dispatch(updateJob({ id, updatedData: job }));
-    console.log("pagee edit ...",page);
+    console.log("pagee edit ...", page);
     navigate(`/jobs?page=${page}`);
+  };
+  const handleIconClick = () => {
+    setOpenDropdown(true); // Opens the Select dropdown
   };
 
   if (isLoading) {
@@ -252,6 +257,9 @@ function EditJob() {
                         width: "100%", // Ensures full width
                         paddingRight: "40px", // Creates space for the icon
                       }}
+                      open={openDropdown}
+                      onClose={() => setOpenDropdown(false)}
+                      onOpen={() => setOpenDropdown(true)}
                     >
                       {['Open', 'Closed', 'Paused'].map((status) => (
                         <MenuItem key={status} value={status}>{status}</MenuItem>
@@ -261,6 +269,7 @@ function EditJob() {
                       sx={{
                         ...dropdownIconStyle
                       }}
+                      onClick={handleIconClick}
                     />
                   </Box>
                 </FormControl>

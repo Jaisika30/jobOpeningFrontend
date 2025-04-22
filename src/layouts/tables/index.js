@@ -330,11 +330,12 @@ import { useNavigate } from "react-router-dom";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 import CustomPagination from "assets/CustomPagination";
+import { useState } from "react";
 
 function Tables() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [openDropdown, setOpenDropdown] = useState(false);
   const {
     jobData,
     loading,
@@ -367,8 +368,14 @@ function Tables() {
     });
   };
 
+  const handleIconClick = () => {
+    setOpenDropdown(true); // Opens the Select dropdown
+  };
 
-
+  const handleChange = (e) => {
+    setStatusFilter(e.target.value);
+    setOpenDropdown(false);
+  }
   const tableData = getJobTableData(jobData, handleDelete, pagination, setPage);
 
   return (
@@ -553,18 +560,21 @@ function Tables() {
                     <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
                     <Select
                       value={statusFilter}
-                      onChange={(e) => setStatusFilter(e.target.value)}
+                      onChange={handleChange}
                       sx={{
                         width: "100%",
                         paddingRight: "40px",
                       }}
+                      open={openDropdown}
+                      onClose={() => setOpenDropdown(false)}
+                      onOpen={() => setOpenDropdown(true)}
                     >
                       <MenuItem value="">All</MenuItem>
                       <MenuItem value="open">Open</MenuItem>
                       <MenuItem value="closed">Closed</MenuItem>
                       <MenuItem value="paused">Paused</MenuItem>
                     </Select>
-                    <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
+                    <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} onClick={handleIconClick} />
                   </FormControl>
                 </Box>
 
@@ -576,7 +586,7 @@ function Tables() {
                   sx={{
                     flexDirection: { xs: "row", sm: "row" },
                     justifyContent: { xs: "flex-start", sm: "flex-end" },
-                    flexWrap:{xs:"nowrap"},
+                    flexWrap: { xs: "nowrap" },
                     marginTop: { xs: "10px", sm: 0 },
                   }}
                 >
