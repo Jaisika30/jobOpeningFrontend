@@ -44,6 +44,11 @@ function EditCandidatePage() {
     const [searchParams] = useSearchParams();
     const page = searchParams.get("page");
     const flag = localStorage.getItem("flag");
+    const [openJobDropdown, setOpenJobDropdown] = useState(false);
+    const [openStatusDropdown, setOpenStatusDropdown] = useState(false);
+    const [openInterviewStatusDropdown, setOpenInterviewStatusDropdown] = useState(false);
+    const [openSelect, setOpenSelect] = useState(null);
+
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -64,7 +69,12 @@ function EditCandidatePage() {
     const timeSlotRegex = /^(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*\|\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)\s*-\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
 
     useEffect(() => {
-        dispatch(getJobs());
+        dispatch(getJobs({
+            page: 1,
+            limit: 5,
+            searchQuery: "",
+            statusFilter: "",
+        }));
     }, [dispatch]);
 
     useEffect(() => {
@@ -99,6 +109,11 @@ function EditCandidatePage() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCandidate((prev) => ({ ...prev, [name]: value }));
+        if (name === "interviewStatus") {
+            setOpenInterviewStatusDropdown(false);
+        } else if (name === "status") {
+            setOpenStatusDropdown(false);
+        }
     };
 
 
@@ -134,6 +149,18 @@ function EditCandidatePage() {
         });
 
         setPhoneError(''); // Clear error when typing
+    };
+    const handleInterviewStatusIconClick = () => {
+        setOpenInterviewStatusDropdown(true); // Opens the Select dropdown
+    };
+    const handleStatusIconClick = () => {
+        setOpenStatusDropdown(true); // Opens the Select dropdown
+    };
+    const handleJobIconClick = () => {
+        setOpenJobDropdown(true); // Opens the Select dropdown
+    };
+    const handleRateIconClick = (name) => {
+        setOpenSelect(name); // name = "communication", "personality", etc.
     };
     return (
 
@@ -232,12 +259,15 @@ function EditCandidatePage() {
                                             value={candidate.job || ""}
                                             inputRef={jobRef}
                                             onChange={handleChange}
-                                            onClose={() => slotRef.current?.focus()}
+                                            // onClose={() => slotRef.current?.focus()}
                                             label="Select Job"
                                             sx={{
                                                 width: "100%", // Ensures full width
                                                 paddingRight: "40px", // Creates space for the icon
                                             }}
+                                            open={openJobDropdown}
+                                            onClose={() => setOpenJobDropdown(false)}
+                                            onOpen={() => setOpenJobDropdown(true)}
                                         >
                                             {jobs?.map((job) => (
                                                 <MenuItem key={job._id} value={job._id}>{job.title}</MenuItem>
@@ -247,6 +277,7 @@ function EditCandidatePage() {
                                             sx={{
                                                 ...dropdownIconStyle
                                             }}
+                                            onClick={handleJobIconClick}
                                         />
                                     </Box>
                                 </FormControl>
@@ -366,6 +397,9 @@ function EditCandidatePage() {
                                                     width: "100%", // Ensures full width
                                                     paddingRight: "40px", // Creates space for the icon
                                                 }}
+                                                open={openSelect === name}
+                                                onOpen={() => setOpenSelect(name)}
+                                                onClose={() => setOpenSelect(null)}
                                             >
                                                 {[1, 2, 3, 4, 5].map((value) => (
                                                     <MenuItem key={value} value={value}>{value}</MenuItem>
@@ -375,6 +409,7 @@ function EditCandidatePage() {
                                                 sx={{
                                                     ...dropdownIconStyle
                                                 }}
+                                                onClick={() => handleRateIconClick(name)}
                                             />
                                         </Box>
                                     </FormControl>
@@ -420,6 +455,9 @@ function EditCandidatePage() {
                                                 width: "100%", // Ensures full width
                                                 paddingRight: "40px", // Creates space for the icon
                                             }}
+                                            open={openInterviewStatusDropdown}
+                                            onClose={() => setOpenInterviewStatusDropdown(false)}
+                                            onOpen={() => setOpenInterviewStatusDropdown(true)}
                                         >
                                             {["Scheduled", "Offered", "Accepted", "Missed", "Interviewed", "Rescheduled"].map((status) => (
                                                 <MenuItem key={status} value={status}>{status}</MenuItem>
@@ -429,6 +467,7 @@ function EditCandidatePage() {
                                             sx={{
                                                 ...dropdownIconStyle
                                             }}
+                                            onClick={handleInterviewStatusIconClick}
                                         />
                                     </Box>
                                 </FormControl>
@@ -449,6 +488,9 @@ function EditCandidatePage() {
                                                 width: "100%", // Ensures full width
                                                 paddingRight: "40px", // Creates space for the icon
                                             }}
+                                            open={openStatusDropdown}
+                                            onClose={() => setOpenStatusDropdown(false)}
+                                            onOpen={() => setOpenStatusDropdown(true)}
                                         >
                                             {['Contacted', 'Moved to Round 2', 'Moved to Round 3', 'Final Round', 'Shortlisted', 'Rejected', 'Hired', 'On Hold'].map((status) => (
                                                 <MenuItem key={status} value={status}>{status}</MenuItem>
@@ -458,6 +500,7 @@ function EditCandidatePage() {
                                             sx={{
                                                 ...dropdownIconStyle
                                             }}
+                                            onClick={handleStatusIconClick}
                                         />
                                     </Box>
                                 </FormControl>
