@@ -85,6 +85,7 @@ const dropdownIconStyle = {
     transform: "translateY(-50%)",
     fontSize: "1rem", // Customize icon size
     color: "gray", // Ensures visibility
+    cursor: "pointer", 
 }
 const labelSize = {
     fontSize: "1rem"
