@@ -69,6 +69,11 @@ import VerifyOtp from "layouts/authentication/data/VerifyOtp";
 import Reset from "layouts/authentication/data/Reset";
 import ProtectedRoute from "protect/ProtectedRoutes";
 import PostAddIcon from "@mui/icons-material/PostAdd";
+import LockResetIcon from '@mui/icons-material/LockReset';
+import PasswordIcon from '@mui/icons-material/Password';
+
+
+import ChangePassword from "layouts/authentication/data/ChangePassword";
 const routes = [
   {
     type: "collapse",
@@ -141,15 +146,15 @@ const routes = [
     component: <ProtectedRoute><AddCandidatePage /></ProtectedRoute>,
     // component: <AddCandidatePage />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Interviews",
-  //   key: "interviews",
-  //   route: "/interviews",
-  //   icon: <CreditCard size="12px" />,
-  //   component: <Billing />,
-  //   noCollapse: true,
-  // },
+  {
+    type: "collapse",
+    name: "Change Password",
+    key: "changePass",
+    route: "/change-password",
+    icon: <LockResetIcon size="12px" />,
+    component: <ChangePassword />,
+    noCollapse: true,
+  },
   // {
   //   type: "collapse",
   //   name: "Reports",
