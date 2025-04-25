@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, placeholder }) {
+export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, placeholder, label }) {
   const [focused, setFocused] = useState(false);
   const isFloating = focused || value.length > 0; // Determines when the label moves up
 
   return (
-    <div style={{ position: "relative", width: "100%", marginTop: "1.5rem" }}>
+    <div style={{ position: "relative", width: "100%", }}>
       <label
         htmlFor="description"
         style={{
@@ -19,7 +19,7 @@ export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, pla
           pointerEvents: "none",
         }}
       >
-        Description
+        {label}
       </label>
 
       <textarea
@@ -27,6 +27,7 @@ export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, pla
         name="description"
         ref={descriptionRef}
         value={value}
+        
         onChange={(e) => {
           onChange(e);
           setFocused(true); // Ensure the floating state triggers
@@ -44,9 +45,9 @@ export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, pla
         }}
         style={{
           width: "100%",
-          minHeight:"100px",
+          height: "36px", // ✅ applied here
           fontSize: "0.85rem",
-          padding: "16px 12px 12px",
+          // padding: "16px 12px 12px",
           borderRadius: "8px",
           border: "1px solid #ccc",
           outline: "none",

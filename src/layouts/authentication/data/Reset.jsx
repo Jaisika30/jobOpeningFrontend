@@ -152,7 +152,7 @@ const Reset = () => {
           Set New Password
         </Typography>
         {error && <Alert severity="error">{error}</Alert>}
-        {success && <Alert severity="success">Password Reset Successfully!</Alert>}
+       
 
         <TextField
           label="Enter Password"

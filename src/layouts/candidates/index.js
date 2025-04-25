@@ -178,6 +178,7 @@ import { dropdownIconStyle } from "assets/textFieldStyles";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; // Import icon
 import { getJobs } from "slices/jobSlice";
 import CustomPagination from "assets/CustomPagination";
+import { dropdownStyles } from "assets/textFieldStyles";
 
 
 // function Candidates() {
@@ -267,8 +268,10 @@ function Candidates() {
   const handleChange = (event) => {
     const jobId = event.target.value;
     setSelectedJob(jobId);
-    console.log("JobIddd", jobId);
-    if (jobId) {
+
+    if (jobId === "all") {
+      navigate(`/Candidate`);
+    } else {
       navigate(`/Candidates/${jobId}`);
     }
     setOpenDropdown(false);
@@ -312,11 +315,20 @@ function Candidates() {
                         },
                       }}
                     >
-                      <InputLabel sx={{ ...inputLabelStyle }}>All Jobs</InputLabel>
-                      <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+                      {/* <InputLabel sx={{ ...inputLabelStyle }}>All Jobs</InputLabel> */}
+                      <Box sx={{ display: "flex", alignItems: "center", position: "relative" , ...dropdownStyles }}>
                         <Select
-                          value={""}
-                          sx={{ width: "100%", paddingRight: "40px" }}
+                          value={id || "all"}
+                          sx={{ 
+                            width: "100%", 
+                            paddingRight: "40px",
+                            "& .MuiSelect-select": {
+                              textAlign: "left", // Align selected value to left
+                            },
+                            "& .MuiMenuItem-root": {
+                              justifyContent: "flex-start", // Align menu items to left
+                            }
+                          }}
                           open={openDropdown}
                           onChange={handleChange}
                           onClose={() => setOpenDropdown(false)}
@@ -324,6 +336,7 @@ function Candidates() {
                         >
 
                           {/* <MenuItem value="">All</MenuItem> */}
+                          <MenuItem value="all">All Jobs</MenuItem>
                           {sortedJobs.map((job) => (
                             <MenuItem key={job._id} value={job._id} >
                               {job.title}
