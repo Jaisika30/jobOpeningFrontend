@@ -52,7 +52,7 @@ function EditJob() {
   const postingDateRef = useRef();
   const statusRef = useRef();
   const location = useLocation();
-   const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [openDropdown, setOpenDropdown] = useState(false);
   const page = searchParams.get("page");
   const urlStatus = new URLSearchParams(location.search).get('status');
@@ -96,12 +96,16 @@ function EditJob() {
   const handleSubmit = async () => {
     dispatch(updateJob({ id, updatedData: job }));
     console.log("pagee edit ...", page);
-    if(urlStatus === "Open"){
-
-    }else{
+    const jobstatus = localStorage.getItem("jobstatus");
+    console.log("objejobstatusjobstatusct", jobstatus);
+    if (jobstatus) {
+      console.log("open job statussssssssssssssssssssssssssssssssssssssssss")
+      navigate(`/jobs?page=${page}&&status=Open`);
+    } else {
 
       navigate(`/jobs?page=${page}`);
     }
+
   };
   const handleIconClick = () => {
     setOpenDropdown(true); // Opens the Select dropdown
