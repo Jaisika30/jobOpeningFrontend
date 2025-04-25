@@ -3,7 +3,7 @@ import axios from "axios";
 // const API_URL = "http://localhost:8085";
 // Forgot Password
 const API_URL = process.env.REACT_APP_API_URL;
-console.log(";;;;;;;;;;",API_URL)
+console.log(";;;;;;;;;;", API_URL)
 export const forgotPassword = createAsyncThunk(
     "auth/forgotPassword",
     async (email, { rejectWithValue }) => {
@@ -24,18 +24,34 @@ export const forgotPassword = createAsyncThunk(
     }
 );
 // Verify OTP
+// export const verifyOtp = createAsyncThunk(
+//     "auth/verifyOtp",
+//     async ({ id, otp }, { rejectWithValue }) => {
+//         try {
+//             console.log("verify otp id:::", id);
+//             const response = await axios.post(`${API_URL}/api/auth/verify/${id}`, { otp });
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(error.response.data);
+//         }
+//     }
+// );
 export const verifyOtp = createAsyncThunk(
     "auth/verifyOtp",
     async ({ id, otp }, { rejectWithValue }) => {
-        try {
-            console.log("verify otp id:::", id);
-            const response = await axios.post(`${API_URL}/api/auth/verify/${id}`, { otp });
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
+      try {
+        const response = await axios.post(`${API_URL}/api/auth/verify/${id}`, { otp });
+        return response.data;
+      } catch (error) {
+        // Ensure we return a consistent error structure
+        const errorData = error.response?.data || { message: error.message };
+        return rejectWithValue({
+          message: errorData.message || "Failed to verify OTP",
+          details: errorData // Optional: include full error details if needed
+        });
+      }
     }
-);
+  );
 
 // Reset Password
 export const resetPassword = createAsyncThunk(
@@ -45,6 +61,22 @@ export const resetPassword = createAsyncThunk(
             console.log("id:::", id, "password:::", password)
             const response = await axios.post(`${API_URL}/api/auth/resetpass/${id}`, { password });
             console.log("response::::::::", response);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+// change Password
+export const changePassowrd = createAsyncThunk(
+    "auth/changePassowrd",
+    async ({ id, newPass, oldPass }, { rejectWithValue }) => {
+
+        try {
+            console.log(" newPass, oldPass :::", id, newPass, oldPass)
+            const response = await axios.post(`${API_URL}/api/auth/changePass/${id}`, { newPass, oldPass });
+            console.log("......", response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -86,7 +118,7 @@ const authSlice = createSlice({
             })
             .addCase(verifyOtp.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.payload?.message || action.error.message
                 state.success = false;
             })
             .addCase(resetPassword.pending, (state) => {
@@ -100,7 +132,7 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
-            
+
     },
 });
 

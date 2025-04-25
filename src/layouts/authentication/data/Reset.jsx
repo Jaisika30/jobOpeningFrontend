@@ -86,6 +86,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword } from 'slices/authSlice'; // Ensure you have a reset action
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import SoftButton from 'components/SoftButton';
 
 const Reset = () => {
   const [password, setPassword] = useState('');
@@ -147,7 +148,7 @@ const Reset = () => {
           maxWidth: '400px',
         }}
       >
-        <Typography variant="h5" color="primary" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Set New Password
         </Typography>
         {error && <Alert severity="error">{error}</Alert>}
@@ -183,7 +184,7 @@ const Reset = () => {
             }
           }}
         />
-        <Button
+        {/* <Button
           variant="contained"
           color="primary"
           fullWidth
@@ -192,7 +193,40 @@ const Reset = () => {
           disabled={loading}
         >
           {loading ? "Processing..." : "Submit"}
-        </Button>
+        </Button> */}
+        <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+          {/* <SoftButton
+            type="submit"
+            variant="gradient"
+            color="info"
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              px: 3,
+            }}
+          >
+            Add Candidate
+          </SoftButton> */}
+          <SoftButton
+            variant="gradient"
+            color="info"
+            fullWidth
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Reset Password"}
+          </SoftButton>
+
+          <SoftButton
+            variant="gradient"
+            color="error"
+            fullWidth
+            onClick={() => navigate("/authentication/sign-in")}
+            disabled={loading}
+          >
+            Cancel
+          </SoftButton>
+        </Box>
+
       </Box>
     </Container>
   );
