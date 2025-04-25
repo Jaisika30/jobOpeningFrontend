@@ -54,6 +54,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../../slices/authSlice"; // Adjust path if needed
 import { Container, Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import SoftButton from 'components/SoftButton';
+
 
 const Forgot = () => {
   const [email, setEmail] = useState("");
@@ -112,10 +114,10 @@ const Forgot = () => {
           maxWidth: "400px",
         }}
       >
-        <Typography variant="h5" component="h1" gutterBottom>
+        <Typography variant="h4" component="h1" gutterBottom>
           Forgot Password
         </Typography>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="h6" gutterBottom>
           Enter Your Email, We Will Send You OTP to Reset Password
         </Typography>
         <TextField
@@ -148,9 +150,11 @@ const Forgot = () => {
             }
           }}
         />
-        <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
-          Submit
-        </Button>
+
+        
+        <SoftButton variant="gradient" color="info" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
+          Send Otp
+        </SoftButton>
         <Link href="/authentication/sign-in" variant="body2" sx={{ mt: 2 }}>
           Back to login
         </Link>

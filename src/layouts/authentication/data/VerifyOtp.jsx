@@ -4,6 +4,7 @@ import { Box, Typography, Button, Container, CircularProgress, Alert } from "@mu
 import { useDispatch, useSelector } from "react-redux";
 import { verifyOtp } from "../../../slices/authSlice"; // Adjust the import based on your file structure
 import { useNavigate } from "react-router-dom";
+import SoftButton from "components/SoftButton";
 
 const VerifyOtp = () => {
   const dispatch = useDispatch();
@@ -51,44 +52,46 @@ const VerifyOtp = () => {
           maxWidth: "400px",
         }}
       >
-        <Typography variant="h5" color="primary" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Code Verification
         </Typography>
-        <Typography variant="body1" gutterBottom>
-          We sent a password reset OTP to your phone.
+        <Typography variant="h6" gutterBottom>
+          We sent a password reset OTP to your Email.
         </Typography>
 
         {error && <Alert severity="error">{error}</Alert>}
         {success && <Alert severity="success">OTP Verified Successfully!</Alert>}
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <OtpInput
+            value={otp}
+            onChange={handleChange}
+            numInputs={4}
+            isInputNum
+            separator={<span>-</span>}
+            renderInput={(props) => <input {...props} />}
+            inputStyle={{
+              width: "2.5rem",
+              height: "2.5rem",
+              margin: "0.5rem",
+              fontSize: "1.2rem",
+              borderRadius: "4px",
+              border: "1px solid rgba(0, 0, 0, 0.3)",
+              textAlign: "center",
 
-        <OtpInput
-          value={otp}
-          onChange={handleChange}
-          numInputs={4}
-          isInputNum
-          separator={<span>-</span>}
-          renderInput={(props) => <input {...props} />}
-          inputStyle={{
-            width: "2.5rem",
-            height: "2.5rem",
-            margin: "0.5rem",
-            fontSize: "1.2rem",
-            borderRadius: "4px",
-            border: "1px solid rgba(0, 0, 0, 0.3)",
-            textAlign: "center",
-          }}
-        />
-
-        <Button
-          variant="contained"
-          color="primary"
+            }}
+          />
+        </div>
+        
+        <SoftButton
+          variant="gradient"
+          color="info"
           fullWidth
           onClick={handleSubmit}
           sx={{ mt: 2 }}
           disabled={loading || otp.length !== 4}
         >
-          {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "Submit"}
-        </Button>
+          {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "Verify OTP"}
+        </SoftButton>
       </Box>
     </Container>
   );
