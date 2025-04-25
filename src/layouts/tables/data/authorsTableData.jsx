@@ -375,6 +375,7 @@ const useJobData = () => {
     if (!state.jobs?.jobs) return [];
 
     if (urlStatus === 'Open') {
+      localStorage.setItem("jobstatus", true);
       return state.jobs.jobs.openJobs || [];
     } else {
       return state.jobs.jobs.jobs || [];
