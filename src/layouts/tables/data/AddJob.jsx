@@ -792,6 +792,7 @@ function AddJob() {
                     onChange={handleChange}
                     placeholder="Enter job description"
                     onEnter={() => locationRef.current?.focus()}
+                    label={"Description"}
                   />
                 </SoftBox>
 

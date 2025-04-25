@@ -19,6 +19,8 @@ import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { textFieldStyles, dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 import Box from '@mui/material/Box';
 import { getJobById } from "slices/jobSlice";
+import { FloatingTextarea } from "assets/FloatingTextarea";
+import { Height } from "@mui/icons-material";
 
 
 function AddCandidatePage() {
@@ -27,7 +29,7 @@ function AddCandidatePage() {
     const [openStatusDropdown, setOpenStatusDropdown] = useState(false);
     const [openInterviewStatusDropdown, setOpenInterviewStatusDropdown] = useState(false);
     const [openSelect, setOpenSelect] = useState(null);
-   
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const phoneRef = useRef();
@@ -45,7 +47,7 @@ function AddCandidatePage() {
     const timeSlotRegex = /^(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*\|\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)\s*-\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
 
     const { id } = useParams();
-    const jobs = useSelector((state) => state.jobs.jobs.jobs);
+    const jobs = useSelector((state) => state.jobs.jobs.openJobs);
     const jobDetail = useSelector((state) => state.jobs.job);
     const [candidate, setCandidate] = useState({
         name: "",
@@ -79,8 +81,8 @@ function AddCandidatePage() {
 
     useEffect(() => {
         dispatch(getJobs({
-            page: 1,
-            limit: 5,
+            page: null,
+            limit: null,
             searchQuery: "",
             statusFilter: "",
         }));
@@ -137,7 +139,7 @@ function AddCandidatePage() {
     };
     const handleRateIconClick = (name) => {
         setOpenSelect(name); // name = "communication", "personality", etc.
-      };
+    };
 
     return (
         <DashboardLayout>
@@ -504,7 +506,7 @@ function AddCandidatePage() {
                                         />
                                     </Box>
                                 </FormControl>
-                                <TextField
+                                {/* <TextField
                                     label="Comments"
                                     name="comments"
                                     value={candidate.comments}
@@ -515,8 +517,22 @@ function AddCandidatePage() {
                                     InputLabelProps={{
                                         sx: { ...inputLabelStyle },
                                     }}
-                                />
+                                /> */}
+                                <SoftBox>
+                                    <FloatingTextarea
+                                        value={candidate.comments}
+                                        onChange={handleChange}
+                                        placeholder="Write Comments"
+                                        label={"Comments"}
+                                        sx={{
+                                            "& textarea": {
+                                              minHeight: "36px !important", // Ensure the inner textarea gets it
+                                            },
+                                          }}
+                                    />
+                                </SoftBox>
                             </SoftBox>
+
 
                             {/* Buttons */}
                             <SoftBox
@@ -550,6 +566,7 @@ function AddCandidatePage() {
                                 </SoftButton>
 
                             </SoftBox>
+
                         </form>
                     </Card>
                 </SoftBox>

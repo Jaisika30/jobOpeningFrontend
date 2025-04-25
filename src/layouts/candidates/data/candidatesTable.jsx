@@ -345,9 +345,10 @@ const getCandidatesTableData = () => {
     ),
     columns: [
       { name: "name", label: "Name", align: "left" },
-      ...(urlStatus == "Hired"
+      ...(urlStatus == "Hired" || !id
         ? [{ name: "job", label: "Jobs", align: "left" }]
         : []),
+       
       { name: "location", label: "Location", align: "left" },
       { name: "interviewSlot", label: "Time Offered", align: "left" },
       { name: "interviewStatus", label: "Interview Status", align: "center" },

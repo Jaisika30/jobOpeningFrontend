@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -51,9 +51,11 @@ function EditJob() {
   const locationRef = useRef();
   const postingDateRef = useRef();
   const statusRef = useRef();
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
+   const [searchParams] = useSearchParams();
   const [openDropdown, setOpenDropdown] = useState(false);
   const page = searchParams.get("page");
+  const urlStatus = new URLSearchParams(location.search).get('status');
 
   const [job, setJob] = useState({
     title: "",
@@ -94,7 +96,12 @@ function EditJob() {
   const handleSubmit = async () => {
     dispatch(updateJob({ id, updatedData: job }));
     console.log("pagee edit ...", page);
-    navigate(`/jobs?page=${page}`);
+    if(urlStatus === "Open"){
+
+    }else{
+
+      navigate(`/jobs?page=${page}`);
+    }
   };
   const handleIconClick = () => {
     setOpenDropdown(true); // Opens the Select dropdown
