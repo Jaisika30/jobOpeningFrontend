@@ -42,7 +42,10 @@ function SignIn() {
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email address").required("Email is required"),
-      password: Yup.string().required("Password is required"),
+      password: Yup.string().required("Password is required").matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        "Password must contain at least one uppercase, one lowercase, one number and one special character"
+      ),
     }),
     onSubmit: async (values) => {
       try {
@@ -84,7 +87,7 @@ function SignIn() {
     <CoverLayout title="Please Sign In Here" description="Enter your email and password to sign in" image={curved9} top={28} color={"info"} bottom={5}>
       <form onSubmit={formik.handleSubmit}>
         <SoftBox mb={2}>
-          
+
           <TextField
             label="Email"
             type="email"
@@ -114,10 +117,10 @@ function SignIn() {
 
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
-            
+
           </SoftBox>
           <TextField
-          label="Password"
+            label="Password"
             inputRef={passwordRef}
             type="password"
             name="password"
