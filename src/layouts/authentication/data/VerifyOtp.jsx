@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { verifyOtp } from "../../../slices/authSlice"; // Adjust the import based on your file structure
 import { useNavigate } from "react-router-dom";
 import SoftButton from "components/SoftButton";
+import { toast } from "react-toastify"; // Make sure you have this imported
 
 const VerifyOtp = () => {
   const dispatch = useDispatch();
@@ -20,14 +21,44 @@ const VerifyOtp = () => {
   //     setTimeout(() => navigate("/reset"), 2000); // Redirect after 2 seconds
   //   }
   // }, [success, navigate]);
-  const handleSubmit = () => {
-    if (otp.length === 4) {
-      console.log("id::::::", id);
-      dispatch(verifyOtp({ id, otp }));
-      if (success) {
-        navigate("/reset");
+  // const handleSubmit = () => {
+  //   if (otp.length === 4) {
+  //     console.log("id::::::", id);
+  //     dispatch(verifyOtp({ id, otp }));
 
+  //       navigate("/reset");
+
+
+  //   }
+  // };
+
+  const handleSubmit = async () => {
+    if (otp.length === 4) {
+      try {
+        console.log("id::::::", id);
+
+        // Dispatch the verifyOtp action and wait for the response
+        await dispatch(verifyOtp({ id, otp })).unwrap();
+
+        // Show success message if OTP is verified successfully
+        toast.success("OTP verified successfully!");
+
+        // Navigate to the reset page after success
+        navigate("/reset");
+      } catch (error) {
+        console.log("Error response:", error.response);
+        console.log("Error message:", error.message);
+
+        // Extract the error message properly
+        const errorMessage = error.payload?.message ||
+          error.message ||
+          "Failed to verify OTP";
+
+        // toast.error(errorMessage); // This will now show just the string message
       }
+    } else {
+      // If OTP length is not 4, show error
+      toast.error("Please enter a valid 4-digit OTP");
     }
   };
 
@@ -60,7 +91,6 @@ const VerifyOtp = () => {
         </Typography>
 
         {error && <Alert severity="error">{error}</Alert>}
-        {success && <Alert severity="success">OTP Verified Successfully!</Alert>}
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <OtpInput
             value={otp}
@@ -81,7 +111,7 @@ const VerifyOtp = () => {
             }}
           />
         </div>
-        
+
         <SoftButton
           variant="gradient"
           color="info"
@@ -90,7 +120,7 @@ const VerifyOtp = () => {
           sx={{ mt: 2 }}
           disabled={loading || otp.length !== 4}
         >
-          {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "Verify OTP"}
+          {loading ? <CircularProgress size={24} color="inherit" sx={{ color: "white" }} /> : "Verify OTP"}
         </SoftButton>
       </Box>
     </Container>

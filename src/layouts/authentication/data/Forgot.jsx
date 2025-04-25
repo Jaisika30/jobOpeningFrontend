@@ -55,6 +55,7 @@ import { forgotPassword } from "../../../slices/authSlice"; // Adjust path if ne
 import { Container, Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SoftButton from 'components/SoftButton';
+import { toast } from "react-toastify"; // Make sure you have this imported
 
 
 const Forgot = () => {
@@ -79,14 +80,28 @@ const Forgot = () => {
   //   }
   // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!email) {
-      alert("Please enter your email!");
-      return;
-    }
-    dispatch(forgotPassword(email)); // Dispatch without expecting immediate success
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      
+      if (!email) {
+          toast.error("Please enter your email!"); // Show error if email is not provided
+          return;
+      }
+  
+      try {
+          // Dispatch the action and wait for the response
+          await dispatch(forgotPassword(email)).unwrap();
+  
+          // Show success message if the password reset request is successful
+          toast.success("Password reset email sent successfully!");
+      } catch (error) {
+          // Show error message if the request fails
+          const errorMessage = error?.message || error?.error || "Something went wrong";
+          toast.error(errorMessage);
+      }
   };
+  
 
   // ✅ Navigate when `success` updates
   useEffect(() => {

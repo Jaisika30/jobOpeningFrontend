@@ -24,18 +24,34 @@ export const forgotPassword = createAsyncThunk(
     }
 );
 // Verify OTP
+// export const verifyOtp = createAsyncThunk(
+//     "auth/verifyOtp",
+//     async ({ id, otp }, { rejectWithValue }) => {
+//         try {
+//             console.log("verify otp id:::", id);
+//             const response = await axios.post(`${API_URL}/api/auth/verify/${id}`, { otp });
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(error.response.data);
+//         }
+//     }
+// );
 export const verifyOtp = createAsyncThunk(
     "auth/verifyOtp",
     async ({ id, otp }, { rejectWithValue }) => {
-        try {
-            console.log("verify otp id:::", id);
-            const response = await axios.post(`${API_URL}/api/auth/verify/${id}`, { otp });
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
+      try {
+        const response = await axios.post(`${API_URL}/api/auth/verify/${id}`, { otp });
+        return response.data;
+      } catch (error) {
+        // Ensure we return a consistent error structure
+        const errorData = error.response?.data || { message: error.message };
+        return rejectWithValue({
+          message: errorData.message || "Failed to verify OTP",
+          details: errorData // Optional: include full error details if needed
+        });
+      }
     }
-);
+  );
 
 // Reset Password
 export const resetPassword = createAsyncThunk(
@@ -102,7 +118,7 @@ const authSlice = createSlice({
             })
             .addCase(verifyOtp.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.payload?.message || action.error.message
                 state.success = false;
             })
             .addCase(resetPassword.pending, (state) => {
