@@ -42,12 +42,12 @@ import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import { Box } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
-import GroupIcon from '@mui/icons-material/Group';
+import GroupIcon from "@mui/icons-material/Group";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
 import { useEffect } from "react";
 import { getCandidates } from "slices/candidateSlice";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const { size } = typography;
@@ -55,41 +55,42 @@ function Dashboard() {
   const jobcount = useSelector((state) => state.jobs.jobs.openJobsCount);
   const totalJobs = useSelector((state) => state.jobs.jobs.totalJobs);
   const hiredCandidates = useSelector((state) => state.candidates.candidates.hiredCount);
+  const totalCandidates = useSelector((state) => state.candidates.candidates.totalCandidates);
+
   const scheduledCount = useSelector((state) => state.candidates?.candidates?.scheduledCount);
 
   const dispatch = useDispatch();
-  console.log("scheduledCandidatesCount:::", scheduledCount)
+  console.log("scheduledCandidatesCount:::", scheduledCount);
 
   useEffect(() => {
-    console.log("dashbbbbboard uiiii")
-    dispatch(getJobs({
-      page: 1,
-      limit: 5,
-      searchQuery: "",
-      statusFilter: "",
-    }));
-  dispatch(getCandidates({
-    page: 1,
-    limit: 5,
-    searchQuery: "",
-    statusFilter: "",
-  }));
-}, [dispatch]);
+    console.log("dashbbbbboard uiiii");
+    dispatch(
+      getJobs({
+        page: 1,
+        limit: 5,
+        searchQuery: "",
+        statusFilter: "",
+      })
+    );
+    dispatch(
+      getCandidates({
+        page: 1,
+        limit: 5,
+        searchQuery: "",
+        statusFilter: "",
+      })
+    );
+  }, [dispatch]);
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SoftBox py={3} >
-        <Box
-          display="flex"
-          flexDirection="column"
-          minHeight="auto"
-        >
+      <SoftBox py={3}>
+        <Box display="flex" flexDirection="column" minHeight="auto">
           <SoftBox mb={3}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} xl={3}>
-                <Link to="/jobs" style={{ textDecoration: 'none' }}>
-
+                <Link to="/jobs" style={{ textDecoration: "none" }}>
                   <MiniStatisticsCard
                     bgColor="white"
                     title={{ text: "Total Jobs" }}
@@ -100,17 +101,17 @@ function Dashboard() {
                 </Link>
               </Grid>
               <Grid item xs={12} sm={6} xl={3}>
-                <Link to="/jobs?status=Open" style={{ textDecoration: 'none' }}>
+                <Link to="/jobs?status=Open" style={{ textDecoration: "none" }}>
                   <MiniStatisticsCard
                     bgColor="white"
-                    title={{ text: "Total Jobs Openings" }}
+                    title={{ text: "Open Jobs " }}
                     count={jobcount}
                     percentage={{ color: "text", text: "+28 from last month" }}
                     icon={{ color: "info", component: "group" }}
                   />
                 </Link>
               </Grid>
-              <Grid item xs={12} sm={6} xl={3}>
+              {/* <Grid item xs={12} sm={6} xl={3}>
                 <Link to="/Candidate?interviewStatus=Scheduled" style={{ textDecoration: 'none' }}>
                   <MiniStatisticsCard
                     bgColor="white"
@@ -120,9 +121,20 @@ function Dashboard() {
                     icon={{ color: "info", component: "event_available" }}
                   />
                 </Link>
+              </Grid> */}
+              <Grid item xs={12} sm={6} xl={3}>
+                <Link to="/Candidate" style={{ textDecoration: "none" }}>
+                  <MiniStatisticsCard
+                    bgColor="white"
+                    title={{ text: "Total Candidates" }}
+                    count={totalCandidates}
+                    percentage={{ color: "text", text: "For this week" }}
+                    icon={{ color: "info", component: "event_available" }}
+                  />
+                </Link>
               </Grid>
               <Grid item xs={12} sm={6} xl={3}>
-                <Link to="/Candidate?status=Hired" style={{ textDecoration: 'none' }}>
+                <Link to="/Candidate?status=Hired" style={{ textDecoration: "none" }}>
                   <MiniStatisticsCard
                     bgColor="white"
                     title={{ text: "Hired Candidates" }}
@@ -130,7 +142,7 @@ function Dashboard() {
                     percentage={{ color: "text", text: "+2 from last month" }}
                     icon={{
                       color: "info",
-                      component: "person_add"  // Material Icon name as string
+                      component: "person_add", // Material Icon name as string
                     }}
                   />
                 </Link>

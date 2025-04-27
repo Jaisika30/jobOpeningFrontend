@@ -87,13 +87,14 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Job Openings",
+    name: "Jobs",
     key: "job",
     route: "/Jobs",
     icon: <Office size="12px" />,
     // component: <Tables />,
     component: <ProtectedRoute><Tables /></ProtectedRoute>,
     noCollapse: true,
+    
   },
   {
     route: "/editJob/:id", // Add the dynamic ID
@@ -152,7 +153,7 @@ const routes = [
     key: "changePass",
     route: "/change-password",
     icon: <LockResetIcon size="12px" />,
-    component: <ChangePassword />,
+    component: <ProtectedRoute><ChangePassword /></ProtectedRoute>,
     noCollapse: true,
   },
   // {

@@ -12,22 +12,21 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getCandidatesByJobID } from "slices/candidateSlice";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import SoftButton from "components/SoftButton";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle"; // Import icon
 import { dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
-import { useTheme } from '@mui/material/styles';
-import Tooltip from '@mui/material/Tooltip';
+import { useTheme } from "@mui/material/styles";
+import Tooltip from "@mui/material/Tooltip";
 import { tooltipStyle } from "assets/textFieldStyles";
 import { getJobs } from "slices/jobSlice";
-import Pagination from '@mui/material/Pagination';
+import Pagination from "@mui/material/Pagination";
 
 const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const location = useLocation();
-
 
   const page = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -37,11 +36,11 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   const limit = 5;
   const urlinterviewStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
-    return searchParams.get('interviewStatus');
+    return searchParams.get("interviewStatus");
   }, [location.search]);
   const urlStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
-    return searchParams.get('status');
+    return searchParams.get("status");
   }, [location.search]);
 
   console.log("urlinterviewStatusurlinterviewStatusurlinterviewStatus::", urlinterviewStatus);
@@ -50,26 +49,24 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
 
   const currentPage = useSelector((state) => state.candidates?.candidates?.currentPage || "");
 
-
   const allCandidates = useSelector((state) => {
     if (id) {
       console.log("With ID - candidates data:", state.candidates?.candidates);
       return state.candidates?.candidates || []; // Array of candidates for specific job
-    } else if (urlStatus === 'Hired') {
+    } else if (urlStatus === "Hired") {
       console.log("hiredCandidates:", state.candidates?.candidates?.hiredCandidates || []);
       return state.candidates?.candidates?.hiredCandidates || [];
-    } else if (urlinterviewStatus === 'Scheduled') {
+    } else if (urlinterviewStatus === "Scheduled") {
       console.log("scheduledCandidates:", state.candidates?.candidates?.scheduledCandidates || []);
       return state.candidates?.candidates?.ScheduledCandidates || [];
-    }
-    else {
+    } else {
       console.log("Without ID - candidates data:", state.candidates?.candidates?.candidates);
       return state.candidates?.candidates?.candidates || []; // Array of all candidates
     }
   });
   const jobs = useSelector((state) => state.jobs.jobs.jobs || []);
   const isLoading = useSelector((state) => state.candidates.loading);
-  console.log("Jobssss candidaye table:::", jobs)
+  console.log("Jobssss candidaye table:::", jobs);
   useEffect(() => {
     dispatch(getJobs());
   }, [dispatch]);
@@ -80,13 +77,25 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
       dispatch(getCandidatesByJobID(id));
     } else {
       console.log("Fetching all candidates");
-      dispatch(getCandidates({ page, limit, searchQuery: searchQuery, statusFilter: statusFilter, interviewStatusFilter: interviewStatusFilter }));
-
+      dispatch(
+        getCandidates({
+          page,
+          limit,
+          searchQuery: searchQuery,
+          statusFilter: statusFilter,
+          interviewStatusFilter: interviewStatusFilter,
+        })
+      );
     }
   }, [dispatch, id, page, searchQuery, statusFilter, interviewStatusFilter]);
 
   // Ensure we always return an array
-  return { candidates: Array.isArray(allCandidates) ? allCandidates : [], loading: isLoading, page, limit };
+  return {
+    candidates: Array.isArray(allCandidates) ? allCandidates : [],
+    loading: isLoading,
+    page,
+    limit,
+  };
 };
 
 const getCandidatesTableData = () => {
@@ -100,9 +109,8 @@ const getCandidatesTableData = () => {
     searchQuery,
     statusFilter,
     interviewStatusFilter,
-
   });
-  console.log("pageeeee candidate:::", page)
+  console.log("pageeeee candidate:::", page);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -113,28 +121,29 @@ const getCandidatesTableData = () => {
   const location = useLocation();
   const urlStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
-    return searchParams.get('status');
+    return searchParams.get("status");
   }, [location.search]);
 
   const urlinterviewStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
-    return searchParams.get('interviewStatus');
+    return searchParams.get("interviewStatus");
   }, [location.search]);
 
   const filteredCandidates = useMemo(() => {
     let result = candidates || [];
 
     if (searchQuery.trim()) {
-      result = result.filter((candidate) =>
-        candidate.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        candidate.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        candidate.location?.toLowerCase().includes(searchQuery.toLowerCase())
+      result = result.filter(
+        (candidate) =>
+          candidate.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          candidate.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          candidate.location?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          candidate.job?.title?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
     return result;
   }, [candidates, searchQuery]);
-
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -167,8 +176,8 @@ const getCandidatesTableData = () => {
     urlStatus === "Hired"
       ? Math.ceil(hiredCount / limit) || 1
       : urlinterviewStatus === "Scheduled"
-        ? Math.ceil(scheduledCount / limit) || 1
-        : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
+      ? Math.ceil(scheduledCount / limit) || 1
+      : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
 
   console.log("tota;;;;;pages:::::", totalPages);
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
@@ -181,11 +190,11 @@ const getCandidatesTableData = () => {
   const handleChange = (e) => {
     setInterviewStatusFilter(e.target.value);
     setOpenDropdown(false);
-  }
+  };
   const handleStatusChange = (e) => {
-    setStatusFilter(e.target.value)
+    setStatusFilter(e.target.value);
     setOpenStatusDropdown(false);
-  }
+  };
   return {
     topAction: (
       <div
@@ -196,7 +205,7 @@ const getCandidatesTableData = () => {
           gap: "20px",
           marginBottom: "16px",
           flexWrap: "wrap",
-          width: "96%"
+          width: "96%",
         }}
       >
         {/* Left side: Search and Filters */}
@@ -205,6 +214,7 @@ const getCandidatesTableData = () => {
             label="Search"
             variant="outlined"
             value={searchQuery}
+            placeholder="Search by Name|Location|Job Title"
             InputLabelProps={{
               sx: { fontSize: "0.85rem" },
             }}
@@ -310,104 +320,127 @@ const getCandidatesTableData = () => {
                 <MenuItem value="Rejected">Rejected</MenuItem>
                 <MenuItem value="Shortlisted">Shortlisted</MenuItem>
               </Select>
-              <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} onClick={handleStatusIconClick} />
+              <ArrowDropDownCircleIcon
+                sx={{ ...dropdownIconStyle }}
+                onClick={handleStatusIconClick}
+              />
             </Box>
           </FormControl>
         </div>
 
         {/* Right side: Buttons */}
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          <SoftButton variant="gradient" color="success" onClick={() => navigate(urlStatus === "Hired" || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/Jobs")}>
+          <SoftButton
+            variant="gradient"
+            color="success"
+            onClick={() =>
+              navigate(
+                urlStatus === "Hired" || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/Jobs"
+              )
+            }
+          >
             Back
           </SoftButton>
-          <SoftButton variant="gradient" color="info" onClick={() => navigate(id ? `/addCandidate/${id}` : "/addCandidate")}>
+          <SoftButton
+            variant="gradient"
+            color="info"
+            onClick={() => navigate(id ? `/addCandidate/${id}` : "/addCandidate")}
+          >
             Add Candidate
           </SoftButton>
         </div>
       </div>
-
-
     ),
     columns: [
       { name: "name", label: "Name", align: "left" },
-      ...(urlStatus == "Hired" || !id
-        ? [{ name: "job", label: "Jobs", align: "left" }]
-        : []),
-       
+      ...(urlStatus == "Hired" || !id ? [{ name: "job", label: "Jobs", align: "left" }] : []),
+
       { name: "location", label: "Location", align: "left" },
       { name: "interviewSlot", label: "Time Offered", align: "left" },
       { name: "interviewStatus", label: "Interview Status", align: "center" },
+      { name: "personality", label: "Interview Status", align: "center" },
+      { name: "knowledge", label: "Interview Status", align: "center" },
+      { name: "communication", label: "Interview Status", align: "center" },
       { name: "status", label: "Status", align: "center" },
-      ...(urlStatus !== "Hired"
-        ? [{ name: "comments", label: "Comments", align: "left" }]
-        : []),
+      ...(urlStatus !== "Hired" ? [{ name: "comments", label: "Comments", align: "left" }] : []),
       { name: "action", label: "Action", align: "center" },
     ],
     rows: loading
-      ? [{
-        name: (
-          <Box position="fixed"
-            top={0}
-            left={0}
-            right={0}
-            bottom={0}
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
-            zIndex={9999}>
-            <CircularProgress color="secondary" size={30} />
-            <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
-              Loading candidates...
-            </SoftTypography>
-          </Box>
-        ),
-        job: "",
-        location: "",
-        interviewSlot: "",
-        interviewStatus: "",
-        status: "",
-        comments: "",
-        action: ""
-      }]
+      ? [
+          {
+            name: (
+              <Box
+                position="fixed"
+                top={0}
+                left={0}
+                right={0}
+                bottom={0}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
+                zIndex={9999}
+              >
+                <CircularProgress color="secondary" size={30} />
+                <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
+                  Loading candidates...
+                </SoftTypography>
+              </Box>
+            ),
+            job: "",
+            location: "",
+            interviewSlot: "",
+            interviewStatus: "",
+            status: "",
+            comments: "",
+            action: "",
+          },
+        ]
       : noCandidatesFound
-        ? [{
-          name: (
-            <Box display="flex" justifyContent="center" width="100%" >
-              <SoftTypography variant="h7" color="error" textAlign="center">
-                No Candidates available.
-              </SoftTypography>
-            </Box>
-
-          ),
-          job: "",
-          location: "",
-          interviewSlot: "",
-          interviewStatus: "",
-          status: "",
-          comments: "",
-          // action: (
-          //   <Button
-          //     variant="contained"
-          //     onClick={handleResetFilters}
-          //     style={{ backgroundColor: 'red', color: 'white' }}
-          //   >
-          //     Reset Filters
-          //   </Button>
-          // )
-        }]
-        : filteredCandidates?.map((candidate) => ({
+      ? [
+          {
+            name: (
+              <Box display="flex" justifyContent="center" width="100%">
+                <SoftTypography variant="h7" color="error" textAlign="center">
+                  No Candidates available.
+                </SoftTypography>
+              </Box>
+            ),
+            job: "",
+            location: "",
+            interviewSlot: "",
+            interviewStatus: "",
+            personality: "",
+            knowledge: "",
+            communication: "",
+            status: "",
+            comments: "",
+            // action: (
+            //   <Button
+            //     variant="contained"
+            //     onClick={handleResetFilters}
+            //     style={{ backgroundColor: 'red', color: 'white' }}
+            //   >
+            //     Reset Filters
+            //   </Button>
+            // )
+          },
+        ]
+      : filteredCandidates?.map((candidate) => ({
           name: (
             <Tooltip
               placement="top"
               title={
-                <div style={{
-                  display: 'inline-block',
-                  maxWidth: '200px'
-                }}>
+                <div
+                  style={{
+                    display: "inline-block",
+                    maxWidth: "200px",
+                  }}
+                >
                   {candidate?.name || ""}
-                </div>}
+                </div>
+              }
               arrow
               componentsProps={tooltipStyle}
             >
@@ -420,12 +453,15 @@ const getCandidatesTableData = () => {
             <Tooltip
               placement="top"
               title={
-                <div style={{
-                  display: 'inline-block',
-                  maxWidth: '200px'
-                }}>
+                <div
+                  style={{
+                    display: "inline-block",
+                    maxWidth: "200px",
+                  }}
+                >
                   {candidate?.job?.title || ""}
-                </div>}
+                </div>
+              }
               arrow
               componentsProps={tooltipStyle}
             >
@@ -438,12 +474,15 @@ const getCandidatesTableData = () => {
             <Tooltip
               placement="top"
               title={
-                <div style={{
-                  display: 'inline-block',
-                  maxWidth: '200px'
-                }}>
+                <div
+                  style={{
+                    display: "inline-block",
+                    maxWidth: "200px",
+                  }}
+                >
                   {candidate.location || ""}
-                </div>}
+                </div>
+              }
               arrow
               componentsProps={tooltipStyle}
             >
@@ -456,12 +495,15 @@ const getCandidatesTableData = () => {
             <Tooltip
               placement="top"
               title={
-                <div style={{
-                  display: 'inline-block',
-                  maxWidth: '200px'
-                }}>
+                <div
+                  style={{
+                    display: "inline-block",
+                    maxWidth: "200px",
+                  }}
+                >
                   {candidate.interviewSlot || ""}
-                </div>}
+                </div>
+              }
               arrow
               componentsProps={tooltipStyle}
             >
@@ -475,40 +517,75 @@ const getCandidatesTableData = () => {
               variant="gradient"
               badgeContent={candidate.interviewStatus}
               color={
-                candidate.interviewStatus === "Accepted" ? "success" :
-                  candidate.interviewStatus === "Rejected" ? "error" :
-                    candidate.interviewStatus === "Pending" ? "warning" :
-                      candidate.interviewStatus === "Offered" ? "info" :
-                        candidate.interviewStatus === "Interviewed" ? "secondary" :
-                          candidate.interviewStatus === "Rescheduled" ? "warning" :
-                            candidate.interviewStatus === "Missed" ? "error" :
-                              "light" // default/fallback
+                candidate.interviewStatus === "Accepted"
+                  ? "success"
+                  : candidate.interviewStatus === "Rejected"
+                  ? "error"
+                  : candidate.interviewStatus === "Pending"
+                  ? "warning"
+                  : candidate.interviewStatus === "Offered"
+                  ? "info"
+                  : candidate.interviewStatus === "Interviewed"
+                  ? "secondary"
+                  : candidate.interviewStatus === "Rescheduled"
+                  ? "warning"
+                  : candidate.interviewStatus === "Missed"
+                  ? "error"
+                  : "light" // default/fallback
               }
               size="xs"
               container
             />
+          ),
+          personality: (
+            <SoftTypography variant="button" fontWeight="medium" color="dark">
+              {candidate?.personality}
+            </SoftTypography>
+          ),
+          knowledge: (
+            <SoftTypography variant="button" fontWeight="medium" color="dark">
+              {candidate?.knowledge}
+            </SoftTypography>
+          ),
+          communication: (
+            <SoftTypography variant="button" fontWeight="medium" color="dark">
+              {candidate?.communication}
+            </SoftTypography>
           ),
           status: (
             <SoftBadge
               variant="gradient"
               badgeContent={candidate.status}
               color={
-                candidate.status === "Hired" ? "success" :
-                  candidate.status === "Rejected" ? "error" :
-                    candidate.status === "Contacted" ? "info" :
-                      candidate.status === "Moved to Round 2" ? "primary" :
-                        candidate.status === "Moved to Round 3" ? "primary" :
-                          candidate.status === "Shortlisted" ? "secondary" :
-                            candidate.status === "Final Round" ? "warning" :
-                              candidate.status === "On Hold" ? "warning" :
-                                "default"
+                candidate.status === "Hired"
+                  ? "success"
+                  : candidate.status === "Rejected"
+                  ? "error"
+                  : candidate.status === "Contacted"
+                  ? "info"
+                  : candidate.status === "Moved to Round 2"
+                  ? "primary"
+                  : candidate.status === "Moved to Round 3"
+                  ? "primary"
+                  : candidate.status === "Shortlisted"
+                  ? "secondary"
+                  : candidate.status === "Final Round"
+                  ? "warning"
+                  : candidate.status === "On Hold"
+                  ? "warning"
+                  : "default"
               }
               size="xs"
               container
             />
           ),
           comments: (
-            <Tooltip title={candidate.comments || ""} arrow placement="top" componentsProps={tooltipStyle}>
+            <Tooltip
+              title={candidate.comments || ""}
+              arrow
+              placement="top"
+              componentsProps={tooltipStyle}
+            >
               <SoftTypography variant="caption" color="secondary">
                 {truncateText(candidate.comments, 15)}
               </SoftTypography>
@@ -516,7 +593,7 @@ const getCandidatesTableData = () => {
           ),
 
           action: (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <Link to={`/viewCandidate/${candidate._id}`}>
                 <IconButton sx={{ color: darkGray }}>
                   <VisibilityIcon />
@@ -532,19 +609,17 @@ const getCandidatesTableData = () => {
               </IconButton>
             </div>
           ),
-        }))
-    ,
+        })),
     pagination: {
-      totalPages,       // number
+      totalPages, // number
       currentPage: page,
       onPageChange: (event, value) => {
         const newParams = new URLSearchParams(window.location.search);
-        newParams.set('page', value);
+        newParams.set("page", value);
         navigate({ search: newParams.toString() });
       },
-    }
+    },
   };
 };
-
 
 export default getCandidatesTableData;
