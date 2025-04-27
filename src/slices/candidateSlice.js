@@ -55,17 +55,17 @@ export const getCandidates = createAsyncThunk(
                 },
             });
             console.log("responseeeeeeeeeeeeeeeeeeeeeeee::::", response.data);
-            if (response.data.
-                candidates.length === 0) {
-                import("sweetalert2").then((Swal) => {
-                    Swal.default.fire({
-                        title: "No Candidates Available!",
-                        text: "Please add candidates for see the details.",
-                        icon: "info",
-                        confirmButtonText: "OK",
-                    });
-                });
-            }
+            // if (response.data.
+            //     candidates.length === 0) {
+            //     import("sweetalert2").then((Swal) => {
+            //         Swal.default.fire({
+            //             title: "No Candidates Available!",
+            //             text: "Please add candidates for see the details.",
+            //             icon: "info",
+            //             confirmButtonText: "OK",
+            //         });
+            //     });
+            // }
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "An error occurred");
