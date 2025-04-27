@@ -101,6 +101,7 @@ function EditJob() {
     if (jobstatus) {
       console.log("open job statussssssssssssssssssssssssssssssssssssssssss")
       navigate(`/jobs?page=${page}&&status=Open`);
+      localStorage.removeItem("jobstatus");
     } else {
 
       navigate(`/jobs?page=${page}`);
