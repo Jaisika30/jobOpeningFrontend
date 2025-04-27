@@ -44,6 +44,7 @@ const useJobData = () => {
       localStorage.setItem("jobstatus", true);
       return state.jobs.jobs.openJobs || [];
     } else {
+      localStorage.removeItem("jobstatus");
       console.log("hehehehe");
       return state?.jobs?.jobs?.jobs || [];
     }
