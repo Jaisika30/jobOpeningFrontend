@@ -43,6 +43,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
     return searchParams.get("status");
   }, [location.search]);
 
+
   console.log("urlinterviewStatusurlinterviewStatusurlinterviewStatus::", urlinterviewStatus);
   console.log("urlStatusurlStatusurlStatus:::", urlStatus);
   // Get the correct data structure based on whether we have an ID
@@ -160,6 +161,13 @@ const getCandidatesTableData = () => {
     return result;
   }, [candidates, searchQuery]);
 
+
+  useEffect(() => {
+    if (urlStatus) {
+      setStatusFilter(urlStatus);
+    }
+  }, [urlStatus]);
+  const isStatusDisabled = urlStatus === "Hired";
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -191,8 +199,8 @@ const getCandidatesTableData = () => {
     urlStatus === "Hired"
       ? Math.ceil(hiredCount / limit) || 1
       : urlinterviewStatus === "Scheduled"
-      ? Math.ceil(scheduledCount / limit) || 1
-      : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
+        ? Math.ceil(scheduledCount / limit) || 1
+        : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
 
   console.log("tota;;;;;pages:::::", totalPages);
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
@@ -324,6 +332,7 @@ const getCandidatesTableData = () => {
                 open={openStatusDropdown}
                 onClose={() => setOpenStatusDropdown(false)}
                 onOpen={() => setOpenStatusDropdown(true)}
+                disabled={isStatusDisabled} 
               >
                 <MenuItem value="">All</MenuItem>
                 <MenuItem value="Contacted">Contacted</MenuItem>
@@ -382,38 +391,38 @@ const getCandidatesTableData = () => {
     ],
     rows: loading
       ? [
-          {
-            name: (
-              <Box
-                position="fixed"
-                top={0}
-                left={0}
-                right={0}
-                bottom={0}
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                justifyContent="center"
-                bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
-                zIndex={9999}
-              >
-                <CircularProgress color="secondary" size={30} />
-                <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
-                  Loading candidates...
-                </SoftTypography>
-              </Box>
-            ),
-            job: "",
-            location: "",
-            interviewSlot: "",
-            interviewStatus: "",
-            status: "",
-            comments: "",
-            action: "",
-          },
-        ]
+        {
+          name: (
+            <Box
+              position="fixed"
+              top={0}
+              left={0}
+              right={0}
+              bottom={0}
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              bgcolor="rgba(255,255,255,0.7)" // Semi-transparent background
+              zIndex={9999}
+            >
+              <CircularProgress color="secondary" size={30} />
+              <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
+                Loading candidates...
+              </SoftTypography>
+            </Box>
+          ),
+          job: "",
+          location: "",
+          interviewSlot: "",
+          interviewStatus: "",
+          status: "",
+          comments: "",
+          action: "",
+        },
+      ]
       : noCandidatesFound
-      ? [
+        ? [
           {
             name: (
               <Box display="flex" justifyContent="center" width="100%">
@@ -442,7 +451,7 @@ const getCandidatesTableData = () => {
             // )
           },
         ]
-      : filteredCandidates?.map((candidate) => ({
+        : filteredCandidates?.map((candidate) => ({
           name: (
             <Tooltip
               placement="top"
@@ -535,18 +544,18 @@ const getCandidatesTableData = () => {
                 candidate.interviewStatus === "Accepted"
                   ? "success"
                   : candidate.interviewStatus === "Rejected"
-                  ? "error"
-                  : candidate.interviewStatus === "Pending"
-                  ? "warning"
-                  : candidate.interviewStatus === "Offered"
-                  ? "info"
-                  : candidate.interviewStatus === "Interviewed"
-                  ? "secondary"
-                  : candidate.interviewStatus === "Rescheduled"
-                  ? "warning"
-                  : candidate.interviewStatus === "Missed"
-                  ? "error"
-                  : "light" // default/fallback
+                    ? "error"
+                    : candidate.interviewStatus === "Pending"
+                      ? "warning"
+                      : candidate.interviewStatus === "Offered"
+                        ? "info"
+                        : candidate.interviewStatus === "Interviewed"
+                          ? "secondary"
+                          : candidate.interviewStatus === "Rescheduled"
+                            ? "warning"
+                            : candidate.interviewStatus === "Missed"
+                              ? "error"
+                              : "light" // default/fallback
               }
               size="xs"
               container
@@ -575,20 +584,20 @@ const getCandidatesTableData = () => {
                 candidate.status === "Hired"
                   ? "success"
                   : candidate.status === "Rejected"
-                  ? "error"
-                  : candidate.status === "Contacted"
-                  ? "info"
-                  : candidate.status === "Moved to Round 2"
-                  ? "primary"
-                  : candidate.status === "Moved to Round 3"
-                  ? "primary"
-                  : candidate.status === "Shortlisted"
-                  ? "secondary"
-                  : candidate.status === "Final Round"
-                  ? "warning"
-                  : candidate.status === "On Hold"
-                  ? "warning"
-                  : "default"
+                    ? "error"
+                    : candidate.status === "Contacted"
+                      ? "info"
+                      : candidate.status === "Moved to Round 2"
+                        ? "primary"
+                        : candidate.status === "Moved to Round 3"
+                          ? "primary"
+                          : candidate.status === "Shortlisted"
+                            ? "secondary"
+                            : candidate.status === "Final Round"
+                              ? "warning"
+                              : candidate.status === "On Hold"
+                                ? "warning"
+                                : "default"
               }
               size="xs"
               container

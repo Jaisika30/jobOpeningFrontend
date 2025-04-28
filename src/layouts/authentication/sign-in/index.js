@@ -88,12 +88,19 @@ function SignIn() {
 
   return (
     <CoverLayout
-      title="Please Sign In Here"
-      description="Enter your email and password to sign in"
+      title="Sign In Here"
+      description="Please enter credentials to sign in"
       image={curved9}
       top={28}
       color={"info"}
       bottom={5}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center", // Center text horizontally
+      }}
     >
       <form onSubmit={formik.handleSubmit}>
         <SoftBox mb={2}>
@@ -111,7 +118,7 @@ function SignIn() {
                 passwordRef.current?.focus(); // Move to password field
               }
             }}
-            InputLabelProps={{ sx: { fontSize: "1rem" } }}
+            InputLabelProps={{ sx: { fontSize: "1rem" , paddingLeft:"5px"} }}
             sx={textFieldStyles}
             placeholder="Enter email"
           />

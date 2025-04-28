@@ -67,6 +67,7 @@ const useJobData = () => {
     }
   }, [searchQuery, statusFilter]);
 
+   
   // ⬇ Fetch jobs when page, search or status changes
   useEffect(() => {
     localStorage.setItem("flag", true);

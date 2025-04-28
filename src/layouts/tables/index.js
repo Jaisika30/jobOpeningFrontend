@@ -14,11 +14,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { textFieldStyles } from "assets/textFieldStyles";
 import SoftButton from "components/SoftButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 import CustomPagination from "assets/CustomPagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Tables() {
   const dispatch = useDispatch();
@@ -36,6 +36,20 @@ function Tables() {
     totalPages,
     pagination,
   } = useJobData();
+  const location = useLocation();
+  const urlStatus = new URLSearchParams(location.search).get("status");
+
+  useEffect(() => {
+    console.log("urlStatusurlStatus:::", urlStatus);
+    console.log("statusFilterstatusFilter:::", statusFilter);
+
+    // Update statusFilter only if urlStatus exists and is different from the current statusFilter
+    if (urlStatus) {
+      setStatusFilter(urlStatus.toLowerCase());
+      console.log("statusFilter:::", statusFilter);
+    }
+  }, [urlStatus]);
+  const isStatusDisabled = urlStatus === "Open";
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -77,108 +91,6 @@ function Tables() {
                 <SoftTypography variant="h5" textAlign="center">Jobs</SoftTypography>
               </SoftBox>
 
-              {/* Search and Filter UI */}
-              {/* <SoftBox
-                display="flex"
-                gap="10px"
-                p={2}
-                flexWrap="wrap"
-                sx={{
-                  flexDirection: { xs: "column", sm: "row" },
-                  alignItems: "center",
-                  justifyContent: "space-between"
-                }}
-              >
-                <TextField
-                  type="text"
-                  label="Search Here"
-                  placeholder="Search by Job Title"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  sx={{
-                    width: { xs: "100%", sm: "250px" },
-                    maxWidth: "250px",
-                    borderRadius: "5px",
-                    height: "40px",
-                    "& .MuiInputBase-root": {
-                      width: "100%",
-                    },
-                    "& .MuiInputBase-input": {
-                      width: "100%",
-                    },
-                  }}
-                  InputLabelProps={{
-                    sx: {
-                      fontSize: "0.85rem",
-                    },
-                  }}
-                />
-
-                <FormControl
-                  sx={{
-                    width: { xs: "100%", sm: "250px" },
-                    maxWidth: "250px",
-                    borderRadius: "5px",
-                    display: "flex",
-                    position: "relative",
-                    "& .MuiInputBase-root": {
-                      width: "100%",
-                      display: "flex",
-                      height: "40px !important",
-                    },
-                    "& .MuiInputBase-input": {
-                      width: "200px",
-                      maxWidth: "200px",
-                      minWidth: "200px",
-                    },
-                  }}
-                >
-                  <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
-                  <Select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    sx={{
-                      width: "100%",
-                      paddingRight: "40px",
-                    }}
-                  >
-                    <MenuItem value="">All</MenuItem>
-                    <MenuItem value="open">Open</MenuItem>
-                    <MenuItem value="closed">Closed</MenuItem>
-                    <MenuItem value="paused">Paused</MenuItem>
-                  </Select>
-                  <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} />
-                </FormControl>
-
-                <SoftButton
-                  variant="gradient"
-                  color="success"
-                  onClick={() => navigate("/dashboard")}
-                  sx={{
-                    width: { xs: "95%", sm: "auto" },
-                    height: "40px",
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "5px",
-                    marginLeft: { sm: "auto" },
-                  }}
-                >
-                  Back
-                </SoftButton>
-                <SoftButton
-                  variant="gradient"
-                  color="info"
-                  onClick={() => navigate("/addJob")}
-                  sx={{
-                    width: { xs: "95%", sm: "auto" },
-                    height: "40px",
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "5px",
-                    marginLeft: { sm: "auto" },
-                  }}
-                >
-                  Add Job
-                </SoftButton>
-              </SoftBox> */}
 
               <SoftBox
                 display="flex"
@@ -256,6 +168,7 @@ function Tables() {
                       open={openDropdown}
                       onClose={() => setOpenDropdown(false)}
                       onOpen={() => setOpenDropdown(true)}
+                      disabled={isStatusDisabled}
                     >
                       <MenuItem value="">All</MenuItem>
                       <MenuItem value="open">Open</MenuItem>
