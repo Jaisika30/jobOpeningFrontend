@@ -47,6 +47,8 @@ function Tables() {
     if (urlStatus) {
       setStatusFilter(urlStatus.toLowerCase());
       console.log("statusFilter:::", statusFilter);
+    }else {
+      setStatusFilter(""); // Clear dropdown when urlStatus is not present
     }
   }, [urlStatus]);
   const isStatusDisabled = urlStatus === "Open";
@@ -175,7 +177,8 @@ function Tables() {
                       <MenuItem value="closed">Closed</MenuItem>
                       <MenuItem value="paused">Paused</MenuItem>
                     </Select>
-                    <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} onClick={handleIconClick} />
+                    <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} onClick={urlStatus === "Open" ? undefined : handleIconClick}
+ />
                   </FormControl>
                 </Box>
 

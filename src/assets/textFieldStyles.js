@@ -31,7 +31,8 @@ const textFieldStyles = {
         width: "100%",
         maxWidth: "100%",
         minWidth: "100%",
-        paddingTop: "10px", // Adds space to prevent label from being pushed too high
+        padding: "10px", // Adds space to prevent label from being pushed too high
+        // paddingLeft:"10px"
     },
     "& .MuiInputLabel-root": {
         fontSize: "0.85rem", // Ensures a readable label size

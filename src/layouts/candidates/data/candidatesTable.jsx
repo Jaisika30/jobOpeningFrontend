@@ -165,6 +165,8 @@ const getCandidatesTableData = () => {
   useEffect(() => {
     if (urlStatus) {
       setStatusFilter(urlStatus);
+    }else {
+      setStatusFilter(""); // Clear dropdown when urlStatus is not present
     }
   }, [urlStatus]);
   const isStatusDisabled = urlStatus === "Hired";
@@ -195,12 +197,14 @@ const getCandidatesTableData = () => {
   const scheduledCount = useSelector((state) => state.candidates?.candidates?.scheduledCount || 0);
   // const totalPages = urlStatus === 'Hired'
   //   ? Math.ceil(hiredCount / limit) || 1 : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
+  const totalPagesFromStore = useSelector((state) => state?.candidates?.candidates?.totalPages || 1);
+
   const totalPages =
     urlStatus === "Hired"
       ? Math.ceil(hiredCount / limit) || 1
       : urlinterviewStatus === "Scheduled"
         ? Math.ceil(scheduledCount / limit) || 1
-        : useSelector((state) => state.candidates?.candidates?.totalPages || 1);
+        : totalPagesFromStore;
 
   console.log("tota;;;;;pages:::::", totalPages);
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
@@ -325,14 +329,14 @@ const getCandidatesTableData = () => {
             <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
             <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
               <Select
-                value={statusFilter}
+                value={statusFilter || ""}
                 onChange={handleStatusChange}
                 label="Status"
                 sx={{ width: "100%", paddingRight: "40px" }}
                 open={openStatusDropdown}
                 onClose={() => setOpenStatusDropdown(false)}
                 onOpen={() => setOpenStatusDropdown(true)}
-                disabled={isStatusDisabled} 
+                disabled={isStatusDisabled}
               >
                 <MenuItem value="">All</MenuItem>
                 <MenuItem value="Contacted">Contacted</MenuItem>
@@ -346,7 +350,7 @@ const getCandidatesTableData = () => {
               </Select>
               <ArrowDropDownCircleIcon
                 sx={{ ...dropdownIconStyle }}
-                onClick={handleStatusIconClick}
+                onClick={urlStatus === "Hired" ? undefined : handleStatusIconClick}
               />
             </Box>
           </FormControl>
