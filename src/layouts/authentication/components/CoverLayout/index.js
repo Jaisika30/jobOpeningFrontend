@@ -34,11 +34,11 @@ function CoverLayout({ color, header, title, description, image, top, children ,
   return (
     <PageLayout background="white">
        <DefaultNavbar
-        action={{
-          type: "external",
-          label: "Hiring Management",
-          color: "dark",
-        }}
+        // action={{
+        //   type: "external",
+        //   label: "Hiring Management",
+        //   color: "dark",
+        // }}
       /> 
       <Grid
         container
