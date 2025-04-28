@@ -29,6 +29,7 @@ import Icon from "@mui/material/Icon";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
+import logo from "../../../images/logo1.png"
 
 // Soft UI Dashboard React examples
 import DefaultNavbarLink from "examples/Navbars/DefaultNavbar/DefaultNavbarLink";
@@ -36,6 +37,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 
 // Soft UI Dashboard React base styles
 import breakpoints from "assets/theme/base/breakpoints";
+import { Box } from "@mui/material";
 
 function DefaultNavbar({ transparent, light, action }) {
   const [mobileNavbar, setMobileNavbar] = useState(false);
@@ -91,32 +93,39 @@ function DefaultNavbar({ transparent, light, action }) {
           backdropFilter: transparent ? "none" : `saturate(200%) blur(30px)`,
         })}
       >
-        <SoftBox component={Link} to="/" py={transparent ? 1.5 : 0.75} lineHeight={1}>
-          <SoftTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"}>
-            Soft UI Dashboard
+        <SoftBox component={Link} to="/" py={transparent ? 1.5 : 0.75} lineHeight={1} display="flex" justifyContent="center" alignItems="center" gap="5px">
+          
+          <Box
+            component="img"
+            src={logo}// change this to your actual logo path
+            alt="Soft UI Dashboard Logo"
+            sx={{ height: 40, objectFit: "contain" }} // adjust styling as needed
+          />
+          <SoftTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"} >
+           Anthem Infotech Pvt. Ltd.
           </SoftTypography>
         </SoftBox>
         <SoftBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
           {/* <DefaultNavbarLink icon="donut_large" name="dashboard" route="/dashboard" light={light} /> */}
-          <DefaultNavbarLink
+          {/* <DefaultNavbarLink
             icon="key"
             name="sign in"
             route="/authentication/sign-in"
             light={light}
-          />
-          <DefaultNavbarLink icon="person" name="profile" route="/profile" light={light} />
+          /> */}
+          {/* <DefaultNavbarLink icon="person" name="profile" route="/profile" light={light} />
           <DefaultNavbarLink
             icon="account_circle"
             name="sign up"
             route="/authentication/sign-up"
-            light={light}
-          />
+            light={light} */}
+          {/* /> */}
         </SoftBox>
         {action &&
           (action.type === "internal" ? (
             <SoftBox display={{ xs: "none", lg: "inline-block" }}>
               <SoftButton
-                component={Link}
+                // component={Link}
                 to={action.route}
                 variant="gradient"
                 color={action.color ? action.color : "info"}
@@ -130,11 +139,11 @@ function DefaultNavbar({ transparent, light, action }) {
             <SoftBox display={{ xs: "none", lg: "inline-block" }}>
               <SoftButton
                 component="a"
-                href={action.route}
-                target="_blank"
-                rel="noreferrer"
+                // href={action.route}
+                // target="_blank"
+                // rel="noreferrer"
                 variant="gradient"
-                color={action.color ? action.color : "info"}
+                color="info"
                 size="small"
                 circular
               >
