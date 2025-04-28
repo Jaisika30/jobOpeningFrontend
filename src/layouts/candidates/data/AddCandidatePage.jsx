@@ -93,7 +93,7 @@ function AddCandidatePage() {
 
         const requiredFields = [
             "name", "phone", "location", "interviewSlot", "interviewSchedule",
-            ...(id ? [] : ["job"]), "interviewStatus"
+            ...(id ? [] : ["job"]),
         ];
 
         for (let field of requiredFields) {
