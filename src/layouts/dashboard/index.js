@@ -67,7 +67,7 @@ function Dashboard() {
     dispatch(
       getJobs({
         page: 1,
-        limit: 5,
+        limit: 10,
         searchQuery: "",
         statusFilter: "",
       })
@@ -75,7 +75,7 @@ function Dashboard() {
     dispatch(
       getCandidates({
         page: 1,
-        limit: 5,
+        limit: 10,
         searchQuery: "",
         statusFilter: "",
       })

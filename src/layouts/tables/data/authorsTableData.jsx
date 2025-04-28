@@ -24,7 +24,7 @@ const useJobData = () => {
 
   const page = parseInt(searchParams.get("page")) || 1;
   console.log("tabl page ,,.....", page);
-  const limit = 5;
+  const limit = 10;
 
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");

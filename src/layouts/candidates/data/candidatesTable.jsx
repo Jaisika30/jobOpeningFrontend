@@ -33,7 +33,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
     return parseInt(searchParams.get("page")) || 1;
   }, [location.search]);
   console.log("candidate page ,,.....", page);
-  const limit = 5;
+  const limit = 10;
   const urlinterviewStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get("interviewStatus");
@@ -79,7 +79,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   useEffect(() => {
     dispatch(getJobs({
       page: 1,
-      limit: 5,
+      limit: 10,
       searchQuery: "",
       statusFilter: "",
     }));
