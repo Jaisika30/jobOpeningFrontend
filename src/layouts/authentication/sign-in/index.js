@@ -65,6 +65,7 @@ function SignIn() {
       } catch (error) {
         console.log("Full error object:", error);
 
+        setLocalLoading(false);
         // More detailed error handling
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -94,13 +95,7 @@ function SignIn() {
       top={28}
       color={"info"}
       bottom={5}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center", // Center text horizontally
-      }}
+      
     >
       <form onSubmit={formik.handleSubmit}>
         <SoftBox mb={2}>

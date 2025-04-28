@@ -30,7 +30,7 @@ import PageLayout from "examples/LayoutContainers/PageLayout";
 // Authentication layout components
 import Footer from "layouts/authentication/components/Footer";
 
-function CoverLayout({ color, header, title, description, image, top, children , bottom  }) {
+function CoverLayout({ color, header, title, description, image, top, children, bottom }) {
   return (
     <PageLayout background="white">
       {/* <DefaultNavbar
@@ -49,17 +49,17 @@ function CoverLayout({ color, header, title, description, image, top, children ,
           margin: 0,
         }}
       >
-        <Grid item xs={11} sm={8} md={5} xl={3}pb={bottom}>
+        <Grid item xs={11} sm={8} md={5} xl={3} pb={bottom}>
           <SoftBox mt={top}>
             <SoftBox pt={1} px={3}  >
               {!header ? (
                 <>
-                  <SoftBox mb={1}>
+                  <SoftBox mb={1} display="flex" justifyContent="center"> 
                     <SoftTypography variant="h3" fontWeight="bold" color={color} textGradient>
                       {title}
                     </SoftTypography>
                   </SoftBox>
-                  <SoftTypography variant="body2" fontWeight="regular" color="text">
+                  <SoftTypography variant="body2" fontWeight="regular" color="text" display="flex" justifyContent="center">
                     {description}
                   </SoftTypography>
                 </>
