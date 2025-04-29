@@ -113,6 +113,7 @@ const Forgot = () => {
     }
   }, [success, navigate]);
   return (
+    <form onSubmit={handleSubmit}>
     <Container maxWidth="sm" sx={{
       height: "100vh",
       display: "flex",
@@ -180,6 +181,7 @@ const Forgot = () => {
         </Link>
       </Box>
     </Container>
+    </form>
   );
 };
 
