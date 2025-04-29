@@ -67,6 +67,7 @@ function EditCandidatePage() {
     const [slotError, setSlotError] = useState(false);
 
     const timeSlotRegex = /^(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*\|\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)\s*-\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
+    const candidateStatus = localStorage.getItem("candidateStatus")
 
     useEffect(() => {
         dispatch(getJobs({
@@ -119,22 +120,37 @@ function EditCandidatePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("candidateData:::::", candidate);
+        // console.log("candidateData:::::", candidate);
 
         try {
+            console.log("11222233333333333333333333333333333333333 ...", page);
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             toast.success("Candidate updated successfully! 🎉"); // Success toast
             console.log("candidate.job...........candidate.job", candidate.job);
             localStorage.removeItem("flag");
             // navigate(`/jobs?page=${page}`);
-            
-            if (flag) {
 
-                navigate(candidate.job ? `/Candidates/${candidate.job}` : `/Candidate`);
-            } else {
-                navigate('/Candidate');
+            if (flag) {
+                console.log("flaggggggggggggggggggggg");
+                navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
+            } else if (candidateStatus) {
+                localStorage.removeItem("candidateStatus");
+                navigate(`/Candidate?page=${page}&&status=Hired`);
             }
-           
+            else {
+                console.log("flaggggggggggggggggggggg111111111111");
+
+                navigate(`/Candidate?page=${page}`);
+            }
+            // if (jobstatus) {
+            //     console.log("open job statussssssssssssssssssssssssssssssssssssssssss")
+            //     navigate(`/jobs?page=${page}&&status=Open`);
+            //     localStorage.removeItem("jobstatus");
+            //   } else {
+
+            //     navigate(`/jobs?page=${page}`);
+            //   }
+
             // navigate(`/Candidates/${candidate.job}`); // Redirect after updating
         } catch (error) {
             console.error("Failed to update candidate:", error);
@@ -531,7 +547,17 @@ function EditCandidatePage() {
                                 <SoftButton
                                     variant="gradient"
                                     color="error"
-                                    onClick={() => navigate(flag ? " `/Candidates/${candidate.job}`" : "/Candidate")}
+
+                                    onClick={() => {
+                                        if (flag) {
+                                            navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
+                                        } else if (candidateStatus) {
+                                            localStorage.removeItem("candidateStatus");
+                                            navigate(`/Candidate?page=${page}&&status=Hired`);
+                                        } else {
+                                            navigate(`/Candidate?page=${page}`);
+                                        }
+                                    }}
                                     sx={{
                                         width: { xs: '100%', sm: 'auto' },
                                         px: 3,
@@ -548,7 +574,7 @@ function EditCandidatePage() {
                                         px: 3,
                                     }}
                                 >
-                                    Edit Candidate
+                                    Update Candidate
                                 </SoftButton>
 
                             </SoftBox>

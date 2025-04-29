@@ -56,6 +56,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
       console.log("With ID - candidates data:", state.candidates?.candidates);
       return state.candidates?.candidates || []; // Array of candidates for specific job
     } else if (urlStatus === "Hired") {
+      localStorage.setItem("candidateStatus","true");
       console.log("hiredCandidates:", state.candidates?.candidates?.hiredCandidates || []);
       return state.candidates?.candidates?.hiredCandidates || [];
     } else if (urlinterviewStatus === "Scheduled") {
