@@ -311,11 +311,11 @@ function Candidates() {
                       }}
                     >
                       {/* <InputLabel sx={{ ...inputLabelStyle }}>All Jobs</InputLabel> */}
-                      <Box sx={{ display: "flex", alignItems: "center", position: "relative" , ...dropdownStyles }}>
+                      <Box sx={{ display: "flex", alignItems: "center", position: "relative", ...dropdownStyles }}>
                         <Select
                           value={id || "all"}
-                          sx={{ 
-                            width: "100%", 
+                          sx={{
+                            width: "100%",
                             paddingRight: "40px",
                             "& .MuiSelect-select": {
                               textAlign: "left", // Align selected value to left
@@ -347,8 +347,19 @@ function Candidates() {
 
                 <SoftBox mt={4}>{topAction}</SoftBox>
               </SoftBox>
+              {rows.length === 0 || rows.length < 0 ? (
+                <Box p={4} width="100%" textAlign="center">
+                  <SoftTypography variant="h6" color="error">
+                    No Candidates available.
+                  </SoftTypography>
+                </Box>
+              ) : (
+                <>
+                  <Candidate columns={columns} rows={rows} />
+                </>
+              )}
 
-              <Candidate columns={columns} rows={rows} />
+              {/* <Candidate columns={columns} rows={rows} /> */}
               <CustomPagination pagination={pagination} />
             </Card>
           </SoftBox>

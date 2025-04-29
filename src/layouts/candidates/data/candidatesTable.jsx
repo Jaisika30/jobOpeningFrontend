@@ -153,7 +153,7 @@ const getCandidatesTableData = () => {
   useEffect(() => {
     if (urlStatus) {
       setStatusFilter(urlStatus);
-    }else {
+    } else {
       setStatusFilter(""); // Clear dropdown when urlStatus is not present
     }
   }, [urlStatus]);
@@ -414,35 +414,7 @@ const getCandidatesTableData = () => {
         },
       ]
       : noCandidatesFound
-        ? [
-          {
-            name: (
-              <Box display="flex" justifyContent="center" width="100%">
-                <SoftTypography variant="h7" color="error" textAlign="center">
-                  No Candidates available.
-                </SoftTypography>
-              </Box>
-            ),
-            job: "",
-            location: "",
-            interviewSlot: "",
-            interviewStatus: "",
-            personality: "",
-            knowledge: "",
-            communication: "",
-            status: "",
-            comments: "",
-            // action: (
-            //   <Button
-            //     variant="contained"
-            //     onClick={handleResetFilters}
-            //     style={{ backgroundColor: 'red', color: 'white' }}
-            //   >
-            //     Reset Filters
-            //   </Button>
-            // )
-          },
-        ]
+        ? []
         : filteredCandidates?.map((candidate) => ({
           name: (
             <Tooltip

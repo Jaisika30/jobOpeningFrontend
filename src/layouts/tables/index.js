@@ -40,11 +40,11 @@ function Tables() {
   const urlStatus = new URLSearchParams(location.search).get("status");
 
   useEffect(() => {
-  
+
     // Update statusFilter only if urlStatus exists and is different from the current statusFilter
     if (urlStatus) {
       setStatusFilter(urlStatus.toLowerCase());
-    }else {
+    } else {
       setStatusFilter(""); // Clear dropdown when urlStatus is not present
     }
   }, [urlStatus]);
@@ -175,7 +175,7 @@ function Tables() {
                       <MenuItem value="paused">Paused</MenuItem>
                     </Select>
                     <ArrowDropDownCircleIcon sx={{ ...dropdownIconStyle }} onClick={urlStatus === "Open" ? undefined : handleIconClick}
- />
+                    />
                   </FormControl>
                 </Box>
 
@@ -248,6 +248,12 @@ function Tables() {
                     <CircularProgress color="secondary" size={30} />
                     <SoftTypography variant="button" color="secondary" textAlign="center" mt={1}>
                       Loading jobs...
+                    </SoftTypography>
+                  </Box>
+                ) : tableData.rows.length === 0 ? (
+                  <Box p={4} textAlign="center">
+                    <SoftTypography variant="h6" color="error">
+                      No jobs available.
                     </SoftTypography>
                   </Box>
                 ) : (
