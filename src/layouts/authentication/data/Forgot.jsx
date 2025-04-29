@@ -105,9 +105,7 @@ const Forgot = () => {
 
   // ✅ Navigate when `success` updates
   useEffect(() => {
-    console.log("Sucesssssss", success)
     if (success) {
-      console.log("Navigating to /verify-otp...");
       navigate("/verify-otp");
     }
   }, [success, navigate]);

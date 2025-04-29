@@ -32,7 +32,6 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
     const searchParams = new URLSearchParams(location.search);
     return parseInt(searchParams.get("page")) || 1;
   }, [location.search]);
-  console.log("candidate page ,,.....", page);
   const limit = 10;
   const urlinterviewStatus = React.useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -44,8 +43,6 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   }, [location.search]);
 
 
-  console.log("urlinterviewStatusurlinterviewStatusurlinterviewStatus::", urlinterviewStatus);
-  console.log("urlStatusurlStatusurlStatus:::", urlStatus);
   // Get the correct data structure based on whether we have an ID
 
   const currentPage = useSelector((state) => state.candidates?.candidates?.currentPage || "");
@@ -53,25 +50,19 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   const allCandidates = useSelector((state) => {
     if (id) {
 
-      console.log("With ID - candidates data:", state.candidates?.candidates);
       return state.candidates?.candidates || []; // Array of candidates for specific job
     } else if (urlStatus === "Hired") {
-      console.log("hiredCandidates:", state.candidates?.candidates?.hiredCandidates || []);
       return state.candidates?.candidates?.hiredCandidates || [];
     } else if (urlinterviewStatus === "Scheduled") {
-      console.log("scheduledCandidates:", state.candidates?.candidates?.scheduledCandidates || []);
       return state.candidates?.candidates?.ScheduledCandidates || [];
     } else {
-      console.log("Without ID - candidates data:", state.candidates?.candidates?.candidates);
       return state.candidates?.candidates?.candidates || []; // Array of all candidates
     }
   });
   const jobs = useSelector((state) => state.jobs.jobs.jobs || []);
   const isLoading = useSelector((state) => state.candidates.loading);
-  console.log("Jobssss candidaye table:::", jobs);
   useEffect(() => {
     if (id) {
-      console.log("hiiiiiiii localstorage");
       localStorage.setItem("flag", true);
     } else {
       localStorage.removeItem("flag");
@@ -88,11 +79,9 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
 
   useEffect(() => {
     if (id) {
-      console.log("Fetching candidates for job ID:", id);
 
       dispatch(getCandidatesByJobID(id));
     } else {
-      console.log("Fetching all candidates");
       dispatch(
         getCandidates({
           page,
@@ -126,7 +115,6 @@ const getCandidatesTableData = () => {
     statusFilter,
     interviewStatusFilter,
   });
-  console.log("pageeeee candidate:::", page);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

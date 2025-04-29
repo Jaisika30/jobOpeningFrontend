@@ -23,7 +23,6 @@ const useJobData = () => {
   const [searchParams] = useSearchParams();
 
   const page = parseInt(searchParams.get("page")) || 1;
-  console.log("tabl page ,,.....", page);
   const limit = 10;
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,7 +44,6 @@ const useJobData = () => {
       return state.jobs.jobs.openJobs || [];
     } else {
       localStorage.removeItem("jobstatus");
-      console.log("hehehehe");
       return state?.jobs?.jobs?.jobs || [];
     }
   });

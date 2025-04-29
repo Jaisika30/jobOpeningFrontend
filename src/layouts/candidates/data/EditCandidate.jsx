@@ -93,8 +93,6 @@ function EditCandidatePage() {
 
     // Populate form fields when candidate data is available
     useEffect(() => {
-        console.log("candidateeeeeeeee:::::", candidatee);
-        console.log("jobsxxxxxxxxxxccccccccccccccccccccsssssss:::::", jobs);
         if (candidatee) {
             setCandidate({
                 name: candidatee.name || "",

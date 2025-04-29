@@ -60,10 +60,8 @@ function Dashboard() {
   const scheduledCount = useSelector((state) => state.candidates?.candidates?.scheduledCount);
 
   const dispatch = useDispatch();
-  console.log("scheduledCandidatesCount:::", scheduledCount);
 
   useEffect(() => {
-    console.log("dashbbbbboard uiiii");
     dispatch(
       getJobs({
         page: 1,

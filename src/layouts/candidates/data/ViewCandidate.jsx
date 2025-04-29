@@ -99,7 +99,6 @@ function ViewCandidate() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("candidateData:::::", candidate);
         dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
         navigate("/candidates"); // Redirect after updating
     };

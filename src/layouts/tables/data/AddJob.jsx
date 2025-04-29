@@ -685,7 +685,6 @@ function AddJob() {
     // Submit if everything's filled
     try {
       await dispatch(createJob({ jobData: job }));
-      console.log("heyyyyyyy honey")
       toast.success("Job added successfully! 🚀");
       navigate("/jobs");
     } catch (error) {

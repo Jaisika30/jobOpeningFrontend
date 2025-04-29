@@ -81,8 +81,6 @@ function ViewJob() {
   };
 
   const handleSubmit = async () => {
-    console.log("update id:::", id);
-    console.log("job updatedData", job)
     dispatch(updateJob({ id, updatedData: job }));
     navigate("/jobs");
   };

@@ -40,13 +40,10 @@ function Tables() {
   const urlStatus = new URLSearchParams(location.search).get("status");
 
   useEffect(() => {
-    console.log("urlStatusurlStatus:::", urlStatus);
-    console.log("statusFilterstatusFilter:::", statusFilter);
-
+  
     // Update statusFilter only if urlStatus exists and is different from the current statusFilter
     if (urlStatus) {
       setStatusFilter(urlStatus.toLowerCase());
-      console.log("statusFilter:::", statusFilter);
     }else {
       setStatusFilter(""); // Clear dropdown when urlStatus is not present
     }

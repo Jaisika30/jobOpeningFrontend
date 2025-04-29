@@ -244,13 +244,9 @@ function Candidates() {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get('status');
   }, [location.search]);
-  // Debugging logs
-  console.log("Pagination config:", pagination);
-  console.log("Current jobDetail:", jobDetail);
-  console.log("ID from URL:", id);
+
   const jobs = useSelector((state) => state.jobs.jobs.jobs || []);
   const sortedJobs = [...jobs].sort((a, b) => a.title.localeCompare(b.title));
-  console.log("Jobssss candidaye table:::", jobs)
   useEffect(() => {
     dispatch(getJobs({
       page: 1,
@@ -260,7 +256,6 @@ function Candidates() {
     }));
   }, [dispatch]);
   useEffect(() => {
-    console.log("useEffect triggered with id:", id);
     if (id) {
       dispatch(getJobById(id));
     }

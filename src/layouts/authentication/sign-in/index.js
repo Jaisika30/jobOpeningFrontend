@@ -23,7 +23,6 @@ import { useAuth } from "protect/AuthContext";
 import { textFieldStyles } from "assets/textFieldStyles";
 import { useSelector } from "react-redux";
 const API_URL = process.env.REACT_APP_API_URL;
-console.log("apiiiiiiii irlllll", API_URL);
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");

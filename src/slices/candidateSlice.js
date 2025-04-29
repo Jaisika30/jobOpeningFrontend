@@ -5,13 +5,11 @@ import { toast } from 'react-toastify';
 
 // const API_URL = 'http://localhost:8085/api/candidate'; // Adjust based on your backend URL
 const API_URL = process.env.REACT_APP_API_URL;
-console.log(";;;;;;;;;;", API_URL)
 // 1. Create Candidate
 export const createCandidate = createAsyncThunk(
     "candidates/createCandidate",
     async (candidateData, { rejectWithValue }) => {
         try {
-            console.log("::::candidateDatacandidateData::", candidateData);
             const token = localStorage.getItem("token");
             const response = await axios.post(`${API_URL}/api/candidate/create`, candidateData, {
                 headers: {
@@ -19,7 +17,6 @@ export const createCandidate = createAsyncThunk(
                     "Content-Type": "application/json",
                 },
             });
-            console.log(response)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "An error occurred");
@@ -32,7 +29,6 @@ export const getCandidates = createAsyncThunk(
     "candidates/getCandidates",
     async ({ page, limit, searchQuery, statusFilter, interviewStatusFilter }, { rejectWithValue, getState }) => {
         try {
-            console.log("Fetching candidates...", page, limit);
 
             // Get token from Redux state (assuming you store it in auth slice)
             const token = localStorage.getItem("token");
@@ -55,7 +51,6 @@ export const getCandidates = createAsyncThunk(
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("responseeeeeeeeeeeeeeeeeeeeeeee::::", response.data);
             // if (response.data.
             //     candidates.length === 0) {
             //     import("sweetalert2").then((Swal) => {
@@ -91,7 +86,6 @@ export const getCandidateById = createAsyncThunk(
                 },
             });
 
-            console.log("response:::::***********", response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "An error occurred");
@@ -104,9 +98,7 @@ export const updateCandidate = createAsyncThunk(
     async ({ id, updatedData }, { rejectWithValue, getState }) => {
         try {
             // Retrieve token from Redux state or localStorage
-            console.log("object", typeof (id));
             const token = localStorage.getItem("token");
-            console.log("id::", id, "udate Data :::", updatedData);
             // Set headers with Authorization token
             const config = {
                 headers: {
@@ -117,9 +109,7 @@ export const updateCandidate = createAsyncThunk(
 
             // Send request with token
             const response = await axios.put(`${API_URL}/api/candidate/updateCandidate/${id}`, updatedData, config);
-            console.log("update responseeeeeeeeeee:::::::", response);
             if (response.status === 200) {
-                console.log("hiiiiiiiiiiii responseeee");
                 toast.success("Candidate updated successfully! 🎉"); // Success toast
 
             }
@@ -157,7 +147,6 @@ export const deleteCandidate = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem("token");
-            console.log("Delete token:", token); // ✅ Ensure token is logged
 
             if (!token) {
                 return rejectWithValue("No authentication token found");
@@ -173,7 +162,6 @@ export const deleteCandidate = createAsyncThunk(
             // ✅ Fix: Move `config` to the third argument (not second)
             const resp = await axios.put(`${API_URL}/api/candidate/deleteCandidate/${id}`, {}, config);
 
-            console.log("Response:", resp);
             return id; // ✅ Return ID to remove from Redux store
         } catch (error) {
             return rejectWithValue(error.response?.data || "Something went wrong");
@@ -190,7 +178,6 @@ export const getCandidatesByJobID = createAsyncThunk(
     'candidates/getCandidatesByJobID',
     async (id, { rejectWithValue }) => {
         try {
-            console.log("slice id:::", id);
             const token = localStorage.getItem("token");
             // Send token in Authorization header if it exists
             const config = token
@@ -212,7 +199,6 @@ export const getCandidatesByJobID = createAsyncThunk(
                     });
                 });
             }
-            console.log("slice resp:::", response.data);
 
             return response.data;
         } catch (error) {
@@ -333,7 +319,6 @@ const candidateSlice = createSlice({
                 state.error = null; // Reset error on new request
             })
             .addCase(getCandidatesByJobID.fulfilled, (state, action) => {
-                console.log("API Response:", action.payload);
                 state.loading = false;
                 state.candidates = action.payload;
             })
