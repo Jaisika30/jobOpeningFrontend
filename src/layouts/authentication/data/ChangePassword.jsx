@@ -299,21 +299,21 @@ const ChangePassword = () => {
         },
         validationSchema: Yup.object({
             oldPassword: Yup.string()
-              .required("Old Password is required")
-              .min(8, "Password must be at least 8 characters"),
-              
+                .required("Old Password is required")
+                .min(8, "Password must be at least 8 characters"),
+
             newPassword: Yup.string()
-              .required("New Password is required")
-              .min(8, "Password must be at least 8 characters")
-              .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                "Password must contain at least one uppercase, one lowercase, one number and one special character"
-              ),
-              
+                .required("New Password is required")
+                .min(8, "Password must be at least 8 characters")
+                .matches(
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    "Password must contain at least one uppercase, one lowercase, one number and one special character"
+                ),
+
             confirmPassword: Yup.string()
-              .required("Confirm Password is required")
-              .oneOf([Yup.ref("newPassword"), null], "Passwords must match"),
-          }),
+                .required("Confirm Password is required")
+                .oneOf([Yup.ref("newPassword"), null], "Passwords must match"),
+        }),
         onSubmit: async (values) => {
             try {
                 await dispatch(
@@ -445,15 +445,7 @@ const ChangePassword = () => {
                     />
 
                     <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-                        <SoftButton
-                            type="submit"
-                            variant="gradient"
-                            color="info"
-                            fullWidth
-                            // disabled={loading || !formik.isValid}
-                        >
-                            {loading ? "Processing..." : "Change Password"}
-                        </SoftButton>
+
 
                         <SoftButton
                             variant="gradient"
@@ -463,6 +455,15 @@ const ChangePassword = () => {
                             disabled={loading}
                         >
                             Cancel
+                        </SoftButton>
+                        <SoftButton
+                            type="submit"
+                            variant="gradient"
+                            color="info"
+                            fullWidth
+                        // disabled={loading || !formik.isValid}
+                        >
+                            {loading ? "Processing..." : "Change Password"}
                         </SoftButton>
                     </Box>
                 </Box>

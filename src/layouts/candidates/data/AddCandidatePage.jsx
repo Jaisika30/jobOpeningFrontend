@@ -519,15 +519,16 @@ function AddCandidatePage() {
                                 /> */}
                                 <SoftBox>
                                     <FloatingTextarea
+                                        name="comments"
                                         value={candidate.comments}
                                         onChange={handleChange}
                                         placeholder="Write Comments"
                                         label={"Comments"}
                                         sx={{
                                             "& textarea": {
-                                              minHeight: "36px !important", // Ensure the inner textarea gets it
+                                                minHeight: "36px !important", // Ensure the inner textarea gets it
                                             },
-                                          }}
+                                        }}
                                     />
                                 </SoftBox>
                             </SoftBox>

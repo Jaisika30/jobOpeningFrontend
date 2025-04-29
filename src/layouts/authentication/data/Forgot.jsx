@@ -114,73 +114,74 @@ const Forgot = () => {
   }, [success, navigate]);
   return (
     <form onSubmit={handleSubmit}>
-    <Container maxWidth="sm" sx={{
-      height: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }}>
-      <Box
-        sx={{
-          textAlign: "center",
-          padding: 4,
-          bgcolor: "white",
-          borderRadius: 2,
-          boxShadow: 3,
-          width: "100%",
-          maxWidth: "400px",
-        }}
-      >
-        <Typography variant="h4" component="h1" gutterBottom>
-          Forgot Password
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Enter Your Email, We Will Send You OTP to Reset Password
-        </Typography>
-        <TextField
-
-          label="Enter Email"
-          variant="outlined"
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+      <Container maxWidth="sm" sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+        <Box
           sx={{
+            textAlign: "center",
+            padding: 4,
+            bgcolor: "white",
+            borderRadius: 2,
+            boxShadow: 3,
             width: "100%",
-            maxWidth: "100%",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            borderRadius: "5px",
-            display: "flex",
-            "& .MuiInputBase-root": {
+            maxWidth: "400px",
+          }}
+        >
+          <Typography variant="h4" component="h1" gutterBottom>
+            Forgot Password
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            Enter Your Email, We Will Send You OTP to Reset Password
+          </Typography>
+          <TextField
+
+            label="Enter Email"
+            type="email"
+            variant="outlined"
+            margin="normal"
+            value={email}
+            onChange={(e) => setEmail(e.target.value.toLowerCase())}
+            sx={{
               width: "100%",
+              maxWidth: "100%",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              borderRadius: "5px",
               display: "flex",
-            },
-            "& .MuiInputBase-input": {
-              width: "300px",
-              maxWidth: "300px",
-              minWidth: "300px",
-            },
-          }}
-          InputLabelProps={{
-            sx: {
-              fontSize: "0.875rem",
-              // Add other label styles here if needed
-            }
-          }}
-        />
+              "& .MuiInputBase-root": {
+                width: "100%",
+                display: "flex",
+              },
+              "& .MuiInputBase-input": {
+                width: "300px",
+                maxWidth: "300px",
+                minWidth: "300px",
+              },
+            }}
+            InputLabelProps={{
+              sx: {
+                fontSize: "0.875rem",
+                // Add other label styles here if needed
+              }
+            }}
+          />
 
 
-        <SoftButton variant="gradient" color="info" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
-          {localLoading ? (
-            <CircularProgress size={24} color="inherit" sx={{ color: "white" }} />
-          ) : (
-            "  Send Otp"
-          )}
-        </SoftButton>
-        <Link href="/authentication/sign-in" variant="body2" sx={{ mt: 2 }}>
-          Back to login
-        </Link>
-      </Box>
-    </Container>
+          <SoftButton variant="gradient" color="info" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
+            {localLoading ? (
+              <CircularProgress size={24} color="inherit" sx={{ color: "white" }} />
+            ) : (
+              "  Send Otp"
+            )}
+          </SoftButton>
+          <Link href="/authentication/sign-in" variant="body2" sx={{ mt: 2 }}>
+            Back to login
+          </Link>
+        </Box>
+      </Container>
     </form>
   );
 };
