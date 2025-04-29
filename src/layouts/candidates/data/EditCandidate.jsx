@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -48,7 +48,12 @@ function EditCandidatePage() {
     const [openStatusDropdown, setOpenStatusDropdown] = useState(false);
     const [openInterviewStatusDropdown, setOpenInterviewStatusDropdown] = useState(false);
     const [openSelect, setOpenSelect] = useState(null);
+    const location = useLocation();
 
+    const urlStatus = React.useMemo(() => {
+        const searchParams = new URLSearchParams(location.search);
+        return searchParams.get("status");
+    }, [location.search]);
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -68,7 +73,11 @@ function EditCandidatePage() {
 
     const timeSlotRegex = /^(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*\|\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)\s*-\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
     const candidateStatus = localStorage.getItem("candidateStatus")
-
+    useEffect(() => {
+        if (urlStatus) {
+            localStorage.setItem("candidateStatus", true)
+        }
+    }, [])
     useEffect(() => {
         dispatch(getJobs({
             page: 1,
