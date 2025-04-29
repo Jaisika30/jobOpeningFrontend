@@ -52,7 +52,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../../slices/authSlice"; // Adjust path if needed
-import { Container, Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
+import { Container, Box, Typography, TextField, Button, Link, Grid, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SoftButton from 'components/SoftButton';
 import { toast } from "react-toastify"; // Make sure you have this imported
@@ -63,6 +63,7 @@ const Forgot = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const success = useSelector((state) => state.auth.success);
+  const [localLoading, setLocalLoading] = useState(false);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -82,26 +83,28 @@ const Forgot = () => {
 
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      
-      if (!email) {
-          toast.error("Please enter your email!"); // Show error if email is not provided
-          return;
-      }
-  
-      try {
-          // Dispatch the action and wait for the response
-          await dispatch(forgotPassword(email)).unwrap();
-  
-          // Show success message if the password reset request is successful
-          toast.success("Password reset email sent successfully!");
-      } catch (error) {
-          // Show error message if the request fails
-          const errorMessage = error?.message || error?.error || "Something went wrong";
-          toast.error(errorMessage);
-      }
+    e.preventDefault();
+
+    if (!email) {
+      toast.error("Please enter your email!"); // Show error if email is not provided
+      return;
+    }
+
+    try {
+      // Dispatch the action and wait for the response
+      setLocalLoading(true);
+      await dispatch(forgotPassword(email)).unwrap();
+
+      // Show success message if the password reset request is successful
+      toast.success("Password reset email sent successfully!");
+    } catch (error) {
+      // Show error message if the request fails
+      setLocalLoading(false);
+      const errorMessage = error?.message || error?.error || "Something went wrong";
+      toast.error(errorMessage);
+    }
   };
-  
+
 
   // ✅ Navigate when `success` updates
   useEffect(() => {
@@ -110,6 +113,7 @@ const Forgot = () => {
     }
   }, [success, navigate]);
   return (
+    <form onSubmit={handleSubmit}>
     <Container maxWidth="sm" sx={{
       height: "100vh",
       display: "flex",
@@ -134,7 +138,7 @@ const Forgot = () => {
           Enter Your Email, We Will Send You OTP to Reset Password
         </Typography>
         <TextField
-          
+
           label="Enter Email"
           variant="outlined"
           margin="normal"
@@ -164,15 +168,20 @@ const Forgot = () => {
           }}
         />
 
-        
+
         <SoftButton variant="gradient" color="info" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>
-          Send Otp
+          {localLoading ? (
+            <CircularProgress size={24} color="inherit" sx={{ color: "white" }} />
+          ) : (
+            "  Send Otp"
+          )}
         </SoftButton>
         <Link href="/authentication/sign-in" variant="body2" sx={{ mt: 2 }}>
           Back to login
         </Link>
       </Box>
     </Container>
+    </form>
   );
 };
 
