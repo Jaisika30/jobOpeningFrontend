@@ -35,7 +35,6 @@ const VerifyOtp = () => {
   const handleSubmit = async () => {
     if (otp.length === 4) {
       try {
-        console.log("id::::::", id);
 
         // Dispatch the verifyOtp action and wait for the response
         await dispatch(verifyOtp({ id, otp })).unwrap();

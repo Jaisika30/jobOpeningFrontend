@@ -96,10 +96,7 @@ function EditJob() {
   };
   const handleSubmit = async () => {
     dispatch(updateJob({ id, updatedData: job }));
-    console.log("pagee edit ...", page);
-    console.log("objejobstatusjobstatusct", jobstatus);
     if (jobstatus) {
-      console.log("open job statussssssssssssssssssssssssssssssssssssssssss")
       navigate(`/jobs?page=${page}&&status=Open`);
       localStorage.removeItem("jobstatus");
     } else {
@@ -300,7 +297,6 @@ function EditJob() {
                   color="error"
                   onClick={() => {
                     if (jobstatus) {
-                      console.log("open job status");
                       navigate(`/jobs?page=${page}&&status=Open`);
                       localStorage.removeItem("jobstatus");
                     } else {

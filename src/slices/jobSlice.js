@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // const API_URL = 'http://localhost:8085/api'; // Adjust based on your backend URL
 const API_URL = process.env.REACT_APP_API_URL;
-console.log(";;;;;;;;;;", API_URL)
 // 1. Create Job
 export const createJob = createAsyncThunk(
     "jobs/createJob",
@@ -21,7 +20,6 @@ export const createJob = createAsyncThunk(
                     },
                 }
             );
-            console.log("create job::", response.data)
 
             return response.data;
         } catch (error) {
@@ -57,7 +55,6 @@ export const getJobs = createAsyncThunk(
                     });
                 });
             }
-            console.log("getJobsgetJobsgetJobsgetJobs::::", response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed to fetch jobs");
@@ -72,14 +69,12 @@ export const getJobById = createAsyncThunk(
     '/jobs/getJob',
     async (id, { rejectWithValue }) => {
         try {
-            console.log("iddddddddddddiiiiiiiiii::::", id)
             const token = localStorage.getItem('token'); // Retrieve token from storage
             const response = await axios.get(`${API_URL}/api/jobs/getJob/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`, // Attach token in Authorization header
                 },
             });
-            console.log('get job response:::', response);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || 'An error occurred');
@@ -92,7 +87,6 @@ export const updateJob = createAsyncThunk(
     'jobs/updateJob',
     async ({ id, updatedData }, { rejectWithValue }) => {
         try {
-            console.log("usedispatch", id, updatedData);
             const token = localStorage.getItem('token');
             const response = await axios.put(
                 `${API_URL}/api/jobs/updateJob/${id}`,
@@ -103,7 +97,6 @@ export const updateJob = createAsyncThunk(
                     },
                 }
             );
-            console.log("update edit job:::", response)
             if (response.status === 200) {
                 toast.success("Job updated successfully!"); // ✅ Success Toaster
             }
@@ -121,7 +114,6 @@ export const deleteJob = createAsyncThunk(
     "jobs/deleteJob",
     async ({ id }, { rejectWithValue }) => {
         try {
-            console.log("iddddddddddd:::", id)
             const token = localStorage.getItem("token");
             const config = {
                 headers: {
@@ -130,7 +122,6 @@ export const deleteJob = createAsyncThunk(
             };
 
             const resp = await axios.delete(`${API_URL}/api/jobs/deleteJob/${id}`, config);
-            console.log(resp)
             return id; // Return ID to remove from Redux store
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed to delete job");

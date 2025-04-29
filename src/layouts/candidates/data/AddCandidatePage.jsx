@@ -108,7 +108,6 @@ function AddCandidatePage() {
 
 
         try {
-            console.log("Submitting data Submitting Submitting Submitting Submitting:", candidate);
 
             dispatch(createCandidate(candidate));
             toast.success("Candidate added successfully! 🎉");

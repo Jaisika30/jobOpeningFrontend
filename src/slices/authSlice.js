@@ -3,14 +3,11 @@ import axios from "axios";
 // const API_URL = "http://localhost:8085";
 // Forgot Password
 const API_URL = process.env.REACT_APP_API_URL;
-console.log(";;;;;;;;;;", API_URL)
 export const forgotPassword = createAsyncThunk(
     "auth/forgotPassword",
     async (email, { rejectWithValue }) => {
         try {
-            console.log(email);
             const response = await axios.post(`${API_URL}/api/auth/forgot`, { email });
-            console.log(response);
             if (response.data.success) {
                 localStorage.setItem("otpExpire", response.data.user.otpExpire);
                 localStorage.setItem("otpHash", response.data.user.otpHash);
@@ -58,9 +55,7 @@ export const resetPassword = createAsyncThunk(
     "auth/resetPassword",
     async ({ id, password }, { rejectWithValue }) => {
         try {
-            console.log("id:::", id, "password:::", password)
             const response = await axios.post(`${API_URL}/api/auth/resetpass/${id}`, { password });
-            console.log("response::::::::", response);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -74,9 +69,7 @@ export const changePassowrd = createAsyncThunk(
     async ({ id, newPass, oldPass }, { rejectWithValue }) => {
 
         try {
-            console.log(" newPass, oldPass :::", id, newPass, oldPass)
             const response = await axios.post(`${API_URL}/api/auth/changePass/${id}`, { newPass, oldPass });
-            console.log("......", response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
