@@ -206,15 +206,7 @@ const Reset = () => {
           >
             Add Candidate
           </SoftButton> */}
-          <SoftButton
-            variant="gradient"
-            color="info"
-            fullWidth
-            onClick={handleSubmit}
-            disabled={loading}
-          >
-            {loading ? "Processing..." : "Reset Password"}
-          </SoftButton>
+          
 
           <SoftButton
             variant="gradient"
@@ -224,6 +216,15 @@ const Reset = () => {
             disabled={loading}
           >
             Cancel
+          </SoftButton>
+          <SoftButton
+            variant="gradient"
+            color="info"
+            fullWidth
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Reset Password"}
           </SoftButton>
         </Box>
 

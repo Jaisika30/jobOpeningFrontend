@@ -42,7 +42,7 @@ function SignIn() {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("Email is required"),
+      email: Yup.string().email("Invalid email address").transform((value) => value.toLowerCase()).required("Email is required"),
       password: Yup.string()
         .required("Password is required")
         .matches(
@@ -103,7 +103,10 @@ function SignIn() {
             type="email"
             name="email"
             value={formik.values.email}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              e.target.value = e.target.value.toLowerCase(); // ✅ Convert input to lowercase
+              formik.handleChange(e);
+            }}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             onKeyDown={(e) => {
