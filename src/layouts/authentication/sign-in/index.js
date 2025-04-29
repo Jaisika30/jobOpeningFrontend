@@ -113,7 +113,7 @@ function SignIn() {
                 passwordRef.current?.focus(); // Move to password field
               }
             }}
-            InputLabelProps={{ sx: { fontSize: "1rem" , paddingLeft:"5px"} }}
+            InputLabelProps={{ sx: { fontSize: "1rem", paddingLeft: "5px" } }}
             sx={textFieldStyles}
             placeholder="Enter email"
           />
@@ -145,13 +145,13 @@ function SignIn() {
             placeholder="Enter password"
             sx={textFieldStyles}
             InputLabelProps={{ sx: { fontSize: "1rem" } }}
-            // endAdornment={
-            //   <InputAdornment position="end" sx={{ marginLeft: "50px" }}>
-            //     <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" >
-            //       {showPassword ? <VisibilityOff /> : <Visibility />}
-            //     </IconButton>
-            //   </InputAdornment>
-            // }
+          // endAdornment={
+          //   <InputAdornment position="end" sx={{ marginLeft: "50px" }}>
+          //     <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" >
+          //       {showPassword ? <VisibilityOff /> : <Visibility />}
+          //     </IconButton>
+          //   </InputAdornment>
+          // }
           />
           {formik.touched.password && formik.errors.password && (
             <SoftTypography variant="caption" color="error" fontWeight="regular">

@@ -33,14 +33,13 @@ import Footer from "layouts/authentication/components/Footer";
 function CoverLayout({ color, header, title, description, image, top, children, bottom }) {
   return (
     <PageLayout background="white">
-      {/* <DefaultNavbar
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/soft-ui-dashboard-react",
-          label: "free download",
-          color: "dark",
-        }}
-      /> */}
+       <DefaultNavbar
+        // action={{
+        //   type: "external",
+        //   label: "Hiring Management",
+        //   color: "dark",
+        // }}
+      /> 
       <Grid
         container
         justifyContent="center"
