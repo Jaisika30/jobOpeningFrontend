@@ -167,7 +167,7 @@ function Tables() {
                       open={openDropdown}
                       onClose={() => setOpenDropdown(false)}
                       onOpen={() => setOpenDropdown(true)}
-                      disabled={isStatusDisabled}
+                      // disabled={isStatusDisabled}
                     >
                       <MenuItem value="">All</MenuItem>
                       <MenuItem value="open">Open</MenuItem>

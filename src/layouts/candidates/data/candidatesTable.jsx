@@ -324,7 +324,7 @@ const getCandidatesTableData = () => {
                 open={openStatusDropdown}
                 onClose={() => setOpenStatusDropdown(false)}
                 onOpen={() => setOpenStatusDropdown(true)}
-                disabled={isStatusDisabled}
+                // disabled={isStatusDisabled}
               >
                 <MenuItem value="">All</MenuItem>
                 <MenuItem value="Contacted">Contacted</MenuItem>
