@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Swal from "sweetalert2";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // const API_URL = 'http://localhost:8085/api/candidate'; // Adjust based on your backend URL
 const API_URL = process.env.REACT_APP_API_URL;
@@ -32,7 +33,7 @@ export const getCandidates = createAsyncThunk(
     async ({ page, limit, searchQuery, statusFilter, interviewStatusFilter }, { rejectWithValue, getState }) => {
         try {
             console.log("Fetching candidates...", page, limit);
-            
+
             // Get token from Redux state (assuming you store it in auth slice)
             const token = localStorage.getItem("token");
 
@@ -116,7 +117,12 @@ export const updateCandidate = createAsyncThunk(
 
             // Send request with token
             const response = await axios.put(`${API_URL}/api/candidate/updateCandidate/${id}`, updatedData, config);
-            console.log("update responseeeeeeeeeee:::::::", response.data)
+            console.log("update responseeeeeeeeeee:::::::", response);
+            if (response.status === 200) {
+                console.log("hiiiiiiiiiiii responseeee");
+                toast.success("Candidate updated successfully! 🎉"); // Success toast
+
+            }
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Something went wrong");
