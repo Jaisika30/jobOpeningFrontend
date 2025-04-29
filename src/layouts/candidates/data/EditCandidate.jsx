@@ -132,23 +132,19 @@ function EditCandidatePage() {
         // console.log("candidateData:::::", candidate);
 
         try {
-            console.log("11222233333333333333333333333333333333333 ...", page);
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
-            toast.success("Candidate updated successfully! 🎉"); // Success toast
+            // toast.success("Candidate updated successfully! 🎉"); // Success toast
             console.log("candidate.job...........candidate.job", candidate.job);
             localStorage.removeItem("flag");
             // navigate(`/jobs?page=${page}`);
 
             if (flag) {
-                console.log("flaggggggggggggggggggggg");
                 navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
             } else if (candidateStatus) {
                 localStorage.removeItem("candidateStatus");
                 navigate(`/Candidate?page=${page}&&status=Hired`);
             }
             else {
-                console.log("flaggggggggggggggggggggg111111111111");
-
                 navigate(`/Candidate?page=${page}`);
             }
             // if (jobstatus) {
