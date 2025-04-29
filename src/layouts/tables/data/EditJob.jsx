@@ -56,6 +56,7 @@ function EditJob() {
   const [openDropdown, setOpenDropdown] = useState(false);
   const page = searchParams.get("page");
   const urlStatus = new URLSearchParams(location.search).get('status');
+  const jobstatus = localStorage.getItem("jobstatus");
 
   const [job, setJob] = useState({
     title: "",
@@ -96,7 +97,6 @@ function EditJob() {
   const handleSubmit = async () => {
     dispatch(updateJob({ id, updatedData: job }));
     console.log("pagee edit ...", page);
-    const jobstatus = localStorage.getItem("jobstatus");
     console.log("objejobstatusjobstatusct", jobstatus);
     if (jobstatus) {
       console.log("open job statussssssssssssssssssssssssssssssssssssssssss")
@@ -298,7 +298,16 @@ function EditJob() {
                 <SoftButton
                   variant="gradient"
                   color="error"
-                  onClick={() => navigate("/jobs")}
+                  onClick={() => {
+                    if (jobstatus) {
+                      console.log("open job status");
+                      navigate(`/jobs?page=${page}&&status=Open`);
+                      localStorage.removeItem("jobstatus");
+                    } else {
+                      navigate(`/jobs?page=${page}`);
+                    }
+                  }}
+
                   sx={{
                     width: { xs: '100%', sm: 'auto' },
                     px: 3,
@@ -315,7 +324,7 @@ function EditJob() {
                     px: 3,
                   }}
                 >
-                  Edit Job
+                  Update Job
                 </SoftButton>
               </SoftBox>
             </form>

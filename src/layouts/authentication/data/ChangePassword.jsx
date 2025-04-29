@@ -459,7 +459,7 @@ const ChangePassword = () => {
                             variant="gradient"
                             color="error"
                             fullWidth
-                            onClick={() => navigate("/authentication/sign-in")}
+                            onClick={() => navigate("/dashboard")}
                             disabled={loading}
                         >
                             Cancel
