@@ -156,7 +156,7 @@ function Tables() {
                       },
                     }}
                   >
-                    <InputLabel sx={{ ...inputLabelStyle }}> All Status</InputLabel>
+                    <InputLabel sx={{ ...inputLabelStyle }}> All Jobs</InputLabel>
                     <Select
                       value={statusFilter}
                       onChange={handleChange}

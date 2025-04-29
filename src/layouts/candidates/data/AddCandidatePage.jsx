@@ -519,7 +519,8 @@ function AddCandidatePage() {
                                 /> */}
                                 <SoftBox>
                                     <FloatingTextarea
-                                        name="comments"
+                                        id={"comment"}
+                                        name={"comments"}
                                         value={candidate.comments}
                                         onChange={handleChange}
                                         placeholder="Write Comments"
