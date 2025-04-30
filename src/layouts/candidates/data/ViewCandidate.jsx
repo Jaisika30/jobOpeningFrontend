@@ -218,7 +218,7 @@ function ViewCandidate() {
                                         Communication
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                        {candidate.communication}
+                                    {candidate.communication?.trim() || "---"}
                                     </SoftTypography>
                                 </SoftBox>
                                 <SoftBox>
@@ -226,7 +226,7 @@ function ViewCandidate() {
                                         Personality
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                        {candidate.personality}
+                                        {candidate.personality.trim() || "---"}
                                     </SoftTypography>
                                 </SoftBox>
                                 <SoftBox>
@@ -234,7 +234,7 @@ function ViewCandidate() {
                                         Knowledge
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                        {candidate.knowledge}
+                                        {candidate.knowledge.trim() || "---"}
                                     </SoftTypography>
                                 </SoftBox>
 
@@ -319,7 +319,7 @@ function ViewCandidate() {
                                         Comments
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem", wordBreak: "break-word" }}>
-                                        {candidate.comments}
+                                        {candidate.comments.trim() || "---"}
                                     </SoftTypography>
                                 </SoftBox>
                             </SoftBox>
