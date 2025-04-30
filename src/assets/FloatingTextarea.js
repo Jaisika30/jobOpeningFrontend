@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, placeholder, label }) {
+export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, placeholder, label, name , id}) {
   const [focused, setFocused] = useState(false);
   const isFloating = focused || value.length > 0; // Determines when the label moves up
 
@@ -24,8 +24,8 @@ export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, pla
       </label>
 
       <textarea
-        id="description"
-        name="description"
+        id={id}
+        name={name}
         ref={descriptionRef}
         value={value}
 

@@ -75,9 +75,10 @@ function EditCandidatePage() {
     const candidateStatus = localStorage.getItem("candidateStatus")
     useEffect(() => {
         if (urlStatus) {
+            console.log("urlStatusurlStatus edit page");
             localStorage.setItem("candidateStatus", true)
         }
-    }, [])
+    }, [urlStatus])
     useEffect(() => {
         dispatch(getJobs({
             page: 1,
@@ -140,7 +141,7 @@ function EditCandidatePage() {
                 navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
             } else if (candidateStatus) {
                 localStorage.removeItem("candidateStatus");
-                navigate(`/Candidate?page=${page}&&status=Hired`);
+                navigate(`/Candidate?page=${page}&&status=${urlStatus}`);
             }
             else {
                 navigate(`/Candidate?page=${page}`);

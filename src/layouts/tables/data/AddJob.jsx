@@ -594,7 +594,7 @@ function AddJob() {
   const locationRef = useRef();
   const postingDateRef = useRef();
   const statusRef = useRef();
-    const [openDropdown, setOpenDropdown] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
 
   const [job, setJob] = useState({
     title: "",
@@ -786,6 +786,8 @@ function AddJob() {
               >
                 <SoftBox>
                   <FloatingTextarea
+                    id={"job"}
+                    name={"description"}
                     descriptionRef={descriptionRef}
                     value={job.description}
                     onChange={handleChange}
