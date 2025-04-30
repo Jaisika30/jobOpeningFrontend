@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import SoftTypography from "components/SoftTypography";
 import SoftBadge from "components/SoftBadge";
 import { getCandidates, deleteCandidate } from "slices/candidateSlice";
@@ -52,6 +52,7 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
 
       return state.candidates?.candidates || []; // Array of candidates for specific job
     } else if (urlStatus === "Hired") {
+      localStorage.setItem("hiredStatus", "true");
       return state.candidates?.candidates?.hiredCandidates || [];
     } else if (urlinterviewStatus === "Scheduled") {
       return state.candidates?.candidates?.ScheduledCandidates || [];
@@ -104,11 +105,13 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
 };
 
 const getCandidatesTableData = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
+  const [statusFilter, setStatusFilter] = useState(searchParams.get("status") || "");
   const [interviewStatusFilter, setInterviewStatusFilter] = useState("");
   const [openStatusDropdown, setOpenStatusDropdown] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
+
 
   const { candidates, loading, page, limit } = useCandidateData({
     searchQuery,
@@ -132,6 +135,14 @@ const getCandidatesTableData = () => {
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get("interviewStatus");
   }, [location.search]);
+  useEffect(() => {
+    const newParams = new URLSearchParams();
+    if (page > 1) newParams.set("page", page);
+    if (statusFilter) newParams.set("status", statusFilter);
+    if (searchQuery) newParams.set("search", searchQuery);
+
+    navigate({ search: newParams.toString() }, { replace: true });
+  }, [page, statusFilter, searchQuery]);
 
   const filteredCandidates = useMemo(() => {
     let result = candidates || [];
@@ -210,6 +221,14 @@ const getCandidatesTableData = () => {
     setStatusFilter(e.target.value);
     setOpenStatusDropdown(false);
   };
+  const handleClick = () => {
+    const hiredStatus = localStorage.getItem("hiredStatus");
+
+    navigate(
+      hiredStatus || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/Jobs"
+    )
+    localStorage.removeItem("hiredStatus")
+  }
   return {
     topAction: (
       <div
@@ -349,11 +368,7 @@ const getCandidatesTableData = () => {
           <SoftButton
             variant="gradient"
             color="success"
-            onClick={() =>
-              navigate(
-                urlStatus === "Hired" || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/Jobs"
-              )
-            }
+            onClick={handleClick}
           >
             Back
           </SoftButton>
@@ -377,7 +392,7 @@ const getCandidatesTableData = () => {
       // { name: "personality", label: "Interview Status", align: "center" },
       // { name: "knowledge", label: "Interview Status", align: "center" },
       // { name: "communication", label: "Interview Status", align: "center" },
-      // { name: "status", label: "Status", align: "center" },
+      { name: "status", label: "Status", align: "center" },
       // ...(urlStatus !== "Hired" ? [{ name: "comments", label: "Comments", align: "left" }] : []),
       { name: "action", label: "Action", align: "center" },
     ],
@@ -525,21 +540,21 @@ const getCandidatesTableData = () => {
               container
             />
           ),
-          personality: (
-            <SoftTypography variant="button" fontWeight="medium" color="dark">
-              {candidate?.personality}
-            </SoftTypography>
-          ),
-          knowledge: (
-            <SoftTypography variant="button" fontWeight="medium" color="dark">
-              {candidate?.knowledge}
-            </SoftTypography>
-          ),
-          communication: (
-            <SoftTypography variant="button" fontWeight="medium" color="dark">
-              {candidate?.communication}
-            </SoftTypography>
-          ),
+          // personality: (
+          //   <SoftTypography variant="button" fontWeight="medium" color="dark">
+          //     {candidate?.personality}
+          //   </SoftTypography>
+          // ),
+          // knowledge: (
+          //   <SoftTypography variant="button" fontWeight="medium" color="dark">
+          //     {candidate?.knowledge}
+          //   </SoftTypography>
+          // ),
+          // communication: (
+          //   <SoftTypography variant="button" fontWeight="medium" color="dark">
+          //     {candidate?.communication}
+          //   </SoftTypography>
+          // ),
           status: (
             <SoftBadge
               variant="gradient"
@@ -587,7 +602,9 @@ const getCandidatesTableData = () => {
                   <VisibilityIcon />
                 </IconButton>
               </Link>
-              <Link to={`/editCandidate/${candidate._id}?page=${page}&&flag=true${urlStatus === "Hired" ? "&&status=Hired" : ""}`}>
+              <Link
+                to={`/editCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}
+              >
                 <IconButton sx={{ color: darkGray }}>
                   <EditIcon />
                 </IconButton>
