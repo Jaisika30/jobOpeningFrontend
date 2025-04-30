@@ -60,11 +60,15 @@ import { toast } from "react-toastify"; // Make sure you have this imported
 
 const Forgot = () => {
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const success = useSelector((state) => state.auth.success);
   const [localLoading, setLocalLoading] = useState(false);
-
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   if (!email) {
@@ -82,29 +86,57 @@ const Forgot = () => {
   // };
 
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!email) {
+  //     toast.error("Please enter your email!"); // Show error if email is not provided
+  //     return;
+  //   }
+
+  //   try {
+  //     // Dispatch the action and wait for the response
+  //     setLocalLoading(true);
+  //     await dispatch(forgotPassword(email)).unwrap();
+
+  //     // Show success message if the password reset request is successful
+  //     toast.success("Password reset email sent successfully!");
+  //   } catch (error) {
+  //     // Show error message if the request fails
+  //     setLocalLoading(false);
+  //     const errorMessage = error?.message || error?.error || "Something went wrong";
+  //     toast.error(errorMessage);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Reset previous errors
+    setEmailError("");
+
+    // Validate email
     if (!email) {
-      toast.error("Please enter your email!"); // Show error if email is not provided
+      setEmailError("Email is required");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
       return;
     }
 
     try {
-      // Dispatch the action and wait for the response
       setLocalLoading(true);
       await dispatch(forgotPassword(email)).unwrap();
-
-      // Show success message if the password reset request is successful
-      toast.success("Password reset email sent successfully!");
     } catch (error) {
-      // Show error message if the request fails
+
       setLocalLoading(false);
+      // Show server errors in the field
       const errorMessage = error?.message || error?.error || "Something went wrong";
-      toast.error(errorMessage);
+          toast.error(errorMessage);
+      // setEmailError(error?.message || error?.error || "Failed to send OTP");
     }
   };
-
 
   // ✅ Navigate when `success` updates
   useEffect(() => {
@@ -138,13 +170,18 @@ const Forgot = () => {
             Enter Your Email, We Will Send You OTP to Reset Password
           </Typography>
           <TextField
-
             label="Enter Email"
             type="email"
+            name="email"
             variant="outlined"
             margin="normal"
             value={email}
-            onChange={(e) => setEmail(e.target.value.toLowerCase())}
+            onChange={(e) => {
+              setEmail(e.target.value.toLowerCase());
+              setEmailError(""); // Clear error when typing
+            }}
+            error={!!emailError}
+            helperText={emailError}
             sx={{
               width: "100%",
               maxWidth: "100%",
@@ -164,7 +201,6 @@ const Forgot = () => {
             InputLabelProps={{
               sx: {
                 fontSize: "0.875rem",
-                // Add other label styles here if needed
               }
             }}
           />
