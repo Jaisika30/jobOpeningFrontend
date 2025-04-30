@@ -206,31 +206,7 @@ function EditJob() {
                 />
               </SoftBox>
 
-              {/* description row*/}
-              <SoftBox
-                mb={3}
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: {
-                    xs: "1fr",
-                    sm: "1fr",
-                    md: "1fr"
-                  },
-                  gap: 3,
-                  alignItems: "flex-start"
-                }}
-              >
-                <SoftBox>
-                  <FloatingTextarea
-                    descriptionRef={descriptionRef}
-                    value={job.description}
-                    onChange={handleChange}
-                    placeholder="Enter job description"
-                    onEnter={() => locationRef.current?.focus()}
-                  />
-                </SoftBox>
-
-              </SoftBox>
+           
 
               {/* Second Row */}
               <SoftBox
@@ -304,6 +280,33 @@ function EditJob() {
                     />
                   </Box>
                 </FormControl>
+              </SoftBox>
+                 {/* description row*/}
+                 <SoftBox
+                mb={3}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    sm: "1fr",
+                    md: "1fr"
+                  },
+                  gap: 3,
+                  alignItems: "flex-start"
+                }}
+              >
+                <SoftBox>
+                  <FloatingTextarea
+                    id={"description"}
+                    name={"description"}
+                    descriptionRef={descriptionRef}
+                    value={job.description}
+                    onChange={handleChange}
+                    placeholder="Enter job description"
+                    onEnter={() => locationRef.current?.focus()}
+                  />
+                </SoftBox>
+
               </SoftBox>
 
               {/* Buttons */}

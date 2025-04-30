@@ -299,35 +299,28 @@ function AddCandidatePage() {
                                     value={candidate.interviewSlot}
                                     onChange={(e) => {
                                         const value = e.target.value;
-
-                                        if (value.length <= 50) {
+                                        if (value.length <= 30) {
                                             handleChange(e);
                                             setSlotError(false);
                                         }
                                     }}
                                     onBlur={(e) => {
                                         const value = e.target.value.trim();
-
-                                        if (value && !timeSlotRegex.test(value)) {
+                                        if (value && !/^\d{1,2}:\d{2}\s?(AM|PM)\s?-\s?\d{1,2}:\d{2}\s?(AM|PM)$/i.test(value)) {
                                             setSlotError(true);
                                         } else {
                                             setSlotError(false);
                                         }
                                     }}
                                     error={slotError}
-                                    helperText={
-                                        slotError
-                                            ? "Format: 18 April 2025 | 8:00 AM - 8:15 AM"
-                                            : ""
-                                    }
-                                    placeholder="e.g. 18 April 2025 | 8:00 AM - 8:15 AM"
+                                    helperText={slotError ? "Format: 8:00 AM - 8:15 AM" : ""}
+                                    placeholder="e.g. 8:00 AM - 8:15 AM"
                                     label="Time Offered"
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
                                             e.preventDefault();
                                             const value = e.target.value.trim();
-
-                                            if (!timeSlotRegex.test(value)) {
+                                            if (!/^\d{1,2}:\d{2}\s?(AM|PM)\s?-\s?\d{1,2}:\d{2}\s?(AM|PM)$/i.test(value)) {
                                                 setSlotError(true);
                                             } else {
                                                 setSlotError(false);
@@ -336,13 +329,14 @@ function AddCandidatePage() {
                                         }
                                     }}
                                     inputProps={{
-                                        maxLength: 50,
+                                        maxLength: 30,
                                     }}
                                     InputLabelProps={{
                                         sx: { ...inputLabelStyle },
                                     }}
                                     sx={textFieldStyles}
                                 />
+
 
                                 <TextField
                                     inputRef={scheduleRef}
@@ -416,6 +410,8 @@ function AddCandidatePage() {
                                     </FormControl>
                                 ))}
                             </SoftBox>
+
+
 
                             {/* Row 4: Interview Status, Status */}
                             <SoftBox
@@ -517,6 +513,36 @@ function AddCandidatePage() {
                                         sx: { ...inputLabelStyle },
                                     }}
                                 /> */}
+                                {/* <SoftBox>
+                                    <FloatingTextarea
+                                        id={"comment"}
+                                        name={"comments"}
+                                        value={candidate.comments}
+                                        onChange={handleChange}
+                                        placeholder="Write Comments"
+                                        label={"Comments"}
+                                        sx={{
+                                            "& textarea": {
+                                                minHeight: "36px !important", // Ensure the inner textarea gets it
+                                            },
+                                        }}
+                                    />
+                                </SoftBox> */}
+                            </SoftBox>
+
+                            <SoftBox
+                                mb={3}
+                                sx={{
+                                    display: "grid",
+                                    gridTemplateColumns: {
+                                        xs: "1fr",
+                                        sm: "1fr",
+                                        md: "1fr"
+                                    },
+                                    gap: 3,
+                                    alignItems: "flex-start"
+                                }}
+                            >
                                 <SoftBox>
                                     <FloatingTextarea
                                         id={"comment"}
@@ -533,8 +559,6 @@ function AddCandidatePage() {
                                     />
                                 </SoftBox>
                             </SoftBox>
-
-
                             {/* Buttons */}
                             <SoftBox
                                 mt={3}
