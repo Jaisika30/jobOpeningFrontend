@@ -598,21 +598,42 @@ const getCandidatesTableData = () => {
 
           action: (
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Link to={`/viewCandidate/${candidate._id}`}>
-                <IconButton sx={{ color: darkGray }}>
-                  <VisibilityIcon />
-                </IconButton>
-              </Link>
-              <Link
-                to={`/editCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}
+              <Tooltip
+                placement="top"
+                title={<div style={{ maxWidth: "200px" }}>{"View"}</div>}
+                arrow
+                componentsProps={tooltipStyle}
               >
-                <IconButton sx={{ color: darkGray }}>
-                  <EditIcon />
-                </IconButton>
-              </Link>
+                <Link to={`/viewCandidate/${candidate._id}`}>
+                  <IconButton sx={{ color: darkGray }}>
+                    <VisibilityIcon />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+              <Tooltip
+                placement="top"
+                title={<div style={{ maxWidth: "200px" }}>{"Update"}</div>}
+                arrow
+                componentsProps={tooltipStyle}
+              >
+                <Link
+                  to={`/editCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}
+                >
+                  <IconButton sx={{ color: darkGray }}>
+                    <EditIcon />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+              <Tooltip
+                placement="top"
+                title={<div style={{ maxWidth: "200px" }}>{"Delete"}</div>}
+                arrow
+                componentsProps={tooltipStyle}
+              >
               <IconButton sx={{ color: darkGray }} onClick={() => handleDelete(candidate._id)}>
                 <DeleteIcon />
               </IconButton>
+              </Tooltip>
             </div>
           ),
         })),
