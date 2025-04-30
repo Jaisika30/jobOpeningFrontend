@@ -241,7 +241,7 @@ function ViewCandidate() {
                             </SoftBox>
 
                             {/* Row 4: Interview Status, Status */}
-                            <SoftBox
+                            {/* <SoftBox
                                 mb={3}
 
                                 sx={{
@@ -280,7 +280,50 @@ function ViewCandidate() {
                                     </SoftTypography>
                                 </SoftBox>
 
+                            </SoftBox> */}
+
+                            <SoftBox
+                                mb={3}
+                                sx={{
+                                    display: "grid",
+                                    gridTemplateColumns: {
+                                        xs: "1fr",
+                                        sm: "repeat(2, 1fr)",
+                                        md: "repeat(3, 1fr)",
+                                    },
+                                    gap: 3,
+                                    alignItems: "flex-start",
+                                }}
+                            >
+                                {/** Repeat for each field */}
+                                <SoftBox sx={{ wordWrap: "break-word", overflowWrap: "break-word" }}>
+                                    <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
+                                        Interview Status
+                                    </SoftTypography>
+                                    <SoftTypography variant="body2" sx={{ fontSize: "0.85rem", wordBreak: "break-word" }}>
+                                        {candidate.interviewStatus}
+                                    </SoftTypography>
+                                </SoftBox>
+
+                                <SoftBox sx={{ wordWrap: "break-word", overflowWrap: "break-word" }}>
+                                    <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
+                                        Status
+                                    </SoftTypography>
+                                    <SoftTypography variant="body2" sx={{ fontSize: "0.85rem", wordBreak: "break-word" }}>
+                                        {candidate.status}
+                                    </SoftTypography>
+                                </SoftBox>
+
+                                <SoftBox sx={{ wordWrap: "break-word", overflowWrap: "break-word" }}>
+                                    <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
+                                        Comments
+                                    </SoftTypography>
+                                    <SoftTypography variant="body2" sx={{ fontSize: "0.85rem", wordBreak: "break-word" }}>
+                                        {candidate.comments}
+                                    </SoftTypography>
+                                </SoftBox>
                             </SoftBox>
+
 
                             {/* Buttons */}
                             <SoftBox
@@ -293,7 +336,7 @@ function ViewCandidate() {
 
                                 <SoftButton
                                     variant="gradient"
-                                     color="error"
+                                    color="error"
                                     onClick={() => navigate("/Candidate")}
                                     sx={{
                                         width: { xs: '100%', sm: 'auto' },

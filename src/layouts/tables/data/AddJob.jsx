@@ -770,34 +770,7 @@ function AddJob() {
                 />
               </SoftBox>
 
-              {/* description row*/}
-              <SoftBox
-                mb={3}
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: {
-                    xs: "1fr",
-                    sm: "1fr",
-                    md: "1fr"
-                  },
-                  gap: 3,
-                  alignItems: "flex-start"
-                }}
-              >
-                <SoftBox>
-                  <FloatingTextarea
-                    id={"job"}
-                    name={"description"}
-                    descriptionRef={descriptionRef}
-                    value={job.description}
-                    onChange={handleChange}
-                    placeholder="Enter job description"
-                    onEnter={() => locationRef.current?.focus()}
-                    label={"Description"}
-                  />
-                </SoftBox>
-
-              </SoftBox>
+             
 
               {/* Second Row */}
               <SoftBox
@@ -871,6 +844,36 @@ function AddJob() {
                     />
                   </Box>
                 </FormControl>
+              </SoftBox>
+
+
+               {/* description row*/}
+               <SoftBox
+                mb={3}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    sm: "1fr",
+                    md: "1fr"
+                  },
+                  gap: 3,
+                  alignItems: "flex-start"
+                }}
+              >
+                <SoftBox>
+                  <FloatingTextarea
+                    id={"job"}
+                    name={"description"}
+                    descriptionRef={descriptionRef}
+                    value={job.description}
+                    onChange={handleChange}
+                    placeholder="Enter job description"
+                    onEnter={() => locationRef.current?.focus()}
+                    label={"Description"}
+                  />
+                </SoftBox>
+
               </SoftBox>
 
               {/* Buttons */}

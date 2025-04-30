@@ -263,7 +263,7 @@ function ViewJob() {
             >
               {/* Title */}
               <SoftBox>
-                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
                   Title
                 </SoftTypography>
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.title}</SoftTypography>
@@ -271,23 +271,14 @@ function ViewJob() {
 
               {/* Location */}
               <SoftBox>
-                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
                   Location
                 </SoftTypography>
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.location}</SoftTypography>
               </SoftBox>
             </SoftBox>
-
-            {/* Description */}
-            <SoftBox mb={3}>
-              <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
-                Description
-              </SoftTypography>
-              <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.description}</SoftTypography>
-            </SoftBox>
-
-            {/* Posting Date & Status */}
-            <SoftBox
+               {/* Posting Date & Status */}
+               <SoftBox
               mb={3}
               sx={{
                 display: "grid",
@@ -298,28 +289,53 @@ function ViewJob() {
             >
               {/* Posting Date */}
               <SoftBox>
-                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
                   Posting Date
                 </SoftTypography>
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>
-                  {new Date(job.postingDate).toLocaleDateString("en-GB")}
+                  {new Date(job.postingDate).toLocaleDateString("en-GB").replaceAll('/', '-')}
                 </SoftTypography>
               </SoftBox>
 
               {/* Status */}
               <SoftBox>
-                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize= "1rem">
+                <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
                   Status
                 </SoftTypography>
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.status}</SoftTypography>
               </SoftBox>
             </SoftBox>
 
+            {/* Description */}
+            <SoftBox mb={3}>
+              <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
+                Job Description
+              </SoftTypography>
+              <Box
+                component="pre"
+                sx={{
+                  whiteSpace: 'pre-wrap',
+                  backgroundColor: '#f9f9f9',
+                  padding: 2,
+                  borderRadius: 1,
+                  fontSize: "0.85rem",
+                  fontFamily: "inherit",
+                  lineHeight: 1.6,
+                  border: "1px solid #ddd",
+                }}
+              >
+                {job.description}
+              </Box>
+            </SoftBox>
+
+
+         
+
             {/* Buttons */}
             <SoftBox
               mt={3}
               display="flex"
-              justifyContent="flex-end" 
+              justifyContent="flex-end"
               flexDirection={{ xs: "column", sm: "row" }}
               gap={2}
             >

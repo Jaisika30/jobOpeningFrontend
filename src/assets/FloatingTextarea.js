@@ -10,7 +10,7 @@ export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, pla
         htmlFor="description"
         style={{
           position: "absolute",
-          padding: "10px",
+          // padding: "1px",
           top: isFloating ? "-8px" : "12px", // Moves label when floating
           left: "12px",
           fontSize: isFloating ? "0.75rem" : "0.85rem",
@@ -46,7 +46,7 @@ export function FloatingTextarea({ descriptionRef, value, onChange, onEnter, pla
         }}
         style={{
           width: "100%",
-          height: "36px", // ✅ applied here
+          height: "90px", // ✅ applied here
           fontSize: "0.85rem",
           padding: "10px",
           borderRadius: "8px",

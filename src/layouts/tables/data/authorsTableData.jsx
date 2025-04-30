@@ -452,7 +452,7 @@ const getJobTableData = (jobData, handleDelete) => {
       ),
       postingDate: (
         <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-          {new Date(job.postingDate).toLocaleDateString("en-GB")}
+          {new Date(job.postingDate).toLocaleDateString("en-GB").replaceAll('/', '-')}
         </SoftTypography>
       ),
       status: (

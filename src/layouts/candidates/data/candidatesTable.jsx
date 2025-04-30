@@ -22,6 +22,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { tooltipStyle } from "assets/textFieldStyles";
 import { getJobs } from "slices/jobSlice";
 import Pagination from "@mui/material/Pagination";
+import Candidate from "examples/Candidates/Candidate";
 
 const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) => {
   const { id } = useParams();
@@ -447,7 +448,7 @@ const getCandidatesTableData = () => {
               arrow
               componentsProps={tooltipStyle}
             >
-              <SoftTypography variant="button" fontWeight="medium" color="dark">
+              <SoftTypography variant="button" component={Link} fontWeight="medium" color="info" to={`/viewCandidate/${candidate._id}`}>
                 {truncateText(candidate?.name, 15)}
               </SoftTypography>
             </Tooltip>
