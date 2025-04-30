@@ -121,7 +121,7 @@
 
 //   const [searchQuery, setSearchQuery] = useState("");
 //   const [statusFilter, setStatusFilter] = useState(searchParams.get("status") || "");
-  
+
 //   // Remove urlStatus since we'll use statusFilter as the single source of truth
 //   // const urlStatus = new URLSearchParams(location.search).get("status");
 
@@ -137,7 +137,7 @@
 //       return state?.jobs?.jobs?.jobs || [];
 //     }
 //   });
-  
+
 //   const totalJobs = useSelector((state) => state.jobs.jobs?.totalJobs || 0);
 //   const openJobsCount = useSelector((state) => state.jobs.jobs?.openJobsCount || 1);
 //   const totalPagesFromStore = useSelector((state) => state?.jobs?.jobs?.totalPages || 1);
@@ -151,7 +151,7 @@
 //     if (page > 1) newParams.set("page", page);
 //     if (statusFilter) newParams.set("status", statusFilter);
 //     if (searchQuery) newParams.set("search", searchQuery);
-    
+
 //     navigate({ search: newParams.toString() }, { replace: true });
 //   }, [page, statusFilter, searchQuery]);
 
@@ -327,15 +327,15 @@ const useJobData = () => {
 
   const page = parseInt(searchParams.get("page")) || 1;
   const limit = 10;
-
+  const urlStatus = searchParams.get("status");
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
-  const [statusFilter, setStatusFilter] = useState(searchParams.get("status") || "");
+  const [statusFilter, setStatusFilter] = useState(urlStatus || "");
 
   const isLoading = useSelector((state) => state.jobs.loading);
-  
+
   // Get all jobs from Redux store
   const jobsData = useSelector((state) => state.jobs?.jobs || {});
-  
+
   // Determine which jobs to display based on status filter
   const jobs = useMemo(() => {
     // if (statusFilter === "Open") {
@@ -354,17 +354,17 @@ const useJobData = () => {
     if (page > 1) newParams.set("page", page);
     if (statusFilter) newParams.set("status", statusFilter);
     if (searchQuery) newParams.set("search", searchQuery);
-    
+
     navigate({ search: newParams.toString() }, { replace: true });
   }, [page, statusFilter, searchQuery]);
 
   // Fetch jobs when page or filters change
   useEffect(() => {
     dispatch(
-      getJobs({ 
-        page, 
-        limit, 
-        searchQuery, 
+      getJobs({
+        page,
+        limit,
+        searchQuery,
         statusFilter: statusFilter || undefined // Send undefined if empty to match API
       })
     );
@@ -394,6 +394,7 @@ const useJobData = () => {
     limit,
     totalPages,
     totalJobs,
+    urlStatus
   };
 };
 
@@ -403,7 +404,7 @@ const truncateText = (text, maxLength) => {
 };
 
 const getJobTableData = (jobData, handleDelete) => {
-  const { jobData: jobs, loading, totalPages, page } = useJobData();
+  const { jobData: jobs, loading, totalPages, page , urlStatus } = useJobData();
 
   const theme = useTheme();
   const navigate = useNavigate();
@@ -470,7 +471,10 @@ const getJobTableData = (jobData, handleDelete) => {
               <VisibilityIcon />
             </IconButton>
           </Link>
-          <Link to={`/editJob/${job._id}?page=${page}`}>
+          {/* <Link
+            to={`/editCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}
+          > */}
+          <Link to={`/editJob/${job._id}?page=${page}&&${urlStatus ? `status=${urlStatus}}` : ''}`}>
             <IconButton sx={{ color: darkGray }}>
               <EditIcon />
             </IconButton>
@@ -478,7 +482,7 @@ const getJobTableData = (jobData, handleDelete) => {
           <IconButton onClick={() => handleDelete(job._id)} sx={{ color: darkGray }}>
             <DeleteIcon />
           </IconButton>
-          <Link to={`/Candidates/${job._id}`}>
+          <Link to={`/ Candidates / ${job._id}`}>
             <IconButton sx={{ color: darkGray }}>
               <GroupIcon />
             </IconButton>

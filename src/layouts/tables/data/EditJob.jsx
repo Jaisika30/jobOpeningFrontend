@@ -56,8 +56,14 @@ function EditJob() {
   const [openDropdown, setOpenDropdown] = useState(false);
   const page = searchParams.get("page");
   const urlStatus = new URLSearchParams(location.search).get('status');
-  const jobstatus = localStorage.getItem("jobstatus");
+  const jobstatus = localStorage.getItem("jobstatus")
 
+  useEffect(() => {
+    if (urlStatus) {
+      console.log("urlStatusurlStatus edit page");
+      localStorage.setItem("jobstatus", true)
+    }
+  }, [urlStatus])
   const [job, setJob] = useState({
     title: "",
     description: "",
@@ -96,10 +102,26 @@ function EditJob() {
   };
   const handleSubmit = async () => {
     dispatch(updateJob({ id, updatedData: job }));
+
+    // if (flag) {
+    //   navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
+    // } else if (candidateStatus) {
+    //   localStorage.removeItem("candidateStatus");
+    //   navigate(`/Candidate?page=${page}&&status=${urlStatus}`);
+    // }
+    // else {
+    //   navigate(`/Candidate?page=${page}`);
+    // }
     if (jobstatus) {
-      navigate(`/jobs?page=${page}&&status=Open`);
       localStorage.removeItem("jobstatus");
-    } else {
+      const cleanStatus = urlStatus?.replace(/[^\w\s-]/g, '').trim(); // removes special characters like `}`
+      navigate(`/jobs?page=${page}&status=${cleanStatus}`);
+    }
+    // else if (urlStatus) {
+    //   console.log("heyyyy ulstatus:::");
+    //   navigate(`/jobs?page=${page}&&status=${urlStatus}`);
+    // }
+    else {
 
       navigate(`/jobs?page=${page}`);
     }
