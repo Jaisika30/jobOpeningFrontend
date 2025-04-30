@@ -404,7 +404,7 @@ const truncateText = (text, maxLength) => {
 };
 
 const getJobTableData = (jobData, handleDelete) => {
-  const { jobData: jobs, loading, totalPages, page , urlStatus } = useJobData();
+  const { jobData: jobs, loading, totalPages, page, urlStatus } = useJobData();
 
   const theme = useTheme();
   const navigate = useNavigate();
@@ -466,27 +466,57 @@ const getJobTableData = (jobData, handleDelete) => {
       ),
       action: (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Link to={`/viewJob/${job._id}`}>
-            <IconButton sx={{ color: darkGray }}>
-              <VisibilityIcon />
-            </IconButton>
-          </Link>
+          <Tooltip
+            placement="top"
+            title={<div style={{ maxWidth: "200px" }}>{"View"}</div>}
+            arrow
+            componentsProps={tooltipStyle}
+          >
+            <Link to={`/viewJob/${job._id}`}>
+              <IconButton sx={{ color: darkGray }}>
+                <VisibilityIcon />
+              </IconButton>
+            </Link>
+          </Tooltip>
           {/* <Link
             to={`/editCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}
           > */}
-          <Link to={`/editJob/${job._id}?page=${page}&&${urlStatus ? `status=${urlStatus}}` : ''}`}>
-            <IconButton sx={{ color: darkGray }}>
-              <EditIcon />
+          <Tooltip
+            placement="top"
+            title={<div style={{ maxWidth: "200px" }}>{"Update"}</div>}
+            arrow
+            componentsProps={tooltipStyle}
+          >
+            <Link to={`/editJob/${job._id}?page=${page}&&${urlStatus ? `status=${urlStatus}}` : ''}`}>
+
+              <IconButton sx={{ color: darkGray }}>
+                <EditIcon />
+              </IconButton>
+
+            </Link>
+          </Tooltip>
+          <Tooltip
+            placement="top"
+            title={<div style={{ maxWidth: "200px" }}>{"Delete"}</div>}
+            arrow
+            componentsProps={tooltipStyle}
+          >
+            <IconButton onClick={() => handleDelete(job._id)} sx={{ color: darkGray }}>
+              <DeleteIcon />
             </IconButton>
-          </Link>
-          <IconButton onClick={() => handleDelete(job._id)} sx={{ color: darkGray }}>
-            <DeleteIcon />
-          </IconButton>
-          <Link to={`/ Candidates / ${job._id}`}>
-            <IconButton sx={{ color: darkGray }}>
-              <GroupIcon />
-            </IconButton>
-          </Link>
+          </Tooltip>
+          <Tooltip
+            placement="top"
+            title={<div style={{ maxWidth: "200px" }}>{"Candidates"}</div>}
+            arrow
+            componentsProps={tooltipStyle}
+          >
+            <Link to={`/ Candidates / ${job._id}`}>
+              <IconButton sx={{ color: darkGray }}>
+                <GroupIcon />
+              </IconButton>
+            </Link>
+          </Tooltip>
         </div>
       ),
     })),
