@@ -404,11 +404,15 @@ const truncateText = (text, maxLength) => {
 };
 
 const getJobTableData = (jobData, handleDelete) => {
-  const { jobData: jobs, loading, totalPages, page, urlStatus } = useJobData();
+  const { jobData: jobs, loading, totalPages, urlStatus , searchQuery,
+    statusFilter,
+    page,
+    limit,} = useJobData();
 
   const theme = useTheme();
   const navigate = useNavigate();
   const darkGray = theme.palette.grey[600];
+  
 
   return {
     columns: [

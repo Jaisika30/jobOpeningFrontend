@@ -112,7 +112,7 @@ export const updateJob = createAsyncThunk(
 // 5. Delete Job
 export const deleteJob = createAsyncThunk(
     "jobs/deleteJob",
-    async ({ id }, { rejectWithValue }) => {
+    async ( id , { rejectWithValue }) => {
         try {
             const token = localStorage.getItem("token");
             const config = {
@@ -200,7 +200,7 @@ const jobSlice = createSlice({
             })
             .addCase(deleteJob.fulfilled, (state, action) => {
                 state.loading = false;
-                state.jobs = state.jobs.filter((job) => job._id !== action.payload);
+                state.jobs = state.jobs.jobs.filter((job) => job._id !== action.payload);
             })
             .addCase(deleteJob.rejected, (state, action) => {
                 state.loading = false;

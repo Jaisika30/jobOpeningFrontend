@@ -19,6 +19,7 @@ import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 import CustomPagination from "assets/CustomPagination";
 import { useEffect, useState } from "react";
+import { getJobs } from "slices/jobSlice";
 
 function Tables() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function Tables() {
     statusFilter,
     page,
     setPage,
+    limit,
     totalPages,
     pagination,
   } = useJobData();
@@ -50,8 +52,37 @@ function Tables() {
   }, [urlStatus]);
   const isStatusDisabled = urlStatus === "Open";
 
-  const handleDelete = (id) => {
-    Swal.fire({
+  // const handleDelete = async (id) => {
+  //   const result = await Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "You won't be able to revert this!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#d33",
+  //     cancelButtonColor: "#3085d6",
+  //     confirmButtonText: "Yes, delete it!",
+  //   });
+
+  //   if (result.isConfirmed) {
+  //     try {
+  //       await dispatch(deleteJob(id)).unwrap();
+  //       console.log("Deleted job successfully:");
+  //       Swal.fire("Deleted!", "The job has been deleted.", "success");
+
+  //       // OPTIONAL: re-fetch jobs if needed
+  //       dispatch(getJobs({
+  //         page,
+  //         limit,
+  //         searchQuery,
+  //         statusFilter
+  //       }));
+  //     } catch (error) {
+  //       Swal.fire("Error!", "Something went wrong while deleting.", "error");
+  //     }
+  //   }
+  // };
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -59,16 +90,26 @@ function Tables() {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteJob({ id }))
-          .unwrap()
-          .then(() => Swal.fire("Deleted!", "The job has been deleted.", "success"))
-          .catch(() => Swal.fire("Error!", "Something went wrong!", "error"));
-      }
     });
-  };
 
+    if (result.isConfirmed) {
+      try {
+        await dispatch(deleteJob(id)).unwrap();
+        Swal.fire("Deleted!", "The job has been deleted.", "success");
+
+        // Refresh the jobs list
+        dispatch(getJobs({
+          page,
+          limit,
+          searchQuery,
+          statusFilter
+        }));
+      } catch (error) {
+        console.error("Delete error:", error);
+        Swal.fire("Error!", error.message || "Something went wrong while deleting.", "error");
+      }
+    }
+  };
   const handleIconClick = () => {
     setOpenDropdown(true); // Opens the Select dropdown
   };
@@ -167,7 +208,7 @@ function Tables() {
                       open={openDropdown}
                       onClose={() => setOpenDropdown(false)}
                       onOpen={() => setOpenDropdown(true)}
-                      // disabled={isStatusDisabled}
+                    // disabled={isStatusDisabled}
                     >
                       <MenuItem value="">All</MenuItem>
                       <MenuItem value="open">Open</MenuItem>

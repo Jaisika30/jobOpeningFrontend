@@ -601,7 +601,7 @@ function AddJob() {
     description: "",
     location: "", // Added location field
     postingDate: "",
-    status: "",
+    status: "Open",
   });
 
   // State for character count
@@ -671,7 +671,7 @@ function AddJob() {
       description: "Job Description",
       location: "Location",
       postingDate: "Posting Date",
-      status: "Status",
+      // status: "Status",
     };
 
     for (let field in fieldLabels) {
@@ -820,7 +820,7 @@ function AddJob() {
                   <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
                     <Select
                       name="status"
-                      value={job.status || "Open"}
+                      value={job.status}
                       inputRef={statusRef}
                       onChange={handleChange}
                       label="Select Status"
