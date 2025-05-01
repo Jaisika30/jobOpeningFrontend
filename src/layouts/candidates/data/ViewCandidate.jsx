@@ -65,9 +65,9 @@ function ViewCandidate() {
                 phone: candidatee.phone || "",
                 location: candidatee.location || "",
                 interviewSlot: candidatee.interviewSlot || "",
-                interviewSchedule: candidatee.interviewSchedule
-                    ? new Date(candidatee.interviewSchedule).toISOString().split("T")[0]
-                    : "",
+                interviewSchedule: candidatee.interviewSchedule || "",
+                // ? new Date(candidatee.interviewSchedule).toISOString().split("T")[0]
+                // : "",
                 communication: candidatee.communication || "",
                 personality: candidatee.personality || "",
                 knowledge: candidatee.knowledge || "",
@@ -193,7 +193,8 @@ function ViewCandidate() {
                                         Interview Schedule
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                        {candidate.interviewSchedule}
+                                        {new Date(candidate.interviewSchedule).toLocaleDateString("en-GB").replaceAll('/', '-')}
+                                        {/* {candidate.interviewSchedule} */}
                                     </SoftTypography>
                                 </SoftBox>
 
@@ -218,7 +219,7 @@ function ViewCandidate() {
                                         Communication
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                    {candidate.communication || "---"}
+                                        {candidate.communication || "---"}
                                     </SoftTypography>
                                 </SoftBox>
                                 <SoftBox>
