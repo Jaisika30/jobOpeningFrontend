@@ -101,8 +101,8 @@ const tooltipStyle = {
             color: 'rgba(130, 127, 127, 0.87)', // Dark gray text
             fontSize: '0.875rem', // Match your typography
             boxShadow: 'none', // Remove shadow
-            paddingX: 2,
-            padding: '4px 8px',
+            // paddingX: 2,
+            padding: '0px 8px',
             maxWidth: '800px !important',
             whiteSpace: 'normal',
             wordWrap: 'break-word',
