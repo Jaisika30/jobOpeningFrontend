@@ -177,22 +177,58 @@ const getCandidatesTableData = () => {
     }
   }, [urlStatus]);
   const isStatusDisabled = urlStatus === "Hired";
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
+  const handleDelete = async (candidateId) => {
+    const confirmResult = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This candidate will be permanently deleted!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteCandidate(id));
-        Swal.fire("Deleted!", "The candidate has been deleted.", "success");
-      }
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
     });
+  
+    if (confirmResult.isConfirmed) {
+      try {
+        await dispatch(deleteCandidate(candidateId)).unwrap();
+  
+        // Re-fetch the candidate list
+        if (id) {
+          dispatch(getCandidatesByJobID({
+            id,
+            page,
+            limit,
+            searchQuery,
+            statusFilter,
+            interviewStatusFilter,
+          }));
+        } else {
+          dispatch(getCandidates({
+            page,
+            limit,
+            searchQuery,
+            statusFilter,
+            interviewStatusFilter,
+          }));
+        }
+  
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Candidate has been deleted.',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } catch (error) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to delete candidate.',
+          icon: 'error',
+        });
+      }
+    }
   };
+  
   const truncateText = (text, maxLength) => {
     if (!text) return ""; // Handle empty/null text
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
