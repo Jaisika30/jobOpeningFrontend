@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getJobById, updateJob } from "slices/jobSlice";
 import { toast } from "react-toastify";
 import { textFieldStyles } from "assets/textFieldStyles";
-import { InputLabel } from "@mui/material";
+import { CircularProgress, InputLabel } from "@mui/material";
 import SoftButton from "components/SoftButton";
 import { dropdownStyles } from "assets/textFieldStyles";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
@@ -57,6 +57,8 @@ function EditJob() {
   const page = searchParams.get("page");
   const urlStatus = new URLSearchParams(location.search).get('status');
   const jobstatus = localStorage.getItem("jobstatus")
+  const [localLoading, setLocalLoading] = useState(false);
+
 
   useEffect(() => {
     if (urlStatus) {
@@ -101,6 +103,7 @@ function EditJob() {
     setOpenDropdown(false);
   };
   const handleSubmit = async () => {
+    setLocalLoading(true);
     dispatch(updateJob({ id, updatedData: job }));
 
     // if (flag) {
@@ -175,7 +178,7 @@ function EditJob() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
-                      descriptionRef.current?.focus();
+                      locationRef.current?.focus();
                     }
                   }}
                   placeholder="Enter Job Title"
@@ -206,7 +209,7 @@ function EditJob() {
                 />
               </SoftBox>
 
-           
+
 
               {/* Second Row */}
               <SoftBox
@@ -281,8 +284,8 @@ function EditJob() {
                   </Box>
                 </FormControl>
               </SoftBox>
-                 {/* description row*/}
-                 <SoftBox
+              {/* description row*/}
+              <SoftBox
                 mb={3}
                 sx={{
                   display: "grid",
@@ -303,7 +306,7 @@ function EditJob() {
                     value={job.description}
                     onChange={handleChange}
                     placeholder="Enter job description"
-                    onEnter={() => locationRef.current?.focus()}
+                   
                   />
                 </SoftBox>
 
@@ -344,8 +347,15 @@ function EditJob() {
                     width: { xs: '100%', sm: 'auto' },
                     px: 3,
                   }}
+                  disabled={localLoading}
                 >
-                  Update Job
+
+                  {localLoading ? (
+                    <CircularProgress size={24} color="inherit" sx={{ color: "white" }} />
+                  ) : (
+                    " Update Job"
+                  )}
+
                 </SoftButton>
               </SoftBox>
             </form>
