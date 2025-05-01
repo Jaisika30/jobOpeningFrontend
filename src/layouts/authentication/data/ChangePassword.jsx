@@ -352,7 +352,7 @@ const ChangePassword = () => {
                         borderRadius: 2,
                         boxShadow: 3,
                         width: "100%",
-                        maxWidth: "400px",
+                        maxWidth: "480px",
                     }}
                 >
                     <Typography variant="h4" gutterBottom>
