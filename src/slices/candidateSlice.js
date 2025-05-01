@@ -194,6 +194,7 @@ export const getCandidatesByJobID = createAsyncThunk(
                     Authorization: `Bearer ${token}`,
                 },
             });
+            console.log("responseeee getCandidatesByJobID:: ", response.data)
             if (response.data.length === 0) {
                 import("sweetalert2").then((Swal) => {
                     Swal.default.fire({
@@ -205,7 +206,7 @@ export const getCandidatesByJobID = createAsyncThunk(
                 });
             }
 
-            return response.data;
+            return response.data.data;
         } catch (error) {
             console.error("Error fetching candidates by job ID:", error);
             return rejectWithValue(error.response ? error.response.data : error.message);
