@@ -218,7 +218,7 @@ function ViewCandidate() {
                                         Communication
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                    {candidate.communication?.trim() || "---"}
+                                    {candidate.communication || "---"}
                                     </SoftTypography>
                                 </SoftBox>
                                 <SoftBox>
@@ -226,7 +226,7 @@ function ViewCandidate() {
                                         Personality
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                        {candidate.personality.trim() || "---"}
+                                        {candidate.personality || "---"}
                                     </SoftTypography>
                                 </SoftBox>
                                 <SoftBox>
@@ -234,7 +234,7 @@ function ViewCandidate() {
                                         Knowledge
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                        {candidate.knowledge.trim() || "---"}
+                                        {candidate.knowledge || "---"}
                                     </SoftTypography>
                                 </SoftBox>
 
