@@ -301,7 +301,7 @@ function ViewCandidate() {
                                         Interview Status
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem", wordBreak: "break-word" }}>
-                                        {candidate.interviewStatus}
+                                        {candidate.interviewStatus.trim() || "---"}
                                     </SoftTypography>
                                 </SoftBox>
 
@@ -310,7 +310,7 @@ function ViewCandidate() {
                                         Status
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem", wordBreak: "break-word" }}>
-                                        {candidate.status}
+                                        {candidate.status.trim() || "---"}
                                     </SoftTypography>
                                 </SoftBox>
 
