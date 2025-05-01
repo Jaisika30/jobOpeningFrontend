@@ -82,7 +82,14 @@ const useCandidateData = ({ searchQuery, statusFilter, interviewStatusFilter }) 
   useEffect(() => {
     if (id) {
 
-      dispatch(getCandidatesByJobID(id));
+      dispatch(getCandidatesByJobID({
+        id,
+        page,
+        limit,
+        searchQuery: searchQuery,
+        statusFilter: statusFilter,
+        interviewStatusFilter: interviewStatusFilter,
+      }));
     } else {
       dispatch(
         getCandidates({
@@ -630,9 +637,9 @@ const getCandidatesTableData = () => {
                 arrow
                 componentsProps={tooltipStyle}
               >
-              <IconButton sx={{ color: darkGray }} onClick={() => handleDelete(candidate._id)}>
-                <DeleteIcon />
-              </IconButton>
+                <IconButton sx={{ color: darkGray }} onClick={() => handleDelete(candidate._id)}>
+                  <DeleteIcon />
+                </IconButton>
               </Tooltip>
             </div>
           ),
