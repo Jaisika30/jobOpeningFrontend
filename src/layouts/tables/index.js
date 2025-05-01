@@ -50,25 +50,54 @@ function Tables() {
   }, [urlStatus]);
   const isStatusDisabled = urlStatus === "Open";
 
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteJob({ id }))
-          .unwrap()
-          .then(() => Swal.fire("Deleted!", "The job has been deleted.", "success"))
-          .catch(() => Swal.fire("Error!", "Something went wrong!", "error"));
-      }
-    });
-  };
-
+  // const handleDelete = (id) => {
+  //   Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "You won't be able to revert this!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#d33",
+  //     cancelButtonColor: "#3085d6",
+  //     confirmButtonText: "Yes, delete it!",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       dispatch(deleteJob({ id }))
+  //         .unwrap()
+  //         .then(() => Swal.fire("Deleted!", "The job has been deleted.", "success"))
+  //         // .catch(() => Swal.fire("Error!", "Something went wrong!", "error"));
+  //     }
+  //   });
+  // };
+  // const handleDelete = async (id) => {
+  //   const result = await Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "You won't be able to revert this!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#d33",
+  //     cancelButtonColor: "#3085d6",
+  //     confirmButtonText: "Yes, delete it!",
+  //   });
+  
+  //   if (result.isConfirmed) {
+  //     try {
+  //       await dispatch(deleteJob({ id })).unwrap();
+  //       console.log("Deleted job successfully:", res);
+  //       Swal.fire("Deleted!", "The job has been deleted.", "success");
+  
+  //       // OPTIONAL: re-fetch jobs if needed
+  //       dispatch(getJobs({
+  //         page: 1,
+  //         limit: 10,
+  //         searchQuery: "",
+  //         statusFilter: "",
+  //       }));
+  //     } catch (error) {
+  //       Swal.fire("Error!", "Something went wrong while deleting.", "error");
+  //     }
+  //   }
+  // };
+  
   const handleIconClick = () => {
     setOpenDropdown(true); // Opens the Select dropdown
   };
@@ -77,7 +106,7 @@ function Tables() {
     setStatusFilter(e.target.value);
     setOpenDropdown(false);
   }
-  const tableData = getJobTableData(jobData, handleDelete, pagination, setPage);
+  const tableData = getJobTableData(jobData, pagination, setPage);
 
   return (
     <DashboardLayout>

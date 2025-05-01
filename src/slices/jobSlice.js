@@ -112,14 +112,19 @@ export const updateJob = createAsyncThunk(
 // 5. Delete Job
 export const deleteJob = createAsyncThunk(
     "jobs/deleteJob",
-    async ({ id }, { rejectWithValue }) => {
+    async (id, { rejectWithValue }) => {
         try {
+            console.log("dcbdbcibdwebubxwo bxdbwe:::::::11111");
+
             const token = localStorage.getItem("token");
+            console.log("dcbdbcibdwebubxwo bxdbwe:::::::2222222");
+
             const config = {
                 headers: {
                     Authorization: `Bearer ${token}`, // Attach token
                 },
             };
+            console.log("dcbdbcibdwebubxwo bxdbwe:::::::");
 
             const resp = await axios.delete(`${API_URL}/api/jobs/deleteJob/${id}`, config);
             return id; // Return ID to remove from Redux store
@@ -128,6 +133,8 @@ export const deleteJob = createAsyncThunk(
         }
     }
 );
+
+
 // Redux Slice
 const jobSlice = createSlice({
     name: 'jobs',
@@ -200,7 +207,7 @@ const jobSlice = createSlice({
             })
             .addCase(deleteJob.fulfilled, (state, action) => {
                 state.loading = false;
-                state.jobs = state.jobs.filter((job) => job._id !== action.payload);
+                state.jobs = state.jobs.jobs.filter((job) => job._id !== action.payload);
             })
             .addCase(deleteJob.rejected, (state, action) => {
                 state.loading = false;

@@ -403,12 +403,47 @@ const truncateText = (text, maxLength) => {
   return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 };
 
-const getJobTableData = (jobData, handleDelete) => {
-  const { jobData: jobs, loading, totalPages, page, urlStatus } = useJobData();
+const getJobTableData = (jobData) => {
+  const { jobData: jobs, loading, totalPages, urlStatus, searchQuery,
+    statusFilter,
+    page,
+    limit, } = useJobData();
 
   const theme = useTheme();
   const navigate = useNavigate();
   const darkGray = theme.palette.grey[600];
+
+
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        console.log("Deleted job successfully1111:");
+        await dispatch(deleteJob(id)).unwrap();
+        console.log("Deleted job successfully:");
+        Swal.fire("Deleted!", "The job has been deleted.", "success");
+
+        // OPTIONAL: re-fetch jobs if needed
+        dispatch(getJobs({
+          page,
+          limit,
+          searchQuery,
+          statusFilter
+        }));
+      } catch (error) {
+        Swal.fire("Error!", "Something went wrong while deleting.", "error");
+      }
+    }
+  };
 
   return {
     columns: [

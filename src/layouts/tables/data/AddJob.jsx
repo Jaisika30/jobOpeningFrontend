@@ -820,7 +820,7 @@ function AddJob() {
                   <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
                     <Select
                       name="status"
-                      value={job.status || "Open"}
+                      value={job.status || ""}
                       inputRef={statusRef}
                       onChange={handleChange}
                       label="Select Status"
