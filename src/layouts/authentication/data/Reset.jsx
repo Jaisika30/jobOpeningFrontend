@@ -80,7 +80,7 @@
 // };
 
 // export default Reset;
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Typography, TextField, Button, Box, Alert } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword } from 'slices/authSlice'; // Ensure you have a reset action
@@ -94,6 +94,9 @@ const Reset = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
+  const confirmpasswordRef = useRef();
+  const passwordRef = useRef();
+
 
   const { loading, success, error } = useSelector((state) => state.auth);
 
@@ -152,9 +155,10 @@ const Reset = () => {
           Set New Password
         </Typography>
         {error && <Alert severity="error">{error}</Alert>}
-       
+
 
         <TextField
+         inputRef={passwordRef}
           label="Enter Password"
           variant="outlined"
           margin="normal"
@@ -162,6 +166,12 @@ const Reset = () => {
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              confirmpasswordRef.current?.focus();
+            }
+          }}
           InputLabelProps={{
             sx: {
               fontSize: "0.875rem",
@@ -170,6 +180,7 @@ const Reset = () => {
           }}
         />
         <TextField
+          inputRef={confirmpasswordRef}
           label="Confirm Password"
           variant="outlined"
           margin="normal"
@@ -177,6 +188,12 @@ const Reset = () => {
           fullWidth
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSubmit();
+            }
+          }}
           InputLabelProps={{
             sx: {
               fontSize: "0.875rem",
@@ -206,7 +223,7 @@ const Reset = () => {
           >
             Add Candidate
           </SoftButton> */}
-          
+
 
           <SoftButton
             variant="gradient"

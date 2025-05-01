@@ -299,9 +299,7 @@ const ChangePassword = () => {
         },
         validationSchema: Yup.object({
             oldPassword: Yup.string()
-                .required("Old Password is required")
-                .min(8, "Password must be at least 8 characters"),
-
+                .required("Old Password is required"),
             newPassword: Yup.string()
                 .required("New Password is required")
                 .min(8, "Password must be at least 8 characters")
