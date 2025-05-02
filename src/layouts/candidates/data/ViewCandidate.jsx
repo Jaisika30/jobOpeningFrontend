@@ -25,6 +25,7 @@ import { dropdownStyles } from "assets/textFieldStyles";
 function ViewCandidate() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [jobId, setJobId] = useState("");
     const { id } = useParams();
     const jobs = useSelector((State) => State.jobs.jobs);
     const candidatee = useSelector((State) => State.candidates.candidate);
@@ -49,21 +50,14 @@ function ViewCandidate() {
         interviewStatus: "",
         status: "",
         job: "",
-        comments: ""
+        comments: "",
     });
-    const handleback = () => {
-        localStorage.removeItem("flag");
-        if (flag) {
-            navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
-        }
-        else {
-            navigate(`/Candidate?page=${page}`);
-        }
-    }
+
 
     // Populate form fields when candidate data is available
     useEffect(() => {
         if (candidatee) {
+            setJobId(candidatee.job?._id);
             setCandidate({
                 name: candidatee.name || "",
                 phone: candidatee.phone || "",
@@ -110,6 +104,20 @@ function ViewCandidate() {
     const handleEdit = () => {
         localStorage.setItem("editStatus", true);
         navigate(`/editCandidate/${id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`)
+    }
+    const handleback = () => {
+        localStorage.removeItem("flag");
+        if (flag) {
+            console.log("hiiii flagggg", jobId);
+            console.log("pageee", page);
+            // Candidates/68134b7d3d9b72393669ffa5
+            navigate(candidate.job ? `/Candidates/${jobId}` : `/Candidate?page=${page}`);
+
+            // navigate(candidate.job?`/Candidates/${candidate.job}?page=${page}`:`/Candidate?page=${page}`);
+        }
+        else {
+            navigate(`/Candidate?page=${page}`);
+        }
     }
     return (
         <DashboardLayout>
