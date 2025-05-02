@@ -281,7 +281,7 @@ const getCandidatesTableData = () => {
     // navigate("dashboard");
     if (flag) {
       localStorage.removeItem("flag");
-      navigate("/Jobs");
+      navigate(`/Jobs?page=${page}`);
 
     } else {
 

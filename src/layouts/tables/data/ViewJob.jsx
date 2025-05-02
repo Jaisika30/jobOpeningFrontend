@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -25,6 +25,7 @@ import { FloatingTextarea } from "assets/FloatingTextarea";
 import { inputLabelStyle } from "assets/textFieldStyles";
 import { dropdownIconStyle } from "assets/textFieldStyles";
 
+
 function formatDate(isoString) {
   if (!isoString) return "";
   return new Date(isoString).toLocaleString("en-US", {
@@ -43,7 +44,9 @@ function ViewJob() {
   const dispatch = useDispatch();
   const jobDetail = useSelector((state) => state.jobs.job);
   const isLoading = useSelector((state) => state.jobs.loading);
+  const [searchParams] = useSearchParams();
 
+  const page = parseInt(searchParams.get("page")) || 1;
   const [job, setJob] = useState({
     title: "",
     description: "",
@@ -277,8 +280,8 @@ function ViewJob() {
                 <SoftTypography variant="body1" sx={{ fontSize: "0.85rem" }}>{job.location}</SoftTypography>
               </SoftBox>
             </SoftBox>
-               {/* Posting Date & Status */}
-               <SoftBox
+            {/* Posting Date & Status */}
+            <SoftBox
               mb={3}
               sx={{
                 display: "grid",
@@ -329,7 +332,7 @@ function ViewJob() {
             </SoftBox>
 
 
-         
+
 
             {/* Buttons */}
             <SoftBox
@@ -339,7 +342,7 @@ function ViewJob() {
               flexDirection={{ xs: "column", sm: "row" }}
               gap={2}
             >
-              <SoftButton variant="gradient" color="error" onClick={() => navigate("/jobs")}>
+              <SoftButton variant="gradient" color="error" onClick={() => navigate(`/jobs?page=${page}`)}>
                 Cancel
               </SoftButton>
               <SoftButton variant="gradient" color="info" onClick={() => navigate(`/editJob/${id}`)}>
