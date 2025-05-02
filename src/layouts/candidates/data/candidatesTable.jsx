@@ -116,7 +116,7 @@ const getCandidatesTableData = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
   const [statusFilter, setStatusFilter] = useState(searchParams.get("status") || "");
-  const [interviewStatusFilter, setInterviewStatusFilter] = useState("");
+  const [interviewStatusFilter, setInterviewStatusFilter] = useState(searchParams.get("interviewStatus") || "");
   const [openStatusDropdown, setOpenStatusDropdown] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
 
@@ -147,10 +147,12 @@ const getCandidatesTableData = () => {
     const newParams = new URLSearchParams();
     if (page > 1) newParams.set("page", page);
     if (statusFilter) newParams.set("status", statusFilter);
+    if (interviewStatusFilter) newParams.set("interviewStatus", interviewStatusFilter);
+
     if (searchQuery) newParams.set("search", searchQuery);
 
     navigate({ search: newParams.toString() }, { replace: true });
-  }, [page, statusFilter, searchQuery]);
+  }, [page, statusFilter, interviewStatusFilter, searchQuery]);
 
   const filteredCandidates = useMemo(() => {
     let result = candidates || [];
@@ -187,11 +189,11 @@ const getCandidatesTableData = () => {
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Yes, delete it!',
     });
-  
+
     if (confirmResult.isConfirmed) {
       try {
         await dispatch(deleteCandidate(candidateId)).unwrap();
-  
+
         // Re-fetch the candidate list
         if (id) {
           dispatch(getCandidatesByJobID({
@@ -211,7 +213,7 @@ const getCandidatesTableData = () => {
             interviewStatusFilter,
           }));
         }
-  
+
         Swal.fire({
           title: 'Deleted!',
           text: 'Candidate has been deleted.',
@@ -228,7 +230,14 @@ const getCandidatesTableData = () => {
       }
     }
   };
-  
+  useEffect(() => {
+    if (urlinterviewStatus) {
+      setInterviewStatusFilter(urlinterviewStatus);
+    } else {
+      setInterviewStatusFilter(""); // Clear dropdown when urlinterviewStatus is not present
+    }
+  }, [urlinterviewStatus]);
+
   const truncateText = (text, maxLength) => {
     if (!text) return ""; // Handle empty/null text
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
@@ -346,7 +355,7 @@ const getCandidatesTableData = () => {
                 onClose={() => setOpenDropdown(false)}
                 onOpen={() => setOpenDropdown(true)}
               >
-                <MenuItem value="">All</MenuItem>
+                <MenuItem value="All">All</MenuItem>
                 <MenuItem value="Accepted">Accepted</MenuItem>
                 <MenuItem value="Interviewed">Interviewed</MenuItem>
                 <MenuItem value="Missed">Missed</MenuItem>
@@ -389,7 +398,7 @@ const getCandidatesTableData = () => {
                 onOpen={() => setOpenStatusDropdown(true)}
               // disabled={isStatusDisabled}
               >
-                <MenuItem value="">All</MenuItem>
+                <MenuItem value="All">All</MenuItem>
                 <MenuItem value="Contacted">Contacted</MenuItem>
                 <MenuItem value="Final Round">Final Round</MenuItem>
                 <MenuItem value="Hired">Hired</MenuItem>
