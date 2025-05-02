@@ -344,7 +344,7 @@ const getCandidatesTableData = () => {
               },
             }}
           >
-            <InputLabel sx={{ ...inputLabelStyle }}>Interview Status</InputLabel>
+            <InputLabel sx={{ ...inputLabelStyle }}>All Interview Status</InputLabel>
             <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
               <Select
                 value={interviewStatusFilter}
@@ -386,7 +386,7 @@ const getCandidatesTableData = () => {
               },
             }}
           >
-            <InputLabel sx={{ ...inputLabelStyle }}>Status</InputLabel>
+            <InputLabel sx={{ ...inputLabelStyle }}>All Status</InputLabel>
             <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
               <Select
                 value={statusFilter || ""}
