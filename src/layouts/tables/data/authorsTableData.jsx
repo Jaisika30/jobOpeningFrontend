@@ -515,7 +515,7 @@ const getJobTableData = (jobData, handleDelete) => {
             arrow
             componentsProps={tooltipStyle}
           >
-            <Link to={`/ Candidates / ${job._id}`}>
+            <Link to={`/Candidates/${job._id}`}>
               <IconButton sx={{ color: darkGray }}>
                 <GroupIcon />
               </IconButton>

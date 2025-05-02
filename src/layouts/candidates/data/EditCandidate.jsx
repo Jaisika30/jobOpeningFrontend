@@ -131,6 +131,7 @@ function EditCandidatePage() {
         // console.log("candidateData:::::", candidate);
 
         try {
+            console.log("update candidate iddddddddd::::", id);
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             // toast.success("Candidate updated successfully! 🎉"); // Success toast
             console.log("candidate.job...........candidate.job", candidate.job);

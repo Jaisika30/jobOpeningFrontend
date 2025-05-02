@@ -349,7 +349,7 @@ function ViewCandidate() {
                                 <SoftButton
                                     variant="gradient"
                                     color="info"
-                                    onClick={() => navigate(`/editCandidate/${candidate._id}`)}
+                                    onClick={() => navigate(`/editCandidate/${id}`)}
                                     sx={{
                                         width: { xs: '100%', sm: 'auto' },
                                         px: 3,
