@@ -234,7 +234,7 @@ function Candidates() {
   const [openDropdown, setOpenDropdown] = useState(false);
   const jobDetail = useSelector((state) => state.jobs.job); // Get job from Redux
   const dispatch = useDispatch();
-  const [selectedJob, setSelectedJob] = useState("");
+  const [selectedJob, setSelectedJob] = useState(null);
   const navigate = useNavigate();
   const selectRef = useRef();
   const handleOpen = () => setOpen(true);
@@ -261,13 +261,13 @@ function Candidates() {
     }
   }, [id, dispatch]); // This will run when id changes
   const handleChange = (event) => {
-    const jobId = event.target.value;
-    setSelectedJob(jobId);
+    const value = event.target.value;
+    setSelectedJob(value);
 
-    if (jobId === "all") {
-      navigate(`/Candidate`);
+    if (value === 'all') {
+      navigate('/Candidate');
     } else {
-      navigate(`/Candidates/${jobId}`);
+      navigate(`/Candidates/${value}`);
     }
     setOpenDropdown(false);
   };
@@ -313,27 +313,31 @@ function Candidates() {
                       {/* <InputLabel sx={{ ...inputLabelStyle }}>All Jobs</InputLabel> */}
                       <Box sx={{ display: "flex", alignItems: "center", position: "relative", ...dropdownStyles }}>
                         <Select
-                          value={id || "all"}
+                          value={selectedJob}
                           sx={{
-                            width: "100%",
-                            paddingRight: "40px",
-                            "& .MuiSelect-select": {
-                              textAlign: "left", // Align selected value to left
+                            width: '100%',
+                            paddingRight: '40px',
+                            '& .MuiSelect-select': {
+                              textAlign: 'left',
                             },
-                            "& .MuiMenuItem-root": {
-                              justifyContent: "flex-start", // Align menu items to left
+                            '& .MuiMenuItem-root': {
+                              justifyContent: 'flex-start',
                             }
                           }}
                           open={openDropdown}
                           onChange={handleChange}
                           onClose={() => setOpenDropdown(false)}
                           onOpen={() => setOpenDropdown(true)}
+                          displayEmpty
+                          renderValue={(selected) => {
+                            if (selected === 'all') return 'All Jobs';
+                            const job = sortedJobs.find(j => j._id === selected);
+                            return job ? job.title : 'All Jobs';
+                          }}
                         >
-
-                          {/* <MenuItem value="">All</MenuItem> */}
                           <MenuItem value="all">All Jobs</MenuItem>
                           {sortedJobs.map((job) => (
-                            <MenuItem key={job._id} value={job._id} >
+                            <MenuItem key={job._id} value={job._id}>
                               {job.title}
                             </MenuItem>
                           ))}
