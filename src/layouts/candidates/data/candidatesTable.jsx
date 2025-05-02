@@ -500,7 +500,7 @@ const getCandidatesTableData = () => {
               arrow
               componentsProps={tooltipStyle}
             >
-              <SoftTypography variant="button" component={Link} fontWeight="medium" color="info" to={`/viewCandidate/${candidate._id}`}>
+              <SoftTypography variant="button" component={Link} fontWeight="medium" color="info" to={`/viewCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}>
                 {truncateText(candidate?.name, 15)}
               </SoftTypography>
             </Tooltip>
@@ -656,7 +656,7 @@ const getCandidatesTableData = () => {
                 arrow
                 componentsProps={tooltipStyle}
               >
-                <Link to={`/viewCandidate/${candidate._id}`}>
+                <Link to={`/viewCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}>
                   <IconButton sx={{ color: darkGray }}>
                     <VisibilityIcon />
                   </IconButton>
