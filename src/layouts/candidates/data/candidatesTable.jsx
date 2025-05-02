@@ -276,10 +276,19 @@ const getCandidatesTableData = () => {
   };
   const handleClick = () => {
     const hiredStatus = localStorage.getItem("hiredStatus");
-// navigate("dashboard");
-    navigate(
-      hiredStatus || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/dashboard"
-    )
+    const flag = localStorage.getItem("flag");
+
+    // navigate("dashboard");
+    if (flag) {
+      localStorage.removeItem("flag");
+      navigate("/Jobs");
+
+    } else {
+
+      navigate(
+        hiredStatus || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/dashboard"
+      )
+    }
     localStorage.removeItem("hiredStatus")
   }
   return {
