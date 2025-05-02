@@ -62,7 +62,6 @@ function EditJob() {
 
   useEffect(() => {
     if (urlStatus) {
-      console.log("urlStatusurlStatus edit page");
       localStorage.setItem("jobstatus", true)
     }
   }, [urlStatus])

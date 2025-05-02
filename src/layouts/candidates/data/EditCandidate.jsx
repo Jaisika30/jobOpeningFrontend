@@ -80,7 +80,7 @@ function EditCandidatePage() {
 
     useEffect(() => {
         if (urlStatus) {
-            console.log("urlStatusurlStatus edit page");
+            // console.log("urlStatusurlStatus edit page");
             localStorage.setItem("candidateStatus", true)
         }
     }, [urlStatus])
@@ -137,10 +137,9 @@ function EditCandidatePage() {
         // console.log("candidateData:::::", candidate);
 
         try {
-            console.log("update candidate iddddddddd::::", id);
+            // console.log("update candidate iddddddddd::::", id);
             dispatch(updateCandidate({ id, updatedData: candidate })); // Dispatch update action
             // toast.success("Candidate updated successfully! 🎉"); // Success toast
-            console.log("candidate.job...........candidate.job", candidate.job);
             localStorage.removeItem("flag");
             // navigate(`/jobs?page=${page}`);
 
@@ -150,7 +149,6 @@ function EditCandidatePage() {
                 localStorage.removeItem("candidateStatus");
                 navigate(`/Candidate?page=${page}&&status=${urlStatus}`);
             } else if (flag || editStatus) {
-                console.log("edit status::::");
                 localStorage.removeItem("editStatus");
                 // to={`/viewCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}
                 navigate(`/viewCandidate/${id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`);
@@ -352,10 +350,10 @@ function EditCandidatePage() {
                                     error={slotError}
                                     helperText={
                                         slotError
-                                            ? "Format: 18 April 2025 | 8:00 AM - 8:15 AM"
+                                            ? "Format: 8:00 AM - 8:15 AM"
                                             : ""
                                     }
-                                    placeholder="e.g. 18 April 2025 | 8:00 AM - 8:15 AM"
+                                    placeholder="e.g. 8:00 AM - 8:15 AM"
                                     label="Time Offered"
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {

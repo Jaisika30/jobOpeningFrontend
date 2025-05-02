@@ -258,7 +258,7 @@ const getCandidatesTableData = () => {
         ? Math.ceil(scheduledCount / limit) || 1
         : totalPagesFromStore;
 
-  console.log("tota;;;;;pages:::::", totalPages);
+  // console.log("tota;;;;;pages:::::", totalPages);
   const noCandidatesFound = filteredCandidates.length === 0 || filteredCandidates.length < 0;
   const handleIconClick = () => {
     setOpenDropdown(true); // Opens the Select dropdown
