@@ -22,6 +22,8 @@ import SoftButton from "components/SoftButton";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import { textFieldStyles, dropdownStyles, inputLabelStyle, dropdownIconStyle } from "assets/textFieldStyles";
 import Box from '@mui/material/Box';
+import { FloatingTextarea } from "assets/FloatingTextarea";
+import { Height } from "@mui/icons-material";
 
 function EditCandidatePage() {
     const navigate = useNavigate();
@@ -527,7 +529,9 @@ function EditCandidatePage() {
                                         />
                                     </Box>
                                 </FormControl>
-                                <TextField
+
+                              
+                                {/* <TextField
                                     label="Comments"
                                     name="comments"
                                     value={candidate.comments}
@@ -538,7 +542,36 @@ function EditCandidatePage() {
                                     InputLabelProps={{
                                         sx: { ...inputLabelStyle },
                                     }}
-                                />
+                                /> */}
+                            </SoftBox>
+                            <SoftBox
+                                mb={3}
+                                sx={{
+                                    display: "grid",
+                                    gridTemplateColumns: {
+                                        xs: "1fr",
+                                        sm: "1fr",
+                                        md: "1fr"
+                                    },
+                                    gap: 3,
+                                    alignItems: "flex-start"
+                                }}
+                            >
+                                <SoftBox>
+                                    <FloatingTextarea
+                                        id={"comment"}
+                                        name={"comments"}
+                                        value={candidate.comments}
+                                        onChange={handleChange}
+                                        placeholder="Write Comments"
+                                        label={"Comments"}
+                                        sx={{
+                                            "& textarea": {
+                                                minHeight: "36px !important", // Ensure the inner textarea gets it
+                                            },
+                                        }}
+                                    />
+                                </SoftBox>
                             </SoftBox>
 
                             {/* Buttons */}
