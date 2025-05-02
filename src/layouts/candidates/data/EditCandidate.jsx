@@ -350,7 +350,7 @@ function EditCandidatePage() {
                                     error={slotError}
                                     helperText={
                                         slotError
-                                            ? "Format: 8:00 AM - 8:15 AM"
+                                            ? "Format: e.g. 8:00 AM - 8:15 AM"
                                             : ""
                                     }
                                     placeholder="e.g. 8:00 AM - 8:15 AM"
