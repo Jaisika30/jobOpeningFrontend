@@ -276,9 +276,9 @@ const getCandidatesTableData = () => {
   };
   const handleClick = () => {
     const hiredStatus = localStorage.getItem("hiredStatus");
-
+// navigate("dashboard");
     navigate(
-      hiredStatus || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/Jobs"
+      hiredStatus || urlinterviewStatus === "Scheduled" ? "/dashboard" : "/dashboard"
     )
     localStorage.removeItem("hiredStatus")
   }
