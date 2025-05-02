@@ -111,7 +111,7 @@ function ViewCandidate() {
             console.log("hiiii flagggg", jobId);
             console.log("pageee", page);
             // Candidates/68134b7d3d9b72393669ffa5
-            navigate(candidate.job ? `/Candidates/${jobId}` : `/Candidate?page=${page}`);
+            navigate(candidate.job ? `/Candidates/${jobId}?page=${page}` : `/Candidate?page=${page}`);
 
             // navigate(candidate.job?`/Candidates/${candidate.job}?page=${page}`:`/Candidate?page=${page}`);
         }
