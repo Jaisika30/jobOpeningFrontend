@@ -46,6 +46,7 @@ function EditCandidatePage() {
     const [searchParams] = useSearchParams();
     const page = searchParams.get("page");
     const flag = localStorage.getItem("flag");
+
     const [openJobDropdown, setOpenJobDropdown] = useState(false);
     const [openStatusDropdown, setOpenStatusDropdown] = useState(false);
     const [openInterviewStatusDropdown, setOpenInterviewStatusDropdown] = useState(false);
@@ -74,13 +75,16 @@ function EditCandidatePage() {
     const [slotError, setSlotError] = useState(false);
 
     const timeSlotRegex = /^(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*\|\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)\s*-\s*(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
-    const candidateStatus = localStorage.getItem("candidateStatus")
+    const candidateStatus = localStorage.getItem("candidateStatus");
+    const editStatus = localStorage.getItem("editStatus");
+
     useEffect(() => {
         if (urlStatus) {
             console.log("urlStatusurlStatus edit page");
             localStorage.setItem("candidateStatus", true)
         }
     }, [urlStatus])
+
     useEffect(() => {
         dispatch(getJobs({
             page: 1,
@@ -140,11 +144,17 @@ function EditCandidatePage() {
             localStorage.removeItem("flag");
             // navigate(`/jobs?page=${page}`);
 
-            if (flag) {
+            if (flag && !editStatus) {
                 navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
             } else if (candidateStatus) {
                 localStorage.removeItem("candidateStatus");
                 navigate(`/Candidate?page=${page}&&status=${urlStatus}`);
+            } else if (flag || editStatus) {
+                console.log("edit status::::");
+                localStorage.removeItem("editStatus");
+                // to={`/viewCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}
+                navigate(`/viewCandidate/${id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`);
+
             }
             else {
                 navigate(`/Candidate?page=${page}`);
@@ -530,7 +540,7 @@ function EditCandidatePage() {
                                     </Box>
                                 </FormControl>
 
-                              
+
                                 {/* <TextField
                                     label="Comments"
                                     name="comments"

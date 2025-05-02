@@ -32,7 +32,10 @@ function ViewCandidate() {
     const [searchParams] = useSearchParams();
     const flag = localStorage.getItem("flag");
     const page = searchParams.get("page");
-
+    const urlStatus = React.useMemo(() => {
+        const searchParams = new URLSearchParams(location.search);
+        return searchParams.get("status");
+    }, [location.search]);
 
     const [candidate, setCandidate] = useState({
         name: "",
@@ -104,6 +107,10 @@ function ViewCandidate() {
         navigate("/candidates"); // Redirect after updating
     };
 
+    const handleEdit = () => {
+        localStorage.setItem("editStatus", true);
+        navigate(`/editCandidate/${id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`)
+    }
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -374,13 +381,13 @@ function ViewCandidate() {
                                 <SoftButton
                                     variant="gradient"
                                     color="info"
-                                    onClick={() => navigate(`/editCandidate/${id}`)}
+                                    onClick={handleEdit}
                                     sx={{
                                         width: { xs: '100%', sm: 'auto' },
                                         px: 3,
                                     }}
                                 >
-                                    Edit Candidate
+                                    Update Candidate
                                 </SoftButton>
                             </SoftBox>
                         </form>

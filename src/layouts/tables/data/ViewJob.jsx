@@ -343,7 +343,7 @@ function ViewJob() {
                 Cancel
               </SoftButton>
               <SoftButton variant="gradient" color="info" onClick={() => navigate(`/editJob/${id}`)}>
-                Edit Job
+                Update Job
               </SoftButton>
             </SoftBox>
           </Card>
