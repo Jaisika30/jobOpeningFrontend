@@ -187,11 +187,11 @@ const getCandidatesTableData = () => {
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Yes, delete it!',
     });
-  
+
     if (confirmResult.isConfirmed) {
       try {
         await dispatch(deleteCandidate(candidateId)).unwrap();
-  
+
         // Re-fetch the candidate list
         if (id) {
           dispatch(getCandidatesByJobID({
@@ -211,7 +211,7 @@ const getCandidatesTableData = () => {
             interviewStatusFilter,
           }));
         }
-  
+
         Swal.fire({
           title: 'Deleted!',
           text: 'Candidate has been deleted.',
@@ -228,7 +228,7 @@ const getCandidatesTableData = () => {
       }
     }
   };
-  
+
   const truncateText = (text, maxLength) => {
     if (!text) return ""; // Handle empty/null text
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
@@ -491,7 +491,7 @@ const getCandidatesTableData = () => {
               arrow
               componentsProps={tooltipStyle}
             >
-              <SoftTypography variant="button" component={Link} fontWeight="medium" color="info" to={`/viewCandidate/${candidate._id}`}>
+              <SoftTypography variant="button" component={Link} fontWeight="medium" color="info" to={`/viewCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}>
                 {truncateText(candidate?.name, 15)}
               </SoftTypography>
             </Tooltip>
@@ -647,7 +647,7 @@ const getCandidatesTableData = () => {
                 arrow
                 componentsProps={tooltipStyle}
               >
-                <Link to={`/viewCandidate/${candidate._id}`}>
+                <Link to={`/viewCandidate/${candidate._id}?page=${page}&flag=true${urlStatus ? `&status=${urlStatus}` : ''}`}>
                   <IconButton sx={{ color: darkGray }}>
                     <VisibilityIcon />
                   </IconButton>

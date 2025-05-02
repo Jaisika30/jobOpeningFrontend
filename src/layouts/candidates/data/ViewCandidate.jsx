@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -29,6 +29,10 @@ function ViewCandidate() {
     const jobs = useSelector((State) => State.jobs.jobs);
     const candidatee = useSelector((State) => State.candidates.candidate);
     const [phoneError, setPhoneError] = useState('');
+    const [searchParams] = useSearchParams();
+    const flag = localStorage.getItem("flag");
+    const page = searchParams.get("page");
+
 
     const phoneRef = useRef();
     const locationRef = useRef();
@@ -56,6 +60,15 @@ function ViewCandidate() {
         job: "",
         comments: ""
     });
+    const handleback = () => {
+        localStorage.removeItem("flag");
+        if (flag) {
+            navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
+        }
+        else {
+            navigate(`/Candidate?page=${page}`);
+        }
+    }
 
     // Populate form fields when candidate data is available
     useEffect(() => {
@@ -338,7 +351,8 @@ function ViewCandidate() {
                                 <SoftButton
                                     variant="gradient"
                                     color="error"
-                                    onClick={() => navigate("/Candidate")}
+                                    onClick={handleback}
+                                    // onClick={() => navigate("/Candidate")}
                                     sx={{
                                         width: { xs: '100%', sm: 'auto' },
                                         px: 3,
