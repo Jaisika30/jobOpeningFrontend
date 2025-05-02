@@ -240,52 +240,7 @@ function AddCandidatePage() {
                                 }}
                             >
 
-                                {/* {id  ? (
-                                    <TextField
-                                        inputRef={jobRef}
-                                        label="Job"
-                                        name="job"
-                                        value={jobDetail?.title}
-                                        InputLabelProps={{ sx: { fontSize: "1rem" } }}
-                                        sx={textFieldStyles}
-                                    />
-                                ) : <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
-                                    <InputLabel id="job-label" sx={{ ...inputLabelStyle }}>Select Job</InputLabel>
-                                    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-                                        <Select
-                                            labelId="job-label"
-                                            name="job"
-                                            value={candidate.job || ""}
-                                            inputRef={jobRef}
-                                            onChange={handleChange}
-                                            // onClose={() => slotRef.current?.focus()}
-                                            label="Select Job"
-                                            sx={{
-                                                width: "100%", // Ensures full width
-                                                paddingRight: "40px", // Creates space for the icon
-                                            }}
-                                            open={openJobDropdown}
-                                            onClose={() => setOpenJobDropdown(false)}
-                                            onOpen={() => setOpenJobDropdown(true)}
-
-                                        >
-                                            {
-                                                jobs?.map((job) => (
-                                                    <MenuItem key={job._id} value={job._id}>
-                                                        {job.title}
-                                                    </MenuItem>
-                                                ))
-                                            }
-                                        </Select>
-                                        <ArrowDropDownCircleIcon
-                                            sx={{
-                                                ...dropdownIconStyle
-                                            }}
-                                            onClick={handleJobIconClick}
-                                        />
-                                    </Box>
-                                </FormControl>} */}
-
+                        
                                 {!flagStatus && (
                                     id ? (
                                         <TextField
@@ -334,19 +289,6 @@ function AddCandidatePage() {
 
 
 
-                                {/* <TextField
-                                    inputRef={slotRef}
-                                    name="interviewSlot"
-                                    value={candidate.interviewSlot}
-                                    onChange={handleChange}
-                                    placeholder=" Time Offered"
-                                    label="Time Offered"
-                                    onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), scheduleRef.current?.focus())}
-                                    InputLabelProps={{
-                                        sx: { ...inputLabelStyle },
-                                    }}
-                                    sx={textFieldStyles}
-                                /> */}
                                 <TextField
                                     inputRef={slotRef}
                                     name="timeOffered"
@@ -561,39 +503,6 @@ function AddCandidatePage() {
                                     </Box>
                                 </FormControl>
 
-                                {/* <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
-                                    <InputLabel id="status-label" sx={{ ...inputLabelStyle }}>Select Status</InputLabel>
-                                    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
-
-                                        <Select
-                                            labelId="status-label"
-                                            name="status"
-                                            value={candidate.status || "Contacted"}
-                                            inputRef={statusRef}
-                                            onChange={handleChange}
-                                            onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleSubmit(e))}
-                                            label="Select Status"
-                                            sx={{
-                                                width: "100%", // Ensures full width
-                                                paddingRight: "40px", // Creates space for the icon
-                                            }}
-                                            open={openStatusDropdown}
-                                            onClose={() => setOpenStatusDropdown(false)}
-                                            onOpen={() => setOpenStatusDropdown(true)}
-                                        >
-                                            {['Contacted', 'Moved to Round 2', 'Moved to Round 3', 'Final Round', 'Shortlisted', 'Rejected', 'Hired', 'On Hold'].map((status) => (
-                                                <MenuItem key={status} value={status}>{status}</MenuItem>
-                                            ))}
-                                        </Select>
-                                        <ArrowDropDownCircleIcon
-                                            sx={{
-                                                ...dropdownIconStyle
-                                            }}
-                                            onClick={handleStatusIconClick}
-                                        />
-                                    </Box>
-                                </FormControl>
-                                */}
 
                                 {!flagStatus && (
                                     <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
@@ -641,33 +550,6 @@ function AddCandidatePage() {
                                 )}
 
 
-                                {/* <TextField
-                                    label="Comments"
-                                    name="comments"
-                                    value={candidate.comments}
-                                    onChange={handleChange}
-                                    onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), phoneRef.current?.focus())}
-                                    placeholder="Write comments"
-                                    sx={textFieldStyles}
-                                    InputLabelProps={{
-                                        sx: { ...inputLabelStyle },
-                                    }}
-                                /> */}
-                                {/* <SoftBox>
-                                    <FloatingTextarea
-                                        id={"comment"}
-                                        name={"comments"}
-                                        value={candidate.comments}
-                                        onChange={handleChange}
-                                        placeholder="Write Comments"
-                                        label={"Comments"}
-                                        sx={{
-                                            "& textarea": {
-                                                minHeight: "36px !important", // Ensure the inner textarea gets it
-                                            },
-                                        }}
-                                    />
-                                </SoftBox> */}
                             </SoftBox>
 
                             <SoftBox

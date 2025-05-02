@@ -12,18 +12,11 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobById, updateJob } from "slices/jobSlice";
-import { textFieldStyles } from "assets/textFieldStyles";
-import { dropdownStyles } from "assets/textFieldStyles";
-import { InputLabel } from "@mui/material";
 import SoftButton from "components/SoftButton";
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import Box from '@mui/material/Box';
-import { FloatingTextarea } from "assets/FloatingTextarea";
-import { inputLabelStyle } from "assets/textFieldStyles";
-import { dropdownIconStyle } from "assets/textFieldStyles";
+
 
 
 function formatDate(isoString) {
@@ -100,151 +93,6 @@ function ViewJob() {
   }
 
   return (
-
-    // <DashboardLayout>
-    //   <DashboardNavbar />
-    //   <SoftBox py={3}>
-    //     <SoftBox mb={3}>
-    //       <Card sx={{ p: 3 }}>
-    //         <SoftTypography variant="h5" mb={3} textAlign="center">
-    //           View Job Details
-    //         </SoftTypography>
-    //         <form onSubmit={handleSubmit}>
-    //           {/* First Row */}
-    //           <SoftBox
-    //             mb={3}
-    //             sx={{
-    //               display: "grid",
-    //               gridTemplateColumns: {
-    //                 xs: "1fr",
-    //                 sm: "1fr 1fr",
-    //                 md: "1fr 1fr 1fr"
-    //               },
-    //               gap: 3,
-    //               alignItems: "flex-start"
-    //             }}
-    //           >
-    //             <TextField
-    //               label="Title"
-    //               name="title"
-    //               value={job.title}
-    //               placeholder="Enter Job Title"
-    //               sx={textFieldStyles}
-    //               InputLabelProps={{
-    //                 sx: { fontSize: "1rem" },
-    //               }}
-    //             />
-
-    //             <TextField
-    //               label="Description"
-    //               name="description"
-    //               value={job.description}
-
-    //               placeholder="Enter job description"
-    //               InputLabelProps={{
-    //                 sx: { fontSize: "1rem" },
-    //               }}
-    //               sx={textFieldStyles}
-    //             />
-
-    //             <TextField
-    //               label="Location"
-    //               name="location"
-    //               value={job.location}
-
-    //               placeholder="Enter location"
-    //               InputLabelProps={{
-    //                 sx: { fontSize: "1rem" },
-    //               }}
-    //               sx={textFieldStyles}
-    //             />
-    //           </SoftBox>
-
-    //           {/* Second Row */}
-    //           <SoftBox
-    //             mb={3}
-    //             sx={{
-    //               display: "grid",
-    //               gridTemplateColumns: {
-    //                 xs: "1fr",
-    //                 sm: "1fr 1fr",
-    //                 md: "1fr 1fr 1fr"
-    //               },
-    //               gap: 3,
-    //               alignItems: "flex-start"
-    //             }}
-    //           >
-
-    //             <TextField
-    //               label="Posting Date"
-    //               name="postingDate"
-    //               value={job.postingDate}
-    //               type="date"
-    //               fullWidth
-    //               InputLabelProps={{
-    //                 shrink: true,
-    //                 sx: { fontSize: "1rem" },
-    //               }}
-    //               inputProps={{
-    //                 style: {
-    //                   paddingRight: "0.5rem", // ensures date icon doesn't get cut off
-    //                 },
-    //               }}
-    //               sx={{
-    //                 "& input": {
-    //                   fontSize: "1rem",
-    //                 },
-    //                 "& .MuiInputBase-root": {
-    //                   width: "100%",
-    //                 },
-
-    //                 // Don't add other layout-related custom styles that might mess with the input type="date"
-    //               }}
-    //             />
-
-
-    //             <FormControl sx={dropdownStyles}>
-    //               <InputLabel id="status-label" sx={{ fontSize: "1rem" }}>
-    //                 Status
-    //               </InputLabel>
-    //               <Select
-    //                 name="status"
-    //                 value={job.status || ""}
-    //                 label="Select Status"
-    //               >
-    //                 {['Open', 'Closed'].map((status) => (
-    //                   <MenuItem key={status} value={status}>{status}</MenuItem>
-    //                 ))}
-    //               </Select>
-    //             </FormControl>
-    //           </SoftBox>
-
-    //           {/* Buttons */}
-    //           <SoftBox
-    //             mt={3}
-    //             display="flex"
-    //             justifyContent="space-between"
-    //             flexDirection={{ xs: "column", sm: "row" }}
-    //             gap={2}
-    //           >
-
-    //             <SoftButton
-    //               variant="gradient"
-    //               color="info"
-    //               onClick={() => navigate("/jobs")}
-    //               sx={{
-    //                 width: { xs: '100%', sm: 'auto' },
-    //                 px: 3,
-    //               }}
-    //             >
-    //               Back
-    //             </SoftButton>
-    //           </SoftBox>
-    //         </form>
-    //       </Card>
-    //     </SoftBox>
-    //   </SoftBox>
-    // </DashboardLayout>
     <DashboardLayout>
       <DashboardNavbar />
       <SoftBox py={3}>
