@@ -34,18 +34,6 @@ function ViewCandidate() {
     const page = searchParams.get("page");
 
 
-    const phoneRef = useRef();
-    const locationRef = useRef();
-    const jobRef = useRef();
-    const slotRef = useRef();
-    const scheduleRef = useRef();
-    const status = useRef();
-    const personalityRef = useRef();
-    const knowledgeRef = useRef();
-    const interviewStatusRef = useRef();
-    const statusRef = useRef();
-    const communicationRef = useRef();
-
     const [candidate, setCandidate] = useState({
         name: "",
         phone: "",
@@ -328,7 +316,31 @@ function ViewCandidate() {
                                     </SoftTypography>
                                 </SoftBox>
 
-                                <SoftBox sx={{ wordWrap: "break-word", overflowWrap: "break-word" }}>
+
+                            </SoftBox>
+                            <SoftBox
+                                mb={3}
+                                sx={{
+                                    display: "grid",
+                                    gridTemplateColumns: {
+                                        xs: "1fr",
+                                        sm: "1fr",
+                                        md: "1fr"
+                                    },
+                                    gap: 3,
+                                    alignItems: "flex-start"
+                                }}
+                            >
+                                <SoftBox sx={{
+                                    whiteSpace: 'pre-wrap',
+                                    backgroundColor: '#f9f9f9',
+                                    padding: 2,
+                                    borderRadius: 1,
+                                    fontSize: "0.85rem",
+                                    fontFamily: "inherit",
+                                    lineHeight: 1.6,
+                                    border: "1px solid #ddd",
+                                }}>
                                     <SoftTypography variant="subtitle1" fontWeight="bold" fontSize="1rem">
                                         Comments
                                     </SoftTypography>
@@ -337,7 +349,6 @@ function ViewCandidate() {
                                     </SoftTypography>
                                 </SoftBox>
                             </SoftBox>
-
 
                             {/* Buttons */}
                             <SoftBox
