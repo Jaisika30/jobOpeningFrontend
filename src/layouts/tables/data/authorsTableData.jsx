@@ -436,7 +436,7 @@ const getJobTableData = (jobData, handleDelete) => {
             color="info"
             sx={{ marginLeft: "15px", fontSize: "1rem" }}
             component={Link}
-            to={`/Candidates/${job._id}`}
+            to={`/Candidates/${job._id}?page=${page}`}
           >
             {truncateText(job.title, 20)}
           </SoftTypography>
@@ -476,7 +476,7 @@ const getJobTableData = (jobData, handleDelete) => {
             arrow
             componentsProps={tooltipStyle}
           >
-            <Link to={`/viewJob/${job._id}`}>
+            <Link to={`/viewJob/${job._id}?page=${page}`}>
               <IconButton sx={{ color: darkGray }}>
                 <VisibilityIcon />
               </IconButton>
@@ -515,7 +515,7 @@ const getJobTableData = (jobData, handleDelete) => {
             arrow
             componentsProps={tooltipStyle}
           >
-            <Link to={`/Candidates/${job._id}`}>
+            <Link to={`/Candidates/${job._id}?page=${page}`}>
               <IconButton sx={{ color: darkGray }}>
                 <GroupIcon />
               </IconButton>
