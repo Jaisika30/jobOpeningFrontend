@@ -61,7 +61,7 @@ function EditCandidatePage() {
         name: "",
         phone: "",
         location: "",
-        interviewSlot: "",
+        timeOffered: "",
         interviewSchedule: "",
         communication: "",
         personality: "",
@@ -105,7 +105,7 @@ function EditCandidatePage() {
                 name: candidatee.name || "",
                 phone: candidatee.phone || "",
                 location: candidatee.location || "",
-                interviewSlot: candidatee.interviewSlot || "",
+                timeOffered: candidatee.timeOffered || "",
                 interviewSchedule: candidatee.interviewSchedule
                     ? new Date(candidatee.interviewSchedule).toISOString().split("T")[0]
                     : "",
@@ -330,8 +330,8 @@ function EditCandidatePage() {
                                 /> */}
                                 <TextField
                                     inputRef={slotRef}
-                                    name="interviewSlot"
-                                    value={candidate.interviewSlot}
+                                    name="timeOffered"
+                                    value={candidate.timeOffered}
                                     onChange={(e) => {
                                         const value = e.target.value;
 

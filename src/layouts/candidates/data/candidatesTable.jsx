@@ -449,7 +449,7 @@ const getCandidatesTableData = () => {
       ...(urlStatus == "Hired" || !id ? [{ name: "job", label: "Jobs", align: "left" }] : []),
 
       { name: "location", label: "Location", align: "left" },
-      { name: "interviewSlot", label: "Time Offered", align: "left" },
+      { name: "timeOffered", label: "Time Offered", align: "left" },
       { name: "interviewStatus", label: "Interview Status", align: "center" },
       // { name: "personality", label: "Interview Status", align: "center" },
       // { name: "knowledge", label: "Interview Status", align: "center" },
@@ -483,7 +483,7 @@ const getCandidatesTableData = () => {
           ),
           job: "",
           location: "",
-          interviewSlot: "",
+          timeOffered: "",
           interviewStatus: "",
           status: "",
           comments: "",
@@ -556,7 +556,7 @@ const getCandidatesTableData = () => {
               </SoftTypography>
             </Tooltip>
           ),
-          interviewSlot: (
+          timeOffered: (
             <Tooltip
               placement="top"
               title={
@@ -566,14 +566,14 @@ const getCandidatesTableData = () => {
                     maxWidth: "200px",
                   }}
                 >
-                  {candidate.interviewSlot || ""}
+                  {candidate.timeOffered || ""}
                 </div>
               }
               arrow
               componentsProps={tooltipStyle}
             >
               <SoftTypography variant="caption" color="secondary">
-                {truncateText(candidate.interviewSlot, 20)}
+                {truncateText(candidate.timeOffered, 20)}
               </SoftTypography>
             </Tooltip>
           ),

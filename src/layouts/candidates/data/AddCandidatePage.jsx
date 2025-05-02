@@ -53,7 +53,8 @@ function AddCandidatePage() {
         name: "",
         phone: "",
         location: "",
-        interviewSlot: "",
+        // interviewSlot: "",
+        timeOffered: "",
         interviewSchedule: "",
         communication: "",
         personality: "",
@@ -93,13 +94,17 @@ function AddCandidatePage() {
         e.preventDefault();
 
         const requiredFields = [
-            "name", "phone", "location", "interviewSlot", "interviewSchedule",
+            "name", "phone", "location", "timeOffered", "interviewSchedule",
             ...(id ? [] : ["job"]),
         ];
 
+
+        const formatFieldName = (field) =>
+            field.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase());
+
         for (let field of requiredFields) {
             if (!candidate[field]) {
-                toast.error(`Please fill in the ${field} field.`);
+                toast.error(`Please fill in the ${formatFieldName(field)} field.`);
                 return;
             }
         }
@@ -326,7 +331,7 @@ function AddCandidatePage() {
                                         </FormControl>
                                     )
                                 )}
-                               
+
 
 
                                 {/* <TextField
@@ -344,8 +349,8 @@ function AddCandidatePage() {
                                 /> */}
                                 <TextField
                                     inputRef={slotRef}
-                                    name="interviewSlot"
-                                    value={candidate.interviewSlot}
+                                    name="timeOffered"
+                                    value={candidate.timeOffered}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         if (value.length <= 30) {
@@ -403,7 +408,7 @@ function AddCandidatePage() {
                                 />
 
 
-{flagStatus && (
+                                {flagStatus && (
                                     <FormControl sx={{ ...dropdownStyles, position: "relative" }}>
                                         <InputLabel id="status-label" sx={{ ...inputLabelStyle }}>
                                             Select Status

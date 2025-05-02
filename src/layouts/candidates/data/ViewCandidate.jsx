@@ -42,7 +42,7 @@ function ViewCandidate() {
         name: "",
         phone: "",
         location: "",
-        interviewSlot: "",
+        timeOffered: "",
         interviewSchedule: "",
         communication: "",
         personality: "",
@@ -62,7 +62,7 @@ function ViewCandidate() {
                 name: candidatee.name || "",
                 phone: candidatee.phone || "",
                 location: candidatee.location || "",
-                interviewSlot: candidatee.interviewSlot || "",
+                timeOffered: candidatee.timeOffered || "",
                 interviewSchedule: candidatee.interviewSchedule || "",
                 // ? new Date(candidatee.interviewSchedule).toISOString().split("T")[0]
                 // : "",
@@ -201,7 +201,7 @@ function ViewCandidate() {
                                         Time Slot
                                     </SoftTypography>
                                     <SoftTypography variant="body2" sx={{ fontSize: "0.85rem" }}>
-                                        {candidate.interviewSlot}
+                                        {candidate.timeOffered}
                                     </SoftTypography>
                                 </SoftBox>
                                 <SoftBox>
