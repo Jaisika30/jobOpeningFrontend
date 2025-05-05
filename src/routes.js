@@ -85,10 +85,11 @@ const routes = [
     component: <ProtectedRoute><Dashboard /></ProtectedRoute>,
     noCollapse: true,
   },
+ 
   {
     type: "collapse",
     name: "Jobs",
-    key: "job",
+    key: "Jobs",
     route: "/Jobs",
     icon: <Office size="12px" />,
     // component: <Tables />,
@@ -150,7 +151,7 @@ const routes = [
   {
     type: "collapse",
     name: "Change Password",
-    key: "changePass",
+    key: "change-password",
     route: "/change-password",
     icon: <LockResetIcon size="12px" />,
     component: <ProtectedRoute><ChangePassword /></ProtectedRoute>,
