@@ -145,6 +145,10 @@ function EditCandidatePage() {
 
             if (flag && !editStatus) {
                 navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
+            } else if (flag && editStatus) {
+                console.log("edit statussss");
+                navigate(candidate.job ? `/Candidates/${candidate.job}?page=${page}` : `/Candidate?page=${page}`);
+
             } else if (candidateStatus) {
                 localStorage.removeItem("candidateStatus");
                 navigate(`/Candidate?page=${page}&&status=${urlStatus}`);
