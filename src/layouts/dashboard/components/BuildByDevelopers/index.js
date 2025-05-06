@@ -44,7 +44,7 @@ function BuildByDevelopers() {
     const data = [
       ["Status", "Count"],
       ["Total Candidates", totalCandidates],
-      ["Rejected", 10],
+      ["Rejected", 0],
       ["Scheduled", scheduledCount],
       ["Hired", hiredCandidates],
 
