@@ -116,6 +116,7 @@ const getJobTableData = (jobData, handleDelete) => {
       { name: "description", label: "Description", align: "left" },
       { name: "postingDate", label: "Posting Date", align: "left" },
       { name: "status", label: "Status", align: "center" },
+      { name: "totalCandidates", label: "Total Candidates", align: "center" },
       { name: "action", label: "Actions", align: "center" },
     ],
     rows: jobs.map((job) => ({
@@ -163,6 +164,20 @@ const getJobTableData = (jobData, handleDelete) => {
           size="xs"
           container
         />
+      ),
+      totalCandidates: (
+
+        <SoftTypography
+          variant="button"
+          fontWeight="medium"
+          color="text"
+          sx={{ marginLeft: "15px", fontSize: "1rem" }}
+          component={Link}
+
+        >
+          {job?.candidates?.length}
+        </SoftTypography>
+
       ),
       action: (
         <div style={{ display: "flex", justifyContent: "center" }}>
