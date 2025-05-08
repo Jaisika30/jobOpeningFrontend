@@ -245,7 +245,14 @@ function WorkWithTheRockets() {
   const chartData = getColumnChartData(totalJobs);
 
   const chartOptions = {
-    title: "Candidates per Job",
+    title: "Candidates Per Job",
+    titleTextStyle: {
+      color: "gray",        // Title color
+      fontSize: 18,         // Font size
+      bold: true,           // Bold text
+      italic: false,        // No italic
+      fontName: "Inherit",    // Optional font
+    },
     chartArea: { width: "80%" },
     hAxis: {
       title: "Job Title",
@@ -261,10 +268,6 @@ function WorkWithTheRockets() {
   return (
     <Card sx={{
       height: "100%",
-      overflow: "visible",
-      "& *": {
-        overflow: "visible !important"
-      }
     }}>
       <SoftBox bgcolor="white" p={2} borderRadius="md">
         <Chart
@@ -280,7 +283,7 @@ function WorkWithTheRockets() {
       </SoftBox>
 
     </Card>
-   
+
   );
 }
 
