@@ -43,10 +43,10 @@ function BuildByDevelopers() {
   function CandidatesPieChart() {
     const data = [
       ["Status", "Count"],
-      ["Total Candidates", totalCandidates],
-      ["Rejected", 0],
-      ["Scheduled", scheduledCount],
       ["Hired", hiredCandidates],
+      ["Total Candidates", totalCandidates],
+      // ["Rejected", 0], 
+      ["Scheduled", scheduledCount],
 
     ];
     const options = {
@@ -55,14 +55,15 @@ function BuildByDevelopers() {
       is3D: false,
       backgroundColor: 'transparent',
       colors: ['#4CAF50', '#2196F3', '#FFC107'],
-      chartArea: { width: '80%', height: '80%' }
+      chartArea: { width: '95%', height: '95%' },
+      // pieSliceText: 'none',
     };
 
     return (
       <Chart
         chartType="PieChart"
         data={data}
-        optins={options}
+        options={options}
         width={"100%"}
         height={"200px"}
       />
