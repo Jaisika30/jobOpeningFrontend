@@ -247,13 +247,15 @@ function WorkWithTheRockets() {
   const chartOptions = {
     title: "Candidates Per Job",
     titleTextStyle: {
-      color: "gray",        // Title color
-      fontSize: 18,         // Font size
-      bold: true,           // Bold text
-      italic: false,        // No italic
-      fontName: "Inherit",    // Optional font
+      color: "gray",
+      fontSize: 18,
+      bold: true,
     },
-    chartArea: { width: "80%" },
+    chartArea: {
+      width: "80%",
+      height: "70%",
+      bottom: 60,
+    },
     hAxis: {
       title: "Job Title",
     },
@@ -263,26 +265,35 @@ function WorkWithTheRockets() {
     },
     legend: { position: "none" },
     colors: ["#42A5F5"],
+    tooltip: { isHtml: true },
   };
 
   return (
-    <Card sx={{
-      height: "100%",
-    }}>
-      <SoftBox bgcolor="white" p={2} borderRadius="md" sx={{ position: "relative", zIndex: 2000 }}>
+    <Card
+      sx={{
+        height: "100%",
+        position: "relative",
+        overflow: "visible",
+      }}
+    >
+      <SoftBox
+        bgcolor="white"
+        p={2}
+        borderRadius="md"
+        sx={{
+          position: "relative",
+          overflow: "visible",
+          zIndex: 1,
+        }}
+      >
         <Chart
           chartType="ColumnChart"
           width="100%"
           height="300px"
           data={chartData}
           options={chartOptions}
-          sx={{
-            position: "relative",
-            zIndex: 1000, // Ensures the chart stays above other elements
-          }}
         />
       </SoftBox>
-
     </Card>
 
   );

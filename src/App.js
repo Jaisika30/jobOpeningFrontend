@@ -339,12 +339,15 @@ export default function App() {
                 'div[role="tooltip"]': {
                   zIndex: 9999,
                   position: 'absolute',
-                  backgroundColor: 'white',
-                  color: 'black',
-                  maxWidth: 'none',
                   overflow: 'visible',
                   whiteSpace: 'normal',
                   pointerEvents: 'none',
+                  backgroundColor: 'white',
+                  color: 'black',
+                  maxWidth: 'none',
+                },
+                'html, body, #root': {
+                  overflow: 'visible',
                 },
               }}
             />
@@ -389,12 +392,15 @@ export default function App() {
               'div[role="tooltip"]': {
                 zIndex: 9999,
                 position: 'absolute',
-                backgroundColor: 'white',
-                color: 'black',
-                maxWidth: 'none',
                 overflow: 'visible',
                 whiteSpace: 'normal',
                 pointerEvents: 'none',
+                backgroundColor: 'white',
+                color: 'black',
+                maxWidth: 'none',
+              },
+              'html, body, #root': {
+                overflow: 'visible',
               },
             }}
           />
