@@ -354,7 +354,7 @@ export default function App() {
               sx={{
                 height: '100vh',
                 overflowY: 'auto',
-                overflowX: 'hidden',
+                overflowX: 'visible',
                 padding: 2, // optional
               }}
             >
