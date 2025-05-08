@@ -200,60 +200,36 @@
 
 // export default WorkWithTheRockets;
 // @mui material components
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
-
-// Soft UI Dashboard React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
-
-// Images
-import ivancik from "assets/images/ivancik.jpg";
-
-// React & Redux
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import SoftBox from "components/SoftBox";
 import { getJobs } from "slices/jobSlice";
 
-// Chart
-import { Chart } from "react-google-charts";
-
-// ✅ Chart data formatter function
-const getColumnChartData = (jobs) => {
-  if (!Array.isArray(jobs)) return [["Job Title", "Candidates"]];
-  return [
-    ["Job Title", "Candidates"],
-    ...jobs.map((job) => [job.title, job.candidates?.length || 0]),
-  ];
-};
-
-function WorkWithTheRockets() {
+const WorkWithTheRockets = () => {
   const dispatch = useDispatch();
   const totalJobs = useSelector((state) => state.jobs.jobs.jobs || []);
+  const [ChartComponent, setChartComponent] = useState(null);
 
   useEffect(() => {
-    dispatch(
-      getJobs({
-        page: 1,
-        limit: 10,
-        searchQuery: "",
-        statusFilter: "",
-      })
-    );
+    dispatch(getJobs({ page: 1, limit: 10, searchQuery: "", statusFilter: "" }));
+
+    // Dynamically load the Chart after component mounts
+    import("react-google-charts").then((mod) => {
+      setChartComponent(() => mod.Chart);
+    });
   }, [dispatch]);
 
-  const chartData = getColumnChartData(totalJobs);
+  const chartData = [
+    ["Job Title", "Candidates"],
+    ...totalJobs.map((job) => [job.title, job.candidates?.length || 0]),
+  ];
 
   const chartOptions = {
     title: "Candidates per Job",
     chartArea: { width: "80%" },
-    hAxis: {
-      title: "Job Title",
-    },
-    vAxis: {
-      title: "Number of Candidates",
-      minValue: 0,
-    },
+    hAxis: { title: "Job Title" },
+    vAxis: { title: "Number of Candidates", minValue: 0 },
     legend: { position: "none" },
     colors: ["#42A5F5"],
   };
@@ -261,17 +237,21 @@ function WorkWithTheRockets() {
   return (
     <Card sx={{ height: "100%", overflow: "visible" }}>
       <SoftBox bgcolor="white" p={2} borderRadius="md">
-        <Chart
-          chartType="ColumnChart"
-          width="100%"
-          height="300px"
-          data={chartData}
-          options={chartOptions}
-        />
+        {ChartComponent ? (
+          <ChartComponent
+            chartType="ColumnChart"
+            width="100%"
+            height="300px"
+            data={chartData}
+            options={chartOptions}
+            loader={<div>Loading Chart...</div>}
+          />
+        ) : (
+          <div>Loading Chart...</div>
+        )}
       </SoftBox>
-
     </Card>
   );
-}
+};
 
 export default WorkWithTheRockets;
