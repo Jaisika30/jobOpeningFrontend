@@ -392,7 +392,7 @@ export default function App() {
             sx={{
               height: '100vh',         // Full height of the viewport
               overflowY: 'auto',       // Only vertical scroll when needed
-              overflowX: 'hidden',     // Prevent horizontal scroll
+              overflowX: 'visible',     // Prevent horizontal scroll
               padding: 2,              // Optional spacing
             }}
           >
