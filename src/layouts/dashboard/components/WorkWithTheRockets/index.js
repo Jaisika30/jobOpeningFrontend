@@ -106,7 +106,7 @@ function WorkWithTheRockets() {
     title: "Candidates per Job",
     titleTextStyle: {
       color: "gray",        // Title color
-      fontSize: 18,         // Font size
+      fontSize: 20,         // Font size
       bold: true,           // Bold text
       italic: false,        // No italic
       fontName: "Arial",    // Optional font
