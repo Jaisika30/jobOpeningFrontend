@@ -200,95 +200,25 @@
 
 // export default WorkWithTheRockets;
 // @mui material components
-// import Card from "@mui/material/Card";
-// import Icon from "@mui/material/Icon";
-
-// // Soft UI Dashboard React components
-// import SoftBox from "components/SoftBox";
-// import SoftTypography from "components/SoftTypography";
-
-// // Images
-// import ivancik from "assets/images/ivancik.jpg";
-
-// // React & Redux
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getJobs } from "slices/jobSlice";
-
-// // Chart
-// import { Chart } from "react-google-charts";
-
-// // ✅ Chart data formatter function
-// const getColumnChartData = (jobs) => {
-//   if (!Array.isArray(jobs)) return [["Job Title", "Candidates"]];
-//   return [
-//     ["Job Title", "Candidates"],
-//     ...jobs.map((job) => [job.title, job.candidates?.length || 0]),
-//   ];
-// };
-
-// function WorkWithTheRockets() {
-//   const dispatch = useDispatch();
-//   const totalJobs = useSelector((state) => state.jobs.jobs.jobs || []);
-
-//   useEffect(() => {
-//     dispatch(
-//       getJobs({
-//         page: 1,
-//         limit: 10,
-//         searchQuery: "",
-//         statusFilter: "",
-//       })
-//     );
-//   }, [dispatch]);
-
-//   const chartData = getColumnChartData(totalJobs);
-
-//   const chartOptions = {
-//     title: "Candidates per Job",
-//     chartArea: { width: "80%" },
-//     hAxis: {
-//       title: "Job Title",
-//     },
-//     vAxis: {
-//       title: "Number of Candidates",
-//       minValue: 0,
-//     },
-//     legend: { position: "none" },
-//     colors: ["#42A5F5"],
-//   };
-
-//   return (
-//     <Card sx={{
-//       height: "100%",
-//       overflow: "visible",
-//       "& *": {
-//         overflow: "visible !important"
-//       }
-//     }}>
-//       <SoftBox bgcolor="white" p={2} borderRadius="md">
-//         <Chart
-//           chartType="ColumnChart"
-//           width="100%"
-//           height="300px"
-//           data={chartData}
-//           options={chartOptions}
-//         />
-//       </SoftBox>
-
-//     </Card>
-//   );
-// }
-
-// export default WorkWithTheRockets;
 import Card from "@mui/material/Card";
+import Icon from "@mui/material/Icon";
+
+// Soft UI Dashboard React components
+import SoftBox from "components/SoftBox";
+import SoftTypography from "components/SoftTypography";
+
+// Images
+import ivancik from "assets/images/ivancik.jpg";
+
+// React & Redux
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "slices/jobSlice";
-import { Chart } from "react-google-charts";
-import SoftBox from "components/SoftBox";
 
-// ✅ Chart data formatter
+// Chart
+import { Chart } from "react-google-charts";
+
+// ✅ Chart data formatter function
 const getColumnChartData = (jobs) => {
   if (!Array.isArray(jobs)) return [["Job Title", "Candidates"]];
   return [
@@ -302,80 +232,50 @@ function WorkWithTheRockets() {
   const totalJobs = useSelector((state) => state.jobs.jobs.jobs || []);
 
   useEffect(() => {
-    dispatch(getJobs({ page: 1, limit: 10, searchQuery: "", statusFilter: "" }));
+    dispatch(
+      getJobs({
+        page: 1,
+        limit: 10,
+        searchQuery: "",
+        statusFilter: "",
+      })
+    );
   }, [dispatch]);
 
   const chartData = getColumnChartData(totalJobs);
 
-  // ✅ Complete chart options with proper tooltip config
   const chartOptions = {
     title: "Candidates per Job",
     chartArea: { width: "80%" },
-    hAxis: { title: "Job Title" },
+    hAxis: {
+      title: "Job Title",
+    },
     vAxis: {
       title: "Number of Candidates",
-      minValue: 0
+      minValue: 0,
     },
     legend: { position: "none" },
     colors: ["#42A5F5"],
-    tooltip: {
-      isHtml: true,          // Required for proper styling
-      trigger: "focus",      // Show on hover
-    },
-    focusTarget: "category" // Helps with hover accuracy
   };
-
-  // ✅ Fix tooltip z-index dynamically (for production)
-  useEffect(() => {
-    const fixTooltipStyles = () => {
-      const tooltips = document.querySelectorAll(".google-visualization-tooltip");
-      tooltips.forEach(tooltip => {
-        tooltip.style.zIndex = "9999";
-        tooltip.style.position = "absolute";
-      });
-    };
-
-    const interval = setInterval(fixTooltipStyles, 500);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <Card sx={{
       height: "100%",
       overflow: "visible",
-      position: "relative",
-      zIndex: 0,
-      "& .google-visualization-tooltip": {
-        zIndex: "9999 !important",
-        position: "absolute !important",
-        border: "1px solid #e0e0e0 !important",
-        background: "white !important",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.2) !important",
-        p: 1,
-        fontFamily: "inherit !important",
+      "& *": {
+        overflow: "visible !important"
       }
     }}>
-      <SoftBox
-        bgcolor="white"
-        p={2}
-        borderRadius="md"
-        sx={{
-          overflow: "visible !important",
-          "& > div": { overflow: "visible !important" }
-        }}
-      >
+      <SoftBox bgcolor="white" p={2} borderRadius="md">
         <Chart
           chartType="ColumnChart"
           width="100%"
           height="300px"
           data={chartData}
           options={chartOptions}
-          rootProps={{
-            "data-testid": "1",
-            "style": { overflow: "visible" }
-          }}
         />
       </SoftBox>
+
     </Card>
   );
 }
