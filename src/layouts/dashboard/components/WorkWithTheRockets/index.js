@@ -274,6 +274,7 @@ function WorkWithTheRockets() {
         height: "100%",
         position: "relative",
         overflow: "visible",
+        zIndex: "none",
       }}
     >
       <SoftBox
@@ -291,7 +292,7 @@ function WorkWithTheRockets() {
           sx={{
             position: "relative",
             overflow: "visible",
-            zIndex: 1,
+            zIndex: 50,
           }}
         />
       </SoftBox>
