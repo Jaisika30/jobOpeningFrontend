@@ -231,6 +231,7 @@ import { AuthProvider } from "protect/AuthContext";
 import brand from "assets/images/logo-ct.png";
 import SoftTypography from "components/SoftTypography";
 import { CustomToastContainer } from "assets/ToastConatiner";
+import { GlobalStyles } from "@mui/material";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -333,6 +334,20 @@ export default function App() {
             <CssBaseline />
             <ToastContainer position="top-center" autoClose={3000} />
             {/* Show Sidenav only for dashboard layout */}
+            <GlobalStyles
+              styles={{
+                'div[role="tooltip"]': {
+                  zIndex: 9999,
+                  position: 'absolute',
+                  backgroundColor: 'white',
+                  color: 'black',
+                  maxWidth: 'none',
+                  overflow: 'visible',
+                  whiteSpace: 'normal',
+                  pointerEvents: 'none',
+                },
+              }}
+            />
             {layout === "dashboard" && (
               <>
                 <Sidenav
@@ -369,7 +384,20 @@ export default function App() {
         <ThemeProvider theme={themeRTL}>
           <CssBaseline />
           <ToastContainer position="top-center" autoClose={3000} />
-
+          <GlobalStyles
+            styles={{
+              'div[role="tooltip"]': {
+                zIndex: 9999,
+                position: 'absolute',
+                backgroundColor: 'white',
+                color: 'black',
+                maxWidth: 'none',
+                overflow: 'visible',
+                whiteSpace: 'normal',
+                pointerEvents: 'none',
+              },
+            }}
+          />
           {/* Show Sidenav only for dashboard layout */}
           {layout === "dashboard" && (
             <>
