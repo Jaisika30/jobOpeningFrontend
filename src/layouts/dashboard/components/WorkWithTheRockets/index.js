@@ -262,9 +262,8 @@ function WorkWithTheRockets() {
     <Card sx={{
       height: "100%",
       overflow: "visible",
-      position: "relative",
-      "& .google-visualization-tooltip": {
-        zIndex: "9999 !important"
+      "& *": {
+        overflow: "visible !important"
       }
     }}>
       <SoftBox bgcolor="white" p={2} borderRadius="md">
