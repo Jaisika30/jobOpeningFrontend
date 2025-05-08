@@ -336,18 +336,10 @@ export default function App() {
             {/* Show Sidenav only for dashboard layout */}
             <GlobalStyles
               styles={{
-                'div[role="tooltip"]': {
+                '.goog-tooltip': {
                   zIndex: 9999,
                   position: 'absolute',
-                  overflow: 'visible',
-                  whiteSpace: 'normal',
                   pointerEvents: 'none',
-                  backgroundColor: 'white',
-                  color: 'black',
-                  maxWidth: 'none',
-                },
-                'html, body, #root': {
-                  overflow: 'visible',
                 },
               }}
             />
@@ -389,18 +381,10 @@ export default function App() {
           <ToastContainer position="top-center" autoClose={3000} />
           <GlobalStyles
             styles={{
-              'div[role="tooltip"]': {
+              '.goog-tooltip': {
                 zIndex: 9999,
                 position: 'absolute',
-                overflow: 'visible',
-                whiteSpace: 'normal',
                 pointerEvents: 'none',
-                backgroundColor: 'white',
-                color: 'black',
-                maxWidth: 'none',
-              },
-              'html, body, #root': {
-                overflow: 'visible',
               },
             }}
           />
