@@ -259,7 +259,7 @@ function WorkWithTheRockets() {
   };
 
   return (
-    <Card sx={{ height: "100%", overflow: "visible" }}>
+    <Card sx={{ height: "100%", zIndex: 1 }}>
       <SoftBox bgcolor="white" p={2} borderRadius="md">
         <Chart
           chartType="ColumnChart"
