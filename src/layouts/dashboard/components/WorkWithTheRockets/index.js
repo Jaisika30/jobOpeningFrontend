@@ -104,6 +104,13 @@ function WorkWithTheRockets() {
 
   const chartOptions = {
     title: "Candidates per Job",
+    titleTextStyle: {
+      color: "gray",        // Title color
+      fontSize: 18,         // Font size
+      bold: true,           // Bold text
+      italic: false,        // No italic
+      fontName: "Arial",    // Optional font
+    },
     chartArea: { width: "80%" },
     hAxis: {
       title: "Job Title",
