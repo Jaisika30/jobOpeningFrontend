@@ -259,7 +259,14 @@ function WorkWithTheRockets() {
   };
 
   return (
-    <Card sx={{ height: "100%", zIndex: 1 }}>
+    <Card sx={{
+      height: "100%",
+      overflow: "visible",
+      position: "relative",
+      "& .google-visualization-tooltip": {
+        zIndex: "9999 !important"
+      }
+    }}>
       <SoftBox bgcolor="white" p={2} borderRadius="md">
         <Chart
           chartType="ColumnChart"
