@@ -55,9 +55,23 @@ function BuildByDevelopers() {
       is3D: false,
       backgroundColor: 'transparent',
       colors: ['#4CAF50', '#2196F3', '#FFC107'],
-      chartArea: { width: '80%', height: '80%' }
+      chartArea: { width: '80%', height: '80%' },
+      pieSliceText: "value",
+      pieSliceTextStyle: {
+        color: 'black', // Customize text color if needed
+      },
+      tooltip: { 
+        ignoreBounds: true,
+        text: "none", // No tooltip at all
+      },
+      legend: {
+        position: 'labeled',
+        textStyle: {
+          color: 'black'
+        }
+      },
+      sliceVisibilityThreshold: 0, // Show slices even with 0 value
     };
-
     return (
       <Chart
         chartType="PieChart"
@@ -127,7 +141,7 @@ function BuildByDevelopers() {
               </SoftTypography> */}
             </SoftBox>
           </Grid>
-          <Grid item xs={12} lg={8} sx={{ position: "relative"}}>
+          <Grid item xs={12} lg={8} sx={{ position: "relative" }}>
             <CandidatesPieChart />
             {/* <SoftBox
               height="100%"
