@@ -280,11 +280,7 @@ function WorkWithTheRockets() {
         bgcolor="white"
         p={2}
         borderRadius="md"
-        sx={{
-          position: "relative",
-          overflow: "visible",
-          zIndex: 1,
-        }}
+       
       >
         <Chart
           chartType="ColumnChart"
@@ -292,6 +288,11 @@ function WorkWithTheRockets() {
           height="300px"
           data={chartData}
           options={chartOptions}
+          sx={{
+            position: "relative",
+            overflow: "visible",
+            zIndex: 1,
+          }}
         />
       </SoftBox>
     </Card>
