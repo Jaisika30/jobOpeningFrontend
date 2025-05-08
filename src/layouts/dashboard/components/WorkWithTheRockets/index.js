@@ -261,15 +261,13 @@ function WorkWithTheRockets() {
   return (
     <Card sx={{ height: "100%", overflow: "visible" }}>
       <SoftBox bgcolor="white" p={2} borderRadius="md">
-        <div style={{ border: "2px solid red", width: "100%", height: "300px" }}>
-          <Chart
-            chartType="ColumnChart"
-            width="100%"
-            height="300px"
-            data={chartData}
-            options={chartOptions}
-          />
-        </div>
+        <Chart
+          chartType="ColumnChart"
+          width="100%"
+          height="300px"
+          data={chartData}
+          options={chartOptions}
+        />
       </SoftBox>
 
     </Card>
