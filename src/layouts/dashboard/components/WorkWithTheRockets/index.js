@@ -277,7 +277,9 @@ function WorkWithTheRockets() {
           data={chartData}
           options={chartOptions}
           sx={{
-            zIndex: "50"
+            overflow: 'visible',
+            position: 'relative',
+            zIndex: 10,
           }}
         />
       </SoftBox>
